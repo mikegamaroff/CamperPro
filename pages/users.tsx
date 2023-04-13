@@ -52,37 +52,14 @@ function Users() {
 	return (
 		<Container>
 			<>
-				{formValues && (
-					<form onSubmit={handleSubmit}>
-						<EyeIcon /> <EyeOffIcon />
-						<FormInput
-							id="first_name"
-							setValues={setValues}
-							type="password"
-							field={formValues?.first_name}
-							label="First NAme"
-						/>
-						<label htmlFor="first_name">First Name:</label>
-						<input
-							type="text"
-							id="poo"
-							value={firstName}
-							onChange={e => setFirstName(e.target.value)}
-							required
-						/>
-						<br />
-						<label htmlFor="last_name">Last Name:</label>
-						<input
-							type="text"
-							id="last_name"
-							value={lastName}
-							onChange={e => setLastName(e.target.value)}
-							required
-						/>
-						<br />
-						<button type="submit">Add User</button>
-					</form>
-				)}
+				<EyeIcon /> <EyeOffIcon />
+				<FormInput
+					id="first_name"
+					setValues={setValues}
+					type="password"
+					field={formValues?.first_name}
+					label="First NAme"
+				/>
 				<ul>
 					{users &&
 						users.map((user: User, i) => (

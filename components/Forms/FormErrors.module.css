@@ -1,0 +1,10 @@
+.formError {
+  font-size: 0.75em;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+}

@@ -7,9 +7,15 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "next": "latest",
+    "@ionic/core": "^7.0.2",
+    "classnames": "^2.3.2",
+    "dotenv": "^16.0.3",
+    "framer-motion": "^10.11.6",
+    "nano": "^10.1.2",
+    "next": "^13.3.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",

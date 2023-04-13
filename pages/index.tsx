@@ -1,13 +1,12 @@
 import Link from "next/link";
-import Layout from "../components/Layout";
+import { Container } from "../components/Container";
 
-const IndexPage = () => (
-  <Layout title='Home | Next.js + TypeScript Example'>
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href='/about'>Poo</Link>
-    </p>
-  </Layout>
-);
-
-export default IndexPage;
+export default function Home() {
+  return (
+    <Container>
+      <Link href='/users'>
+        <ion-button>Go to Page Two</ion-button>
+      </Link>
+    </Container>
+  );
+}

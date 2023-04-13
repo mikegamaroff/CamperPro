@@ -11,6 +11,7 @@ export interface User extends Document {
   phone_number: string;
   created_at?: string;
   updated_at?: string;
+  suspended: boolean;
 }
 export const EmptyNewUser: User = {
   _id: "",
@@ -23,6 +24,7 @@ export const EmptyNewUser: User = {
   phone_number: "",
   created_at: "",
   updated_at: "",
+  suspended: false,
   _rev: "",
 };
 export const EmptyUser: User = EmptyNewUser;

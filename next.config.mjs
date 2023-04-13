@@ -7,7 +7,8 @@ const nextConfig = {
     COUCHDB_URL: process.env.COUCHDB_URL,
     COUCHDB_PORT: process.env.COUCHDB_PORT,
     COUCHDB_NAME: process.env.COUCHDB_NAME,
+    JWT_SECRET: process.env.JWT_SECRET,
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

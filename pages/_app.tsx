@@ -17,6 +17,8 @@ import "@ionic/core/css/float-elements.css";
 import "@ionic/core/css/padding.css";
 import "@ionic/core/css/text-alignment.css";
 import "@ionic/core/css/text-transformation.css";
+import React from "react";
+import { AuthProvider } from "../context/authContext";
 import { UserProvider } from "../context/userContext";
 import "../styles/globals.css";
 import "../styles/variables.css";
@@ -40,11 +42,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <ion-app>
-        <UserProvider>
-          <AnimatePresence>
-            <Component {...pageProps} />
-          </AnimatePresence>
-        </UserProvider>
+        <AuthProvider>
+          <UserProvider>
+            <AnimatePresence>
+              <Component {...pageProps} />
+            </AnimatePresence>
+          </UserProvider>
+        </AuthProvider>
       </ion-app>
       <script defer src='/static/js/ionic.min.js'></script>
     </>

@@ -1,8 +1,8 @@
 "use strict";
 const { v4: uuidv4 } = require("uuid");
-const createDbInstance = require("./util/camperprodb");
+const createDbInstanceJs = require("./util/camperprodb");
 
-const db = createDbInstance();
+const db = createDbInstanceJs();
 
 // Generate 10 test users
 for (let i = 0; i < 10; i++) {

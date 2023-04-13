@@ -1,0 +1,28 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["standard", "prettier", "plugin:css-modules/recommended"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 13,
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "prettier", "css-modules"],
+	"rules": {
+		"valid-jsdoc": "error", // Ensure JSDoc comments are valid (off by default)
+		"valid-typeof": "error", // Ensure that the results of typeof are compared against a valid string
+		"no-console": "error",
+		"prettier/prettier": ["error"]
+	},
+	"overrides": [
+		{
+			"files": ["*.test.ts", "*.spec.ts"],
+			"rules": {
+				"no-unused-expressions": "off",
+				"no-console": "off"
+			}
+		}
+	]
+}

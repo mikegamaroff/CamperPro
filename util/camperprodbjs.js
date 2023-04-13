@@ -5,7 +5,7 @@ const nano = require("nano");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env.local" });
 
-function createDbInstance() {
+function createDbInstanceJs() {
   var dbUrl = "http://"
     .concat(process.env.COUCHDB_USER, ":")
     .concat(process.env.COUCHDB_PASSWORD, "@")
@@ -23,4 +23,4 @@ function createDbInstance() {
   return db;
 }
 
-module.exports = createDbInstance;
+module.exports = createDbInstanceJs;

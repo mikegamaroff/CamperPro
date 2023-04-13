@@ -1,0 +1,76 @@
+// pages/signup.tsx
+import { useRouter } from "next/router";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { User } from "../model/user";
+import { useAddUser } from "../routes/useAddUser";
+function SignupPage() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const { addUser } = useAddUser(); // Use the custom hook
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const newUser: User = {
+        _id: `user:${uuidv4()}`,
+        type: "user",
+        first_name: "Test 1",
+        last_name: "test 2",
+        email: email,
+        password: password,
+        phone_number: "123-456-7890",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        username: "",
+        suspended: false,
+      };
+
+      const response = await addUser(newUser);
+      if (response.success) {
+        router.push("/"); // Redirect to home page or any other protected route
+      } else {
+        setError(response.message);
+      }
+    } catch (err) {
+      setError("Unable to sign up. Please try again.");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor='email'>Email:</label>
+        <input
+          type='email'
+          id='email'
+          value={email}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          required
+        />
+        <br />
+        <label htmlFor='password'>Password:</label>
+        <input
+          type='password'
+          id='password'
+          value={password}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+          required
+        />
+        <br />
+        {error && <p>{error}</p>}
+        <button type='submit'>Sign Up</button>
+      </form>
+      <ul>{/* Render users or any other components here */}</ul>
+    </div>
+  );
+}
+
+export default SignupPage;

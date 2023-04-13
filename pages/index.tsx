@@ -1,12 +1,26 @@
-import Link from "next/link";
-import { Container } from "../components/Container";
+import Link from 'next/link';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+import withAuth from './withAuth';
 
-export default function Home() {
-  return (
-    <Container>
-      <Link href='/users'>
-        <ion-button>Go to Page Two</ion-button>
-      </Link>
-    </Container>
-  );
+function Home() {
+	const { logout } = useContext(AuthContext);
+	const { isAuthenticated, authenticating } = useContext(AuthContext);
+
+	console.log(isAuthenticated);
+	const handleLogout = () => {
+		logout();
+	};
+
+	return (
+		<>
+			<div>
+				<Link href="/users">
+					<ion-button>Go to Page Two</ion-button>
+				</Link>
+				<ion-button onClick={handleLogout}>Logout</ion-button>
+			</div>
+		</>
+	);
 }
+export default withAuth(Home);

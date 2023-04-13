@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { User } from "./model/user";
-import createDbInstance from "./styles/camperprodb";
+import createDbInstance from "./util/camperprodb";
 
 const db = createDbInstance();
 

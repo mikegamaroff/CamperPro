@@ -5,9 +5,7 @@ import withAuth from './withAuth';
 
 function Home() {
 	const { logout } = useContext(AuthContext);
-	const { isAuthenticated, authenticating } = useContext(AuthContext);
 
-	console.log(isAuthenticated);
 	const handleLogout = () => {
 		logout();
 	};

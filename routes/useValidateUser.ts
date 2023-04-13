@@ -1,33 +1,31 @@
-// useValidateUser
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/authContext';
 import { User } from '../model/user';
 
 const useValidateUser = () => {
-	const { user, authenticating } = useContext(AuthContext);
-	const [userIsValid, setUserIsValid] = useState<string>('waiting');
+	const { user, status, logout } = useContext(AuthContext);
 
 	useEffect(() => {
 		async function validateUser() {
-			if (user) {
+			if (user && status === 'authenticated') {
 				try {
 					const response = await fetch(`/api/users?id=${user.id}`);
 					if (response.ok) {
 						const userData: User = await response.json();
-						setUserIsValid(!userData.suspended ? 'validated' : 'invalidated');
+						if (userData.suspended) {
+							logout();
+						}
 					}
 				} catch (error) {
 					console.error('Error validating user:', error);
 				}
-			} else {
-				setUserIsValid('waiting');
 			}
 		}
 
 		validateUser();
-	}, [user, authenticating]);
+	}, [user, status, logout]);
 
-	return { userIsValid, authenticating };
+	return { status };
 };
 
 export default useValidateUser;

@@ -3,44 +3,46 @@ import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { hashPassword } from '../util/hashPassword';
 
 interface AuthContextInterface {
-	isAuthenticated: boolean;
+	status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
 	user: any;
-	authenticating: boolean;
 	login: (email: string, password: string) => Promise<void>;
 	signup: (email: string, password: string) => Promise<void>;
 	logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextInterface>({
-	isAuthenticated: false,
+	status: 'idle',
 	user: null,
-	authenticating: false,
 	login: async () => {},
 	signup: async () => {},
 	logout: () => {}
 });
-
+// ..
 interface AuthProviderProps {
 	children: ReactNode;
 }
-
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [user, setUser] = useState<any>(null);
-	const [authenticating, setauthenticating] = useState(true);
+	const [state, setState] = useState<{
+		status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
+		user: any;
+	}>({
+		status: 'idle',
+		user: null
+	});
 
 	useEffect(() => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
 			const decoded = jwt_decode(token);
-			setUser(decoded);
-			setIsAuthenticated(true);
-			setauthenticating(false);
+			setState({ status: 'authenticated', user: decoded });
+		} else {
+			setState({ status: 'unauthenticated', user: null });
 		}
 	}, []);
 
 	const login = async (email: string, password: string) => {
 		try {
+			setState({ ...state, status: 'authenticating' });
 			const response = await fetch('/api/auth?action=login', {
 				method: 'POST',
 				headers: {
@@ -59,8 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const decoded: any = jwt_decode(token);
 			const { password: _, ...user } = decoded;
 
-			setUser(user);
-			setIsAuthenticated(true);
+			setState({ status: 'authenticated', user });
 		} catch (err) {
 			console.error(err);
 			throw err;
@@ -68,8 +69,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	};
 
 	const signup = async (email: string, password: string) => {
-		setauthenticating(true);
 		try {
+			setState({ ...state, status: 'authenticating' });
 			const hashedPassword = await hashPassword(password);
 			const response = await fetch('/api/auth?action=signup', {
 				method: 'POST',
@@ -88,19 +89,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			console.error(err);
 			throw err;
 		} finally {
-			setauthenticating(false);
+			setState({ ...state, status: 'idle' });
 		}
 	};
 
 	const logout = () => {
 		localStorage.removeItem('jwtToken');
-		setUser(null);
-		setIsAuthenticated(false);
+		setState({ status: 'unauthenticated', user: null });
 	};
-
-	return (
-		<AuthContext.Provider value={{ isAuthenticated, user, authenticating, login, signup, logout }}>
-			{children}
-		</AuthContext.Provider>
-	);
+	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
 };

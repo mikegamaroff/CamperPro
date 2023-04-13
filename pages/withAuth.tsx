@@ -5,19 +5,19 @@ import useValidateUser from '../routes/useValidateUser';
 const withAuth = WrappedComponent => {
 	const WithAuthWrapper = props => {
 		const router = useRouter();
-		const { userIsValid, authenticating } = useValidateUser();
-		console.log(userIsValid, authenticating);
+		const { status } = useValidateUser();
+
 		useEffect(() => {
-			if (!authenticating && userIsValid !== 'validated' && userIsValid !== 'waiting') {
+			if (status === 'invalidated' || status === 'unauthenticated') {
 				router.replace('/login');
 			}
-		}, [userIsValid, authenticating, router]);
+		}, [status, router]);
 
-		if (authenticating) {
-			return <p>authenticating...</p>;
+		if (status === 'authenticating') {
+			return <p>Authenticating...</p>;
 		}
 
-		if (userIsValid === 'validated') {
+		if (status === 'authenticated') {
 			return <WrappedComponent {...props} />;
 		}
 

@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { useContext } from 'react';
 import { Container } from '../components/Container';
+import { CustomLink } from '../components/CustomLink';
 import { AuthContext } from '../context/authContext';
 import withAuth from './withAuth';
 
@@ -14,9 +14,9 @@ function Home() {
 	return (
 		<Container>
 			<>
-				<Link href="/users">
+				<CustomLink href="/users">
 					<ion-button>Go to Page Two</ion-button>
-				</Link>
+				</CustomLink>
 				<ion-button onClick={handleLogout}>Logout</ion-button>
 			</>
 		</Container>

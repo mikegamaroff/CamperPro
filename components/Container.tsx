@@ -1,17 +1,17 @@
-import classNames from "classnames";
-import { PageTransition } from "./PageTransition";
+import classNames from 'classnames';
+import { useContext } from 'react';
+import { RouteContext } from './CustomLink'; // Import RouteContext from CustomLink
+import { PageTransition } from './PageTransition';
 
 export const Container: React.FC<{
-  children: JSX.Element;
-  scroll?: boolean;
-  fullscreen?: boolean;
-  flush?: boolean;
-}> = ({ children, scroll = false, fullscreen = false, flush = false }) => {
-  return (
-    <PageTransition>
-      <div className={classNames("innerContent", scroll && "scrollContent")}>
-        {children}
-      </div>
-    </PageTransition>
-  );
+	children: JSX.Element;
+	scroll?: boolean;
+}> = ({ children, scroll = false }) => {
+	const routeContext = useContext(RouteContext); // Use RouteContext
+
+	return (
+		<PageTransition routeTransition={routeContext.routeTransition}>
+			<div className={classNames('innerContent', scroll && 'scrollContent')}>{children}</div>
+		</PageTransition>
+	);
 };

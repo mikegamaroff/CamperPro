@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
+import { CustomLink } from '../components/CustomLink';
 import { FormInput } from '../components/Forms/FormInput';
 import { EyeIcon, EyeOffIcon } from '../components/Icons';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
@@ -54,9 +54,9 @@ function Users() {
 		<Container>
 			<>
 				<EyeIcon /> <EyeOffIcon />
-				<Link href="/">
+				<CustomLink href="/">
 					<ion-button>Go to Home page</ion-button>
-				</Link>
+				</CustomLink>
 				<FormInput
 					id="first_name"
 					setValues={setValues}

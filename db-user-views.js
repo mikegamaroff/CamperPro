@@ -4,9 +4,8 @@ dotenv.config({ path: './.env.local' });
 const couchdbUsername = process.env.COUCHDB_USER;
 const couchdbPassword = process.env.COUCHDB_PASSWORD;
 const couchdbHost = process.env.COUCHDB_URL;
-const couchdbPort = process.env.COUCHDB_PORT;
 
-const nano = require('nano')(`http://${couchdbUsername}:${couchdbPassword}@${couchdbHost}:${couchdbPort}`);
+const nano = require('nano')(`http://${couchdbUsername}:${couchdbPassword}@${couchdbHost}`);
 
 const dbName = 'camperpro';
 const designDocName = 'user-view';

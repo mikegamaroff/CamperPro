@@ -6,7 +6,7 @@ import { isCouchDbError } from '../../util/isCouchDbError'; // Import the new ut
 
 async function getAllUsers(res: NextApiResponse<User[]>) {
 	const db = createDbInstance();
-	const response = await db.view('users_by_email', 'user-view');
+	const response = await db.view('user-view', 'all-users');
 	const users = response.rows.map(row => row.value as User);
 	res.status(200).json(users);
 }

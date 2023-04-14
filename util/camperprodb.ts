@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import nano from 'nano';
 dotenv.config({ path: './.env.local' });
 function createDbInstancedd() {
-	const dbUrl = `http://${process.env.COUCHDB_USER}:${process.env.COUCHDB_PASSWORD}@${process.env.COUCHDB_URL}`;
+	const dbUrl = process.env.COUCHDB_URL;
 	const dbName = process.env.COUCHDB_NAME;
 
 	if (!dbName) {

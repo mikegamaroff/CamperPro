@@ -6,12 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './.env.local' });
 
 function createDbInstanceJs() {
-	var dbUrl = 'http://'
-		.concat(process.env.COUCHDB_USER, ':')
-		.concat(process.env.COUCHDB_PASSWORD, '@')
-		.concat(process.env.COUCHDB_URL);
-
-	var dbName = process.env.COUCHDB_NAME;
+	const dbUrl = process.env.COUCHDB_URL;
+	const dbName = process.env.COUCHDB_NAME;
 	console.log(dbUrl);
 	if (!dbName) {
 		throw new Error('COUCHDB_NAME environment variable is not defined');

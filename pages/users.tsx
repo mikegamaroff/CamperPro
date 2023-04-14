@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
@@ -53,6 +54,9 @@ function Users() {
 		<Container>
 			<>
 				<EyeIcon /> <EyeOffIcon />
+				<Link href="/">
+					<ion-button>Go to Home page</ion-button>
+				</Link>
 				<FormInput
 					id="first_name"
 					setValues={setValues}

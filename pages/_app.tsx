@@ -17,7 +17,7 @@ import '@ionic/core/css/float-elements.css';
 import '@ionic/core/css/padding.css';
 import '@ionic/core/css/text-alignment.css';
 import '@ionic/core/css/text-transformation.css';
-import { RouteContextProvider } from '../components/CustomLink';
+import { RouteContextProvider } from '../components/Go';
 import { AuthProvider } from '../context/authContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';

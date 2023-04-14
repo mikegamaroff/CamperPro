@@ -1,8 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
-import { CustomLink } from '../components/CustomLink';
 import { FormInput } from '../components/Forms/FormInput';
+import { Go } from '../components/Go';
 import { EyeIcon, EyeOffIcon } from '../components/Icons';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
 import { useFormValues } from '../hooks/useFormValues';
@@ -54,9 +54,9 @@ function Users() {
 		<Container>
 			<>
 				<EyeIcon /> <EyeOffIcon />
-				<CustomLink href="/">
+				<Go href="/">
 					<ion-button>Go to Home page</ion-button>
-				</CustomLink>
+				</Go>
 				<FormInput
 					id="first_name"
 					setValues={setValues}

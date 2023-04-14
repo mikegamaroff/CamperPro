@@ -13,7 +13,7 @@ export const RouteContext = React.createContext<{
 	routeTransition: false
 });
 
-export const CustomLink: React.FC<LinkProps> = ({ children, ...props }) => {
+export const Go: React.FC<LinkProps> = ({ children, ...props }) => {
 	const router = useRouter();
 	const routeContext = useContext(RouteContext);
 

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
-import { RouteContext } from './CustomLink'; // Import RouteContext from CustomLink
+import { RouteContext } from './Go'; // Import RouteContext from Go
 import { PageTransition } from './PageTransition';
 
 export const Container: React.FC<{

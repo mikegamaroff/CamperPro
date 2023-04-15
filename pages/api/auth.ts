@@ -35,7 +35,7 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 	const { email, password } = req.body;
 
 	try {
-		const response = await db.view('users_by_email', 'user-view', {
+		const response = await db.view('user-view', 'all-users', {
 			key: email
 		});
 		const user = response.rows[0]?.value as User;

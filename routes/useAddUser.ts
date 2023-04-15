@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { UserContext } from '../context/userContext';
 import { User } from '../model/user';
@@ -12,8 +12,15 @@ interface AddUserResponse {
 export const useAddUser = () => {
 	const { users, setUsers } = useContext(UserContext);
 	const { login } = useContext(AuthContext);
+	const [isLoading, setLoading] = useState(false);
+	const [isError, setError] = useState(null);
+	const [isSuccess, setSuccess] = useState(false);
 
 	const addUser = async (user: User): Promise<AddUserResponse> => {
+		setLoading(true);
+		setError(null);
+		setSuccess(false);
+
 		try {
 			const plainTextPassword = user.password;
 			const hashedPassword = await hashPassword(plainTextPassword); // Hash the user's password
@@ -37,17 +44,22 @@ export const useAddUser = () => {
 				}
 
 				await login(user.email, plainTextPassword); // Authenticate the user using the hashed password
-
+				setLoading(false);
+				setSuccess(true);
 				return { success: true, message: data.message };
 			} else {
 				const errorData = await response.json();
+				setLoading(false);
+				setError(errorData.message);
 				return { success: false, message: errorData.message };
 			}
 		} catch (error) {
 			console.error(error);
+			setLoading(false);
+			setError('Internal server error');
 			return { success: false, message: 'Internal server error' };
 		}
 	};
 
-	return { addUser };
+	return { addUser, isLoading, isError, isSuccess };
 };

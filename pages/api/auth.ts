@@ -12,14 +12,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key'; // Replace 'your
 async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance();
 	const newUser: User = req.body;
-
-	// Hash the password before storing it
-	const salt = bcrypt.genSaltSync(10);
-	const hashedPassword = bcrypt.hashSync(newUser.password, salt);
-	newUser.password = hashedPassword;
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+	// Hash the user's password before inserting it into the database
+	const salt = bcrypt.genSaltSync(10);
 	newUser.password = bcrypt.hashSync(newUser.password, salt);
 
 	try {

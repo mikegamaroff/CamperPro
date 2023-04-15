@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 interface UseModalProps {
 	onCancel: () => void;
@@ -12,10 +12,6 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 
 	const presentModal = useCallback(async () => {
 		if (!modal) {
-			const m = document.createElement('ion-modal');
-			const content = document.createElement('ion-content');
-			content.classList.add('ion-padding');
-
 			const ionHeader = document.createElement('ion-header');
 			const ionToolbar = document.createElement('ion-toolbar');
 			const cancelButton = document.createElement('ion-button');
@@ -33,27 +29,32 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 
 			const componentContainer = document.createElement('div');
 			if (typeof component === 'object' && 'type' in component) {
-				ReactDOM.render(component as any, componentContainer);
+				createRoot(componentContainer).render(component as any);
 			} else {
 				componentContainer.innerHTML = component as string;
 			}
+
+			const content = document.createElement('ion-content');
+			content.classList.add('ion-padding');
 			content.appendChild(componentContainer);
 
+			const m = document.createElement('ion-modal') as HTMLIonModalElement;
 			m.appendChild(ionHeader);
 			m.appendChild(content);
 
 			document.body.appendChild(m);
+
 			cancelButton.addEventListener('click', () => {
 				onCancel();
 				m.dismiss();
 			});
 			confirmButton.addEventListener('click', () => {
 				onConfirm();
-				m.dismiss(); // Dismiss the modal after confirming
+				m.dismiss();
 			});
 
 			setModal(m);
-			await m.present(); // Call present after setting the modal
+			await m.present();
 		} else {
 			modal.present();
 		}

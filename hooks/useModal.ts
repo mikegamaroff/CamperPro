@@ -1,12 +1,13 @@
-// useModal.tsx
-import { useCallback, useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useCallback, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 interface UseModalProps {
 	onCancel: () => void;
-	onConfirm: (data: string) => void;
+	onConfirm: () => void;
+	component: ReactElement<any, any> | ReactNode;
 }
 
-const useModal = ({ onCancel, onConfirm }: UseModalProps) => {
+const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 	const [modal, setModal] = useState<HTMLIonModalElement | null>(null);
 
 	const presentModal = useCallback(async () => {
@@ -30,19 +31,14 @@ const useModal = ({ onCancel, onConfirm }: UseModalProps) => {
 			ionToolbar.appendChild(confirmButton);
 			ionHeader.appendChild(ionToolbar);
 
-			const ionItem = document.createElement('ion-item');
-			const ionLabel = document.createElement('ion-label');
-			const ionInput = document.createElement('ion-input');
+			const componentContainer = document.createElement('div');
+			if (typeof component === 'object' && 'type' in component) {
+				ReactDOM.render(component as any, componentContainer);
+			} else {
+				componentContainer.innerHTML = component as string;
+			}
+			content.appendChild(componentContainer);
 
-			ionLabel.textContent = 'Enter your name';
-			ionLabel.setAttribute('position', 'stacked');
-			ionInput.setAttribute('type', 'text');
-			ionInput.setAttribute('label', 'Your name');
-
-			ionItem.appendChild(ionLabel);
-			ionItem.appendChild(ionInput);
-
-			content.appendChild(ionItem);
 			m.appendChild(ionHeader);
 			m.appendChild(content);
 
@@ -52,8 +48,7 @@ const useModal = ({ onCancel, onConfirm }: UseModalProps) => {
 				m.dismiss();
 			});
 			confirmButton.addEventListener('click', () => {
-				const input = m.querySelector('ion-input');
-				onConfirm(input.value as string);
+				onConfirm();
 				m.dismiss(); // Dismiss the modal after confirming
 			});
 
@@ -62,7 +57,7 @@ const useModal = ({ onCancel, onConfirm }: UseModalProps) => {
 		} else {
 			modal.present();
 		}
-	}, [modal, onCancel, onConfirm]);
+	}, [modal, onCancel, onConfirm, component]);
 
 	const dismissModal = useCallback(() => {
 		if (modal) {
@@ -79,7 +74,7 @@ const useModal = ({ onCancel, onConfirm }: UseModalProps) => {
 		};
 	}, [modal]);
 
-	return { presentModal, dismissModal }; // Added dismissModal to the return value
+	return { presentModal, dismissModal };
 };
 
 export default useModal;

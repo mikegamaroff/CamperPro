@@ -12,10 +12,18 @@ function Home() {
 	const handleLogout = () => {
 		logout();
 	};
-
-	const { presentModal } = useModal({
-		onCancel: () => console.log('Cancelled'),
-		onConfirm: data => console.log(`Hello ${data}!`)
+	const ModalContent = () => {
+		return (
+			<div>
+				<h2>Hello, world!</h2>
+				<p>This is some modal content.</p>
+			</div>
+		);
+	};
+	const { presentModal, dismissModal } = useModal({
+		onCancel: () => console.log('Canceled'),
+		onConfirm: () => console.log(`Confirmed`),
+		component: <ModalContent />
 	});
 	return (
 		<Container>

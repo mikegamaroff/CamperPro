@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useToast } from '../context/toastContext';
 import { User } from '../model/user';
 import { useAddUser } from '../routes/useAddUser';
 function SignupPage() {
@@ -10,7 +11,7 @@ function SignupPage() {
 	const [error, setError] = useState<string>('');
 	const { addUser, isLoading, isError, isSuccess } = useAddUser(); // Use the custom hook
 	const router = useRouter();
-
+	const { showToast } = useToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
@@ -30,11 +31,14 @@ function SignupPage() {
 
 			const response = await addUser(newUser);
 			if (response.success) {
+				showToast('success', 'Welcome, ' + newUser.first_name + '. Happy camping!');
 				router.push('/'); // Redirect to home page or any other protected route
 			} else {
 				setError(response.message);
+				showToast('danger', response.message);
 			}
 		} catch (err) {
+			showToast('danger', err.message);
 			setError('Unable to sign up. Please try again.');
 		}
 	};

@@ -19,6 +19,7 @@ import '@ionic/core/css/text-alignment.css';
 import '@ionic/core/css/text-transformation.css';
 import { RouteContextProvider } from '../components/Go';
 import { AuthProvider } from '../context/authContext';
+import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';
 import '../styles/variables.css';
@@ -44,11 +45,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<ion-app>
 				<AuthProvider>
 					<UserProvider>
-						<RouteContextProvider>
-							<AnimatePresence>
-								<Component {...pageProps} />
-							</AnimatePresence>
-						</RouteContextProvider>
+						<ToastProvider>
+							<RouteContextProvider>
+								<AnimatePresence>
+									<Component {...pageProps} />
+								</AnimatePresence>
+							</RouteContextProvider>
+						</ToastProvider>
 					</UserProvider>
 				</AuthProvider>
 			</ion-app>

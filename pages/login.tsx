@@ -1,6 +1,7 @@
 // pages/login.tsx
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useToast } from '../context/toastContext';
 import { useLogin } from '../routes/useLogin';
 
 export default function LoginPage() {
@@ -9,16 +10,20 @@ export default function LoginPage() {
 	const [error, setError] = useState<string>('');
 	const { loginUser, isLoading, isError, isSuccess } = useLogin(); // Use the custom hook
 	const router = useRouter();
+	const { showToast } = useToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
 			const response = await loginUser(email, password);
 			if (response.success) {
+				showToast('success', 'You successfully logged in');
 				router.push('/'); // Redirect to home page or any other protected route
 			} else {
+				showToast('danger', response.message);
 				setError(response.message);
 			}
 		} catch (err) {
+			showToast('danger', err.message);
 			setError('Unable to log in. Please try again.');
 		}
 	};
@@ -26,6 +31,7 @@ export default function LoginPage() {
 	return (
 		<div>
 			<h1>Login</h1>
+
 			{isLoading ? (
 				<ion-item>
 					<ion-spinner name="dots"></ion-spinner>

@@ -26,6 +26,7 @@ const designDoc = {
 	},
 	language: 'javascript'
 };
+
 function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
 	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, (err, body) => {
@@ -36,6 +37,7 @@ function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 		console.log('Database replication successful:', body);
 	});
 }
+
 // Create or update the design document
 function createOrUpdateDesignDoc(db) {
 	db.get(designDoc._id, (err, existingDoc) => {
@@ -74,6 +76,28 @@ function createOrUpdateDesignDoc(db) {
 		}
 	});
 }
+
+// Check if the database exists
+nano.db.get(dbName, (err, body) => {
+	if (err && err.statusCode === 404) {
+		// Database does not exist, create it and add the design document
+		nano.db.create(dbName, (err, body) => {
+			if (err) {
+				console.error('Error creating database:', err);
+				return;
+			}
+
+			const db = nano.use(dbName);
+			createOrUpdateDesignDoc(db);
+		});
+	} else if (err) {
+		console.error('Error checking database existence:', err);
+	} else {
+		// Database exists, create or update the design document
+		const db = nano.use(dbName);
+		createOrUpdateDesignDoc(db);
+	}
+});
 
 // Check if the database exists
 nano.db.get(dbName, (err, body) => {

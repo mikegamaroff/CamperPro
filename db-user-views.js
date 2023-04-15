@@ -2,12 +2,13 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './.env.local' });
 
 const couchdbHost = process.env.COUCHDB_URL;
+const cloudantHost = process.env.CLOUDANT_URL;
 
 const nano = require('nano')(couchdbHost);
+const cloudantNano = require('nano')(cloudantHost);
 
 const dbName = 'camperpro';
 const designDocName = 'user-view';
-
 const designDoc = {
 	_id: `_design/${designDocName}`,
 	views: {
@@ -25,7 +26,16 @@ const designDoc = {
 	},
 	language: 'javascript'
 };
-
+function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
+	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
+	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, (err, body) => {
+		if (err) {
+			console.error('Error replicating database:', err);
+			return;
+		}
+		console.log('Database replication successful:', body);
+	});
+}
 // Create or update the design document
 function createOrUpdateDesignDoc(db) {
 	db.get(designDoc._id, (err, existingDoc) => {
@@ -58,6 +68,7 @@ function createOrUpdateDesignDoc(db) {
 					console.log('Design document updated successfully');
 				});
 			} else {
+				replicateDatabase(db, cloudantNano, dbName, false);
 				console.log('Design document is up-to-date');
 			}
 		}

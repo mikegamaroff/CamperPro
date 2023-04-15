@@ -28,7 +28,6 @@ export default function LoginPage() {
 			<h1>Login</h1>
 			{isLoading ? (
 				<ion-item>
-					<ion-label>Dots</ion-label>
 					<ion-spinner name="dots"></ion-spinner>
 				</ion-item>
 			) : (

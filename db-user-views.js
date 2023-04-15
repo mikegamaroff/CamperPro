@@ -38,8 +38,7 @@ function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	});
 }
 
-// Create or update the design document
-function createOrUpdateDesignDoc(db) {
+function handleDesignDoc(db) {
 	db.get(designDoc._id, (err, existingDoc) => {
 		if (err && err.statusCode === 404) {
 			// Design document does not exist, create it
@@ -50,34 +49,33 @@ function createOrUpdateDesignDoc(db) {
 				}
 
 				console.log('Design document created successfully');
+				replicateDatabase(db, cloudantNano, dbName, false);
 			});
 		} else if (err) {
 			console.error('Error getting design document:', err);
 		} else {
-			// Design document exists, update it if the views have changed
-			const currentViews = existingDoc.views;
-			const newViews = designDoc.views;
+			// Design document exists, delete it first
+			db.destroy(existingDoc._id, existingDoc._rev, (err, body) => {
+				if (err) {
+					console.error('Error deleting existing design document:', err);
+					return;
+				}
 
-			if (JSON.stringify(currentViews) !== JSON.stringify(newViews)) {
-				existingDoc.views = newViews;
-
-				db.insert(existingDoc, (err, body) => {
+				// Insert the new design document
+				db.insert(designDoc, (err, body) => {
 					if (err) {
-						console.error('Error updating design document:', err);
+						console.error('Error inserting new design document:', err);
 						return;
 					}
 
 					console.log('Design document updated successfully');
+					replicateDatabase(db, cloudantNano, dbName, false);
 				});
-			} else {
-				replicateDatabase(db, cloudantNano, dbName, false);
-				console.log('Design document is up-to-date');
-			}
+			});
 		}
 	});
 }
 
-// Check if the database exists
 nano.db.get(dbName, (err, body) => {
 	if (err && err.statusCode === 404) {
 		// Database does not exist, create it and add the design document
@@ -88,35 +86,13 @@ nano.db.get(dbName, (err, body) => {
 			}
 
 			const db = nano.use(dbName);
-			createOrUpdateDesignDoc(db);
+			handleDesignDoc(db);
 		});
 	} else if (err) {
 		console.error('Error checking database existence:', err);
 	} else {
-		// Database exists, create or update the design document
+		// Database exists, handle the design document
 		const db = nano.use(dbName);
-		createOrUpdateDesignDoc(db);
-	}
-});
-
-// Check if the database exists
-nano.db.get(dbName, (err, body) => {
-	if (err && err.statusCode === 404) {
-		// Database does not exist, create it and add the design document
-		nano.db.create(dbName, (err, body) => {
-			if (err) {
-				console.error('Error creating database:', err);
-				return;
-			}
-
-			const db = nano.use(dbName);
-			createOrUpdateDesignDoc(db);
-		});
-	} else if (err) {
-		console.error('Error checking database existence:', err);
-	} else {
-		// Database exists, create or update the design document
-		const db = nano.use(dbName);
-		createOrUpdateDesignDoc(db);
+		handleDesignDoc(db);
 	}
 });

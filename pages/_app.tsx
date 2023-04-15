@@ -1,3 +1,4 @@
+// _app.tsx
 import { JSX as LocalJSX } from '@ionic/core';
 import { defineCustomElements as ionDefineCustomElements } from '@ionic/core/loader';
 import { AnimatePresence } from 'framer-motion';
@@ -23,6 +24,7 @@ import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';
 import '../styles/variables.css';
+
 type ToReact<T> = {
 	[P in keyof T]?: T[P] &
 		Omit<HTMLAttributes<Element>, 'className'> & {
@@ -36,10 +38,14 @@ declare global {
 		interface IntrinsicElements extends ToReact<LocalJSX.IntrinsicElements> {}
 	}
 }
+
 function MyApp({ Component, pageProps }: AppProps) {
 	useEffect(() => {
-		ionDefineCustomElements(window);
-	});
+		if (typeof window !== 'undefined') {
+			ionDefineCustomElements(window);
+		}
+	}, []);
+
 	return (
 		<>
 			<ion-app>

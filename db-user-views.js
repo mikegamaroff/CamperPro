@@ -15,7 +15,7 @@ const designDoc = {
 		'all-users': {
 			map: function (doc) {
 				if (doc.type === 'user') {
-					emit(doc._id, doc);
+					emit(doc.email, doc);
 				}
 			}
 				.toString()

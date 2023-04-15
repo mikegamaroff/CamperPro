@@ -18,6 +18,7 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message:
 
 	try {
 		const response = await db.insert(newUser);
+		console.log('Registered user:', response);
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ message: 'Internal server error' });
@@ -39,7 +40,7 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 			key: email
 		});
 		const user = response.rows[0]?.value as User;
-
+		console.log('Fetched user:', user);
 		console.log('Plain text password:', password);
 		if (!user || !bcrypt.compareSync(password, user.password)) {
 			res.status(401).json({ message: 'Invalid email or password' });

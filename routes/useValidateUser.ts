@@ -15,9 +15,12 @@ const useValidateUser = () => {
 						if (userData.suspended) {
 							logout();
 						}
+					} else {
+						logout();
 					}
 				} catch (error) {
 					console.error('Error validating user:', error);
+					logout();
 				}
 			}
 		}

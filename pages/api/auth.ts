@@ -16,6 +16,10 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message:
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+	// Hash the user's password before inserting it into the database
+	const salt = bcrypt.genSaltSync(10);
+	newUser.password = bcrypt.hashSync(newUser.password, salt);
+
 	try {
 		const response = await db.insert(newUser);
 		if (isCouchDbError(response)) {

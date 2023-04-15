@@ -1,7 +1,7 @@
 // pages/login.tsx
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useToast } from '../context/toastContext';
+import { useGlobalToast } from '../context/toastContext';
 import { useLogin } from '../routes/useLogin';
 
 export default function LoginPage() {
@@ -10,7 +10,7 @@ export default function LoginPage() {
 	const [error, setError] = useState<string>('');
 	const { loginUser, isLoading, isError, isSuccess } = useLogin(); // Use the custom hook
 	const router = useRouter();
-	const { showToast } = useToast();
+	const { showToast } = useGlobalToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {

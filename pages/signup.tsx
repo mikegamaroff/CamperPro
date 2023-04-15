@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useToast } from '../context/toastContext';
+import { useGlobalToast } from '../context/toastContext';
 import { User } from '../model/user';
 import { useAddUser } from '../routes/useAddUser';
 function SignupPage() {
@@ -11,7 +11,7 @@ function SignupPage() {
 	const [error, setError] = useState<string>('');
 	const { addUser, isLoading, isError, isSuccess } = useAddUser(); // Use the custom hook
 	const router = useRouter();
-	const { showToast } = useToast();
+	const { showToast } = useGlobalToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {

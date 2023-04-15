@@ -1,17 +1,22 @@
+// useToast.tsx
 import { useEffect } from 'react';
 
-const useToast = (color: string, message: string) => {
+const useToast = (color: string, message: string, isVisible: boolean) => {
 	useEffect(() => {
-		const toast = document.createElement('ion-toast');
-		toast.color = color;
-		toast.message = message;
-		toast.duration = 3000;
-		document.body.appendChild(toast);
+		if (isVisible) {
+			const toast = document.createElement('ion-toast');
+			toast.color = color;
+			toast.message = message;
+			toast.duration = 3000;
+			document.body.appendChild(toast);
 
-		return () => {
-			document.body.removeChild(toast);
-		};
-	}, [color, message]);
+			toast.present();
+
+			return () => {
+				document.body.removeChild(toast);
+			};
+		}
+	}, [color, message, isVisible]);
 
 	return null;
 };

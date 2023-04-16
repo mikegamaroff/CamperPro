@@ -25,10 +25,14 @@ export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			routeContext.startTransition();
-			setTimeout(() => {
-				router.push(props.href);
+			router.push(props.href);
+			router.events.on('routeChangeComplete', () => {
 				routeContext.endTransition();
-			}, 100); // 500ms is the animation duration
+				router.events.off('routeChangeComplete', () => {
+					routeContext.endTransition();
+					router.events.off('routeChangeComplete', () => {});
+				});
+			});
 		},
 		[props.href, routeContext, router]
 	);

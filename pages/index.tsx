@@ -15,8 +15,8 @@ function Home() {
 	const ModalContent = () => {
 		return (
 			<div>
-				<h2>Hello, world!</h2>
-				<p>This is some modal content.</p>
+				<h2>Here a modal</h2>
+				<p>You can pass any component or JSX in here.</p>
 			</div>
 		);
 	};

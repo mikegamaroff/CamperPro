@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 interface ModalContentProps {
@@ -46,7 +46,11 @@ interface UseModalProps {
 
 const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 	const [modal, setModal] = useState<HTMLIonModalElement | null>(null);
+	const modalRef = useRef<HTMLIonModalElement | null>(null);
 
+	useEffect(() => {
+		modalRef.current = modal;
+	}, [modal]);
 	const presentModal = useCallback(async () => {
 		if (!modal) {
 			const m = document.createElement('ion-modal') as HTMLIonModalElement;
@@ -57,6 +61,7 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 			document.body.appendChild(m);
 
 			setModal(m);
+			modalRef.current = m;
 			await m.present();
 		} else {
 			modal.present();
@@ -65,10 +70,7 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 
 	const dismissModal = useCallback(() => {
 		console.log('dismissed');
-		if (modal) {
-			modal.dismiss('cancel');
-			setModal(null);
-		}
+		modalRef.current?.dismiss('cancel');
 	}, [modal]);
 
 	return { presentModal, dismissModal };

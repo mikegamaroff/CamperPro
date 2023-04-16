@@ -8,7 +8,11 @@ interface ToastContextData {
 
 const ToastContext = createContext<ToastContextData>({} as ToastContextData);
 
-export const ToastProvider: React.FC = ({ children }) => {
+interface ToastProviderProps {
+	children: React.ReactNode;
+}
+
+export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 	const [toast, setToast] = useState<{
 		color: string;
 		message: string;

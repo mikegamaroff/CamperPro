@@ -13,12 +13,16 @@ export const RouteContext = React.createContext<{
 	routeTransition: false
 });
 
-export const Go: React.FC<LinkProps> = ({ children, ...props }) => {
+interface LinksProps extends LinkProps {
+	children: React.ReactNode;
+}
+
+export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 	const router = useRouter();
 	const routeContext = useContext(RouteContext);
 
 	const handleClick = useCallback(
-		e => {
+		(e: React.MouseEvent) => {
 			e.preventDefault();
 			routeContext.startTransition();
 			setTimeout(() => {
@@ -36,7 +40,11 @@ export const Go: React.FC<LinkProps> = ({ children, ...props }) => {
 	);
 };
 
-export const RouteContextProvider: React.FC = ({ children }) => {
+interface RouteContextProviderProps {
+	children: React.ReactNode;
+}
+
+export const RouteContextProvider: React.FC<RouteContextProviderProps> = ({ children }) => {
 	const [routeTransition, setRouteTransition] = useState(false);
 
 	const startTransition = useCallback(() => {

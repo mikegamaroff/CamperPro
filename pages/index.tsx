@@ -2,7 +2,9 @@ import { useContext } from 'react';
 import { Container } from '../components/Container';
 import { Go } from '../components/Go';
 import { AuthContext } from '../context/authContext';
+import useActionSheet from '../hooks/useActionSheet';
 
+import { ActionSheetButton } from '@ionic/core';
 import Button from '../components/Forms/Button';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
@@ -36,6 +38,38 @@ function Home() {
 		component: <ModalContent />
 	});
 
+	const actionSheetButtons: ActionSheetButton[] = [
+		{
+			text: 'Delete',
+			role: 'destructive',
+			data: {
+				action: 'delete'
+			}
+		},
+		{
+			text: 'Share',
+			data: {
+				action: 'share'
+			}
+		},
+		{
+			text: 'Cancel',
+			role: 'cancel',
+			data: {
+				action: 'cancel'
+			}
+		}
+	];
+
+	const { presentActionSheet } = useActionSheet({
+		header: 'My Action Sheet',
+		buttons: actionSheetButtons
+	});
+
+	const handleButtonClick = () => {
+		presentActionSheet();
+	};
+
 	return (
 		<Container>
 			<>
@@ -47,6 +81,9 @@ function Home() {
 				</Button>
 				<Button color={'tertiary'} onClick={handleLogout}>
 					Logout
+				</Button>
+				<Button color={'primary'} onClick={handleButtonClick}>
+					Action Sheet
 				</Button>
 			</>
 		</Container>

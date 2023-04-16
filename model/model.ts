@@ -1,22 +1,19 @@
 export type Document = {
-  _id?: string;
-  _rev?: string;
-  created_at?: string;
-  updated_at?: string;
+	_id?: string;
+	_rev?: string;
+	created_at?: string;
+	updated_at?: string;
 };
 
 export const FeedbackTypesLookup = {
-  user: "User",
+	user: 'User'
 } as const;
 
 export const DocumentTypesLookup = {
-  userLogin: "User",
+	userLogin: 'User'
 } as const;
 
-export function objectEquals(
-  a: Document | null | undefined,
-  b: Document | null | undefined
-): boolean {
-  if (!a || !b) return false;
-  return a._id === b._id;
+export function objectEquals(a: Document | null | undefined, b: Document | null | undefined): boolean {
+	if (!a || !b) return false;
+	return a._id === b._id;
 }

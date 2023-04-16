@@ -22,7 +22,7 @@ export default function LoginPage() {
 				showToast('danger', response.message);
 				setError(response.message);
 			}
-		} catch (err) {
+		} catch (err: any) {
 			showToast('danger', err.message);
 			setError('Unable to log in. Please try again.');
 		}

@@ -9,7 +9,7 @@ interface LoginResponse {
 export const useLogin = () => {
 	const { login } = useContext(AuthContext);
 	const [isLoading, setLoading] = useState(false);
-	const [isError, setError] = useState(null);
+	const [isError, setError] = useState<string | null>(null);
 	const [isSuccess, setSuccess] = useState(false);
 
 	const loginUser = async (email: string, password: string): Promise<LoginResponse> => {

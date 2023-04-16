@@ -6,13 +6,14 @@ type UseActionSheetProps = CustomIonActionSheetProps;
 
 const useActionSheet = ({ header, subHeader, message, buttons, cssClass }: UseActionSheetProps) => {
 	const [actionSheet, setActionSheet] = useState<IonActionSheetRef | null>(null);
+	const [isRendered, setIsRendered] = useState(false);
 	const actionSheetRef = useRef<IonActionSheetRef | null>(null);
 
 	useEffect(() => {
 		actionSheetRef.current = actionSheet;
 	}, [actionSheet]);
 
-	const presentActionSheet = useCallback(async () => {
+	const presentActionSheet = useCallback(() => {
 		if (!actionSheet) {
 			const as = document.createElement('ion-action-sheet') as HTMLIonActionSheetElement;
 
@@ -25,17 +26,21 @@ const useActionSheet = ({ header, subHeader, message, buttons, cssClass }: UseAc
 					message={message}
 					buttons={buttons}
 					cssClass={cssClass}
+					setIsRendered={setIsRendered}
 				/>
 			);
 
 			document.body.appendChild(as);
 
 			actionSheetRef.current = as;
-			console.log(actionSheetRef);
-		} else {
-			actionSheet.present();
 		}
 	}, [actionSheet, header, subHeader, message, buttons, cssClass]);
+
+	useEffect(() => {
+		if (isRendered) {
+			actionSheetRef.current?.present();
+		}
+	}, [isRendered, actionSheetRef]);
 
 	const dismissActionSheet = useCallback(() => {
 		actionSheetRef.current?.dismiss();

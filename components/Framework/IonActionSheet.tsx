@@ -7,10 +7,11 @@ export interface IonActionSheetRef<T = unknown> extends HTMLIonActionSheetElemen
 }
 interface IonActionSheetProps extends CustomIonActionSheetProps {
 	setActionSheet: (actionSheet: IonActionSheetRef) => void;
+	setIsRendered: (value: boolean) => void;
 }
 
 const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
-	({ header, subHeader, message, buttons, cssClass, setActionSheet }, ref) => {
+	({ header, subHeader, message, buttons, cssClass, setActionSheet, setIsRendered }, ref) => {
 		const actionSheetButtons = buttons.map(button => {
 			return {
 				text: button.text,
@@ -34,7 +35,8 @@ const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
 
 		useEffect(() => {
 			setActionSheet(actionSheetRef.current!);
-		}, [setActionSheet]);
+			setIsRendered(true);
+		}, [setActionSheet, setIsRendered]);
 
 		const handleActionSheetDidPresent = () => {
 			actionSheetRef.current?.present();

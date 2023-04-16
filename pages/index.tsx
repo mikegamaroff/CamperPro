@@ -20,11 +20,21 @@ function Home() {
 			</div>
 		);
 	};
+	const confirmModal = () => {
+		console.log('Confirmed');
+		dismissModal();
+	};
+
+	const cancelModal = () => {
+		console.log('Canceled');
+		dismissModal();
+	};
 	const { presentModal, dismissModal } = useModal({
-		onCancel: () => console.log('Canceled'),
-		onConfirm: () => console.log(`Confirmed`),
+		onCancel: cancelModal,
+		onConfirm: confirmModal,
 		component: <ModalContent />
 	});
+
 	return (
 		<Container>
 			<>

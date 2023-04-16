@@ -4,8 +4,9 @@ import { Go } from '../components/Go';
 import { AuthContext } from '../context/authContext';
 import useActionSheet from '../hooks/useActionSheet';
 
-import { ActionSheetButton } from '@ionic/core';
+import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import Button from '../components/Forms/Button';
+import useAlert from '../hooks/useAlert';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
@@ -70,6 +71,43 @@ function Home() {
 		presentActionSheet();
 	};
 
+	const exampleInputs: AlertInput[] = [
+		{ label: 'Red', type: 'radio', value: 'red' },
+		{ label: 'Blue', type: 'radio', value: 'blue' },
+		{ label: 'Green', type: 'radio', value: 'green' }
+	];
+
+	const exampleButtons: AlertButton[] = [
+		{
+			text: 'Cancel',
+			role: 'cancel',
+			handler: () => {
+				console.log('Alert canceled');
+			}
+		},
+		{
+			text: 'OK',
+			role: 'confirm',
+			handler: () => {
+				console.log('Alert confirmed');
+			}
+		}
+	];
+	const { presentAlert, dismissAlert } = useAlert({
+		header: 'Alert',
+		subHeader: 'Important message',
+		message: 'This is an alert!',
+		buttons: [
+			...exampleButtons,
+			{
+				text: 'Custom Dismiss',
+				handler: () => {
+					dismissAlert();
+				}
+			}
+		],
+		inputs: exampleInputs
+	});
 	return (
 		<Container>
 			<>
@@ -84,6 +122,9 @@ function Home() {
 				</Button>
 				<Button color={'primary'} onClick={handleButtonClick}>
 					Action Sheet
+				</Button>
+				<Button color={'primary'} onClick={presentAlert}>
+					alert
 				</Button>
 			</>
 		</Container>

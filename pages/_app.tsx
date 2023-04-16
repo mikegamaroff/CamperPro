@@ -24,7 +24,6 @@ import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';
 import '../styles/variables.css';
-
 type ToReact<T> = {
 	[P in keyof T]?: T[P] &
 		Omit<HTMLAttributes<Element>, 'className'> & {
@@ -61,7 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					</UserProvider>
 				</AuthProvider>
 			</ion-app>
-			<script defer src="/static/js/ionic.min.js"></script>
+			<script defer src="../static/js/ionic.min.js"></script>
 		</>
 	);
 }

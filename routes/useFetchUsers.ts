@@ -4,7 +4,7 @@ import { UserContext } from '../context/userContext';
 export const useFetchUsers = () => {
 	const { users, setUsers } = useContext(UserContext);
 	const [isLoading, setLoading] = useState(false);
-	const [isError, setError] = useState(null);
+	const [isError, setError] = useState<string | null>(null);
 	const [isSuccess, setSuccess] = useState(false);
 
 	useEffect(() => {

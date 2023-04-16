@@ -13,7 +13,7 @@ export const useAddUser = () => {
 	const { users, setUsers } = useContext(UserContext);
 	const { login } = useContext(AuthContext);
 	const [isLoading, setLoading] = useState(false);
-	const [isError, setError] = useState(null);
+	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
 
 	const addUser = async (user: User): Promise<AddUserResponse> => {

@@ -1,14 +1,12 @@
-// pages/login.tsx
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useGlobalToast } from '../context/toastContext';
 import { useLogin } from '../routes/useLogin';
-
 export default function LoginPage() {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [error, setError] = useState<string>('');
-	const { loginUser, isLoading, isError, isSuccess } = useLogin(); // Use the custom hook
+	const { loginUser, isLoading } = useLogin(); // Use the custom hook
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -22,9 +20,14 @@ export default function LoginPage() {
 				showToast('danger', response.message);
 				setError(response.message);
 			}
-		} catch (err: any) {
-			showToast('danger', err.message);
-			setError('Unable to log in. Please try again.');
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				showToast('danger', err.message);
+				setError(err.message);
+			} else {
+				console.error(err);
+				setError('An unexpected error occurred. Please try again.');
+			}
 		}
 	};
 

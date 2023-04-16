@@ -37,9 +37,14 @@ function SignupPage() {
 				setError(response.message);
 				showToast('danger', response.message);
 			}
-		} catch (err) {
-			showToast('danger', err.message);
-			setError('Unable to sign up. Please try again.');
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				showToast('danger', err.message);
+				setError(err.message);
+			} else {
+				console.error(err);
+				setError('An unexpected error occurred. Please try again.');
+			}
 		}
 	};
 

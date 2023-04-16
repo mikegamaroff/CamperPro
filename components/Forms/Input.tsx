@@ -19,7 +19,7 @@ interface InputProps<T> {
 	disabled?: boolean;
 	width?: string;
 	gap?: number;
-	value?: T;
+	value?: T | undefined;
 	inputRef?: React.RefObject<HTMLInputElement>;
 	id?: string;
 	step?: string;
@@ -94,7 +94,7 @@ export function Input<T extends string | number>({
 				type={fieldType()}
 				step={step || undefined}
 				disabled={disabled}
-				value={value}
+				value={value || ''}
 				// step={step ? step : undefined}
 				onBlur={onBlur && onBlur}
 				onKeyDown={handleKeyDown}

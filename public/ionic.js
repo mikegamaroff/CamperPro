@@ -13,7 +13,7 @@
 				(o['s-apps'] = o['s-apps'] || []).push('Ionic'),
 					i.componentOnReady ||
 						(i.componentOnReady = function () {
-							const n = this;
+							var n = this;
 							function i(i) {
 								if (n.nodeName.indexOf('-') > 0) {
 									for (var e = o['s-apps'], t = 0, r = 0; r < e.length; r++)
@@ -41,7 +41,7 @@
 			return (
 				!(n.search.indexOf('core=esm') > 0) &&
 				(!(
-					!(n.search.indexOf('core=es5') > 0 || n.protocol === 'file:') &&
+					!(n.search.indexOf('core=es5') > 0 || 'file:' === n.protocol) &&
 					o.customElements &&
 					o.customElements.define &&
 					o.fetch &&

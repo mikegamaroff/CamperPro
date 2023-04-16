@@ -9,98 +9,89 @@ This validator does a number of checks
 The formConfig file needs to specify what validators it wants for each form
 */
 
-import { FormConfigType, FormRuleType, Rules } from "../hooks/useFormValues";
+import { FormConfigType, FormRuleType, Rules } from '../hooks/useFormValues';
 
-export const validate: (
-  field: FormConfigType,
-  value: string
-) => { success: boolean; errors: string[] } = (
-  field: FormConfigType,
-  value: string
+export const validate: (field: FormConfigType, value: string) => { success: boolean; errors: string[] } = (
+	field: FormConfigType,
+	value: string
 ) => {
-  if (!field) {
-    // No rules for this field
-    return {
-      success: true,
-      errors: [],
-    };
-  }
-  const validationRules = (
-    field && field.rules ? Object.keys(field.rules) : []
-  ) as (keyof Rules)[];
-  let successFlag: number = 0;
-  let errors: string[] = [];
-  let success: boolean;
-  if (field.rules) {
-    for (let i = 0; i < validationRules.length; i++) {
-      let tempRuleName = validationRules[i];
-      let tempRule = field.rules[tempRuleName];
-      if (tempRule) {
-        const { success, message } = validationFunctions[tempRuleName](
-          tempRule as any,
-          value
-        );
-        message &&
-          errors.push(message.replace("{value}", tempRule.value.toString()));
-        success && successFlag++;
-      }
-    }
-    success = successFlag === validationRules.length;
-  } else {
-    success = true;
-    errors = [];
-  }
-  return {
-    success,
-    errors: success ? [] : errors,
-  };
+	if (!field) {
+		// No rules for this field
+		return {
+			success: true,
+			errors: []
+		};
+	}
+	const validationRules = (field && field.rules ? Object.keys(field.rules) : []) as (keyof Rules)[];
+	let successFlag = 0;
+	let errors: string[] = [];
+	let success: boolean;
+	if (field.rules) {
+		for (let i = 0; i < validationRules.length; i++) {
+			const tempRuleName = validationRules[i];
+			const tempRule = field.rules[tempRuleName];
+			if (tempRule) {
+				const { success, message } = validationFunctions[tempRuleName](tempRule as any, value);
+				message && errors.push(message.replace('{value}', tempRule.value.toString()));
+				success && successFlag++;
+			}
+		}
+		success = successFlag === validationRules.length;
+	} else {
+		success = true;
+		errors = [];
+	}
+	return {
+		success,
+		errors: success ? [] : errors
+	};
 };
 
 type ValidationFunction<Type> = (
-  rule: FormRuleType<Type>,
-  value?: string
+	rule: FormRuleType<Type>,
+	value?: string
 ) => { success: boolean; message: string | null };
 
 type ValidationFunctions = {
-  [Property in keyof Rules]: ValidationFunction<Rules[Property]>;
+	[Property in keyof Rules]: ValidationFunction<Rules[Property]>;
 };
 
 const validationFunctions: ValidationFunctions = {
-  maxLength: (rule, value) => {
-    let success: boolean = true;
-    if (value && value.length > Number(rule.value)) {
-      success = false;
-    }
-    return { success: success, message: success ? null : rule.message };
-  },
-  minLength: (rule, value) => {
-    let success: boolean = true;
-    if (value && value.length < Number(rule.value)) {
-      success = false;
-    }
-    return { success: success, message: success ? null : rule.message };
-  },
-  pattern: (rule, value) => {
-    let success: boolean = true;
-    if (value && !value.match(rule.value) && value.length > 0) {
-      success = false;
-    }
-    return { success: success, message: success ? null : rule.message };
-  },
+	maxLength: (rule, value) => {
+		let success = true;
+		if (value && value.length > Number(rule.value)) {
+			success = false;
+		}
+		return { success, message: success ? null : rule.message };
+	},
+	minLength: (rule, value) => {
+		let success = true;
+		if (value && value.length < Number(rule.value)) {
+			success = false;
+		}
+		return { success, message: success ? null : rule.message };
+	},
+	pattern: (rule, value) => {
+		let success = true;
+		if (value && !value.match(rule.value) && value.length > 0) {
+			success = false;
+		}
+		return { success, message: success ? null : rule.message };
+	},
 
-  required: (rule, value) => {
-    let success: boolean = true;
-    if (value?.length === 0) {
-      success = false;
-    }
-    return { success: success, message: success ? null : rule.message };
-  },
+	required: (rule, value) => {
+		let success = true;
+		if (value?.length === 0) {
+			success = false;
+		}
+		return { success, message: success ? null : rule.message };
+	},
 
-  func: (rule, value) => {
-    let success: boolean = false;
-    if (rule.value && rule.value(value || "")) {
-      success = true;
-    }
-    return { success: success, message: success ? null : rule.message };
-  },
+	func: (rule, value) => {
+		let success = false;
+		if (rule.value && rule.value(value || '')) {
+			success = true;
+		}
+		return { success, message: success ? null : rule.message };
+	}
 };

@@ -6,7 +6,7 @@ class MyDocument extends Document {
 			<Html>
 				<Head>
 					<meta charSet="utf-8" />
-					<script defer src="../static/js/ionic.min.js"></script>
+					<script defer src="../public/js/ionic.min.js"></script>
 				</Head>
 				<body>
 					<Main />

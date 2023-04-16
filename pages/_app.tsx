@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					</UserProvider>
 				</AuthProvider>
 			</IonApp>
-			<script defer src="../static/js/ionic.min.js"></script>
+			<script defer src="../public/js/ionic.min.js"></script>
 		</>
 	);
 }

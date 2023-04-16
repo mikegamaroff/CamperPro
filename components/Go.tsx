@@ -25,14 +25,16 @@ export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 		(e: React.MouseEvent) => {
 			e.preventDefault();
 			routeContext.startTransition();
-			router.push(props.href);
-			router.events.on('routeChangeComplete', () => {
-				routeContext.endTransition();
-				router.events.off('routeChangeComplete', () => {
+			setTimeout(() => {
+				router.push(props.href);
+				router.events.on('routeChangeComplete', () => {
 					routeContext.endTransition();
-					router.events.off('routeChangeComplete', () => {});
+					router.events.off('routeChangeComplete', () => {
+						routeContext.endTransition();
+						router.events.off('routeChangeComplete', () => {});
+					});
 				});
-			});
+			}, 200);
 		},
 		[props.href, routeContext, router]
 	);

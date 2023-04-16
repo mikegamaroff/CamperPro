@@ -41,28 +41,28 @@ function Home() {
 	const actionSheetButtons: ActionSheetButton[] = [
 		{
 			text: 'Delete',
-			role: 'destructive',
-			data: {
-				action: 'delete'
+			handler: () => {
+				console.log('Delete clicked');
 			}
 		},
 		{
 			text: 'Share',
-			data: {
-				action: 'share'
+			handler: () => {
+				console.log('Share clicked');
 			}
 		},
 		{
 			text: 'Cancel',
 			role: 'cancel',
-			data: {
-				action: 'cancel'
+			handler: () => {
+				console.log('Cancel clicked');
 			}
 		}
 	];
 
 	const { presentActionSheet } = useActionSheet({
 		header: 'My Action Sheet',
+		subHeader: 'Gaby is clever',
 		buttons: actionSheetButtons
 	});
 

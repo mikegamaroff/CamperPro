@@ -1,3 +1,4 @@
+import { ActionSheetButton } from '@ionic/core';
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { CustomIonActionSheetProps } from '../../model/framework';
 
@@ -11,16 +12,17 @@ interface IonActionSheetProps extends CustomIonActionSheetProps {
 }
 
 const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
-	({ header, subHeader, message, buttons, cssClass, setActionSheet, setIsRendered }, ref) => {
-		const actionSheetButtons = buttons.map(button => {
-			return {
-				text: button.text,
-				icon: button.icon,
-				handler: button.handler,
-				cssClass: button.cssClass
-			};
-		});
-
+	({ header, subHeader, buttons, cssClass, setActionSheet, setIsRendered }, ref) => {
+		const actionSheetButtons: ActionSheetButton[] = buttons.map(button => ({
+			text: button.text,
+			cssClass: button.cssClass,
+			role: button.role,
+			handler: () => {
+				button.handler && button.handler();
+				actionSheetRef.current!.dismiss();
+			}
+		}));
+		console.log(actionSheetButtons);
 		const actionSheetRef = useRef<HTMLIonActionSheetElement | null>(null);
 
 		useImperativeHandle(ref, () => ({
@@ -47,14 +49,18 @@ const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
 		};
 
 		return React.createElement('ion-action-sheet', {
-			ref: actionSheetRef,
-			header,
-			subHeader,
-			message,
-			cssClass,
-			buttons: actionSheetButtons,
-			onIonActionSheetDidPresent: handleActionSheetDidPresent,
-			onIonActionSheetDidDismiss: handleActionSheetDidDismiss
+			ref: (el: HTMLIonActionSheetElement) => {
+				actionSheetRef.current = el;
+
+				if (el) {
+					el.header = header;
+					el.subHeader = subHeader;
+					el.cssClass = cssClass;
+					el.buttons = actionSheetButtons;
+					el.addEventListener('ionActionSheetDidPresent', handleActionSheetDidPresent);
+					el.addEventListener('ionActionSheetDidDismiss', handleActionSheetDidDismiss);
+				}
+			}
 		});
 	}
 );

@@ -2,6 +2,7 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import IonSpinner from '../components/Framework/IonSpinner';
 import { useGlobalToast } from '../context/toastContext';
 import { User } from '../model/user';
 import { useAddUser } from '../routes/useAddUser';
@@ -9,7 +10,7 @@ function SignupPage() {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [error, setError] = useState<string>('');
-	const { addUser, isLoading, isError, isSuccess } = useAddUser(); // Use the custom hook
+	const { addUser, isLoading } = useAddUser(); // Use the custom hook
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -20,8 +21,8 @@ function SignupPage() {
 				type: 'user',
 				first_name: 'Test 1',
 				last_name: 'test 2',
-				email: email,
-				password: password,
+				email,
+				password,
 				phone_number: '123-456-7890',
 				created_at: new Date().toISOString(),
 				updated_at: new Date().toISOString(),
@@ -52,9 +53,7 @@ function SignupPage() {
 		<div>
 			<h1>Sign Up</h1>
 			{isLoading ? (
-				<ion-item>
-					<ion-spinner name="dots"></ion-spinner>
-				</ion-item>
+				<IonSpinner name="dots"></IonSpinner>
 			) : (
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="email">Email:</label>

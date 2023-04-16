@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import IonSpinner from '../components/Framework/IonSpinner';
 import { useGlobalToast } from '../context/toastContext';
 import { useLogin } from '../routes/useLogin';
 export default function LoginPage() {
@@ -25,6 +26,7 @@ export default function LoginPage() {
 				showToast('danger', err.message);
 				setError(err.message);
 			} else {
+				// eslint-disable-next-line no-console
 				console.error(err);
 				setError('An unexpected error occurred. Please try again.');
 			}
@@ -36,9 +38,7 @@ export default function LoginPage() {
 			<h1>Login</h1>
 
 			{isLoading ? (
-				<ion-item>
-					<ion-spinner name="dots"></ion-spinner>
-				</ion-item>
+				<IonSpinner name="dots"></IonSpinner>
 			) : (
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="email">Email:</label>

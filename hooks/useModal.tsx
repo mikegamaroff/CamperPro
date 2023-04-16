@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import Button from '../components/Forms/Button';
+import IonContent from '../components/Framework/IonContent';
 
 interface ModalContentProps {
 	onCancel: () => void;
@@ -9,32 +11,29 @@ interface ModalContentProps {
 
 const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, component }) => (
 	<>
-		<ion-header>
-			<ion-toolbar>
-				<ion-button
+		<div>
+			<div>
+				<Button
 					slot="start"
 					onClick={() => {
-						console.log('Cancel button clicked');
 						onCancel();
 					}}
 				>
 					Cancel
-				</ion-button>
-				<ion-title>Welcome</ion-title>
-				<ion-button
-					slot="end"
-					onClick={() => {
-						console.log('Confirm button clicked');
-						onConfirm();
-					}}
-				>
-					Confirm
-				</ion-button>
-			</ion-toolbar>
-		</ion-header>
-		<ion-content class="ion-padding">
+				</Button>
+			</div>
+			<Button
+				slot="end"
+				onClick={() => {
+					onConfirm();
+				}}
+			>
+				Confirm
+			</Button>
+		</div>
+		<IonContent>
 			<div>{component}</div>
-		</ion-content>
+		</IonContent>
 	</>
 );
 
@@ -69,6 +68,7 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 	}, [modal, onCancel, onConfirm, component]);
 
 	const dismissModal = useCallback(() => {
+		// eslint-disable-next-line no-console
 		console.log('dismissed');
 		modalRef.current?.dismiss('cancel');
 	}, [modal]);

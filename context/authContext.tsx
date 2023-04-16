@@ -1,4 +1,5 @@
-import jwt_decode from 'jwt-decode';
+// eslint-disable-next-line camelcase
+import jwt_decode, { JwtDecodeOptions } from 'jwt-decode';
 import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { hashPassword } from '../util/hashPassword';
 
@@ -20,6 +21,12 @@ export const AuthContext = createContext<AuthContextInterface>({
 // ..
 interface AuthProviderProps {
 	children: ReactNode;
+}
+
+interface DecodedToken {
+	password: string;
+	token: string;
+	options?: JwtDecodeOptions;
 }
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<{
@@ -58,11 +65,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const { token } = await response.json();
 			localStorage.setItem('jwtToken', token);
 
-			const decoded: any = jwt_decode(token);
+			const decoded: DecodedToken = jwt_decode(token);
 			const { password: _, ...user } = decoded;
 
 			setState({ status: 'authenticated', user });
 		} catch (err) {
+			// eslint-disable-next-line no-console
 			console.error(err);
 			throw err;
 		}
@@ -86,6 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 			await login(email, password);
 		} catch (err) {
+			// eslint-disable-next-line no-console
 			console.error(err);
 			throw err;
 		} finally {

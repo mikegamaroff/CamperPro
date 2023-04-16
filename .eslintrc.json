@@ -1,28 +1,56 @@
 {
 	"env": {
-		"browser": true,
-		"es2021": true
+	  "browser": true,
+	  "es2021": true,
+	  "node": true
 	},
-	"extends": ["standard", "prettier", "plugin:css-modules/recommended"],
+	"extends": [
+	  "standard",
+	  "prettier",
+	  "plugin:css-modules/recommended",
+	  "plugin:react/recommended",
+	  "plugin:@typescript-eslint/recommended"
+	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 13,
-		"sourceType": "module"
+	  "ecmaVersion": 12,
+	  "sourceType": "module",
+	  "ecmaFeatures": {
+		"jsx": true
+	  }
 	},
-	"plugins": ["@typescript-eslint", "prettier", "css-modules"],
+	"plugins": [
+	  "@typescript-eslint",
+	  "prettier",
+	  "css-modules",
+	  "react"
+	],
+	"settings": {
+	  "react": {
+		"version": "detect"
+	  }
+	},
 	"rules": {
-		"valid-jsdoc": "error", // Ensure JSDoc comments are valid (off by default)
-		"valid-typeof": "error", // Ensure that the results of typeof are compared against a valid string
-		"no-console": "error",
-		"prettier/prettier": ["error"]
+	  "valid-jsdoc": "error",
+	  "valid-typeof": "error",
+	  "no-console": "off",
+	  "prettier/prettier": ["error"],
+	  "react/jsx-uses-react": "off",
+	  "react/react-in-jsx-scope": "off",
+	  "@typescript-eslint/explicit-module-boundary-types": "off",
+	  "@typescript-eslint/explicit-function-return-type": "off",
+	  "@typescript-eslint/no-empty-function": "off",
+	  "@typescript-eslint/ban-ts-comment": "off",
+	  "@typescript-eslint/no-non-null-assertion": "off",
+	  "react/prop-types": "off"
 	},
 	"overrides": [
-		{
-			"files": ["*.test.ts", "*.spec.ts"],
-			"rules": {
-				"no-unused-expressions": "off",
-				"no-console": "off"
-			}
+	  {
+		"files": ["*.test.ts", "*.spec.ts"],
+		"rules": {
+		  "no-unused-expressions": "off"
 		}
+	  }
 	]
-}
+  }
+  

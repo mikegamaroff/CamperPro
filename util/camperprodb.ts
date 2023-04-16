@@ -10,7 +10,11 @@ function createDbInstancedd() {
 		throw new Error('COUCHDB_NAME environment variable is not defined');
 	}
 
-	const nanoInstance = nano(dbUrl);
+	const nanoInstance = dbUrl ? nano(dbUrl) : null;
+	if (!nanoInstance) {
+		throw new Error('COUCHDB_URL environment variable is not defined');
+	}
+
 	const db = nanoInstance.use(dbName);
 	return db;
 }

@@ -3,6 +3,7 @@ import { Container } from '../components/Container';
 import { Go } from '../components/Go';
 import { AuthContext } from '../context/authContext';
 
+import Button from '../components/Forms/Button';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
@@ -39,10 +40,14 @@ function Home() {
 		<Container>
 			<>
 				<Go href="/users">
-					<ion-button>Go to Page Two</ion-button>
+					<Button color={'secondary'}>Users</Button>
 				</Go>
-				<ion-button onClick={presentModal}>Open Modal</ion-button>
-				<ion-button onClick={handleLogout}>Logout</ion-button>
+				<Button color={'primary'} onClick={presentModal}>
+					Open Modal
+				</Button>
+				<Button color={'tertiary'} onClick={handleLogout}>
+					Logout
+				</Button>
 			</>
 		</Container>
 	);

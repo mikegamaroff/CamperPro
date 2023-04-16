@@ -3,10 +3,12 @@ import { useContext } from 'react';
 import { RouteContext } from './Go'; // Import RouteContext from Go
 import { PageTransition } from './PageTransition';
 
-export const Container: React.FC<{
+interface ContainerProps {
 	children: JSX.Element;
 	scroll?: boolean;
-}> = ({ children, scroll = false }) => {
+}
+
+export const Container = ({ children, scroll = false }: ContainerProps) => {
 	const routeContext = useContext(RouteContext); // Use RouteContext
 
 	return (

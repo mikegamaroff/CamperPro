@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useValidateUser from '../routes/useValidateUser';
 
-const withAuth = WrappedComponent => {
-	const WithAuthWrapper = props => {
+const withAuth = <Props extends object>(WrappedComponent: React.ComponentType<Props>) => {
+	const WithAuthWrapper = (props: Props) => {
 		const router = useRouter();
 		const { status } = useValidateUser();
 
@@ -24,8 +24,8 @@ const withAuth = WrappedComponent => {
 		return null;
 	};
 
-	if (WrappedComponent.getInitialProps) {
-		WithAuthWrapper.getInitialProps = WrappedComponent.getInitialProps;
+	if ((WrappedComponent as any).getInitialProps) {
+		WithAuthWrapper.getInitialProps = (WrappedComponent as any).getInitialProps;
 	}
 
 	return WithAuthWrapper;

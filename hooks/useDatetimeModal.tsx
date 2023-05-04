@@ -14,13 +14,14 @@ const useDatetimeModal = ({ onDatetimeChange }: UseDatetimeModalProps) => {
 			const container = document.createElement('div') as HTMLDivElement;
 			container.className = 'datetime-picker-container';
 
-			const handleIonChange = (event: CustomEvent<{ value: string }>) => {
-				onDatetimeChange(event.detail.value);
-				container.style.display = 'none';
-			};
-
-			const datetime = React.createElement('ion-datetime');
-			//	(datetime as unknown as EventTarget).addEventListener('ionChange', handleIonChange);
+			const datetime = React.createElement('ion-datetime', {
+				'show-default-buttons': true,
+				ionChange: (event: React.FormEvent<HTMLIonDatetimeElement>) => {
+					const newValue = event.currentTarget.value as string;
+					onDatetimeChange(newValue);
+					container.style.display = 'none';
+				}
+			});
 
 			const MotionDiv = (
 				<motion.div

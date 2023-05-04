@@ -427,7 +427,24 @@ ion-fab-button {
 	color: var(--background-rgb);
 	padding: 7px;
 }
+.datetime-picker-container {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
+ion-datetime {
+	background-color: white;
+	border-radius: 8px;
+}
 @keyframes tabSelect {
 	from {
 		box-shadow: inset 0px -8px 0px -8px var(--primary50-rgb);

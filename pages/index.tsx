@@ -8,6 +8,7 @@ import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import Button from '../components/Forms/Button';
 import useAlert from '../hooks/useAlert';
 
+import useDatetimeModal from '../hooks/useDatetimeModal';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
@@ -109,6 +110,16 @@ function Home() {
 		],
 		inputs: exampleInputs
 	});
+
+	const handleDateChange = (selectedDatetime: string) => {
+		// Handle the selected date here
+		console.log('Selected Date:', selectedDatetime);
+	};
+
+	const { presentDatetimeModal } = useDatetimeModal({
+		onDatetimeChange: handleDateChange
+	});
+
 	return (
 		<Container>
 			<>
@@ -124,7 +135,7 @@ function Home() {
 				<Button color={'primary'} onClick={handleButtonClick}>
 					Action Sheet
 				</Button>
-				<Button color={'primary'} onClick={handleButtonClick}>
+				<Button color={'primary'} onClick={presentDatetimeModal}>
 					Date Picker
 				</Button>
 				<Button color={'primary'} onClick={presentAlert}>

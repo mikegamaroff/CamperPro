@@ -7,6 +7,7 @@ import useActionSheet from '../hooks/useActionSheet';
 import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import Button from '../components/Forms/Button';
 import useAlert from '../hooks/useAlert';
+
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
@@ -122,6 +123,9 @@ function Home() {
 				</Button>
 				<Button color={'primary'} onClick={handleButtonClick}>
 					Action Sheet
+				</Button>
+				<Button color={'primary'} onClick={handleButtonClick}>
+					Date Picker
 				</Button>
 				<Button color={'primary'} onClick={presentAlert}>
 					alert

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ClipboardEventHandler, useCallback, useState } from 'react';
-import { EyeIcon, EyeOffIcon } from '../Icons';
+import { IconEye, IconEyeOff } from '../Icons';
 import { FormErrors } from './FormErrors';
 // eslint-disable-next-line css-modules/no-unused-class
 import styles from './FormFields.module.css';
@@ -75,7 +75,7 @@ export function Input<T extends string | number>({
 				<div className={styles.fieldIcon}>
 					<IconButton
 						size="small"
-						icon={passwordVisible ? <EyeOffIcon /> : <EyeIcon />}
+						icon={passwordVisible ? <IconEyeOff /> : <IconEye />}
 						onClick={unmaskPassword}
 					/>
 				</div>

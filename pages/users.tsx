@@ -2,7 +2,7 @@ import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
 import { FormInput } from '../components/Forms/FormInput';
 import { Go } from '../components/Go';
-import { EyeIcon, EyeOffIcon } from '../components/Icons';
+import { IconEye, IconEyeOff } from '../components/Icons';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
 import { useFormValues } from '../hooks/useFormValues';
 import { objectEquals } from '../model/model';
@@ -16,7 +16,7 @@ function Users() {
 	return (
 		<Container>
 			<>
-				<EyeIcon /> <EyeOffIcon />
+				<IconEye /> <IconEyeOff />
 				<Go href="/">
 					<Button>Go to Home page</Button>
 				</Go>

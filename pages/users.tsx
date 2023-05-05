@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import { Virtuoso } from 'react-virtuoso';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
 import { FormInput } from '../components/Forms/FormInput';
@@ -8,6 +10,14 @@ import { useFormValues } from '../hooks/useFormValues';
 import { objectEquals } from '../model/model';
 import { User } from '../model/user';
 import { useFetchUsers } from '../routes/useFetchUsers';
+import styles from './users.module.css';
+const FeedView: React.FC<{ user: User }> = ({ user }) => {
+	return (
+		<div className={classNames('card', styles.names)}>
+			{user.first_name} {user.last_name}
+		</div>
+	);
+};
 function Users() {
 	const { users } = useFetchUsers();
 
@@ -27,14 +37,13 @@ function Users() {
 					field={formValues?.first_name}
 					label="First NAme"
 				/>
-				<ul>
-					{users &&
-						users.map((user: User, i) => (
-							<li key={`${user._id}-${i * Math.random()}`}>
-								{user.first_name} {user.last_name}
-							</li>
-						))}
-				</ul>
+				<Virtuoso
+					totalCount={users.length}
+					style={{ height: 300 }}
+					data={users}
+					overscan={{ main: 2, reverse: 2 }}
+					itemContent={(index, user) => <FeedView user={user} />}
+				/>
 			</>
 		</Container>
 	);

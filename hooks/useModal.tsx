@@ -4,8 +4,8 @@ import Button from '../components/Forms/Button';
 import IonContent from '../components/Framework/IonContent';
 
 interface ModalContentProps {
-	onCancel: () => void;
-	onConfirm: () => void;
+	onCancel?: () => void;
+	onConfirm?: () => void;
 	component: JSX.Element;
 }
 
@@ -16,7 +16,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, compon
 				<Button
 					slot="start"
 					onClick={() => {
-						onCancel();
+						onCancel && onCancel();
 					}}
 				>
 					Cancel
@@ -25,7 +25,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, compon
 			<Button
 				slot="end"
 				onClick={() => {
-					onConfirm();
+					onConfirm && onConfirm();
 				}}
 			>
 				Confirm
@@ -37,13 +37,16 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, compon
 	</>
 );
 
+const ModalContentLite: React.FC<ModalContentProps> = ({ component }) => <div>{component}</div>;
+
 interface UseModalProps {
 	onCancel: () => void;
 	onConfirm: () => void;
 	component: JSX.Element;
+	type?: 'lite';
 }
 
-const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
+const useModal = ({ onCancel, onConfirm, component, type }: UseModalProps) => {
 	const [modal, setModal] = useState<HTMLIonModalElement | null>(null);
 	const modalRef = useRef<HTMLIonModalElement | null>(null);
 
@@ -53,9 +56,15 @@ const useModal = ({ onCancel, onConfirm, component }: UseModalProps) => {
 	const presentModal = useCallback(async () => {
 		if (!modal) {
 			const m = document.createElement('ion-modal') as HTMLIonModalElement;
-
+			type === 'lite' && m.classList.add('ion-modal-custom');
 			// Render the ModalContent component using createRoot
-			createRoot(m).render(<ModalContent onCancel={onCancel} onConfirm={onConfirm} component={component} />);
+			createRoot(m).render(
+				type === 'lite' ? (
+					<ModalContentLite component={component} />
+				) : (
+					<ModalContent onCancel={onCancel} onConfirm={onConfirm} component={component} />
+				)
+			);
 
 			document.body.appendChild(m);
 

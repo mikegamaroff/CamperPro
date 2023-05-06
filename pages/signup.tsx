@@ -32,6 +32,11 @@ function SignupPage() {
 		e.preventDefault();
 
 		if (newUser) {
+			if (!newUser.username.trim() || !newUser.email.trim() || !newUser.password.trim()) {
+				setError('All fields are required.');
+				showToast('danger', 'All fields are required.');
+				return;
+			}
 			try {
 				const response = await addUser(newUser);
 				if (response.success) {

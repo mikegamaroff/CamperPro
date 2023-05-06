@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import Button from './Button';
 import styles from './IconButton.module.css';
 interface ButtonProps {
 	icon: JSX.Element;
 	label?: string | number | JSX.Element;
-	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
 	className?: string;
 	href?: string;
 	size?: 'small';

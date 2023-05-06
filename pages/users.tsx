@@ -11,6 +11,7 @@ import { objectEquals } from '../model/model';
 import { User } from '../model/user';
 import { useFetchUsers } from '../routes/useFetchUsers';
 import styles from './users.module.css';
+import withAuth from './withAuth';
 const FeedView: React.FC<{ user: User }> = ({ user }) => {
 	return (
 		<div className={classNames('card', styles.names)}>
@@ -33,7 +34,7 @@ function Users() {
 				<FormInput
 					id="first_name"
 					setValues={setValues}
-					type="password"
+					type="text"
 					field={formValues?.first_name}
 					label="First NAme"
 				/>
@@ -49,4 +50,4 @@ function Users() {
 	);
 }
 
-export default Users;
+export default withAuth(Users);

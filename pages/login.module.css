@@ -1,0 +1,12 @@
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.signupContainer {
+	text-align: center;
+	margin-top: 40px;
+}
+.signupButton {
+	padding-bottom: 20px;
+}

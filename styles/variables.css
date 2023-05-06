@@ -5,27 +5,29 @@ http://ionicframework.com/docs/theming/ */
 	/** Ionic CSS Variables **/
 	/** primary **/
 
-	--ion-color-primary: #293781;
-	--ion-color-primary-rgb: 41, 55, 129;
+	--app-maxwidth: 700px;
+	--app-minwidth: 300px;
+	--ion-color-primary: #ffa300;
+	--ion-color-primary-rgb: rgb(255, 163, 0);
 	--ion-color-primary-contrast: #ffffff;
 	--ion-color-primary-contrast-rgb: 255, 255, 255;
-	--ion-color-primary-shade: #202b61;
-	--ion-color-primary-tint: rgb(101, 130, 213);
+	--ion-color-primary-shade: #d18503;
+	--ion-color-primary-tint: #febb48;
 
 	/** secondary **/
-	--ion-color-secondary: #4ab957;
-	--ion-color-secondary-rgb: 74, 185, 87;
+	--ion-color-secondary: #009400;
+	--ion-color-secondary-rgb: rgb(0, 148, 0);
 	--ion-color-secondary-contrast: #ffffff;
 	--ion-color-secondary-contrast-rgb: 255, 255, 255;
-	--ion-color-secondary-shade: #33893d;
-	--ion-color-secondary-tint: #6fbf78;
+	--ion-color-secondary-shade: #006700;
+	--ion-color-secondary-tint: #2cd62c;
 
 	/** tertiary **/
 	--ion-color-tertiary: var(--primary500);
 	--ion-color-tertiary-rgb: var(--primary500-rgb);
-	--ion-color-tertiary-contrast: var(--primary200);
-	--ion-color-tertiary-contrast-rgb: var(--primary200-rgb);
-	--ion-color-tertiary-shade: var(--primary900);
+	--ion-color-tertiary-contrast: var(--ion-color-primary-contrast);
+	--ion-color-tertiary-contrast-rgb: var(--primary150-rgb);
+	--ion-color-tertiary-shade: var(--primary);
 	--ion-color-tertiary-tint: var(--primary300);
 
 	/** success **/
@@ -82,39 +84,40 @@ http://ionicframework.com/docs/theming/ */
 	/* General Globals */
 
 	/* PRIMARY */
+
 	--primary: var(--ion-color-primary);
 	--primary-rgb: rgb(var(--ion-color-primary-rgb));
 
-	--primary700: #525d98;
-	--primary700-rgb: rgb(82, 93, 152);
+	--primary700: #d08c00;
+	--primary700-rgb: rgb(208, 140, 0);
 
-	--primary500: #7b83af;
-	--primary500-rgb: rgb(123, 131, 175);
+	--primary500: #ffb84d;
+	--primary500-rgb: rgb(255, 184, 77);
 
-	--primary300: #a3a9c7;
-	--primary300-rgb: rgb(163, 169, 199);
+	--primary300: #ffd199;
+	--primary300-rgb: rgb(255, 209, 153);
 
-	--primary50: #cccfde;
-	--primary50-rgb: rgb(204, 207, 222);
+	--primary50: #fff1e6;
+	--primary50-rgb: rgb(255, 241, 230);
 
-	--primary10: #edeef4;
-	--primary10-rgb: rgb(237, 238, 244);
+	--primary10: #fff9f2;
+	--primary10-rgb: rgb(255, 249, 242);
 
 	/* SECONDARY */
-	--secondary: var(--ion-color-secondary);
+	--secondary: #009400;
 	--secondary-rgb: rgb(var(--ion-color-secondary-rgb));
 
-	--secondary700: #7ec56c;
-	--secondary700-rgb: rgb(126, 197, 108);
+	--secondary700: #007a00;
+	--secondary700-rgb: rgb(0, 122, 0);
 
-	--secondary500: #acd18e;
-	--secondary500-rbg: rgb(172, 209, 142);
+	--secondary500: #47c647;
+	--secondary500-rgb: rgb(71, 198, 71);
 
-	--secondary300: #c7ddb1;
-	--secondary300-rgb: rgb(199, 221, 177);
+	--secondary300: #a2dcaa;
+	--secondary300-rgb: rgb(162, 220, 170);
 
-	--secondary50: #dae9d3;
-	--secondary50-rgb: rgb(218, 233, 211);
+	--secondary50: #d8eed8;
+	--secondary50-rgb: rgb(216, 238, 216);
 
 	/* NEUTRAL */
 	--neutral900: #33312e;
@@ -143,7 +146,7 @@ http://ionicframework.com/docs/theming/ */
 
 	/* GENERALS */
 
-	--background-opacity: rgb(253, 253, 253, 0.5) !important;
+	--background-opacity: rgb(255, 163, 0.5) !important;
 	--background-transparent: rgb(253, 253, 253, 0) !important;
 	--background-rgb: rgb(253, 253, 253) !important;
 
@@ -179,15 +182,15 @@ http://ionicframework.com/docs/theming/ */
 
 	body {
 		/** primary **/
-		--ion-color-primary: #7e87b5;
-		--ion-color-primary-rgb: 41, 55, 129;
+		--ion-color-primary: #ffa300;
+		--ion-color-primary-rgb: rgb(255, 163, 0);
 		--ion-color-primary-contrast: #000000;
 		--ion-color-primary-contrast-rgb: 255, 255, 255;
 		--ion-color-primary-shade: #a2a9cd;
 		--ion-color-primary-tint: rgb(101, 130, 213);
 
 		/** secondary **/
-		--ion-color-secondary: #4ab957;
+		--ion-color-secondary: #009400;
 		--ion-color-secondary-rgb: 74, 185, 87;
 		--ion-color-secondary-contrast: #000000;
 		--ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -257,65 +260,65 @@ http://ionicframework.com/docs/theming/ */
 		/* General Globals */
 
 		/* PRIMARY */
+
 		--primary: var(--ion-color-primary);
 		--primary-rgb: rgb(var(--ion-color-primary-rgb));
 
-		--primary700: #edeef4;
-		--primary700-rgb: rgb(237, 238, 244);
+		--primary700: #fff1e6;
+		--primary700-rgb: rgb(255, 241, 230);
 
-		--primary500: #a8acc3;
-		--primary500-rgb: rgb(168, 172, 195);
+		--primary500: #ffd199;
+		--primary500-rgb: rgb(255, 209, 153);
 
-		--primary300: #747ca4;
-		--primary300-rgb: rgb(116, 124, 164);
+		--primary300: #ffb84d;
+		--primary300-rgb: rgb(255, 184, 77);
 
-		--primary50: #7b83af;
-		--primary50-rgb: rgb(123, 131, 175);
+		--primary50: #d08c00;
+		--primary50-rgb: rgb(208, 140, 0);
 
-		--primary10: #2c3463;
-		--primary10-rgb: rgb(44, 52, 99);
+		--primary10: #a86a00;
+		--primary10-rgb: rgb(168, 106, 0);
 
 		/* SECONDARY */
 		--secondary: var(--ion-color-secondary);
 		--secondary-rgb: rgb(var(--ion-color-secondary-rgb));
 
-		--secondary700: #7ec56c;
-		--secondary700-rgb: rgb(126, 197, 108);
+		--secondary700: #a2dcaa;
+		--secondary700-rgb: rgb(162, 220, 170);
 
-		--secondary500: #acd18e;
-		--secondary500-rbg: rgb(172, 209, 142);
+		--secondary500: #47c647;
+		--secondary500-rgb: rgb(71, 198, 71);
 
-		--secondary300: #c7ddb1;
-		--secondary300-rgb: rgb(199, 221, 177);
+		--secondary300: #007a00;
+		--secondary300-rgb: rgb(0, 122, 0);
 
-		--secondary50: #dae9d3;
-		--secondary50-rgb: rgb(218, 233, 211);
+		--secondary50: #009400;
+		--secondary50-rgb: rgb(0, 148, 0);
 
 		/* NEUTRAL */
+		--neutral900: #fdfdfd;
+		--neutral900-rgb: rgb(253, 253, 253);
 
-		--neutral900: #eaeaea;
-		--neutral900-rgb: rgb(234, 234, 234);
+		--neutral700: #f4f4f4;
+		--neutral700-rgb: rgb(244, 244, 244);
 
-		--neutral700: #d6d6d6;
-		--neutral700-rgb: rgb(214, 214, 214);
+		--neutral500: #eaeaea;
+		--neutral500-rgb: rgb(234, 234, 234);
 
-		--neutral500: #adacab;
-		--neutral500-rgb: rgb(173, 172, 171);
+		--neutral300: #d6d6d6;
+		--neutral300-rgb: rgb(214, 214, 214);
 
-		--neutral300: #848381;
-		--neutral300-rgb: rgb(132, 131, 129);
+		--neutral150: #adacab;
+		--neutral150-rgb: rgb(173, 172, 171);
 
-		--neutral150: #5b5a57;
-		--neutral150-rgb: rgb(91, 90, 87);
+		--neutral50: #848381;
+		--neutral50-rgb: rgb(132, 131, 129);
 
-		--neutral50: #1f1e1c;
-		--neutral50-rgb: rgb(51, 49, 46);
+		--neutral10: #5b5a57;
+		--neutral10-rgb: rgb(91, 90, 87);
 
-		--neutral10: #1a1917;
-		--neutral10-rgb: rgb(26, 25, 23);
-
-		--neutral: #040404;
-		--neutral-rgb: rgb(4, 4, 4);
+		--neutral: #33312e;
+		--neutral-rgb: rgb(51, 49, 46);
 
 		/* GENERALS */
 

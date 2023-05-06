@@ -40,7 +40,7 @@ export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 	);
 
 	return (
-		<NextLink {...props} passHref>
+		<NextLink {...props} passHref className="nounderline">
 			{React.cloneElement(children as React.ReactElement, { onClick: handleClick })}
 		</NextLink>
 	);

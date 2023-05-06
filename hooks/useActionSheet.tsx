@@ -5,7 +5,8 @@ import IonActionSheet, { IonActionSheetRef } from '../components/Framework/IonAc
 import { CustomIonActionSheetProps } from '../model/framework';
 type UseActionSheetProps = CustomIonActionSheetProps;
 
-const useActionSheet = ({ header, subHeader, buttons, cssClass }: UseActionSheetProps) => {
+const useActionSheet = ({ header, subHeader, buttons }: UseActionSheetProps) => {
+	console.log(header, subHeader, buttons);
 	const [actionSheet, setActionSheet] = useState<IonActionSheetRef | null>(null);
 	const [isRendered, setIsRendered] = useState(false);
 	const actionSheetRef = useRef<IonActionSheetRef | null>(null);
@@ -25,7 +26,6 @@ const useActionSheet = ({ header, subHeader, buttons, cssClass }: UseActionSheet
 					header={header}
 					subHeader={subHeader}
 					buttons={buttons}
-					cssClass={cssClass}
 					setIsRendered={setIsRendered}
 				/>
 			);
@@ -44,7 +44,7 @@ const useActionSheet = ({ header, subHeader, buttons, cssClass }: UseActionSheet
 			// If action sheet already exists, just present it
 			actionSheet.present();
 		}
-	}, [actionSheet, header, subHeader, buttons, cssClass]);
+	}, [actionSheet, header, subHeader, buttons]);
 
 	useEffect(() => {
 		if (isRendered) {

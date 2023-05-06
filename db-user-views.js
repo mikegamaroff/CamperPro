@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env.local' });
 
@@ -15,6 +16,7 @@ const designDoc = {
 		'all-users': {
 			map: function (doc) {
 				if (doc.type === 'user') {
+					// eslint-disable-next-line no-undef
 					emit(doc.email, doc);
 				}
 			}
@@ -29,20 +31,20 @@ const designDoc = {
 
 function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
-	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, (err, body) => {
+	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, err => {
 		if (err) {
 			console.error('Error replicating database:', err);
 			return;
 		}
-		console.log('Database replication successful:', body);
+		console.log('Database replication successful:');
 	});
 }
 
 function handleDesignDoc(db) {
 	db.get(designDoc._id, (err, existingDoc) => {
 		if (err && err.statusCode === 404) {
-			// Design document does not exist, create it
-			db.insert(designDoc, (err, body) => {
+			// Design document does not exist, create itås
+			db.insert(designDoc, err => {
 				if (err) {
 					console.error('Error inserting design document:', err);
 					return;
@@ -55,14 +57,14 @@ function handleDesignDoc(db) {
 			console.error('Error getting design document:', err);
 		} else {
 			// Design document exists, delete it first
-			db.destroy(existingDoc._id, existingDoc._rev, (err, body) => {
+			db.destroy(existingDoc._id, existingDoc._rev, err => {
 				if (err) {
 					console.error('Error deleting existing design document:', err);
 					return;
 				}
 
 				// Insert the new design document
-				db.insert(designDoc, (err, body) => {
+				db.insert(designDoc, err => {
 					if (err) {
 						console.error('Error inserting new design document:', err);
 						return;
@@ -76,10 +78,10 @@ function handleDesignDoc(db) {
 	});
 }
 
-nano.db.get(dbName, (err, body) => {
+nano.db.get(dbName, err => {
 	if (err && err.statusCode === 404) {
 		// Database does not exist, create it and add the design document
-		nano.db.create(dbName, (err, body) => {
+		nano.db.create(dbName, err => {
 			if (err) {
 				console.error('Error creating database:', err);
 				return;

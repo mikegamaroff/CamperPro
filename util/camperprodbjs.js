@@ -1,9 +1,9 @@
 'use strict';
-const nano = require('nano');
+import nano from 'nano';
 
 // camperprodb.js
-const dotenv = require('dotenv');
-dotenv.config({ path: './.env.local' });
+import { config } from 'dotenv';
+config({ path: './.env.local' });
 
 function createDbInstanceJs() {
 	const dbUrl = process.env.COUCHDB_URL;
@@ -13,9 +13,9 @@ function createDbInstanceJs() {
 		throw new Error('COUCHDB_NAME environment variable is not defined');
 	}
 
-	var nanoInstance = nano(dbUrl);
-	var db = nanoInstance.use(dbName);
+	const nanoInstance = nano(dbUrl);
+	const db = nanoInstance.use(dbName);
 	return db;
 }
 
-module.exports = createDbInstanceJs;
+export default createDbInstanceJs;

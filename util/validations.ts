@@ -95,3 +95,22 @@ const validationFunctions: ValidationFunctions = {
 		return { success, message: success ? null : rule.message };
 	}
 };
+
+export const validateEmail = (email: string) => {
+	// Regular expression to match a properly formatted email address
+	const regex =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	// Test the email against the regular expression
+	return regex.test(email);
+};
+
+export const validatePassword = (password: string) => {
+	// Regular expressions to match the required criteria
+	const minLength = /.{6,}/;
+	const hasNumber = /\d/;
+	const hasUppercase = /[A-Z]/;
+
+	// Test the password against the regular expressions
+	return minLength.test(password) && hasNumber.test(password) && hasUppercase.test(password);
+};

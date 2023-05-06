@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict';
 const { v4: uuidv4 } = require('uuid');
 const createDbInstanceJs = require('./util/camperprodbjs');
@@ -17,7 +18,7 @@ for (let i = 0; i < 10; i++) {
 		type: 'user',
 		first_name: firstName,
 		last_name: lastName,
-		email: email,
+		email,
 		password: '11111',
 		phone_number: '123-456-7890',
 		created_at: new Date().toISOString(),

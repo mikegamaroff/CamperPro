@@ -12,10 +12,9 @@ interface IonActionSheetProps extends CustomIonActionSheetProps {
 }
 
 const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
-	({ header, subHeader, buttons, cssClass, setActionSheet, setIsRendered }, ref) => {
+	({ header, subHeader, buttons, setActionSheet, setIsRendered }, ref) => {
 		const actionSheetButtons: ActionSheetButton[] = buttons.map(button => ({
 			text: button.text,
-			cssClass: button.cssClass,
 			role: button.role,
 			handler: () => {
 				button.handler && button.handler();
@@ -55,7 +54,6 @@ const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
 				if (el) {
 					el.header = header;
 					el.subHeader = subHeader;
-					el.cssClass = cssClass;
 					el.buttons = actionSheetButtons;
 					el.addEventListener('ionActionSheetDidPresent', handleActionSheetDidPresent);
 					el.addEventListener('ionActionSheetDidDismiss', handleActionSheetDidDismiss);

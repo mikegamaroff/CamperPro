@@ -1,5 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Document } from './model';
-
 export interface User extends Document {
 	_id?: string;
 	type: string;
@@ -14,17 +14,16 @@ export interface User extends Document {
 	suspended: boolean;
 }
 export const EmptyNewUser: User = {
-	_id: '',
-	type: '',
+	_id: `user:${uuidv4()}`,
+	type: 'user',
 	username: '',
 	first_name: '',
 	last_name: '',
 	email: '',
 	password: '',
 	phone_number: '',
-	created_at: '',
-	updated_at: '',
-	suspended: false,
-	_rev: ''
+	created_at: new Date().toISOString(),
+	updated_at: new Date().toISOString(),
+	suspended: false
 };
 export const EmptyUser: User = EmptyNewUser;

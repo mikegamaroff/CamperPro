@@ -1,0 +1,35 @@
+.innerContainer {
+	max-width: 500px;
+	width: 100%;
+}
+.logoContainer {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 10px 0 0px 0;
+}
+.title {
+	padding: 0px 5vw 10px 5vw;
+	text-align: center;
+	color: var(--neutral700);
+}
+
+.panelContainer {
+	text-align: center;
+}
+
+.panelRow {
+	margin-top: 30px;
+}
+.btnUnderPadding {
+	margin: 20px 0 10px 0;
+}
+.btnUnderPadding a {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.overlimitMessage {
+	text-align: center;
+	margin: 40px 0 40px 0;
+}

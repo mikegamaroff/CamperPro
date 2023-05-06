@@ -1,16 +1,27 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from 'react';
+import { Container } from '../components/Container';
+import Button from '../components/Forms/Button';
+import { Input } from '../components/Forms/Input';
 import IonSpinner from '../components/Framework/IonSpinner';
+import { Go } from '../components/Go';
+import { SiteLogoBanner } from '../components/SiteLogoBanner';
 import { useGlobalToast } from '../context/toastContext';
 import { useLogin } from '../routes/useLogin';
-export default function LoginPage() {
+import withLoginRedirect from './withLoginRedirect';
+// eslint-disable-next-line css-modules/no-unused-class
+import onboardingStyles from '../styles/onboarding.module.css';
+import styles from './login.module.css';
+
+function LoginPage() {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
-	const [error, setError] = useState<string>('');
 	const { loginUser, isLoading } = useLogin(); // Use the custom hook
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
-	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+	const [error, setError] = useState<string>('');
+
+	const handleSubmit = async (e: MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		try {
 			const response = await loginUser(email, password);
@@ -35,34 +46,74 @@ export default function LoginPage() {
 
 	return (
 		<div>
-			<h1>Login</h1>
-
 			{isLoading ? (
 				<IonSpinner name="dots"></IonSpinner>
 			) : (
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="email">Email:</label>
-					<input
-						type="email"
-						id="email"
-						value={email}
-						onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-						required
-					/>
-					<br />
-					<label htmlFor="password">Password:</label>
-					<input
-						type="password"
-						id="password"
-						value={password}
-						onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-						required
-					/>
-					<br />
-					{error && <p>{error}</p>}
-					<button type="submit">Log In</button>
-				</form>
+				<Container>
+					<div
+						className="contentWrapper"
+						onKeyDown={event => {
+							event.key === 'Enter' && handleSubmit(event);
+						}}
+					>
+						<SiteLogoBanner />
+						<div className="space20" />
+						<form>
+							<div>
+								<div className={styles.formContainer}>
+									<Input
+										placeholder="Email"
+										type="email"
+										tabIndex={1}
+										value={email}
+										onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+									/>
+									<Input
+										placeholder="Password"
+										type="password"
+										tabIndex={2}
+										value={password}
+										onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+									/>
+								</div>
+								<div className={onboardingStyles.panelContainer}>
+									<div className={onboardingStyles.panelRow}>
+										<div className={onboardingStyles.btnUnderPadding}>
+											<Button size="large" expand="block" onClick={handleSubmit} tabIndex={3}>
+												Login
+											</Button>
+										</div>
+
+										<div className={onboardingStyles.btnUnderPadding}>
+											<Go href="/forgotPassword">
+												<div>Forgot Password</div>
+											</Go>
+										</div>
+									</div>
+								</div>
+								<div className={styles.signupContainer}>
+									<p>{`Don't have an account?`}</p>
+									<div className={styles.signupButton}>
+										<Go href="/signup">
+											<Button
+												color="tertiary"
+												fill="solid"
+												size="default"
+												className="radius8"
+												expand="block"
+											>
+												Sign up for an account
+											</Button>
+										</Go>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</Container>
 			)}
 		</div>
 	);
 }
+
+export default withLoginRedirect(LoginPage);

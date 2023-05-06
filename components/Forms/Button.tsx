@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
 interface CustomIonButtonProps {
 	color?: string;
@@ -6,9 +6,12 @@ interface CustomIonButtonProps {
 	fill?: string;
 	target?: string;
 	slot?: string;
+	size?: string;
+	expand?: string;
+	tabIndex?: number;
 	disabled?: boolean;
 	href?: string;
-	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	onClick?: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void | Promise<void>;
 	children?: React.ReactNode;
 }
 
@@ -20,6 +23,9 @@ const Button: React.FC<CustomIonButtonProps> = ({
 	slot,
 	disabled,
 	href,
+	size,
+	expand,
+	tabIndex,
 	onClick,
 	children
 }) => {
@@ -32,6 +38,9 @@ const Button: React.FC<CustomIonButtonProps> = ({
 			slot,
 			target,
 			disabled,
+			size,
+			expand,
+			tabIndex,
 			href,
 			onClick
 		},

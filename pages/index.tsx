@@ -8,6 +8,7 @@ import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import Button from '../components/Forms/Button';
 import useAlert from '../hooks/useAlert';
 
+import { Header } from '../components/Header';
 import useDatetimeModal from '../hooks/useDatetimeModal';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
@@ -121,28 +122,31 @@ function Home() {
 	});
 
 	return (
-		<Container>
-			<>
-				<Go href="/users">
-					<Button color={'secondary'}>Users</Button>
-				</Go>
-				<Button color={'primary'} onClick={presentModal}>
-					Open Modal
-				</Button>
-				<Button color={'tertiary'} onClick={handleLogout}>
-					Logout
-				</Button>
-				<Button color={'primary'} onClick={handleButtonClick}>
-					Action Sheet
-				</Button>
-				<Button color={'primary'} onClick={presentDatetimeModal}>
-					Date Picker
-				</Button>
-				<Button color={'primary'} onClick={presentAlert}>
-					alert
-				</Button>
-			</>
-		</Container>
+		<>
+			<Header title="logo" />
+			<Container>
+				<>
+					<Go href="/users">
+						<Button color={'secondary'}>Users</Button>
+					</Go>
+					<Button color={'primary'} onClick={presentModal}>
+						Open Modal
+					</Button>
+					<Button color={'tertiary'} onClick={handleLogout}>
+						Logout
+					</Button>
+					<Button color={'primary'} onClick={handleButtonClick}>
+						Action Sheet
+					</Button>
+					<Button color={'primary'} onClick={presentDatetimeModal}>
+						Date Picker
+					</Button>
+					<Button color={'primary'} onClick={presentAlert}>
+						alert
+					</Button>
+				</>
+			</Container>
+		</>
 	);
 }
 export default withAuth(Home);

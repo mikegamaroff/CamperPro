@@ -1,0 +1,24 @@
+.pageProfileHeader {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+.pageProfileImage {
+	height: 160px;
+	width: 160px;
+	text-align: center;
+	overflow: hidden;
+}
+.pageBannerTitle {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+	color: var(--primary700);
+	font-weight: 600;
+	font-size: 24px;
+}
+.pageSubtitle {
+	text-align: center;
+	margin-top: 10px;
+}

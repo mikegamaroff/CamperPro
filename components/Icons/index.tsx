@@ -1,55 +1,35 @@
-import Image, { StaticImageData } from 'next/image';
 import { Icon } from './Icon';
 
-import Eye from '../../assets/icons/EyeIcon.svg';
-import EyeOff from '../../assets/icons/EyeOffIcon.svg';
-import Cellsignal from '../../assets/icons/categories/CellsignalIcon.svg';
-import Climbing from '../../assets/icons/categories/ClimbingIcon.svg';
-import Fire from '../../assets/icons/categories/FireIcon.svg';
-import Fishing from '../../assets/icons/categories/FishingIcon.svg';
-import Forest from '../../assets/icons/categories/ForestIcon.svg';
-import Hiking from '../../assets/icons/categories/HikingIcon.svg';
-import Hunting from '../../assets/icons/categories/HuntingIcon.svg';
-import Lake from '../../assets/icons/categories/LakeIcon.svg';
-import Mountain from '../../assets/icons/categories/MountainIcon.svg';
-import Ocean from '../../assets/icons/categories/OceanIcon.svg';
-import Pets from '../../assets/icons/categories/PetsIcon.svg';
-import River from '../../assets/icons/categories/RiverIcon.svg';
-import Wildlife from '../../assets/icons/categories/WildlifeIcon.svg';
+import Eye from '../../assets/icons/EyeIcon.component.svg';
+import EyeOff from '../../assets/icons/EyeOffIcon.component.svg';
+import Search from '../../assets/icons/SearchIcon.component.svg';
 
+import Trips from '../../assets/icons/TripsIcon.component.svg';
+import Profile from '../../assets/icons/UserIcon.component.svg';
+import Cellsignal from '../../assets/icons/categories/CellsignalIcon.component.svg';
+import Climbing from '../../assets/icons/categories/ClimbingIcon.component.svg';
+import Fire from '../../assets/icons/categories/FireIcon.component.svg';
+import Fishing from '../../assets/icons/categories/FishingIcon.component.svg';
+import Forest from '../../assets/icons/categories/ForestIcon.component.svg';
+import Hiking from '../../assets/icons/categories/HikingIcon.component.svg';
+import Hunting from '../../assets/icons/categories/HuntingIcon.component.svg';
+import Lake from '../../assets/icons/categories/LakeIcon.component.svg';
+import Mountain from '../../assets/icons/categories/MountainIcon.component.svg';
+import Ocean from '../../assets/icons/categories/OceanIcon.component.svg';
+import Pets from '../../assets/icons/categories/PetsIcon.component.svg';
+import River from '../../assets/icons/categories/RiverIcon.component.svg';
+import Wildlife from '../../assets/icons/categories/WildlifeIcon.component.svg';
 interface IconProps {
 	size?: number;
 }
 
-interface IconMap {
-	[key: string]: StaticImageData;
-}
-
-const iconMap: IconMap = {
-	Eye,
-	EyeOff,
-	Cellsignal,
-	Climbing,
-	Fire,
-	Fishing,
-	Forest,
-	Hiking,
-	Hunting,
-	Lake,
-	Mountain,
-	Ocean,
-	Pets,
-	River,
-	Wildlife
-};
-const createIcon = (name: string, key: string) => {
-	const src = iconMap[key];
+const createIcon = (SvgComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>, key: string) => {
 	const IconComponent = ({ size }: IconProps) => (
 		<Icon size={size}>
-			<Image src={src} alt={name} width={size || 30} height={size || 30} />
+			<SvgComponent width={size || 30} height={size || 30} />
 		</Icon>
 	);
-	IconComponent.displayName = name;
+	IconComponent.displayName = key;
 	return IconComponent;
 };
 
@@ -68,3 +48,6 @@ export const IconForest = createIcon(Forest, 'Forest');
 export const IconFishing = createIcon(Fishing, 'Fishing');
 export const IconClimbing = createIcon(Climbing, 'Climbing');
 export const IconFire = createIcon(Fire, 'Fire');
+export const IconSearch = createIcon(Search, 'Search');
+export const IconTrips = createIcon(Trips, 'Trips');
+export const IconProfile = createIcon(Profile, 'Profile');

@@ -126,7 +126,7 @@ function Home() {
 			<Header title="logo" />
 			<Container>
 				<>
-					<Go href="/users">
+					<Go href="/trips">
 						<Button color={'secondary'}>Users</Button>
 					</Go>
 					<Button color={'primary'} onClick={presentModal}>

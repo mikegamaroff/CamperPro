@@ -3,9 +3,9 @@
 }
 .fieldContainer {
 	padding: 0;
-	position: relative;
 }
-.fieldHolder {
+
+.inputContainer {
 	position: relative;
 }
 .long {
@@ -70,7 +70,7 @@
 .fieldIcon {
 	position: absolute;
 	right: 7px;
-	top: 34px;
+	top: 13px;
 }
 
 /* fixed fields */

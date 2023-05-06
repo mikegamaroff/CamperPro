@@ -69,40 +69,42 @@ export function Input<T extends string | number>({
 		}
 	}
 	return (
-		<div className={styles.fieldHolder} style={{ width: width || '100%' }}>
+		<div style={{ width: width || '100%' }}>
 			{label && <div className={styles.label}>{label}</div>}
-			{type === 'password' && (
-				<div className={styles.fieldIcon}>
-					<IconButton
-						size="small"
-						icon={passwordVisible ? <IconEyeOff /> : <IconEye />}
-						onClick={unmaskPassword}
-					/>
-				</div>
-			)}
 
-			<input
-				style={{
-					color: errors && errors.length > 0 ? 'red' : color,
-					paddingRight: type === 'password' ? '45px' : '0px'
-				}}
-				tabIndex={tabIndex}
-				className={styles.input}
-				id={id && id}
-				placeholder={placeholder || 'Placeholder'}
-				name={name && name}
-				type={fieldType()}
-				step={step || undefined}
-				disabled={disabled}
-				value={value || ''}
-				// step={step ? step : undefined}
-				onBlur={onBlur && onBlur}
-				onKeyDown={handleKeyDown}
-				onChange={onChange && onChange}
-				onPaste={onPaste && onPaste}
-				ref={inputRef}
-				autoComplete={autoComplete || 'off'}
-			></input>
+			<div className={styles.inputContainer}>
+				{type === 'password' && (
+					<div className={styles.fieldIcon}>
+						<IconButton
+							size="small"
+							icon={passwordVisible ? <IconEyeOff /> : <IconEye />}
+							onClick={unmaskPassword}
+						/>
+					</div>
+				)}
+				<input
+					style={{
+						color: errors && errors.length > 0 ? 'red' : color,
+						paddingRight: type === 'password' ? '45px' : '0px'
+					}}
+					tabIndex={tabIndex}
+					className={styles.input}
+					id={id && id}
+					placeholder={placeholder || 'Placeholder'}
+					name={name && name}
+					type={fieldType()}
+					step={step || undefined}
+					disabled={disabled}
+					value={value || ''}
+					// step={step ? step : undefined}
+					onBlur={onBlur && onBlur}
+					onKeyDown={handleKeyDown}
+					onChange={onChange && onChange}
+					onPaste={onPaste && onPaste}
+					ref={inputRef}
+					autoComplete={autoComplete || 'off'}
+				></input>
+			</div>
 			<FormErrors errors={errors} />
 		</div>
 	);

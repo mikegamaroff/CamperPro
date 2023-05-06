@@ -6,12 +6,18 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { User } from '../../model/user';
 import createDbInstance from '../../util/camperprodb';
 import { isCouchDbError } from '../../util/isCouchDbError';
+import { validateEmail, validatePassword } from '../../util/validations';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key'; // Replace 'your_secret_key' with a strong secret key
 
 async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance();
 	const newUser: User = req.body;
+
+	if (!validateEmail(newUser.email) || !validatePassword(newUser.password)) {
+		res.status(400).json({ message: 'Invalid email or password format' });
+		return;
+	}
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');

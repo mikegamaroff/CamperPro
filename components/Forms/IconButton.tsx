@@ -17,7 +17,6 @@ interface ButtonProps {
 export const IconButton: React.FC<ButtonProps> = ({ size, icon, label, onClick, iconRight, href, disabled }) => (
 	<div>
 		<Button
-			color={'tertiary'}
 			className={classNames(['icon-button', size === 'small' ? styles.textSmall : styles.textRegular])}
 			fill="clear"
 			target="_self"

@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from 'react';
+import { KeyboardEvent, MouseEvent, useState } from 'react';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
-import { Input } from '../components/Forms/Input';
+import { FormInput } from '../components/Forms/FormInput';
 import IonSpinner from '../components/Framework/IonSpinner';
 import { Go } from '../components/Go';
 import { SiteLogoBanner } from '../components/SiteLogoBanner';
 import { useGlobalToast } from '../context/toastContext';
+import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
+import { useFormValues } from '../hooks/useFormValues';
+import { objectEquals } from '../model/model';
+import { EmptyNewUser, User } from '../model/user';
 import { useLogin } from '../routes/useLogin';
 import withLoginRedirect from './withLoginRedirect';
 // eslint-disable-next-line css-modules/no-unused-class
@@ -20,9 +24,19 @@ function LoginPage() {
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
 	const [error, setError] = useState<string>('');
-
+	const {
+		setValues,
+		formValues,
+		stateDataObject: newUser
+	} = useFormValues<User>(UserEditRules, EmptyNewUser, objectEquals);
 	const handleSubmit = async (e: MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent<HTMLDivElement>) => {
 		e.preventDefault();
+
+		if (!newUser?.email.trim() || !newUser.password.trim()) {
+			setError('All fields are required.');
+			showToast('danger', 'All fields are required.');
+			return;
+		}
 		try {
 			const response = await loginUser(email, password);
 			if (response.success) {
@@ -49,7 +63,7 @@ function LoginPage() {
 			{isLoading ? (
 				<IonSpinner name="dots"></IonSpinner>
 			) : (
-				<Container>
+				<Container hidetabs>
 					<div
 						className="contentWrapper"
 						onKeyDown={event => {
@@ -61,19 +75,21 @@ function LoginPage() {
 						<form>
 							<div>
 								<div className={styles.formContainer}>
-									<Input
-										placeholder="Email"
-										type="email"
-										tabIndex={1}
-										value={email}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+									<FormInput
+										nogap
+										id="email"
+										setValues={setValues}
+										type="text"
+										field={formValues?.email}
+										label="Email"
 									/>
-									<Input
-										placeholder="Password"
+									<FormInput
+										nogap
+										id="password"
+										setValues={setValues}
 										type="password"
-										tabIndex={2}
-										value={password}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+										field={formValues?.password}
+										label="Password"
 									/>
 								</div>
 								<div className={onboardingStyles.panelContainer}>
@@ -97,7 +113,7 @@ function LoginPage() {
 										<Go href="/signup">
 											<Button
 												color="tertiary"
-												fill="solid"
+												fill="outline"
 												size="default"
 												className="radius8"
 												expand="block"

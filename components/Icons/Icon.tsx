@@ -6,9 +6,13 @@ interface IconProps {
 }
 
 const iconStyle = (size: number) => {
-	return { display: 'block', width: size, height: size };
+	return { width: size, height: size };
 };
 
 export const Icon: React.FC<IconProps> = ({ size = 24, children }) => {
-	return <div style={iconStyle(size)}>{children}</div>;
+	return (
+		<div style={iconStyle(size)} className="icon">
+			{children}
+		</div>
+	);
 };

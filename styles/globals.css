@@ -159,6 +159,7 @@ a:hover {
 .fullwidth {
 	width: 100%;
 }
+
 .radius8 {
 	border-radius: 8px;
 }
@@ -303,14 +304,15 @@ ion-datetime {
 .popover > .arrow {
 	color: red;
 }
-
+ion-tab-bar {
+	height: 70px;
+}
 ion-tab-button {
 	font-size: 10px;
 	--color: var(--neutral700);
 	--background-focused: var(--ion-color-primary-tint);
 	--color-selected: var(--ion-color-primary-tint);
 	--padding-end: 0px;
-	--padding-start: 10px;
 	--padding-bottom: 0px;
 	--margin-left: 0px;
 	--margin-right: 0px;
@@ -319,7 +321,19 @@ ion-tab-button {
 .pointer {
 	cursor: pointer;
 }
+.tab-button {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 5px;
+}
+ion-tabs {
+	pointer-events: none;
+}
 
+ion-tab-button {
+	pointer-events: all;
+}
 ion-header {
 	margin: auto;
 	max-width: 650px;
@@ -327,7 +341,7 @@ ion-header {
 }
 
 .innerContent {
-	height: 100%;
+	height: 100vh;
 	margin: auto;
 	max-width: 650px;
 	background: var(--ion-color-primary-contrast);

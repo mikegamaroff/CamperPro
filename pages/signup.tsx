@@ -63,7 +63,7 @@ function SignupPage() {
 			{isLoading ? (
 				<IonSpinner name="dots"></IonSpinner>
 			) : (
-				<Container scroll>
+				<Container scroll hidetabs>
 					<div
 						onKeyDown={event => {
 							event.key === 'Enter' && handleSubmit(event);
@@ -120,7 +120,7 @@ function SignupPage() {
 										<Go href="/login">
 											<Button
 												color="tertiary"
-												fill="solid"
+												fill="outline"
 												size="default"
 												className="radius8"
 												expand="block"

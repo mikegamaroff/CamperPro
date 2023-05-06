@@ -13,7 +13,10 @@ import {
 	IconMountain,
 	IconOcean,
 	IconPets,
+	IconProfile,
 	IconRiver,
+	IconSearch,
+	IconTrips,
 	IconWildlife
 } from '../components/Icons';
 import styles from './icons.module.css';
@@ -25,7 +28,10 @@ function Icons() {
 
 	const iconsUi: IconType[] = [
 		{ icon: <IconEye />, name: 'IconEye' },
-		{ icon: <IconEyeOff />, name: 'IconEyeOff' }
+		{ icon: <IconEyeOff />, name: 'IconEyeOff' },
+		{ icon: <IconSearch />, name: 'IconSearch' },
+		{ icon: <IconTrips />, name: 'IconTrips' },
+		{ icon: <IconProfile />, name: 'IconProfile' }
 	];
 
 	const iconsCategories: IconType[] = [

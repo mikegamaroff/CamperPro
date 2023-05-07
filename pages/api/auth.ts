@@ -40,7 +40,7 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message:
 async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ token: string } | { message: string }>) {
 	const db = createDbInstance();
 	const { email, password } = req.body;
-	// Add these lines at the beginning of the handler function
+
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -50,10 +50,20 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 			key: email
 		});
 		const user = response.rows[0]?.value as User;
+
 		console.log('Fetched user:', user);
 		console.log('Plain text password:', password);
+
+		if (!user) {
+			console.log('User not found');
+			res.status(401).json({ message: 'Invalid email or password' });
+			return;
+		}
+
 		const isPasswordMatch = await bcrypt.compare(password, user.password);
-		if (!user || !isPasswordMatch) {
+		console.log('Password match result:', isPasswordMatch);
+
+		if (!isPasswordMatch) {
 			res.status(401).json({ message: 'Invalid email or password' });
 			return;
 		}

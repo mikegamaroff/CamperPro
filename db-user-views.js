@@ -14,21 +14,18 @@ const designDoc = {
 	_id: `_design/${designDocName}`,
 	views: {
 		'all-users': {
-			map: function (doc) {
-				if (doc.type === 'user') {
-					// eslint-disable-next-line no-undef
-					emit(doc.email, doc);
+			map: `
+				function (doc) {
+					if (doc.type === 'user') {
+						emit(doc.email, doc);
+					}
 				}
-			}
-				.toString()
-				.replace(/\n\t\t\t/g, ' ')
-				.replace(/\t/g, '')
+			`
 		}
 		// Add more views here if needed
 	},
 	language: 'javascript'
 };
-
 function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
 	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, err => {

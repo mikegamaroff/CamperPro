@@ -50,20 +50,16 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 			key: email
 		});
 		const user = response.rows[0]?.value as User;
-
 		console.log('Fetched user:', user);
 		console.log('Plain text password:', password);
-
 		if (!user) {
-			console.log('User not found');
+			console.error('User not found in the database');
 			res.status(401).json({ message: 'Invalid email or password' });
 			return;
 		}
-
 		const isPasswordMatch = await bcrypt.compare(password, user.password);
-		console.log('Password match result:', isPasswordMatch);
-
 		if (!isPasswordMatch) {
+			console.error('Password does not match');
 			res.status(401).json({ message: 'Invalid email or password' });
 			return;
 		}

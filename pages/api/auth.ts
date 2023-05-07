@@ -40,6 +40,10 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message:
 async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ token: string } | { message: string }>) {
 	const db = createDbInstance();
 	const { email, password } = req.body;
+	// Add these lines at the beginning of the handler function
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'POST');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 	try {
 		const response = await db.view('user-view', 'all-users', {
@@ -48,7 +52,8 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 		const user = response.rows[0]?.value as User;
 		console.log('Fetched user:', user);
 		console.log('Plain text password:', password);
-		if (!user || !bcrypt.compareSync(password, user.password)) {
+		const isPasswordMatch = await bcrypt.compare(password, user.password);
+		if (!user || !isPasswordMatch) {
 			res.status(401).json({ message: 'Invalid email or password' });
 			return;
 		}
@@ -67,6 +72,11 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse<{ token: string } | { message: string }>) {
+	// Add these lines at the beginning of the handler function
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'POST');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
 	try {
 		if (req.method === 'POST' && req.query.action === 'register') {
 			await registerUser(req, res);

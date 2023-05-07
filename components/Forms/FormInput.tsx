@@ -24,9 +24,11 @@ export function FormInput<T, K extends keyof T>({
 				type={type || 'text'}
 				step={step}
 				onBlur={e => {
-					setValues({
-						[id as string]: type === 'number' ? Number(e.target.value) : e.target.value
-					} as FormValueType<T>);
+					if (e.target) {
+						setValues({
+							[id as string]: type === 'number' ? Number(e.target.value) : e.target.value
+						} as FormValueType<T>);
+					}
 				}}
 				onChange={e => {
 					onChange && onChange(e);

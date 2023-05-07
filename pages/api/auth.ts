@@ -18,11 +18,6 @@ async function registerUser(req: NextApiRequest, res: NextApiResponse<{ message:
 		res.status(400).json({ message: 'Invalid email or password format' });
 		return;
 	}
-
-	// Hash the password before saving the user object
-	const salt = await bcrypt.genSalt(10);
-	newUser.password = await bcrypt.hash(newUser.password, salt);
-
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');

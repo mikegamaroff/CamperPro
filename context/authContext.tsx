@@ -2,10 +2,15 @@
 import jwtDecode from 'jwt-decode';
 import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { hashPassword } from '../util/hashPassword';
-
+interface UserType {
+	id: string;
+	email: string;
+	iat: number;
+	exp: number;
+}
 interface AuthContextInterface {
 	status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
-	user: any;
+	user: UserType | null;
 	login: (email: string, password: string) => Promise<void>;
 	signup: (email: string, password: string) => Promise<void>;
 	logout: () => void;
@@ -33,7 +38,7 @@ interface DecodedToken {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<{
 		status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
-		user: any;
+		user: UserType | null;
 	}>({
 		status: 'idle',
 		user: null

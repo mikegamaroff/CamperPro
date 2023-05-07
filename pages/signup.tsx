@@ -1,6 +1,6 @@
 // pages/signup.tsx
 import { useRouter } from 'next/router';
-import { KeyboardEvent, MouseEvent, useState } from 'react';
+import { KeyboardEvent, MouseEvent } from 'react';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
 import { FormInput } from '../components/Forms/FormInput';
@@ -18,7 +18,6 @@ import withLoginRedirect from './withLoginRedirect';
 import onboardingStyles from '../styles/onboarding.module.css';
 import styles from './login.module.css';
 function SignupPage() {
-	const [error, setError] = useState<string>('');
 	const { addUser, isLoading } = useAddUser(); // Use the custom hook
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
@@ -33,7 +32,6 @@ function SignupPage() {
 
 		if (newUser) {
 			if (!newUser.username.trim() || !newUser.email.trim() || !newUser.password.trim()) {
-				setError('All fields are required.');
 				showToast('danger', 'All fields are required.');
 				return;
 			}
@@ -43,16 +41,13 @@ function SignupPage() {
 					showToast('success', 'Welcome, ' + newUser.username + '. Happy camping!');
 					router.push('/'); // Redirect to home page or any other protected route
 				} else {
-					setError(response.message);
 					showToast('danger', response.message);
 				}
 			} catch (err: unknown) {
 				if (err instanceof Error) {
 					showToast('danger', err.message);
-					setError(err.message);
 				} else {
 					console.error(err);
-					setError('An unexpected error occurred. Please try again.');
 				}
 			}
 		}

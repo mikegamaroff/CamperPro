@@ -1,8 +1,8 @@
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useValidateUser from '../routes/useValidateUser';
-
-const withLoginRedirect = <Props extends object>(WrappedComponent: React.ComponentType<Props>) => {
+const withLoginRedirect = <Props extends object>(WrappedComponent: NextPage<Props>) => {
 	const WithLoginRedirectWrapper = (props: Props) => {
 		const router = useRouter();
 		const { status } = useValidateUser();
@@ -24,8 +24,8 @@ const withLoginRedirect = <Props extends object>(WrappedComponent: React.Compone
 		return null;
 	};
 
-	if ((WrappedComponent as any).getInitialProps) {
-		WithLoginRedirectWrapper.getInitialProps = (WrappedComponent as any).getInitialProps;
+	if (WrappedComponent.getInitialProps) {
+		WithLoginRedirectWrapper.getInitialProps = WrappedComponent.getInitialProps;
 	}
 
 	return WithLoginRedirectWrapper;

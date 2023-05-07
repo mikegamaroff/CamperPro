@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { KeyboardEvent, MouseEvent, useState } from 'react';
+import { KeyboardEvent, MouseEvent } from 'react';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
 import { FormInput } from '../components/Forms/FormInput';
@@ -18,12 +18,9 @@ import onboardingStyles from '../styles/onboarding.module.css';
 import styles from './login.module.css';
 
 function LoginPage() {
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
 	const { loginUser, isLoading } = useLogin(); // Use the custom hook
 	const router = useRouter();
 	const { showToast } = useGlobalToast();
-	const [error, setError] = useState<string>('');
 	const {
 		setValues,
 		formValues,
@@ -33,27 +30,23 @@ function LoginPage() {
 		e.preventDefault();
 
 		if (!newUser?.email.trim() || !newUser.password.trim()) {
-			setError('All fields are required.');
 			showToast('danger', 'All fields are required.');
 			return;
 		}
 		try {
-			const response = await loginUser(email, password);
+			const response = await loginUser(newUser.email, newUser.password);
 			if (response.success) {
 				showToast('success', 'You successfully logged in');
 				router.push('/'); // Redirect to home page or any other protected route
 			} else {
 				showToast('danger', response.message);
-				setError(response.message);
 			}
 		} catch (err: unknown) {
 			if (err instanceof Error) {
 				showToast('danger', err.message);
-				setError(err.message);
 			} else {
 				// eslint-disable-next-line no-console
 				console.error(err);
-				setError('An unexpected error occurred. Please try again.');
 			}
 		}
 	};

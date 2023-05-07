@@ -12,7 +12,9 @@ interface ContainerProps {
 	scroll?: boolean;
 	hidetabs?: boolean;
 }
-
+interface TabsType {
+	select: (tab: string) => void;
+}
 export const Container = ({ children, scroll = false, hidetabs = false }: ContainerProps) => {
 	const routeContext = useContext(RouteContext); // Use RouteContext
 	const router = useRouter();
@@ -40,7 +42,7 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 	useEffect(() => {
 		if (typeof window !== 'undefined' && tabs) {
 			// Add this condition
-			(tabs as any).select(router.pathname === '/' ? 'explore' : router.pathname.slice(1));
+			(tabs as TabsType).select(router.pathname === '/' ? 'explore' : router.pathname.slice(1));
 		}
 	}, [router.pathname, tabs]);
 
@@ -50,7 +52,7 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 		// Select the active tab immediately after changing routes
 		const tabName = path === '/' ? 'explore' : path.slice(1);
 		if (tabs) {
-			(tabs as any).select(tabName);
+			(tabs as TabsType).select(tabName);
 		}
 	};
 	return (

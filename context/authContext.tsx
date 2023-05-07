@@ -1,5 +1,5 @@
 // eslint-disable-next-line camelcase
-import jwt_decode, { JwtDecodeOptions } from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { hashPassword } from '../util/hashPassword';
 
@@ -18,16 +18,18 @@ export const AuthContext = createContext<AuthContextInterface>({
 	signup: async () => {},
 	logout: () => {}
 });
-// ..
+
 interface AuthProviderProps {
 	children: ReactNode;
 }
 
 interface DecodedToken {
-	password: string;
-	token: string;
-	options?: JwtDecodeOptions;
+	id: string;
+	email: string;
+	iat: number;
+	exp: number;
 }
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<{
 		status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
@@ -40,7 +42,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	useEffect(() => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
-			const decoded = jwt_decode(token);
+			const decoded = jwtDecode<DecodedToken>(token);
 			setState({ status: 'authenticated', user: decoded });
 		} else {
 			setState({ status: 'unauthenticated', user: null });
@@ -65,10 +67,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const { token } = await response.json();
 			localStorage.setItem('jwtToken', token);
 
-			const decoded: DecodedToken = jwt_decode(token);
-			const { password: _, ...user } = decoded;
-
-			setState({ status: 'authenticated', user });
+			const decoded = jwtDecode<DecodedToken>(token);
+			setState({ status: 'authenticated', user: decoded });
 		} catch (err) {
 			// eslint-disable-next-line no-console
 			console.error(err);
@@ -106,5 +106,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		localStorage.removeItem('jwtToken');
 		setState({ status: 'unauthenticated', user: null });
 	};
+
 	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
 };

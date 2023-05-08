@@ -20,6 +20,7 @@ export const IconButton: React.FC<ButtonProps> = ({ size, icon, label, onClick, 
 			className={classNames(['icon-button', size === 'small' ? styles.textSmall : styles.textRegular])}
 			fill="clear"
 			target="_self"
+			color="none"
 			disabled={disabled || false}
 			href={href && href}
 			onClick={onClick && onClick}

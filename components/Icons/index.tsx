@@ -1,9 +1,10 @@
 import { Icon } from './Icon';
 
+import Close from '../../assets/icons/CloseIcon.component.svg';
 import Eye from '../../assets/icons/EyeIcon.component.svg';
 import EyeOff from '../../assets/icons/EyeOffIcon.component.svg';
+import Menu from '../../assets/icons/MenuIcon.component.svg';
 import Search from '../../assets/icons/SearchIcon.component.svg';
-
 import Trips from '../../assets/icons/TripsIcon.component.svg';
 import Profile from '../../assets/icons/UserIcon.component.svg';
 import Cellsignal from '../../assets/icons/categories/CellsignalIcon.component.svg';
@@ -51,3 +52,5 @@ export const IconFire = createIcon(Fire, 'Fire');
 export const IconSearch = createIcon(Search, 'Search');
 export const IconTrips = createIcon(Trips, 'Trips');
 export const IconProfile = createIcon(Profile, 'Profile');
+export const IconClose = createIcon(Close, 'Close');
+export const IconMenu = createIcon(Menu, 'Menu');

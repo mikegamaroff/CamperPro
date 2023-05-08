@@ -8,14 +8,18 @@ import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import Button from '../components/Forms/Button';
 import useAlert from '../hooks/useAlert';
 
+import { IconButton } from '../components/Forms/IconButton';
+import IonRange from '../components/Framework/IonRange';
 import { Header } from '../components/Header';
+import { IconMenu } from '../components/Icons';
 import useDatetimeModal from '../hooks/useDatetimeModal';
+import useMenu from '../hooks/useMenu';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
 function Home() {
 	const { logout } = useContext(AuthContext);
-
+	const { openMenu } = useMenu();
 	const handleLogout = () => {
 		logout();
 	};
@@ -120,10 +124,12 @@ function Home() {
 	const { presentDatetimeModal } = useDatetimeModal({
 		onDatetimeChange: handleDateChange
 	});
-
+	const rangeSliderHandle = (event: CustomEvent) => {
+		console.log('Range value changed:', event.detail.value);
+	};
 	return (
 		<>
-			<Header title="logo" />
+			<Header title="logo" left={<IconButton size="small" icon={<IconMenu />} onClick={openMenu} />} />
 			<Container>
 				<>
 					<Go href="/trips">
@@ -144,6 +150,7 @@ function Home() {
 					<Button color={'primary'} onClick={presentAlert}>
 						alert
 					</Button>
+					<IonRange handleChange={rangeSliderHandle} dualKnobs />
 				</>
 			</Container>
 		</>

@@ -15,7 +15,7 @@ import withAuth from './withAuth';
 const FeedView: React.FC<{ user: User }> = ({ user }) => {
 	return (
 		<div className={classNames('card', styles.names)}>
-			{user.first_name} {user.last_name}
+			{user.username} {user.email}
 		</div>
 	);
 };

@@ -1,25 +1,24 @@
+import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
+import Button from '../components/Forms/Button';
 import { Go } from '../components/Go';
 import { AuthContext } from '../context/authContext';
 import useActionSheet from '../hooks/useActionSheet';
-
-import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
-import Button from '../components/Forms/Button';
 import useAlert from '../hooks/useAlert';
 
-import { IconButton } from '../components/Forms/IconButton';
 import IonRange from '../components/Framework/IonRange';
 import { Header } from '../components/Header';
-import { IconMenu } from '../components/Icons';
+import { MenuButton } from '../components/MenuButton';
+import { UploadImageButton } from '../components/UploadImageButton';
 import useDatetimeModal from '../hooks/useDatetimeModal';
-import useMenu from '../hooks/useMenu';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
 function Home() {
 	const { logout } = useContext(AuthContext);
-	const { openMenu } = useMenu();
+
 	const handleLogout = () => {
 		logout();
 	};
@@ -129,7 +128,7 @@ function Home() {
 	};
 	return (
 		<>
-			<Header title="logo" left={<IconButton size="small" icon={<IconMenu />} onClick={openMenu} />} />
+			<Header title="logo" left={<MenuButton />} />
 			<Container>
 				<>
 					<Go href="/trips">
@@ -151,6 +150,9 @@ function Home() {
 						alert
 					</Button>
 					<IonRange handleChange={rangeSliderHandle} dualKnobs />
+					<div>
+						<UploadImageButton documentId={'id'} key={uuidv4()} />
+					</div>
 				</>
 			</Container>
 		</>

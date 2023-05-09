@@ -18,4 +18,5 @@ function createDbInstanceJs() {
 	return db;
 }
 
-export default createDbInstanceJs;
+export const createDbInstance = createDbInstanceJs;
+export const dbInstanceType = typeof createDbInstance();

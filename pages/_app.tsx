@@ -17,33 +17,54 @@ import '@ionic/core/css/float-elements.css';
 import '@ionic/core/css/padding.css';
 import '@ionic/core/css/text-alignment.css';
 import '@ionic/core/css/text-transformation.css';
+import { useRouter } from 'next/router';
 import IonApp from '../components/Framework/IonApp';
 import { RouteContextProvider } from '../components/Go';
 import { AuthProvider } from '../context/authContext';
+import { CampsiteProvider } from '../context/campsiteContext';
+import { RouterContext } from '../context/routerContext';
 import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';
 import '../styles/variables.css';
-
+interface NavigateToEvent extends Event {
+	detail: string;
+}
 function MyApp({ Component, pageProps }: AppProps) {
+	const router = useRouter();
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			ionDefineCustomElements(window);
 		}
 	}, []);
 
+	useEffect(() => {
+		const handleNavigation = (event: NavigateToEvent) => {
+			const href = event.detail;
+			router.push(href);
+		};
+
+		window.addEventListener('navigateTo', handleNavigation as EventListener);
+		return () => {
+			window.removeEventListener('navigateTo', handleNavigation as EventListener);
+		};
+	}, [router]);
 	return (
 		<>
 			<IonApp>
 				<AuthProvider>
 					<UserProvider>
-						<ToastProvider>
-							<RouteContextProvider>
-								<AnimatePresence>
-									<Component {...pageProps} />
-								</AnimatePresence>
-							</RouteContextProvider>
-						</ToastProvider>
+						<CampsiteProvider>
+							<ToastProvider>
+								<RouteContextProvider>
+									<AnimatePresence>
+										<RouterContext.Provider value={router}>
+											<Component {...pageProps} />
+										</RouterContext.Provider>
+									</AnimatePresence>
+								</RouteContextProvider>
+							</ToastProvider>
+						</CampsiteProvider>
 					</UserProvider>
 				</AuthProvider>
 			</IonApp>

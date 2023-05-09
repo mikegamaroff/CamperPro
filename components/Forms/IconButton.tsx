@@ -28,7 +28,10 @@ export const IconButton: React.FC<ButtonProps> = ({ size, icon, label, onClick, 
 			{[
 				!iconRight && <span key="icon-left">{icon}</span>,
 				label && (
-					<div className={classNames(styles.label, iconRight ? styles.iconRight : styles.iconLeft)}>
+					<div
+						key="icon-label"
+						className={classNames(styles.label, iconRight ? styles.iconRight : styles.iconLeft)}
+					>
 						{label}
 					</div>
 				),

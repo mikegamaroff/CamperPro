@@ -9,9 +9,9 @@ const nano = require('nano')(couchdbHost);
 const cloudantNano = require('nano')(cloudantHost);
 
 const dbName = 'camperpro';
-const designDocName = 'user-view';
-const designDoc = {
-	_id: `_design/${designDocName}`,
+const userDesignDocName = 'user-view';
+const userDesignDoc = {
+	_id: `_design/${userDesignDocName}`,
 	views: {
 		'all-users': {
 			map: `
@@ -21,11 +21,48 @@ const designDoc = {
 					}
 				}
 			`
+		},
+		'all-users-by-date': {
+			map: `
+                function (doc) {
+                    if (doc.type === 'user' && doc.created_at) {
+                        emit(doc.created_at, doc);
+                    }
+                }
+            `
 		}
 		// Add more views here if needed
 	},
 	language: 'javascript'
 };
+
+const campsiteDesignDocName = 'campsite-view';
+const campsiteDesignDoc = {
+	_id: `_design/${campsiteDesignDocName}`,
+	views: {
+		'all-campsites': {
+			map: `
+				function (doc) {
+					if (doc.type === 'campsite') {
+						emit(doc.title, doc);
+					}
+				}
+			`
+		},
+		'all-campsites-by-date': {
+			map: `
+                function (doc) {
+                    if (doc.type === 'campsite' && doc.created_at) {
+                        emit(doc.created_at, doc);
+                    }
+                }
+            `
+		}
+		// Add more views here if needed
+	},
+	language: 'javascript'
+};
+
 function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
 	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, err => {
@@ -37,10 +74,10 @@ function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	});
 }
 
-function handleDesignDoc(db) {
+function handleDesignDoc(db, designDoc) {
 	db.get(designDoc._id, (err, existingDoc) => {
 		if (err && err.statusCode === 404) {
-			// Design document does not exist, create itås
+			// Design document does not exist, create it
 			db.insert(designDoc, err => {
 				if (err) {
 					console.error('Error inserting design document:', err);
@@ -77,7 +114,7 @@ function handleDesignDoc(db) {
 
 nano.db.get(dbName, err => {
 	if (err && err.statusCode === 404) {
-		// Database does not exist, create it and add the design document
+		// Database does not exist, create it and add the design documents
 		nano.db.create(dbName, err => {
 			if (err) {
 				console.error('Error creating database:', err);
@@ -85,13 +122,15 @@ nano.db.get(dbName, err => {
 			}
 
 			const db = nano.use(dbName);
-			handleDesignDoc(db);
+			handleDesignDoc(db, userDesignDoc);
+			handleDesignDoc(db, campsiteDesignDoc);
 		});
 	} else if (err) {
 		console.error('Error checking database existence:', err);
 	} else {
-		// Database exists, handle the design document
+		// Database exists, handle the design documents
 		const db = nano.use(dbName);
-		handleDesignDoc(db);
+		handleDesignDoc(db, userDesignDoc);
+		handleDesignDoc(db, campsiteDesignDoc);
 	}
 });

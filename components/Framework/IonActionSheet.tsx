@@ -21,7 +21,6 @@ const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
 				actionSheetRef.current!.dismiss();
 			}
 		}));
-		console.log(actionSheetButtons);
 		const actionSheetRef = useRef<HTMLIonActionSheetElement | null>(null);
 
 		useImperativeHandle(ref, () => ({

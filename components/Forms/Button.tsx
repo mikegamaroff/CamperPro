@@ -29,6 +29,18 @@ const Button: React.FC<CustomIonButtonProps> = ({
 	onClick,
 	children
 }) => {
+	const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		if (onClick) {
+			onClick(event);
+		}
+
+		if (href) {
+			event.preventDefault();
+			const navigationEvent = new CustomEvent('navigateTo', { detail: href });
+			window.dispatchEvent(navigationEvent);
+		}
+	};
+
 	return React.createElement(
 		'ion-button',
 		{
@@ -42,7 +54,7 @@ const Button: React.FC<CustomIonButtonProps> = ({
 			expand,
 			tabIndex,
 			href,
-			onClick
+			onClick: handleClick
 		},
 		children
 	);

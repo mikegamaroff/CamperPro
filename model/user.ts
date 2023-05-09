@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Document } from './model';
-export interface User extends Document {
+import { DocumentWithImages } from './model';
+export interface User extends DocumentWithImages {
 	_id?: string;
 	type: string;
 	username: string;
@@ -11,6 +11,7 @@ export interface User extends Document {
 	phone_number: string;
 	created_at?: string;
 	updated_at?: string;
+	verified: boolean;
 	suspended: boolean;
 }
 export const EmptyNewUser: User = {
@@ -24,6 +25,7 @@ export const EmptyNewUser: User = {
 	phone_number: '',
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
+	verified: true,
 	suspended: false
 };
 export const EmptyUser: User = EmptyNewUser;

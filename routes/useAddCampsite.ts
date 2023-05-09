@@ -1,36 +1,40 @@
+// hooks/useAddCampsite.ts
 import { useContext, useState } from 'react';
-import { AuthContext } from '../context/authContext';
+import { CampsiteContext } from '../context/campsiteContext';
+import { Campsite } from '../model/campsite';
 
-interface LoginResponse {
+interface AddCampsiteResponse {
 	success: boolean;
 	message: string;
 }
 
-export const useLogin = () => {
-	const { login } = useContext(AuthContext);
+export const useAddCampsite = () => {
+	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
-	const [isError, setError] = useState<string | null>(null);
+	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
 
-	const loginUser = async (email: string, password: string): Promise<LoginResponse> => {
+	const addCampsite = async (campsite: Campsite): Promise<AddCampsiteResponse> => {
 		setLoading(true);
 		setError(null);
 		setSuccess(false);
 
 		try {
-			const response = await fetch('/api/auth?action=login', {
+			const response = await fetch('/api/campsites', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email, password })
+				body: JSON.stringify(campsite)
 			});
 
 			if (response.ok) {
-				await login(email, password); // Pass only email and password
+				const data = await response.json();
+				setCampsites([...campsites, data.campsite]);
+
 				setLoading(false);
 				setSuccess(true);
-				return { success: true, message: 'Logged in successfully' };
+				return { success: true, message: data.message };
 			} else {
 				const errorData = await response.json();
 				setLoading(false);
@@ -45,5 +49,5 @@ export const useLogin = () => {
 		}
 	};
 
-	return { loginUser, isLoading, isError, isSuccess };
+	return { campsites, addCampsite, isLoading, isError, isSuccess };
 };

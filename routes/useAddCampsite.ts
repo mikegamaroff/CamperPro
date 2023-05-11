@@ -11,12 +11,10 @@ export const useAddCampsite = () => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
-
 	const addCampsite = async (campsite: Campsite): Promise<AddCampsiteResponse> => {
 		setLoading(true);
 		setError(null);
 		setSuccess(false);
-
 		try {
 			const response = await fetch('/api/campsites', {
 				method: 'POST',
@@ -28,7 +26,6 @@ export const useAddCampsite = () => {
 
 			if (response.ok) {
 				const data = await response.json();
-
 				setLoading(false);
 				setSuccess(true);
 				return { success: true, message: data.message };

@@ -53,7 +53,7 @@ function CampsiteEdit({ id }: Props) {
 	} = useDeleteCampsite();
 	const { isLoading } = useGetAllCampsites();
 	const { setCampsites, campsites } = useContext(CampsiteContext);
-
+	console.log(campsites);
 	if (isFetching || isLoading || !campsite) {
 		return <div>Loading..</div>;
 	}
@@ -61,7 +61,8 @@ function CampsiteEdit({ id }: Props) {
 		if (campsite) {
 			const updatedCampsite: Campsite = { ...campsite, draft: false };
 			editCampsite(updatedCampsite);
-			setCampsites([...campsites, updatedCampsite]);
+			// setCampsites(campsites.map(c => (c._id === updatedCampsite._id ? updatedCampsite : c)));
+			// setCampsites([...campsites, updatedCampsite]);
 		}
 	};
 	const updateCampsiteImage = (updatedCampsite: Campsite) => {

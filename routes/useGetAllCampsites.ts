@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { CampsiteContext } from '../context/campsiteContext';
 
-export const useGetAllCampsites = () => {
+export const useGetAllCampsites = (view = 'non-draft-campsites') => {
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
@@ -12,7 +12,7 @@ export const useGetAllCampsites = () => {
 		setError(null);
 
 		try {
-			const response = await fetch('/api/campsites', {
+			const response = await fetch(`/api/campsites?view=${view}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'

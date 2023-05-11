@@ -29,13 +29,14 @@ async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: 
 
 async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ campsites: Campsite[] }>) {
 	const db = createDbInstance();
+	const view = (req.query.view || 'non-draft-campsites') as string; // Fetch the view from the query parameters. If not provided, default to 'non-draft-campsites'.
 
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 	try {
-		const response = await db.view('campsite-view', 'non-draft-campsites');
+		const response = await db.view('campsite-view', view);
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ campsites: [] });

@@ -6,7 +6,6 @@ import { CustomIonActionSheetProps } from '../model/framework';
 type UseActionSheetProps = CustomIonActionSheetProps;
 
 const useActionSheet = ({ header, subHeader, buttons }: UseActionSheetProps) => {
-	console.log(header, subHeader, buttons);
 	const [actionSheet, setActionSheet] = useState<IonActionSheetRef | null>(null);
 	const [isRendered, setIsRendered] = useState(false);
 	const actionSheetRef = useRef<IonActionSheetRef | null>(null);

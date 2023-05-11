@@ -7,16 +7,18 @@ interface UploadButtonProps<T> {
 	documentId: string | undefined;
 	size?: string;
 	label?: string;
-	onSuccess: (updatedDocument: T) => void;
+	onSuccess: (data: T) => void;
 }
 
 export const UploadImageButton = <T,>({ documentId, onSuccess, label }: UploadButtonProps<T>) => {
 	const inputRef = useRef<HTMLInputElement>(null);
-	const { loading, uploadImage } = useImageUpload(documentId);
+	const { loading, uploadImage } = useImageUpload(documentId, onSuccess);
 
 	const uploadHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const result = await uploadImage(e);
-		onSuccess(result);
+		if (result !== null) {
+			onSuccess(result);
+		}
 	};
 	const imageHandler = () => {
 		inputRef.current?.click();

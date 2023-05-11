@@ -5,11 +5,13 @@ import { Campsite } from '../model/campsite';
 interface CampsiteContextInterface {
 	campsites: Campsite[];
 	setCampsites: React.Dispatch<React.SetStateAction<Campsite[]>>;
+	updateImage: (data: Campsite) => void;
 }
 
 export const CampsiteContext = createContext<CampsiteContextInterface>({
 	campsites: [],
-	setCampsites: () => {}
+	setCampsites: () => {},
+	updateImage: () => {}
 });
 
 interface CampsiteProviderProps {
@@ -18,6 +20,12 @@ interface CampsiteProviderProps {
 
 export const CampsiteProvider: React.FC<CampsiteProviderProps> = ({ children }) => {
 	const [campsites, setCampsites] = useState<Campsite[]>([]);
-
-	return <CampsiteContext.Provider value={{ campsites, setCampsites }}>{children}</CampsiteContext.Provider>;
+	const updateImage = (data: Campsite) => {
+		if (data) {
+			setCampsites(campsites.map(campsite => (campsite._id === data._id ? data : campsite)));
+		}
+	};
+	return (
+		<CampsiteContext.Provider value={{ campsites, setCampsites, updateImage }}>{children}</CampsiteContext.Provider>
+	);
 };

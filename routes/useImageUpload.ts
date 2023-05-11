@@ -2,7 +2,8 @@ import { useCallback, useState } from 'react';
 import { useGlobalToast } from '../context/toastContext';
 
 export function useImageUpload<T = any>(
-	document: string | undefined
+	document: string | undefined,
+	updateFunction: (data: T) => void
 ): {
 	loading: boolean;
 	uploadImage: (e: React.ChangeEvent<HTMLInputElement>) => Promise<T | null>;
@@ -44,6 +45,7 @@ export function useImageUpload<T = any>(
 									const data: T = await response.json();
 									setLoading(false);
 									showToast('success', 'Image uploaded.');
+									updateFunction(data);
 									resolve(data);
 								} else {
 									setLoading(false);

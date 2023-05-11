@@ -18,8 +18,8 @@ interface Props {
 }
 const FeedView: React.FC<{
 	campsite: Campsite | undefined;
-	updateCampsiteImage: (updatedCampsite: Campsite) => void;
-}> = ({ campsite, updateCampsiteImage }) => {
+}> = ({ campsite }) => {
+	const { updateImage } = useContext(CampsiteContext);
 	return (
 		<div className={styles.campsiteHolder}>
 			{campsite?.images?.map(image => (
@@ -33,11 +33,7 @@ const FeedView: React.FC<{
 			))}
 			<div className="card">{campsite?._id}</div>
 			<div>
-				<UploadImageButton<Campsite>
-					documentId={campsite?._id}
-					key={uuidv4()}
-					onSuccess={updateCampsiteImage}
-				/>
+				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
 			</div>
 		</div>
 	);
@@ -45,6 +41,7 @@ const FeedView: React.FC<{
 function CampsiteEdit({ id }: Props) {
 	const { campsite, isLoading: isFetching, isError: fetchError } = useGetCampsite(id);
 	const { editCampsite, isLoading: isEditing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
+
 	const {
 		deleteCampsite,
 		isLoading: deleting,
@@ -53,7 +50,6 @@ function CampsiteEdit({ id }: Props) {
 	} = useDeleteCampsite();
 	const { isLoading } = useGetAllCampsites();
 	const { setCampsites, campsites } = useContext(CampsiteContext);
-	console.log(campsites);
 	if (isFetching || isLoading || !campsite) {
 		return <div>Loading..</div>;
 	}
@@ -61,13 +57,9 @@ function CampsiteEdit({ id }: Props) {
 		if (campsite) {
 			const updatedCampsite: Campsite = { ...campsite, draft: false };
 			editCampsite(updatedCampsite);
-			// setCampsites(campsites.map(c => (c._id === updatedCampsite._id ? updatedCampsite : c)));
-			// setCampsites([...campsites, updatedCampsite]);
 		}
 	};
-	const updateCampsiteImage = (updatedCampsite: Campsite) => {
-		setCampsites(campsites.map(c => (c._id === updatedCampsite._id ? updatedCampsite : c)));
-	};
+
 	const handleDeleteCampsite = async () => {
 		const response = await deleteCampsite(campsite?._id ?? '');
 		if (response.success) {
@@ -89,9 +81,7 @@ function CampsiteEdit({ id }: Props) {
 					style={{ height: 700 }}
 					data={campsites}
 					overscan={{ main: 2, reverse: 2 }}
-					itemContent={(index, campsite) => (
-						<FeedView campsite={campsite} updateCampsiteImage={updateCampsiteImage} />
-					)}
+					itemContent={(index, campsite) => <FeedView campsite={campsite} />}
 				/>
 			</>
 		</Container>

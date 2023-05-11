@@ -35,7 +35,7 @@ async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ camps
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 	try {
-		const response = await db.view('campsite-view', 'all-campsites');
+		const response = await db.view('campsite-view', 'non-draft-campsites');
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ campsites: [] });
@@ -47,8 +47,6 @@ async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ camps
 		res.status(500).json({ campsites: [] });
 	}
 }
-
-// ... (existing functions: addCampsite and getAllCampsites)
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	res.setHeader('Access-Control-Allow-Origin', '*');

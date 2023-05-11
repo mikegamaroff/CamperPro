@@ -12,7 +12,9 @@ const useActionSheet = ({ header, subHeader, buttons }: UseActionSheetProps) => 
 	const actionSheetRef = useRef<IonActionSheetRef | null>(null);
 
 	useEffect(() => {
-		actionSheetRef.current = actionSheet;
+		if (actionSheet) {
+			actionSheetRef.current = actionSheet;
+		}
 	}, [actionSheet]);
 
 	const presentActionSheet = useCallback(() => {

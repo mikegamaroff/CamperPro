@@ -1,4 +1,5 @@
-// hooks/useGetCampsite.ts
+// Import useRouter from next/router
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Campsite } from '../model/campsite';
 
@@ -6,6 +7,9 @@ export const useGetCampsite = (id: string) => {
 	const [campsite, setCampsite] = useState<Campsite | undefined>();
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
+
+	// Get the router object
+	const router = useRouter();
 
 	useEffect(() => {
 		const fetchCampsite = async () => {
@@ -18,9 +22,13 @@ export const useGetCampsite = (id: string) => {
 					const data = await response.json();
 					setCampsite(data.campsite);
 				} else {
+					// Error fetching campsite data, navigate to '/'
+					router.push('/');
 					setError('Error fetching campsite data');
 				}
 			} catch (error) {
+				// Error fetching campsite data, navigate to '/'
+				router.push('/');
 				setError('Error fetching campsite data');
 			} finally {
 				setLoading(false);
@@ -28,7 +36,7 @@ export const useGetCampsite = (id: string) => {
 		};
 
 		fetchCampsite();
-	}, [id]);
+	}, [id, router]); // Include router in the dependency array
 
 	return { campsite, isLoading, isError };
 };

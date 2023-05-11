@@ -1,17 +1,14 @@
 import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import { useContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
+import IonRange from '../components/Framework/IonRange';
 import { Go } from '../components/Go';
+import { Header } from '../components/Header';
+import { MenuButton } from '../components/MenuButton';
 import { AuthContext } from '../context/authContext';
 import useActionSheet from '../hooks/useActionSheet';
 import useAlert from '../hooks/useAlert';
-
-import IonRange from '../components/Framework/IonRange';
-import { Header } from '../components/Header';
-import { MenuButton } from '../components/MenuButton';
-import { UploadImageButton } from '../components/UploadImageButton';
 import useDatetimeModal from '../hooks/useDatetimeModal';
 import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
@@ -150,9 +147,6 @@ function Home() {
 						alert
 					</Button>
 					<IonRange handleChange={rangeSliderHandle} dualKnobs />
-					<div>
-						<UploadImageButton documentId={'id'} key={uuidv4()} />
-					</div>
 				</>
 			</Container>
 		</>

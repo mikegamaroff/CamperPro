@@ -30,6 +30,7 @@ import '../styles/variables.css';
 interface NavigateToEvent extends Event {
 	detail: string;
 }
+
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 	useEffect(() => {
@@ -50,25 +51,23 @@ function MyApp({ Component, pageProps }: AppProps) {
 		};
 	}, [router]);
 	return (
-		<>
-			<IonApp>
-				<AuthProvider>
-					<UserProvider>
-						<CampsiteProvider>
-							<ToastProvider>
-								<RouteContextProvider>
+		<IonApp>
+			<RouteContextProvider>
+				<RouterContext.Provider value={router}>
+					<AuthProvider>
+						<UserProvider>
+							<CampsiteProvider>
+								<ToastProvider>
 									<AnimatePresence>
-										<RouterContext.Provider value={router}>
-											<Component {...pageProps} />
-										</RouterContext.Provider>
+										<Component {...pageProps} />
 									</AnimatePresence>
-								</RouteContextProvider>
-							</ToastProvider>
-						</CampsiteProvider>
-					</UserProvider>
-				</AuthProvider>
-			</IonApp>
-		</>
+								</ToastProvider>
+							</CampsiteProvider>
+						</UserProvider>
+					</AuthProvider>
+				</RouterContext.Provider>
+			</RouteContextProvider>
+		</IonApp>
 	);
 }
 

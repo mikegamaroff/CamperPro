@@ -1,6 +1,5 @@
 // hooks/useAddCampsite.ts
-import { useContext, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
+import { useState } from 'react';
 import { Campsite } from '../model/campsite';
 
 interface AddCampsiteResponse {
@@ -9,7 +8,6 @@ interface AddCampsiteResponse {
 }
 
 export const useAddCampsite = () => {
-	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
@@ -30,7 +28,6 @@ export const useAddCampsite = () => {
 
 			if (response.ok) {
 				const data = await response.json();
-				setCampsites([...campsites, data.campsite]);
 
 				setLoading(false);
 				setSuccess(true);
@@ -49,5 +46,5 @@ export const useAddCampsite = () => {
 		}
 	};
 
-	return { campsites, addCampsite, isLoading, isError, isSuccess };
+	return { addCampsite, isLoading, isError, isSuccess };
 };

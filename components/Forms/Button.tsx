@@ -1,4 +1,5 @@
 import React, { MouseEvent } from 'react';
+import { GoTo } from '../../util/GoTo';
 
 interface CustomIonButtonProps {
 	color?: string;
@@ -36,8 +37,7 @@ const Button: React.FC<CustomIonButtonProps> = ({
 
 		if (href) {
 			event.preventDefault();
-			const navigationEvent = new CustomEvent('navigateTo', { detail: href });
-			window.dispatchEvent(navigationEvent);
+			GoTo(href);
 		}
 	};
 

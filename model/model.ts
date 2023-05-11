@@ -17,6 +17,10 @@ export function objectEquals(a: Document | null | undefined, b: Document | null 
 	if (!a || !b) return false;
 	return a._id === b._id;
 }
+export interface ImageType {
+	id: string;
+	contentType: string;
+}
 export interface DocumentWithImages extends Document {
-	images?: Array<{ id: string; contentType: string }>;
+	images?: Array<ImageType>;
 }

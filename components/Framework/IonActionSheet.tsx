@@ -36,6 +36,10 @@ const IonActionSheet = forwardRef<IonActionSheetRef, IonActionSheetProps>(
 		useEffect(() => {
 			setActionSheet(actionSheetRef.current!);
 			setIsRendered(true);
+
+			return () => {
+				setIsRendered(false);
+			};
 		}, [setActionSheet, setIsRendered]);
 
 		const handleActionSheetDidPresent = () => {

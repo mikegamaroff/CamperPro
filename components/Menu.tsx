@@ -1,19 +1,22 @@
 // MenuContent.tsx
-import React, { useContext } from 'react';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { EmptyNewCampsite } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
+import { GoTo } from '../util/GoTo';
 import Button from './Forms/Button';
 import { IconButton } from './Forms/IconButton';
 import { IconClose } from './Icons';
 import styles from './Menu.module.css';
-
-import { CampsiteContext } from '../context/campsiteContext';
 const MenuContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-	const { campsites, addCampsite, isLoading, isError, isSuccess } = useAddCampsite();
-	const { setCampsites } = useContext(CampsiteContext);
+	const { addCampsite, isLoading, isError, isSuccess } = useAddCampsite();
+
 	const handleAddCampsite = async () => {
+		const newId = uuidv4(); // replace this with your ID generation logic
+
 		const newCampsite = {
 			...EmptyNewCampsite,
+			_id: 'campsite:' + newId,
 			title: 'Example Campsite'
 			// Add other campsite properties
 		};
@@ -21,9 +24,7 @@ const MenuContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 		try {
 			const response = await addCampsite(newCampsite);
 			if (response.success) {
-				setCampsites([...campsites, newCampsite]);
-				const navigationEvent = new CustomEvent('navigateTo', { detail: `/CampsiteEdit/${newCampsite._id}` });
-				window.dispatchEvent(navigationEvent);
+				GoTo(`/CampsiteEdit/${newCampsite._id}`);
 				onClose();
 			} else {
 				console.error('Error adding campsite:', response.message);

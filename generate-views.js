@@ -57,6 +57,15 @@ const campsiteDesignDoc = {
                     }
                 }
             `
+		},
+		'non-draft-campsites': {
+			map: `
+				function (doc) {
+					if (doc.type === 'campsite' && doc.draft === false) {
+						emit(doc._id, doc);
+					}
+				}
+			`
 		}
 		// Add more views here if needed
 	},

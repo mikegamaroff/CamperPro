@@ -2,8 +2,8 @@ import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { DocumentWithImages } from '../../model/model';
-import createDbInstance from '../../util/camperprodb';
+import { DocumentWithImages } from '../../../model/model';
+import createDbInstance from '../../../util/camperprodb';
 export const config = {
 	api: {
 		bodyParser: {
@@ -11,13 +11,14 @@ export const config = {
 		}
 	}
 };
-async function uploadImage(req: NextApiRequest, res: NextApiResponse<{ imageUrl: string } | { message: string }>) {
+async function uploadImage(req: NextApiRequest, res: NextApiResponse<DocumentWithImages | { message: string }>) {
 	const db = createDbInstance();
 	const { documentId, data, contentType } = req.body;
 
 	// Generate a unique filename for the uploaded image
 	const imageId = uuidv4();
-	const imagePath = path.join(process.cwd(), 'public', 'images', `${imageId}.jpg`);
+	const imageExtension = contentType.split('/')[1];
+	const imagePath = path.join(process.cwd(), 'public', 'images', `${imageId}.${imageExtension}`);
 
 	// Save the image to the server
 	fs.writeFileSync(imagePath, Buffer.from(data), 'binary');
@@ -27,9 +28,12 @@ async function uploadImage(req: NextApiRequest, res: NextApiResponse<{ imageUrl:
 		const doc = (await db.get(documentId)) as DocumentWithImages;
 		doc.images = doc.images || [];
 		doc.images.push({ id: imageId, contentType });
-		await db.insert(doc);
+		const response = await db.insert(doc);
 
-		res.status(200).json({ imageUrl: `/images/${imageId}.jpg` });
+		// Now that the document is updated, get it back from the database
+		const updatedDoc = await db.get(response.id);
+
+		res.status(200).json(updatedDoc);
 	} catch (error) {
 		console.error('Error updating document with image reference:', error);
 		const couchDbError = error as { statusCode?: number; message?: string };
@@ -41,7 +45,7 @@ async function uploadImage(req: NextApiRequest, res: NextApiResponse<{ imageUrl:
 	}
 }
 
-async function handler(req: NextApiRequest, res: NextApiResponse<{ imageUrl: string } | { message: string }>) {
+async function handler(req: NextApiRequest, res: NextApiResponse<DocumentWithImages | { message: string }>) {
 	if (req.method === 'POST') {
 		await uploadImage(req, res);
 	} else {

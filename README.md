@@ -1,47 +1,36 @@
-# TypeScript Next.js example
+# Campr
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+Helping connect campers with private landowners for outdoor experiences off the beeten track.
 
-## Deploy your own
+## Stack
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
+A next.JS typescript web application using JWT token authentication, with a CouchDB and nodejs backend.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+## Set up backend
 
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
+1. Install CouchDb on your local server
+2. Add values to env.local
+```
+COUCHDB_URL="http://admin:camper111@localhost:5985"
+COUCHDB_NAME=camperpro
+JWT_SECRET="xxxx"
+CLOUDANT_URL=https://[apikey]:[password]bluemix.cloudantnosqldb.appdomain.cloud
+```
+3. run the following command to set up local database views
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
+node generate-views.js
 ```
 
+4. run the following command to generate some local users
 ```bash
-yarn create next-app --example with-typescript with-typescript-app
+node generate-users.js
 ```
 
-```bash
-pnpm create next-app --example with-typescript with-typescript-app
-```
+## Run dev server
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- Clone the master repository
+- yarn install
+- yarn run dev to load local server
 
-## Notes
 
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
 
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.

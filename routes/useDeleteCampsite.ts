@@ -17,7 +17,11 @@ export const useDeleteCampsite = () => {
 
 		try {
 			const response = await fetch(`/api/campsites/${id}`, {
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+				}
 			});
 
 			if (response.ok) {

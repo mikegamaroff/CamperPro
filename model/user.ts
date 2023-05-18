@@ -21,6 +21,7 @@ export const EmptyNewUser: User = {
 	first_name: '',
 	last_name: '',
 	email: '',
+	images: [],
 	password: '',
 	phone_number: '',
 	created_at: new Date().toISOString(),

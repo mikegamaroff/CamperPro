@@ -16,7 +16,8 @@ export const useFetchUsers = () => {
 			const response = await fetch('/api/users', {
 				method: 'GET', // Explicitly specify the method
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				}
 			});
 

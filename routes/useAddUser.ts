@@ -28,7 +28,8 @@ export const useAddUser = () => {
 			const response = await fetch('/api/auth?action=register', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
 				body: JSON.stringify({
 					...user,

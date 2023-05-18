@@ -4,45 +4,51 @@ export interface Coordinates {
 	lat: number;
 	lng: number;
 }
-
+export interface Address {
+	address1: string;
+	address2: string;
+	city: string;
+	state: string;
+	postalCode: string;
+	country: string;
+}
 export interface Capacity {
 	numberOfTentSites: number;
-	maxOccupancyPerTentSite: number;
+	acreage: number;
 }
 
-export interface Features {
-	river: boolean;
-	mountain: boolean;
-	lake: boolean;
-	hunting: boolean;
-	sea: boolean;
-	wildlife: boolean;
-	hikingTrails: boolean;
-	forest: boolean;
+export type FeatureNames =
+	| 'default'
+	| 'river'
+	| 'mountain'
+	| 'lake'
+	| 'hunting'
+	| 'sea'
+	| 'wildlife'
+	| 'hikingTrails'
+	| 'forest';
+export type AmenityNames =
+	| 'cellSignal'
+	| 'wifi'
+	| 'toilet'
+	| 'portAPotty'
+	| 'bathroom'
+	| 'shower'
+	| 'firepit'
+	| 'barbeque';
+export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodGathering';
+export interface Attribute {
+	type: 'feature' | 'amenity' | 'permitted';
+	name: FeatureNames | AmenityNames | PermittedNames;
 }
 
-export interface Amenities {
-	cellSignal: boolean;
-	wifi: boolean;
-	toilet: boolean;
-	portAPotty: boolean;
-	bathroom: boolean;
-	shower: boolean;
-	firepit: boolean;
-	barbeque: boolean;
+export interface CampLocation {
+	coordinates: Coordinates;
+	receptionAddress: Address;
 }
-
-export interface Permitted {
-	pets: boolean;
-	campfire: boolean;
-	fishing: boolean;
-	climbing: boolean;
-	swimming: boolean;
-	woodGathering: boolean;
-}
-
 export interface Campsite extends DocumentWithImages {
 	_id?: string;
+	author?: string;
 	type: string;
 	category: string;
 	title: string;
@@ -50,67 +56,68 @@ export interface Campsite extends DocumentWithImages {
 	created_at?: string;
 	updated_at?: string;
 	draft: boolean;
-	coordinates: Coordinates;
+	rating: number;
+	location: CampLocation;
 	pricePerNight: number;
+	receptionCheckin: boolean;
 	campsiteType: 'private' | 'shared';
 	capacity: Capacity;
-	features: Features;
-	amenities: Amenities;
-	permitted: Permitted;
-	receptionAddress: string;
+	attributes: Attribute[];
 	numberOfTentSitesAvailable: number;
 	active: boolean;
 }
-
+export interface AttributeFilters {
+	default?: string[];
+	feature?: FeatureNames[];
+	amenity?: AmenityNames[];
+	permitted?: PermittedNames[];
+}
+export const defaultAttributes: Attribute[] = [
+	{
+		type: 'feature',
+		name: 'default'
+	}
+];
 export const EmptyNewCampsite: Campsite = {
 	_id: `campsite:${uuidv4()}`,
+	author: '',
 	type: 'campsite',
 	category: 'public',
 	title: '',
-	coordinates: {
-		lat: 0,
-		lng: 0
+	rating: 0,
+	location: {
+		receptionAddress: {
+			address1: '',
+			address2: '',
+			city: '',
+			state: '',
+			postalCode: '',
+			country: ''
+		},
+		coordinates: {
+			lat: 0,
+			lng: 0
+		}
 	},
 	images: [],
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	draft: true,
 	pricePerNight: 0,
+	receptionCheckin: false,
 	campsiteType: 'private',
 	capacity: {
 		numberOfTentSites: 1,
-		maxOccupancyPerTentSite: 2
+		acreage: 2
 	},
-	features: {
-		river: false,
-		mountain: false,
-		lake: false,
-		hunting: false,
-		sea: false,
-		wildlife: false,
-		hikingTrails: false,
-		forest: false
-	},
-	amenities: {
-		cellSignal: false,
-		wifi: false,
-		toilet: false,
-		portAPotty: false,
-		bathroom: false,
-		shower: false,
-		firepit: false,
-		barbeque: false
-	},
-	permitted: {
-		pets: false,
-		campfire: false,
-		fishing: false,
-		climbing: false,
-		swimming: false,
-		woodGathering: false
-	},
-	receptionAddress: '',
+	attributes: defaultAttributes,
 	numberOfTentSitesAvailable: 0,
 	active: false
 };
 export const EmptyCampsite: Campsite = EmptyNewCampsite;
+
+export const defaultFilter: AttributeFilters = {
+	feature: ['default', 'river', 'mountain', 'lake', 'hunting', 'sea', 'wildlife', 'hikingTrails', 'forest'],
+	amenity: ['cellSignal', 'wifi', 'toilet', 'portAPotty', 'bathroom', 'shower', 'firepit', 'barbeque'],
+	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodGathering']
+};

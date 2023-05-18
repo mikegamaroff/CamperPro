@@ -1,6 +1,14 @@
+import jwtDecode from 'jwt-decode';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/authContext';
 import { User } from '../model/user';
+
+interface DecodedToken {
+	id: string;
+	email: string;
+	iat: number;
+	exp: number;
+}
 
 const useValidateUser = () => {
 	const { user, status, logout } = useContext(AuthContext);
@@ -9,7 +17,13 @@ const useValidateUser = () => {
 		async function validateUser() {
 			if (user && status === 'authenticated') {
 				try {
-					const response = await fetch(`/api/users?id=${user.id}`);
+					const response = await fetch(`/api/users?id=${user.id}`, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+						}
+					});
 					if (response.ok) {
 						const userData: User = await response.json();
 						if (userData.suspended) {
@@ -17,6 +31,16 @@ const useValidateUser = () => {
 						}
 					} else {
 						logout();
+					}
+
+					// check for token expiration
+					const token = localStorage.getItem('jwtToken');
+					if (token) {
+						const decoded = jwtDecode<DecodedToken>(token);
+						const currentTime = Math.floor(Date.now() / 1000);
+						if (decoded.exp < currentTime) {
+							logout();
+						}
 					}
 				} catch (error) {
 					console.error('Error validating user:', error);

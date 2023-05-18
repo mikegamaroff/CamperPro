@@ -1,24 +1,45 @@
-import classNames from 'classnames';
+import Image from 'next/image';
+import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
 import Button from '../components/Forms/Button';
 import { FormInput } from '../components/Forms/FormInput';
 import { Go } from '../components/Go';
 import { IconEye, IconEyeOff } from '../components/Icons';
+import { UploadImageButton } from '../components/UploadImageButton';
+import { UserContext } from '../context/userContext';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
 import { useFormValues } from '../hooks/useFormValues';
 import { objectEquals } from '../model/model';
 import { User } from '../model/user';
 import { useFetchUsers } from '../routes/useFetchUsers';
-import styles from './users.module.css';
+import styles from './trips.module.css';
 import withAuth from './withAuth';
+
 const FeedView: React.FC<{ user: User }> = ({ user }) => {
+	const { updateImage } = useContext(UserContext);
 	return (
-		<div className={classNames('card', styles.names)}>
-			{user.username} {user.email}
+		<div className={styles.userHolder}>
+			{user?.images?.map(image => (
+				<Image
+					key={image.id}
+					src={`/images/${image.id}.${image.contentType.split('/')[1]}`}
+					alt="Campsite Image"
+					width={50}
+					height={50}
+				/>
+			))}
+			<div className="card">
+				{user.username} {user.email}
+			</div>
+			<div>
+				<UploadImageButton<User> documentId={user?._id} key={uuidv4()} onSuccess={updateImage} />
+			</div>
 		</div>
 	);
 };
+
 function Users() {
 	const { users } = useFetchUsers();
 

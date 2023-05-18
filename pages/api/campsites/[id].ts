@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Campsite } from '../../../model/campsite';
+import authenticateJWT from '../../../util/authenticateJSW';
 import { createDbInstance } from '../../../util/camperprodbWrapper';
+import handleAuthError from '../../../util/handleAuthError';
 import { isCouchDbError } from '../../../util/isCouchDbError';
 async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ campsite: Campsite | null }>) {
 	const db = createDbInstance() as ReturnType<typeof createDbInstance>;
@@ -66,24 +68,29 @@ async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ messag
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET');
-	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 	try {
-		if (req.method === 'GET') {
-			await getCampsiteById(req, res);
-		} else if (req.method === 'PUT') {
-			await updateCampsite(req, res);
-		} else if (req.method === 'DELETE') {
-			await deleteCampsite(req, res);
-		} else {
-			res.setHeader('Allow', ['GET']);
-			res.status(405).end(`Method ${req.method} Not Allowed`);
+		await authenticateJWT(req);
+		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.setHeader('Access-Control-Allow-Methods', 'GET');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+		try {
+			if (req.method === 'GET') {
+				await getCampsiteById(req, res);
+			} else if (req.method === 'PUT') {
+				await updateCampsite(req, res);
+			} else if (req.method === 'DELETE') {
+				await deleteCampsite(req, res);
+			} else {
+				res.setHeader('Allow', ['GET']);
+				res.status(405).end(`Method ${req.method} Not Allowed`);
+			}
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ message: 'Internal server error' });
 		}
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ message: 'Internal server error' });
+	} catch (err) {
+		handleAuthError(err, res);
 	}
 }
 

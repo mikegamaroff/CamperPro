@@ -48,8 +48,8 @@ function CampsiteEdit({ id }: Props) {
 		isError: deleteError,
 		isSuccess: isDeleteSuccess
 	} = useDeleteCampsite();
-	const { isLoading } = useGetAllCampsites();
-	const { setCampsites, campsites } = useContext(CampsiteContext);
+	const { campsites, isLoading } = useGetAllCampsites();
+
 	if (isFetching || isLoading || !campsite) {
 		return <div>Loading..</div>;
 	}

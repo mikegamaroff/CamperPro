@@ -1,8 +1,16 @@
 // hooks/useGetAllCampsites.ts
 import { useContext, useEffect, useState } from 'react';
 import { CampsiteContext } from '../context/campsiteContext';
+import { AttributeFilters, defaultFilter } from '../model/campsite';
 
-export const useGetAllCampsites = (view = 'non-draft-campsites') => {
+interface GetAllCampsiteProps {
+	view?: string;
+	filters?: AttributeFilters;
+}
+export const useGetAllCampsites = ({
+	view = 'non-draft-campsites',
+	filters = defaultFilter
+}: GetAllCampsiteProps = {}) => {
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
@@ -12,10 +20,11 @@ export const useGetAllCampsites = (view = 'non-draft-campsites') => {
 		setError(null);
 
 		try {
-			const response = await fetch(`/api/campsites?view=${view}`, {
+			const response = await fetch(`/api/campsites?view=${view}&filters=${JSON.stringify(filters)}`, {
 				method: 'GET',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
 				}
 			});
 

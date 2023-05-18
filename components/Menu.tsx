@@ -1,6 +1,7 @@
 // MenuContent.tsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { AuthContext } from '../context/authContext';
 import { EmptyNewCampsite } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
 import { GoTo } from '../util/GoTo';
@@ -10,14 +11,15 @@ import { IconClose } from './Icons';
 import styles from './Menu.module.css';
 const MenuContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 	const { addCampsite, isLoading, isError, isSuccess } = useAddCampsite();
-
+	const { user } = useContext(AuthContext); // Access user and status from the AuthContext
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
 
 		const newCampsite = {
 			...EmptyNewCampsite,
 			_id: 'campsite:' + newId,
-			title: 'Example Campsite'
+			title: 'Example Campsite',
+			author: user?.id
 			// Add other campsite properties
 		};
 

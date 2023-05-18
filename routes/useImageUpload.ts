@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
+import { AuthContext } from '../context/authContext';
 import { useGlobalToast } from '../context/toastContext';
 
 export function useImageUpload<T = any>(
@@ -11,13 +12,15 @@ export function useImageUpload<T = any>(
 	// Loading is true while the image is uploading.
 	const [loading, setLoading] = useState(false);
 	const { showToast } = useGlobalToast();
-
+	const { status, user } = useContext(AuthContext); // Access user and status from the AuthContext
+	const userid = user?.id;
 	const uploadImage = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			return new Promise<T | null>((resolve, reject) => {
 				const file: Blob | undefined = e?.target?.files?.[0];
 
-				if (file && document) {
+				if (file && document && status === 'authenticated') {
+					// Check if the user is authenticated
 					const reader = new FileReader();
 
 					reader.onload = (event: ProgressEvent<FileReader>) => {
@@ -32,7 +35,8 @@ export function useImageUpload<T = any>(
 						fetch('/api/images', {
 							method: 'POST',
 							headers: {
-								'Content-Type': 'application/json'
+								'Content-Type': 'application/json',
+								Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 							},
 							body: JSON.stringify({
 								documentId: document,
@@ -44,6 +48,7 @@ export function useImageUpload<T = any>(
 								if (response.ok) {
 									const data: T = await response.json();
 									setLoading(false);
+
 									showToast('success', 'Image uploaded.');
 									updateFunction(data);
 									resolve(data);
@@ -68,7 +73,7 @@ export function useImageUpload<T = any>(
 				}
 			});
 		},
-		[document, showToast, setLoading]
+		[document, showToast, setLoading, status] // Include status in the dependency array
 	);
 
 	return { loading, uploadImage };

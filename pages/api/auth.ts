@@ -68,8 +68,8 @@ async function authenticateUser(req: NextApiRequest, res: NextApiResponse<{ toke
 			id: user._id,
 			email: user.email
 		};
-
-		const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+		const expiresInOneWeek = 60 * 60 * 24 * 7; // 1 week in seconds
+		const token = jwt.sign(payload, JWT_SECRET, { expiresIn: expiresInOneWeek });
 		res.status(200).json({ token });
 	} catch (error) {
 		console.error('Unhandled error:', error);

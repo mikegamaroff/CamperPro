@@ -17,7 +17,13 @@ export const useGetCampsite = (id: string) => {
 			setError(null);
 
 			try {
-				const response = await fetch(`/api/campsites/${id}`);
+				const response = await fetch(`/api/campsites/${id}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+					}
+				});
 				if (response.ok) {
 					const data = await response.json();
 					setCampsite(data.campsite);

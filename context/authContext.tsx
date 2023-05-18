@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		status: 'idle',
 		user: null
 	});
-
+	console.log(state.user);
 	useEffect(() => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
@@ -60,7 +60,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const response = await fetch('/api/auth?action=login', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
 				body: JSON.stringify({ email, password })
 			});
@@ -88,7 +89,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const response = await fetch('/api/auth?action=signup', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
 				body: JSON.stringify({ email, password: hashedPassword })
 			});

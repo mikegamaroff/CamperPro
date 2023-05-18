@@ -19,7 +19,8 @@ export const useAddCampsite = () => {
 			const response = await fetch('/api/campsites', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
 				body: JSON.stringify(campsite)
 			});

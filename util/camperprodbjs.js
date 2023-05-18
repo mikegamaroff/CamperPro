@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict';
-import nano from 'nano';
+const nano = require('nano');
 
 // camperprodb.js
-import { config } from 'dotenv';
-config({ path: './.env.local' });
+require('dotenv').config({ path: './.env.local' });
 
 function createDbInstanceJs() {
 	const dbUrl = process.env.COUCHDB_URL;
@@ -18,5 +18,7 @@ function createDbInstanceJs() {
 	return db;
 }
 
-export const createDbInstance = createDbInstanceJs;
-export const dbInstanceType = typeof createDbInstance();
+module.exports = {
+	createDbInstance: createDbInstanceJs,
+	dbInstanceType: typeof createDbInstanceJs()
+};

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 'use strict';
 const { v4: uuidv4 } = require('uuid');
-const createDbInstanceJs = require('./util/camperprodbjs');
+const { createDbInstance } = require('./util/camperprodbjs');
 
-const db = createDbInstanceJs();
+const db = createDbInstance();
 const firstNames = ['Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Isabella', 'Lucas', 'Mia', 'Jackson'];
 const lastNames = ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor'];
 

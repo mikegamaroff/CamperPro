@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentWithImages } from './model';
+
 export interface Coordinates {
 	lat: number;
 	lng: number;
@@ -47,14 +48,10 @@ export interface CampLocation {
 	receptionAddress: Address;
 }
 export interface Campsite extends DocumentWithImages {
-	_id?: string;
 	author?: string;
 	type: string;
 	category: string;
 	title: string;
-	images: Array<{ id: string; contentType: string }>;
-	created_at?: string;
-	updated_at?: string;
 	draft: boolean;
 	rating: number;
 	location: CampLocation;
@@ -63,7 +60,6 @@ export interface Campsite extends DocumentWithImages {
 	campsiteType: 'private' | 'shared';
 	capacity: Capacity;
 	attributes: Attribute[];
-	numberOfTentSitesAvailable: number;
 	active: boolean;
 }
 export interface AttributeFilters {
@@ -111,8 +107,7 @@ export const EmptyNewCampsite: Campsite = {
 		acreage: 2
 	},
 	attributes: defaultAttributes,
-	numberOfTentSitesAvailable: 0,
-	active: false
+	active: true
 };
 export const EmptyCampsite: Campsite = EmptyNewCampsite;
 

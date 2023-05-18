@@ -5,9 +5,10 @@ import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import withAuth from './withAuth';
 
 function Home() {
-	const { campsites, isLoading } = useGetAllCampsites({
+	const { campsites, isLoading } =
+		useGetAllCampsites(/* {
 		filters: { feature: ['river'] }
-	});
+	} */);
 
 	console.log(campsites);
 	return (

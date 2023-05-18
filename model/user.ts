@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentWithImages } from './model';
 export interface User extends DocumentWithImages {
-	_id?: string;
 	type: string;
 	username: string;
 	first_name: string;
@@ -9,8 +8,6 @@ export interface User extends DocumentWithImages {
 	email: string;
 	password: string;
 	phone_number: string;
-	created_at?: string;
-	updated_at?: string;
 	verified: boolean;
 	suspended: boolean;
 }

@@ -27,6 +27,11 @@ node generate-views.js
 node generate-users.js
 ```
 
+6. run the following command to generate some test campsites
+```bash
+node generate-campsites.js
+```
+
 ## Run dev server
 
 - yarn install

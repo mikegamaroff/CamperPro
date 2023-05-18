@@ -61,14 +61,12 @@ const campsiteDesignDoc = {
 		'non-draft-campsites': {
 			map: `
 			function (doc) {
-			  if (doc.type === 'campsite' && doc.draft === false) {
-				for (var i = 0; i < doc.attributes.length; i++) {
-				  if (doc.attributes[i].value) {
-					emit([doc.attributes[i].type, doc.attributes[i].name], doc);
+				if (doc.type === 'campsite' && doc.draft === false) {
+				  for (var i = 0; i < doc.attributes.length; i++) {
+					  emit([doc.attributes[i].type, doc.attributes[i].name], doc);
 				  }
 				}
 			  }
-			}
 		  `
 		}
 		// Add more views here if needed

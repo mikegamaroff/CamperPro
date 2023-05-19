@@ -15,6 +15,7 @@ import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import { GoTo } from '../util/GoTo';
 import styles from './index.module.css';
 import withAuth from './withAuth';
+import { FeedSearchButton } from '../components/FeedSearchButton';
 const FeedView: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
 	const { updateImage } = useContext(CampsiteContext);
 
@@ -73,7 +74,7 @@ function Home() {
 			<Container>
 				<>
 					<Button onClick={handleAddCampsite}>Add Campsite</Button>
-					<div>Gabe Search component</div>
+					<FeedSearchButton />
 					<Virtuoso
 						className={styles.scroller}
 						totalCount={campsites.length}

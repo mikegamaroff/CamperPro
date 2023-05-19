@@ -12,12 +12,13 @@ import { CampsiteContext } from '../context/campsiteContext';
 import { Campsite, EmptyNewCampsite } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
 import { useGetAllCampsites } from '../routes/useGetAllCampsites';
+import { useGetUser } from '../routes/useGetUser';
 import { GoTo } from '../util/GoTo';
 import styles from './index.module.css';
 import withAuth from './withAuth';
 const FeedView: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
 	const { updateImage } = useContext(CampsiteContext);
-
+	const { user } = useGetUser(campsite.author);
 	return (
 		<div className={styles.userHolder}>
 			{campsite?.images?.map(image => (
@@ -29,7 +30,10 @@ const FeedView: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
 					height={50}
 				/>
 			))}
-			<div className="card">{campsite.title}</div>
+			<div className="card">
+				<div>{campsite.title}</div>
+				<div>{user?.username}</div>
+			</div>
 			<div>
 				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
 			</div>

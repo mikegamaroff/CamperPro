@@ -11,13 +11,13 @@ interface DecodedToken {
 }
 
 const useValidateUser = () => {
-	const { user, status, logout } = useContext(AuthContext);
+	const { authUser, status, logout } = useContext(AuthContext);
 
 	useEffect(() => {
 		async function validateUser() {
-			if (user && status === 'authenticated') {
+			if (authUser && status === 'authenticated') {
 				try {
-					const response = await fetch(`/api/users?id=${user.id}`, {
+					const response = await fetch(`/api/users?id=${authUser.id}`, {
 						method: 'GET',
 						headers: {
 							'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ const useValidateUser = () => {
 		}
 
 		validateUser();
-	}, [user, status, logout]);
+	}, [authUser, status, logout]);
 
 	return { status };
 };

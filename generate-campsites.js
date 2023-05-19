@@ -45,6 +45,7 @@ const states = ['CA', 'TX', 'NY', 'FL', 'IL', 'PA', 'OH', 'GA', 'MN', 'NC'];
 const EmptyNewCampsite = {
 	type: 'campsite',
 	category: 'public',
+	description: 'A nice description of a campsite',
 	images: [],
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),

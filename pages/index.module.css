@@ -5,7 +5,7 @@
 	margin-bottom: 10px;
 	height: 100px;
 }
-.scroller {
-	height: calc(100% - 105px) !important;
+.feedContainer {
 	padding: 0;
+	height: 100%;
 }

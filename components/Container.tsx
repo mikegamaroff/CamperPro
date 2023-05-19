@@ -58,7 +58,11 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 	return (
 		<>
 			<PageTransition routeTransition={routeContext.routeTransition}>
-				<div className={classNames('innerContent', scroll && 'scrollContent')}>{children}</div>
+				<div
+					className={classNames(!hidetabs ? 'innerContent-tabs' : 'innerContent', scroll && 'scrollContent')}
+				>
+					{children}
+				</div>
 			</PageTransition>
 			{!hidetabs && (
 				<IonTabs key={router.pathname}>

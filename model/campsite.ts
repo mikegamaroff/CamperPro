@@ -52,6 +52,7 @@ export interface Campsite extends DocumentWithImages {
 	type: string;
 	category: string;
 	title: string;
+	description: string;
 	draft: boolean;
 	rating: number;
 	location: CampLocation;
@@ -99,6 +100,7 @@ export const EmptyNewCampsite: Campsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	draft: true,
+	description: '',
 	pricePerNight: 0,
 	receptionCheckin: false,
 	campsiteType: 'private',

@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentWithImages } from '../../../model/model';
+import { User } from '../../../model/user';
 import authenticateJWT from '../../../util/authenticateJSW';
 import createDbInstance from '../../../util/camperprodb';
 import handleAuthError from '../../../util/handleAuthError';
@@ -14,7 +15,7 @@ export const config = {
 	}
 };
 interface NextApiRequestWithUser extends NextApiRequest {
-	user?: any; // replace `any` with the type of your user object
+	user?: User; // replace `any` with the type of your user object
 }
 async function uploadImage(
 	req: NextApiRequestWithUser,
@@ -28,7 +29,7 @@ async function uploadImage(
 		// Generate a unique filename for the uploaded image
 		const imageId = uuidv4();
 		const imageExtension = contentType.split('/')[1];
-		const imagePath = path.join(process.cwd(), 'public', 'images', `${imageId}.${imageExtension}`);
+		const imagePath = path.join(process.cwd(), 'uploads', 'images', `${imageId}.${imageExtension}`);
 
 		// Save the image to the server
 		fs.writeFileSync(imagePath, Buffer.from(data), 'binary');

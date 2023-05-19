@@ -1,0 +1,11 @@
+.userHolder {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 10px;
+	height: 100px;
+}
+.scroller {
+	height: calc(100% - 105px) !important;
+	padding: 0;
+}

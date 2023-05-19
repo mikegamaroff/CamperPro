@@ -57,6 +57,7 @@ const EmptyNewCampsite = {
 	],
 	active: true
 };
+
 // Function to generate a random US ZIP code
 function generateRandomZipCode() {
 	// Range of valid ZIP codes in the US
@@ -105,12 +106,12 @@ for (let i = 0; i < 10; i++) {
 	};
 	campsiteArray.push(campsite);
 }
+let j = 0;
 // Generate 10 test users
 for (let i = 0; i < 10; i++) {
 	const title = titles[Math.floor(Math.random() * titles.length)];
 	const author = authors[Math.floor(Math.random() * titles.length)];
 	const location = campsiteArray[Math.floor(Math.random() * titles.length)];
-
 	const newCampsite = EmptyNewCampsite;
 	newCampsite._id = `campsite:${uuidv4()}`;
 	newCampsite.title = title;
@@ -120,6 +121,12 @@ for (let i = 0; i < 10; i++) {
 	newCampsite.draft = false;
 	newCampsite.pricePerNight = Math.floor(Math.random() * (100 - 30 + 1)) + 30;
 	newCampsite.receptionCheckin = Math.random() < 0.5;
+	newCampsite.images = [
+		{
+			id: j++,
+			contentType: 'image/jpeg'
+		}
+	];
 	newCampsite.capacity = {
 		numberOfTentSites: (Math.random() * 10 + 1).toFixed(0),
 		acreage: (Math.random() * 20 + 1).toFixed(0)

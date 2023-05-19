@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "generate-campsites.js", "generate-campsites.mjs"  ],
   "exclude": [
     "node_modules"
   ]

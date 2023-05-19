@@ -3,8 +3,9 @@ import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
-import Button from '../components/Forms/Button';
+import { Fab } from '../components/Fab';
 import { Header } from '../components/Header';
+import { IconFire } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { UploadImageButton } from '../components/UploadImageButton';
 import { AuthContext } from '../context/authContext';
@@ -50,7 +51,6 @@ function Home() {
 
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
-
 		const newCampsite = {
 			...EmptyNewCampsite,
 			_id: 'campsite:' + newId,
@@ -75,17 +75,18 @@ function Home() {
 			<Header title="logo" left={<MenuButton />} />
 
 			<Container>
-				<>
-					<Button onClick={handleAddCampsite}>Add Campsite</Button>
+				<div className={styles.feedContainer}>
+					<Fab icon={<IconFire />} onClick={handleAddCampsite} />
 					<div>Gabe Search component</div>
-					<Virtuoso
-						className={styles.scroller}
-						totalCount={campsites.length}
-						data={campsites}
-						overscan={{ main: 2, reverse: 2 }}
-						itemContent={(index, campsite) => <FeedView campsite={campsite} />}
-					/>
-				</>
+					<div className={styles.feedContainer}>
+						<Virtuoso
+							totalCount={campsites.length}
+							data={campsites}
+							overscan={{ main: 2, reverse: 2 }}
+							itemContent={(index, campsite) => <FeedView campsite={campsite} />}
+						/>
+					</div>
+				</div>
 			</Container>
 		</>
 	);

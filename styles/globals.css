@@ -279,8 +279,6 @@ a:hover {
 
 .scrollContent {
 	overflow: scroll;
-	height: 100%;
-	padding-top: 20px;
 }
 .pill {
 	background: var(--neutral50);
@@ -345,14 +343,21 @@ ion-header {
 	background: var(--ion-color-primary-contrast);
 }
 
-.innerContent {
-	height: 100vh;
+.innerContent,
+.innerContent-tabs {
 	margin: auto;
 	max-width: 650px;
 	background: var(--ion-color-primary-contrast);
 	padding: 10px;
 	border-left: 1px solid var(--neutral150);
 	border-right: 1px solid var(--neutral150);
+	position: relative;
+}
+.innerContent {
+	height: 100%;
+}
+.innerContent-tabs {
+	height: calc(100% - 40px);
 }
 .versionDisabled {
 	display: none;

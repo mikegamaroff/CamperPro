@@ -52,7 +52,7 @@ function Icons() {
 
 	const IconSet: React.FC<IconType> = ({ icon, name }) => (
 		<div className={styles.iconContainer}>
-			<div className={styles.icon}>{icon}</div>
+			<div>{icon}</div>
 			<div className={styles.iconName}>{name}</div>
 		</div>
 	);

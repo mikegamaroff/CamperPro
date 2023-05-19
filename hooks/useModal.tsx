@@ -53,28 +53,32 @@ const useModal = ({ onCancel, onConfirm, component, type }: UseModalProps) => {
 	useEffect(() => {
 		modalRef.current = modal;
 	}, [modal]);
-	const presentModal = useCallback(async () => {
-		if (!modal) {
-			const m = document.createElement('ion-modal') as HTMLIonModalElement;
-			type === 'lite' && m.classList.add('ion-modal-custom');
-			// Render the ModalContent component using createRoot
-			createRoot(m).render(
-				type === 'lite' ? (
-					<ModalContentLite component={component} />
-				) : (
-					<ModalContent onCancel={onCancel} onConfirm={onConfirm} component={component} />
-				)
-			);
+	const presentModal = useCallback(
+		async (e: any) => {
+			e.stopPropagation();
+			if (!modal) {
+				const m = document.createElement('ion-modal') as HTMLIonModalElement;
+				type === 'lite' && m.classList.add('ion-modal-custom');
+				// Render the ModalContent component using createRoot
+				createRoot(m).render(
+					type === 'lite' ? (
+						<ModalContentLite component={component} />
+					) : (
+						<ModalContent onCancel={onCancel} onConfirm={onConfirm} component={component} />
+					)
+				);
 
-			document.body.appendChild(m);
+				document.body.appendChild(m);
 
-			setModal(m);
-			modalRef.current = m;
-			await m.present();
-		} else {
-			modal.present();
-		}
-	}, [modal, onCancel, onConfirm, component]);
+				setModal(m);
+				modalRef.current = m;
+				await m.present();
+			} else {
+				modal.present();
+			}
+		},
+		[modal, onCancel, onConfirm, component]
+	);
 
 	const dismissModal = useCallback(() => {
 		// eslint-disable-next-line no-console

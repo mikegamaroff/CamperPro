@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
+import { FeedSearchButton } from '../components/FeedSearchButton';
 import Button from '../components/Forms/Button';
 import { Header } from '../components/Header';
 import { MenuButton } from '../components/MenuButton';
@@ -15,7 +16,6 @@ import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import { GoTo } from '../util/GoTo';
 import styles from './index.module.css';
 import withAuth from './withAuth';
-import { FeedSearchButton } from '../components/FeedSearchButton';
 const FeedView: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
 	const { updateImage } = useContext(CampsiteContext);
 

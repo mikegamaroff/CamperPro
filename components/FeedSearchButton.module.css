@@ -1,26 +1,26 @@
 .FeedSearchButtonContainer {
-    position: relative;
-    width: 92.5%;
-    left: 50%;
-    padding: 11px 26px 11px 26px;
-    border: 1px solid #EFEFEF;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
-    border-radius: 43px;
-    transform: translateX(-50%);
+	position: relative;
+	width: 92.5%;
+	left: 50%;
+	padding: 11px 26px 11px 26px;
+	border: 1px solid #efefef;
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
+	border-radius: 50px;
+	transform: translateX(-50%);
 }
 
 .FeedSearchButtonContent {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+	display: flex;
+	gap: 15px;
+	align-items: center;
 }
 
 .FilterButton {
-    border-radius: 100%;
-    padding: 5px;
-    border: 1px solid #EFEFEF;
+	border-radius: 100%;
+	padding: 7px;
+	border: 1px solid #dddddd;
 }
 
 .label {
-    width: 100%;
+	width: 100%;
 }

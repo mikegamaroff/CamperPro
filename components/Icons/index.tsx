@@ -26,9 +26,9 @@ interface IconProps {
 }
 
 const createIcon = (SvgComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>, key: string) => {
-	const IconComponent = ({ size }: IconProps) => (
+	const IconComponent = ({ size = 24 }: IconProps) => (
 		<Icon size={size}>
-			<SvgComponent width={size || 30} height={size || 30} />
+			<SvgComponent />
 		</Icon>
 	);
 	IconComponent.displayName = key;

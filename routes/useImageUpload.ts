@@ -12,8 +12,7 @@ export function useImageUpload<T = any>(
 	// Loading is true while the image is uploading.
 	const [loading, setLoading] = useState(false);
 	const { showToast } = useGlobalToast();
-	const { status, user } = useContext(AuthContext); // Access user and status from the AuthContext
-	const userid = user?.id;
+	const { status } = useContext(AuthContext); // Access user and status from the AuthContext
 	const uploadImage = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			return new Promise<T | null>((resolve, reject) => {

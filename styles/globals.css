@@ -163,6 +163,11 @@ a:hover {
 .radius8 {
 	border-radius: 8px;
 }
+
+.icon svg {
+	height: 100%;
+	width: 100%;
+}
 .iconCircle {
 	background: var(--neutral50);
 	border-radius: 100%;

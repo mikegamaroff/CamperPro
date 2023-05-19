@@ -5,7 +5,15 @@ import styles from './FeedSearchButton.module.css';
 import { IconFilter, IconSearch } from './Icons';
 
 export const FeedSearchButton: FC = () => {
-	const ModalContent = () => {
+	const SearchModalContent = () => {
+		return (
+			<div>
+				<h2>Search</h2>
+				<p>Search</p>
+			</div>
+		);
+	};
+	const FilterModalContent = () => {
 		return (
 			<div>
 				<h2>Filters</h2>
@@ -13,29 +21,43 @@ export const FeedSearchButton: FC = () => {
 			</div>
 		);
 	};
-	const confirmModal = () => {
+	const confirmModalSearch = () => {
 		console.log('Confirmed');
-		dismissModal();
+		dismissModalSearch();
 	};
 
-	const cancelModal = () => {
+	const cancelModalSearch = () => {
 		console.log('Canceled');
-		dismissModal();
+		dismissModalSearch();
 	};
-	const { presentModal, dismissModal } = useModal({
-		onCancel: cancelModal,
-		onConfirm: confirmModal,
-		component: <ModalContent />
+	const confirmModalFilter = () => {
+		console.log('Confirmed');
+		dismissModalFilter();
+	};
+
+	const cancelModalFilter = () => {
+		console.log('Canceled');
+		dismissModalFilter();
+	};
+	const { presentModal: presentModalSearch, dismissModal: dismissModalSearch } = useModal({
+		onCancel: cancelModalSearch,
+		onConfirm: confirmModalSearch,
+		component: <SearchModalContent />
+	});
+	const { presentModal: presentModalFilter, dismissModal: dismissModalFilter } = useModal({
+		onCancel: cancelModalFilter,
+		onConfirm: confirmModalFilter,
+		component: <FilterModalContent />
 	});
 
 	return (
-		<div className={styles.FeedSearchButtonContainer}>
+		<div onClick={presentModalSearch} className={styles.FeedSearchButtonContainer}>
 			<div className={styles.FeedSearchButtonContent}>
 				<div>
 					<IconSearch size={21} />
 				</div>
 				<div className={classNames(styles.label, 'h5-bold')}>Find a campsite</div>
-				<div onClick={presentModal} className={styles.FilterButton}>
+				<div onClick={presentModalFilter} className={styles.FilterButton}>
 					<IconFilter size={20} />
 				</div>
 			</div>

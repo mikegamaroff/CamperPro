@@ -25,7 +25,7 @@ const FeedView: React.FC<{
 			{campsite?.images?.map(image => (
 				<Image
 					key={image.id}
-					src={`/images/${image.id}.${image.contentType.split('/')[1]}`}
+					src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
 					alt="Campsite Image"
 					width={50}
 					height={50}

@@ -10,7 +10,7 @@ interface UserType {
 }
 interface AuthContextInterface {
 	status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
-	user: UserType | null;
+	authUser: UserType | null;
 	login: (email: string, password: string) => Promise<void>;
 	signup: (email: string, password: string) => Promise<void>;
 	logout: () => void;
@@ -18,7 +18,7 @@ interface AuthContextInterface {
 
 export const AuthContext = createContext<AuthContextInterface>({
 	status: 'idle',
-	user: null,
+	authUser: null,
 	login: async () => {},
 	signup: async () => {},
 	logout: () => {}
@@ -38,25 +38,25 @@ interface DecodedToken {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<{
 		status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
-		user: UserType | null;
+		authUser: UserType | null;
 	}>({
 		status: 'idle',
-		user: null
+		authUser: null
 	});
-	console.log(state.user);
+
 	useEffect(() => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
 			const decoded = jwtDecode<DecodedToken>(token);
-			setState({ status: 'authenticated', user: decoded });
+			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
 		} else {
-			setState({ status: 'unauthenticated', user: null });
+			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: null }));
 		}
 	}, []);
 
 	const login = async (email: string, password: string) => {
 		try {
-			setState({ ...state, status: 'authenticating' });
+			setState(prevState => ({ ...prevState, status: 'authenticating' }));
 			const response = await fetch('/api/auth?action=login', {
 				method: 'POST',
 				headers: {
@@ -74,7 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			localStorage.setItem('jwtToken', token);
 
 			const decoded = jwtDecode<DecodedToken>(token);
-			setState({ status: 'authenticated', user: decoded });
+			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
 		} catch (err) {
 			// eslint-disable-next-line no-console
 			console.error(err);
@@ -84,7 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 	const signup = async (email: string, password: string) => {
 		try {
-			setState({ ...state, status: 'authenticating' });
+			setState(prevState => ({ ...prevState, status: 'authenticating' }));
 			const hashedPassword = await hashPassword(password);
 			const response = await fetch('/api/auth?action=signup', {
 				method: 'POST',
@@ -105,14 +105,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			console.error(err);
 			throw err;
 		} finally {
-			setState({ ...state, status: 'idle' });
+			setState(prevState => ({ ...prevState, status: 'idle' }));
 		}
 	};
 
 	const logout = () => {
 		localStorage.removeItem('jwtToken');
-		setState({ status: 'unauthenticated', user: null });
+		setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 	};
-
+	console.log({ ...state });
 	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
 };

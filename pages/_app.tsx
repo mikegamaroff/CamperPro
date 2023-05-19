@@ -52,9 +52,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	}, [router]);
 	return (
 		<IonApp>
-			<RouteContextProvider>
-				<RouterContext.Provider value={router}>
-					<AuthProvider>
+			<AuthProvider>
+				<RouteContextProvider>
+					<RouterContext.Provider value={router}>
 						<UserProvider>
 							<CampsiteProvider>
 								<ToastProvider>
@@ -64,9 +64,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 								</ToastProvider>
 							</CampsiteProvider>
 						</UserProvider>
-					</AuthProvider>
-				</RouterContext.Provider>
-			</RouteContextProvider>
+					</RouterContext.Provider>
+				</RouteContextProvider>
+			</AuthProvider>
 		</IonApp>
 	);
 }

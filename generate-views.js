@@ -30,6 +30,15 @@ const userDesignDoc = {
                     }
                 }
             `
+		},
+		'user-by-id': {
+			map: `
+			function (doc) {
+				if (doc.type === 'user') {
+					emit(doc._id, doc);
+				}
+			}
+            `
 		}
 		// Add more views here if needed
 	},
@@ -67,6 +76,15 @@ const campsiteDesignDoc = {
 				  }
 				}
 			  }
+		  `
+		},
+		'campsite-author-search': {
+			map: `
+			function (doc) {
+				if (doc.type === 'campsite' && !doc.draft) {
+					emit(doc.author, doc);
+				}
+			}
 		  `
 		}
 		// Add more views here if needed

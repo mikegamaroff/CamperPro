@@ -6,6 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	color: var(--neutral900);
+	height: 100%;
 }
 
 * {
@@ -102,10 +103,19 @@ h5,
 .h5-bold {
 	font-weight: 600;
 }
-
+.layoutContainer {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	height: 100%;
+}
+.contentWrapper {
+	padding: 0 10px 0 10px;
+}
 .innerContainer {
 	max-width: 500px;
 	width: 100%;
+}
+.shelf {
 }
 .nolink {
 	all: unset;
@@ -330,28 +340,25 @@ ion-header {
 	background: var(--ion-color-primary-contrast);
 }
 
-.innerContent,
-.innerContent-tabs {
+.appContainer,
+.appContainer-tabs {
 	margin: auto;
 	max-width: 650px;
 	background: var(--ion-color-primary-contrast);
-	padding: 10px;
 	border-left: 1px solid var(--neutral150);
 	border-right: 1px solid var(--neutral150);
 	position: relative;
 }
-.innerContent {
+.appContainer {
 	height: 100%;
 }
-.innerContent-tabs {
+.appContainer-tabs {
 	height: calc(100% - 115px);
 }
 .versionDisabled {
 	display: none;
 }
-.contentWrapper {
-	padding: 10px;
-}
+
 .versionEnabled {
 	display: block;
 	color: red;

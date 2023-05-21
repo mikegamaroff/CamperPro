@@ -59,7 +59,7 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 		<>
 			<PageTransition routeTransition={routeContext.routeTransition}>
 				<div
-					className={classNames(!hidetabs ? 'innerContent-tabs' : 'innerContent', scroll && 'scrollContent')}
+					className={classNames(!hidetabs ? 'appContainer-tabs' : 'appContainer', scroll && 'scrollContent')}
 				>
 					{children}
 				</div>

@@ -81,18 +81,26 @@ function Home() {
 			<Header title="logo" left={<MenuButton />} />
 
 			<Container>
-				<div className={styles.feedContainer}>
-					<Fab icon={<IconAdd />} onClick={handleAddCampsite} />
-					<FeedSearchButton />
-					<div className={styles.feedContainer}>
-						<Virtuoso
-							totalCount={campsites.length}
-							data={campsites}
-							overscan={{ main: 2, reverse: 2 }}
-							itemContent={(index, campsite) => <FeedView campsite={campsite} />}
-						/>
+				<>
+					<div className="layoutContainer">
+						<div id="shelf">
+							<div className={styles.feedSearchContainer}>
+								<FeedSearchButton />
+							</div>
+						</div>
+						<div className="contentWrapper">
+							<div className={styles.feedContainer}>
+								<Virtuoso
+									totalCount={campsites.length}
+									data={campsites}
+									overscan={{ main: 2, reverse: 2 }}
+									itemContent={(index, campsite) => <FeedView campsite={campsite} />}
+								/>
+							</div>
+						</div>
 					</div>
-				</div>
+					<Fab icon={<IconAdd />} onClick={handleAddCampsite} />
+				</>
 			</Container>
 		</>
 	);

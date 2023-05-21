@@ -18,6 +18,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite } = useGetCampsite(id);
 	const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+	const images = campsite?.images;
 	const handleSlideChange = (swiper: SwiperCore) => {
 		const index = swiper.activeIndex;
 		setCurrentImageIndex(index);
@@ -42,9 +43,9 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 					onSwiper={setSwiperInstance}
 					className={sharedStyles.imageContainer}
 				>
-					{campsite && campsite?.images?.length > 1 && (
+					{images && images.length > 1 && (
 						<div className={sharedStyles.imageTracker}>
-							{campsite?.images.map((image, index) => (
+							{images.map((image, index) => (
 								<div
 									key={index}
 									onClick={() => handleClick(index)}

@@ -1,5 +1,7 @@
 import { Icon } from './Icon';
 
+import Add from '../../assets/icons/AddIcon.component.svg';
+import BackArrow from '../../assets/icons/BackArrowIcon.component.svg';
 import Close from '../../assets/icons/CloseIcon.component.svg';
 import Eye from '../../assets/icons/EyeIcon.component.svg';
 import EyeOff from '../../assets/icons/EyeOffIcon.component.svg';
@@ -54,3 +56,5 @@ export const IconTrips = createIcon(Trips, 'Trips');
 export const IconProfile = createIcon(Profile, 'Profile');
 export const IconClose = createIcon(Close, 'Close');
 export const IconMenu = createIcon(Menu, 'Menu');
+export const IconAdd = createIcon(Add, 'Add');
+export const IconBackArrow = createIcon(BackArrow, 'BackArrow');

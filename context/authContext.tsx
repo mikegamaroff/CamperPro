@@ -50,7 +50,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const decoded = jwtDecode<DecodedToken>(token);
 			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
 		} else {
-			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: null }));
+			setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 		}
 	}, []);
 
@@ -65,14 +65,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 				},
 				body: JSON.stringify({ email, password })
 			});
-
 			if (!response.ok) {
 				throw new Error('Invalid email or password');
 			}
-
 			const { token } = await response.json();
 			localStorage.setItem('jwtToken', token);
-
 			const decoded = jwtDecode<DecodedToken>(token);
 			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
 		} catch (err) {
@@ -113,6 +110,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		localStorage.removeItem('jwtToken');
 		setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 	};
-	console.log({ ...state });
 	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
 };

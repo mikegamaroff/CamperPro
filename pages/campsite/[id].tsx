@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { Swiper as SwiperCore } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { DotIndicator } from '../../components/DotIndicator';
+import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
-import { MenuButton } from '../../components/MenuButton';
+import { IconBackArrow } from '../../components/Icons';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
@@ -31,7 +32,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	}, [campsite, swiperInstance]);
 	return (
 		<>
-			<Header title="logo" left={<MenuButton />} />
+			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
 
 			<div>
 				<Swiper

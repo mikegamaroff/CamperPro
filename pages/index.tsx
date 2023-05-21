@@ -4,6 +4,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
 import { Fab } from '../components/Fab';
+import { FeedSearchButton } from '../components/FeedSearchButton';
 import { Go } from '../components/Go';
 import { Header } from '../components/Header';
 import { IconFire } from '../components/Icons';
@@ -82,7 +83,7 @@ function Home() {
 			<Container>
 				<div className={styles.feedContainer}>
 					<Fab icon={<IconFire />} onClick={handleAddCampsite} />
-					<div>Gabe Search component</div>
+					<FeedSearchButton />
 					<div className={styles.feedContainer}>
 						<Virtuoso
 							totalCount={campsites.length}

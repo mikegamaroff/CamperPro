@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import NextLink, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
@@ -40,7 +41,7 @@ export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 	);
 
 	return (
-		<NextLink {...props} passHref className="nounderline">
+		<NextLink {...props} passHref className={classNames('nolink')}>
 			{React.cloneElement(children as React.ReactElement, { onClick: handleClick })}
 		</NextLink>
 	);

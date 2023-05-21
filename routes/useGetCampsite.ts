@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Campsite } from '../model/campsite';
 
 export const useGetCampsite = (id: string) => {
-	const [campsite, setCampsite] = useState<Campsite | undefined>();
+	const [campsite, setCampsite] = useState<Campsite>();
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 

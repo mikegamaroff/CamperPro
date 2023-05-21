@@ -9,7 +9,7 @@ import '@ionic/core/css/core.css';
 import '@ionic/core/css/normalize.css';
 import '@ionic/core/css/structure.css';
 import '@ionic/core/css/typography.css';
-
+import 'swiper/swiper.min.css';
 /* Optional CSS utils that can be commented out */
 import '@ionic/core/css/display.css';
 import '@ionic/core/css/flex-utils.css';

@@ -4,6 +4,7 @@ import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
 import { Fab } from '../components/Fab';
+import { Go } from '../components/Go';
 import { Header } from '../components/Header';
 import { IconFire } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
@@ -21,24 +22,26 @@ const FeedView: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
 	const { updateImage } = useContext(CampsiteContext);
 	const { user } = useGetUser(campsite.author);
 	return (
-		<div className={styles.userHolder}>
-			{campsite?.images?.map(image => (
-				<Image
-					key={image.id}
-					src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
-					alt="Campsite Image"
-					width={50}
-					height={50}
-				/>
-			))}
-			<div className="card">
-				<div>{campsite.title}</div>
-				<div>{user?.username}</div>
+		<Go href={`/campsite/${campsite._id}`}>
+			<div className={styles.userHolder}>
+				{campsite?.images?.map(image => (
+					<Image
+						key={image.id}
+						src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
+						alt="Campsite Image"
+						width={50}
+						height={50}
+					/>
+				))}
+				<div className="card">
+					<div>{campsite.title}</div>
+					<div>{user?.username}</div>
+				</div>
+				<div>
+					<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
+				</div>
 			</div>
-			<div>
-				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
-			</div>
-		</div>
+		</Go>
 	);
 };
 function Home() {

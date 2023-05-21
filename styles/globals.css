@@ -120,8 +120,8 @@ h5,
 	max-width: 500px;
 	width: 100%;
 }
-.nounderline {
-	text-decoration: none;
+.nolink {
+	all: unset;
 }
 .searchbar-input {
 	font-style: normal !important;
@@ -357,7 +357,7 @@ ion-header {
 	height: 100%;
 }
 .innerContent-tabs {
-	height: calc(100% - 40px);
+	height: calc(100% - 115px);
 }
 .versionDisabled {
 	display: none;

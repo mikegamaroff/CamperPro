@@ -22,5 +22,5 @@ export interface ImageType {
 	contentType: string;
 }
 export interface DocumentWithImages extends Document {
-	images?: Array<ImageType>;
+	images: Array<ImageType>;
 }

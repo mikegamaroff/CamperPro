@@ -34,6 +34,7 @@
     "react-dom": "^18.2.0",
     "react-virtuoso": "^4.3.5",
     "request": "^2.88.2",
+    "swiper": "^9.3.2",
     "url-loader": "^4.1.1",
     "uuid": "^9.0.0"
   },

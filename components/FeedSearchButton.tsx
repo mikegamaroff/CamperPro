@@ -58,7 +58,7 @@ export const FeedSearchButton: FC = () => {
 				</div>
 				<div className={classNames(styles.label, 'h5-bold')}>Find a campsite</div>
 				<div onClick={presentModalFilter} className={styles.FilterButton}>
-					<IconFilter size={30} />
+					<IconFilter size={25} />
 				</div>
 			</div>
 		</div>

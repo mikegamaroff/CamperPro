@@ -17,8 +17,11 @@
 
 .FilterButton {
 	border-radius: 100%;
+	display: flex;
 	padding: 7px;
-	border: 1px solid #dddddd;
+	border: 1px solid var(--neutral50);
+	align-items: center;
+	justify-content: center;
 }
 
 .label {

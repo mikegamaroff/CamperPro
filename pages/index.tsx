@@ -7,7 +7,7 @@ import { Fab } from '../components/Fab';
 import { FeedSearchButton } from '../components/FeedSearchButton';
 import { Go } from '../components/Go';
 import { Header } from '../components/Header';
-import { IconFire } from '../components/Icons';
+import { IconAdd } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { UploadImageButton } from '../components/UploadImageButton';
 import { AuthContext } from '../context/authContext';
@@ -82,7 +82,7 @@ function Home() {
 
 			<Container>
 				<div className={styles.feedContainer}>
-					<Fab icon={<IconFire />} onClick={handleAddCampsite} />
+					<Fab icon={<IconAdd />} onClick={handleAddCampsite} />
 					<FeedSearchButton />
 					<div className={styles.feedContainer}>
 						<Virtuoso

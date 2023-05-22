@@ -1,73 +1,24 @@
 import { GetServerSideProps } from 'next';
-import { useEffect, useState } from 'react';
-import { Swiper as SwiperCore } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { DotIndicator } from '../../components/DotIndicator';
+import { CampsiteImages } from '../../components/CampsiteImages';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
 import { IconBackArrow } from '../../components/Icons';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
-// eslint-disable-next-line css-modules/no-unused-class
-import sharedStyles from '../../styles/shared.module.css';
+
 interface PostPageProps {
 	id: string;
 }
 
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite, isLoading } = useGetCampsite(id);
-	const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
-	const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-	const images = campsite?.images;
-	const handleSlideChange = (swiper: SwiperCore) => {
-		const index = swiper.activeIndex;
-		setCurrentImageIndex(index);
-	};
-	const handleClick = (index: number) => {
-		swiperInstance?.slideTo(index);
-	};
-	useEffect(() => {
-		if (swiperInstance) {
-			swiperInstance.update();
-		}
-	}, [campsite, swiperInstance]);
+
 	return (
 		<>
 			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
 
 			<div>
-				<Swiper
-					spaceBetween={10}
-					slidesPerView={1}
-					onSlideChange={handleSlideChange}
-					onSwiper={setSwiperInstance}
-					className={sharedStyles.imageContainer}
-				>
-					{images && images.length > 1 && (
-						<div className={sharedStyles.imageTracker}>
-							{images.map((image, index) => (
-								<div
-									key={index}
-									onClick={() => handleClick(index)}
-									className={sharedStyles.imageTrackerDot}
-								>
-									<DotIndicator on={currentImageIndex === index} />
-								</div>
-							))}
-						</div>
-					)}
-					{images &&
-						images.slice(0, 6).map((image, index) => (
-							<SwiperSlide key={index}>
-								<div className={`${sharedStyles.campsiteImage}`}>
-									<img
-										src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
-										alt={`${campsite?.title} - Slide ${index + 1}`}
-									/>
-								</div>
-							</SwiperSlide>
-						))}
-				</Swiper>
+				<CampsiteImages campsite={campsite} />
 				<h1>{campsite?.title}</h1>
 			</div>
 		</>

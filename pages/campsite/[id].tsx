@@ -15,7 +15,7 @@ interface PostPageProps {
 }
 
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
-	const { campsite } = useGetCampsite(id);
+	const { campsite, isLoading } = useGetCampsite(id);
 	const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 	const images = campsite?.images;
@@ -56,16 +56,17 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 							))}
 						</div>
 					)}
-					{campsite?.images?.slice(0, 6).map((image, index) => (
-						<SwiperSlide key={index}>
-							<div className={`${sharedStyles.campsiteImage}`}>
-								<img
-									src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
-									alt={`${campsite?.title} - Slide ${index + 1}`}
-								/>
-							</div>
-						</SwiperSlide>
-					))}
+					{images &&
+						images.slice(0, 6).map((image, index) => (
+							<SwiperSlide key={index}>
+								<div className={`${sharedStyles.campsiteImage}`}>
+									<img
+										src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
+										alt={`${campsite?.title} - Slide ${index + 1}`}
+									/>
+								</div>
+							</SwiperSlide>
+						))}
 				</Swiper>
 				<h1>{campsite?.title}</h1>
 			</div>

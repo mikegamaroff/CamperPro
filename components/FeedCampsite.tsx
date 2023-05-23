@@ -19,7 +19,7 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 			</div>
 			<div className={styles.uploadImage}>
 				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
-			</div>{' '}
+			</div>
 			<Go href={`/campsite/${campsite._id}`}>
 				<>
 					<div className={styles.campsiteInfo}>

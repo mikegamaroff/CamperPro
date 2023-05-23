@@ -30,7 +30,11 @@ function Fonts() {
 				</div>
 				<div className={styles.tableLayout}>
 					<p className={styles.quickBrown}>Quick Brown Fox Jumps</p>
-					<div className={styles.class}>{`<p/>`}, .p</div>
+					<div className={styles.class}>{`<p/>`}, .p, margin-bottom: 15px</div>
+				</div>
+				<div className={styles.tableLayout}>
+					<div className={styles.quickBrown}>Quick Brown Fox Jumps</div>
+					<div className={styles.class}>.body</div>
 				</div>
 				<div className={styles.tableLayout}>
 					<div className={classNames(styles.quickBrown, 'callout')}>Quick Brown Fox Jumps</div>
@@ -63,7 +67,11 @@ function Fonts() {
 				</div>
 				<div className={styles.tableLayout}>
 					<p className={classNames(styles.quickBrown, 'medium')}>Quick Brown Fox Jumps</p>
-					<div className={styles.class}>{`<p/>`}, .p, .medium</div>
+					<div className={styles.class}>{`<p/>`}, .p, .medium, margin-bottom: 15px</div>
+				</div>
+				<div className={styles.tableLayout}>
+					<div className={classNames(styles.quickBrown, 'medium')}>Quick Brown Fox Jumps</div>
+					<div className={styles.class}>.body, .medium</div>
 				</div>
 				<div className={styles.tableLayout}>
 					<div className={classNames(styles.quickBrown, 'callout', 'medium')}>Quick Brown Fox Jumps</div>
@@ -96,7 +104,11 @@ function Fonts() {
 				</div>
 				<div className={styles.tableLayout}>
 					<p className={classNames(styles.quickBrown, 'bold')}>Quick Brown Fox Jumps</p>
-					<div className={styles.class}>{`<p/>`}, .p, .bold</div>
+					<div className={styles.class}>{`<p/>`}, .p, .bold, margin-bottom: 15px</div>
+				</div>
+				<div className={styles.tableLayout}>
+					<div className={classNames(styles.quickBrown, 'bold')}>Quick Brown Fox Jumps</div>
+					<div className={styles.class}>.body, .bold</div>
 				</div>
 				<div className={styles.tableLayout}>
 					<div className={classNames(styles.quickBrown, 'callout', 'bold')}>Quick Brown Fox Jumps</div>

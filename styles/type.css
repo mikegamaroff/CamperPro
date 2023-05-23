@@ -4,6 +4,7 @@ h3,
 h4,
 h5,
 p,
+.body,
 .callout,
 .footnote {
 	margin: 0;
@@ -48,6 +49,9 @@ p,
 .p {
 	font-size: 16px;
 	color: var(--neutral900);
+}
+.body {
+	font-size: 16px;
 }
 .callout {
 	font-size: 15px;

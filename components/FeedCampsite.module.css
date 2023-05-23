@@ -22,7 +22,7 @@
 .campsiteInfo {
 	display: flex;
 	flex-direction: column;
-	gap: 7px;
+	gap: 3px;
 }
 
 .titleAndRating {
@@ -32,8 +32,9 @@
 
 .rating {
 	display: flex;
-	gap: 1px;
-	align-items: center;
+	gap: 3px;
+	align-items: flex-start;
+	line-height: 1.25;
 }
 
 .price {

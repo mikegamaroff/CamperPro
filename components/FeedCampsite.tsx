@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { CampsiteContext } from '../context/campsiteContext';
@@ -22,18 +23,18 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 			<Go href={`/campsite/${campsite._id}`}>
 				<div className={styles.campsiteInfo}>
 					<div className={styles.titleAndRating}>
-						<h4>{campsite.title}</h4>
+						<h5 className="bold">{campsite.title}</h5>
 
-						<div className={styles.rating}>
+						<div className={classNames(styles.rating, 'p')}>
 							<IconStar size={18} />
-							<h5 style={{ marginTop: '2px' }}>{campsite.rating}</h5>
+							<div>{campsite.rating}</div>
 						</div>
 					</div>
-					<h5 className={styles.greyText}>{campsite.location.receptionAddress.city}</h5>
-					<div className={styles.price}>
-						<h4>{`$${campsite.pricePerNight} `}</h4>
-						<h5 className={styles.greyText}>per night</h5>
-					</div>
+					<div className={classNames(styles.greyText, 'body')}>{campsite.location.receptionAddress.city}</div>
+					<p className={styles.price}>
+						<span className="bold">{`$${campsite.pricePerNight} `}</span>
+						<span className={styles.greyText}>per night</span>
+					</p>
 				</div>
 			</Go>
 		</div>

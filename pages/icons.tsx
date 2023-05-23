@@ -1,21 +1,28 @@
 import { Container } from '../components/Container';
 import {
+	IconAdd,
+	IconBackArrow,
 	IconCellsignal,
 	IconClimbing,
+	IconClose,
 	IconEye,
 	IconEyeOff,
+	IconFilter,
 	IconFire,
 	IconFishing,
 	IconForest,
 	IconHiking,
 	IconHunting,
 	IconLake,
+	IconLocation,
+	IconMenu,
 	IconMountain,
 	IconOcean,
 	IconPets,
 	IconProfile,
 	IconRiver,
 	IconSearch,
+	IconStar,
 	IconTrips,
 	IconWildlife
 } from '../components/Icons';
@@ -31,7 +38,14 @@ function Icons() {
 		{ icon: <IconEyeOff />, name: 'IconEyeOff' },
 		{ icon: <IconSearch />, name: 'IconSearch' },
 		{ icon: <IconTrips />, name: 'IconTrips' },
-		{ icon: <IconProfile />, name: 'IconProfile' }
+		{ icon: <IconProfile />, name: 'IconProfile' },
+		{ icon: <IconAdd />, name: 'IconAdd' },
+		{ icon: <IconBackArrow />, name: 'IconBackArrow' },
+		{ icon: <IconClose />, name: 'IconClose' },
+		{ icon: <IconFilter />, name: 'IconFilter' },
+		{ icon: <IconLocation />, name: 'IconLocation' },
+		{ icon: <IconMenu />, name: 'IconMenu' },
+		{ icon: <IconStar />, name: 'IconStar' }
 	];
 
 	const iconsCategories: IconType[] = [
@@ -58,22 +72,22 @@ function Icons() {
 	);
 
 	return (
-		<Container>
-			<>
-				<h1>Icons</h1>
+		<Container hidetabs scroll>
+			<div className="contentWrapper">
+				<h1 className="bold">Icons</h1>
 				<div className="space20" />
-				<h3>UI</h3>
+				<h3 className="bold">UI</h3>
 				<hr />
 				<div className={styles.iconsWrapper}>
 					{iconsUi && iconsUi.map((icon: IconType) => <IconSet key={icon.name} {...icon} />)}
 				</div>
 				<div className="space20" />
-				<h3>Categories</h3>
+				<h3 className="bold">Categories</h3>
 				<hr />
 				<div className={styles.iconsWrapper}>
 					{iconsCategories && iconsCategories.map((icon: IconType) => <IconSet key={icon.name} {...icon} />)}
 				</div>
-			</>
+			</div>
 		</Container>
 	);
 }

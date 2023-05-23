@@ -6,7 +6,7 @@ import { Campsite } from '../model/campsite';
 import { CampsiteImages } from './CampsiteImages';
 import styles from './FeedCampsite.module.css';
 import { Go } from './Go';
-import { IconStar } from './Icons';
+import { IconLocation, IconStar } from './Icons';
 import { UploadImageButton } from './UploadImageButton';
 
 export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
@@ -30,7 +30,10 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 							<div>{campsite.rating}</div>
 						</div>
 					</div>
-					<div className={classNames(styles.greyText, 'body')}>{campsite.location.receptionAddress.city}</div>
+					<div className={styles.location}>
+						<IconLocation size={13} />
+						<div className="body">{campsite.location.receptionAddress.city}</div>
+					</div>
 					<p className={styles.price}>
 						<span className="bold">{`$${campsite.pricePerNight} `}</span>
 						<span className={styles.greyText}>per night</span>

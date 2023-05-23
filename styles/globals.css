@@ -104,7 +104,11 @@ a:hover {
 .radius8 {
 	border-radius: 8px;
 }
-
+.icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .icon svg {
 	height: 100%;
 	width: 100%;

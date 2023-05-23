@@ -6,7 +6,8 @@ h5,
 p,
 .body,
 .callout,
-.footnote {
+.footnote,
+.caption {
 	margin: 0;
 	line-height: 1.25;
 	font-weight: 400;
@@ -59,4 +60,7 @@ p,
 }
 .footnote {
 	font-size: 14px;
+}
+.caption {
+	font-size: 13px;
 }

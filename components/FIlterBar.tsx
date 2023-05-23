@@ -1,88 +1,113 @@
+import classNames from 'classnames';
+import { FC } from 'react';
+import { AmenityNames, FeatureNames, PermittedNames } from '../model/campsite';
 import styles from './FilterBar.module.css';
 import {
 	IconCellsignal,
 	IconClimbing,
 	IconFire,
-	IconFishing,
 	IconForest,
 	IconHiking,
 	IconHunting,
 	IconLake,
 	IconMountain,
-	IconOcean,
 	IconPets,
 	IconRiver,
+	IconSea,
 	IconWildlife
 } from './Icons';
 
-export const FilterBar = () => {
+interface FilterIconProps {
+	icon: JSX.Element;
+	label: string;
+	id: FeatureNames | AmenityNames | PermittedNames;
+}
+
+interface FilterBarProps {
+	selectedFilter: string;
+	handleFilterSelect: (id: FeatureNames | AmenityNames | PermittedNames) => void;
+}
+const FilterButtons: FilterIconProps[] = [
+	{
+		label: 'River',
+		icon: <IconRiver />,
+		id: 'river'
+	},
+	{
+		label: 'Mountain',
+		icon: <IconMountain />,
+		id: 'mountain'
+	},
+	{
+		label: 'Lake',
+		icon: <IconLake />,
+		id: 'lake'
+	},
+	{
+		label: 'Hunting',
+		icon: <IconHunting />,
+		id: 'hunting'
+	},
+	{
+		label: 'Sea',
+		icon: <IconSea />,
+		id: 'sea'
+	},
+	{
+		label: 'Wildlife',
+		icon: <IconWildlife />,
+		id: 'wildlife'
+	},
+	{
+		label: 'Fire',
+		icon: <IconFire />,
+		id: 'firepit'
+	},
+	{
+		label: 'Hiking',
+		icon: <IconHiking />,
+		id: 'hikingTrails'
+	},
+	{
+		label: 'Forest',
+		icon: <IconForest />,
+		id: 'forest'
+	},
+	{
+		label: 'Cell Signal',
+		icon: <IconCellsignal />,
+		id: 'cellSignal'
+	},
+	{
+		label: 'Pets',
+		icon: <IconPets />,
+		id: 'pets'
+	},
+	{
+		label: 'Climbing',
+		icon: <IconClimbing />,
+		id: 'climbing'
+	}
+];
+
+export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilter }) => {
 	return (
 		<div className={styles.container}>
-			<div className={styles.buttonGrey}>
-				<IconRiver size={26} />
-				<div className="footnote, medium">River</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.button}>
-				<IconMountain size={26} />
-				<div className="footnote, medium">Mountain</div>
-				<div className={styles.line} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconLake size={26} />
-				<div className="footnote, medium">Lake</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconHunting size={26} />
-				<div className="footnote, medium">Hunting</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconOcean size={26} />
-				<div className="footnote, medium">Sea</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconWildlife size={26} />
-				<div className="footnote, medium">Wildlife</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconFire size={26} />
-				<div className="footnote, medium">Fire</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconHiking size={26} />
-				<div className="footnote, medium">Hiking</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconFishing size={26} />
-				<div className="footnote, medium">Fishing</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconForest size={26} />
-				<div className="footnote, medium">Forest</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconCellsignal size={26} />
-				<div className="footnote, medium">Cell signal</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconPets size={26} />
-				<div className="footnote, medium">Pets</div>
-				<div className={styles.lineBlank} />
-			</div>
-			<div className={styles.buttonGrey}>
-				<IconClimbing size={26} />
-				<div className="footnote, medium">Climbing</div>
-				<div className={styles.lineBlank} />
-			</div>
+			{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
+				return (
+					<div
+						key={'filterbutton' + i}
+						onClick={() => handleFilterSelect(filterbutton.id)}
+						className={classNames(
+							selectedFilter === filterbutton.id ? styles.buttonSelected : styles.buttonDefault
+						)}
+					>
+						{filterbutton.icon}
+						<div className="caption medium">{filterbutton.label}</div>
+						<div className={selectedFilter === filterbutton.id ? styles.line : styles.lineBlank} />
+					</div>
+				);
+			})}
 		</div>
 	);
 };

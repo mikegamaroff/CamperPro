@@ -1,17 +1,12 @@
 .container {
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
 	display: flex;
 	width: 100%;
 	gap: 15px;
-	overflow-x: auto;
+	overflow-x: scroll;
 	white-space: nowrap;
-	font-size: 12.8px;
-	padding-right: 10px;
 }
 
-.button {
+.buttonSelected {
 	width: 50px;
 	display: flex;
 	flex-direction: column;
@@ -25,7 +20,7 @@
 	width: 50px;
 }
 
-.buttonGrey {
+.buttonDefault {
 	color: var(--neutral300);
 	width: 50px;
 	display: flex;

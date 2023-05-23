@@ -51,14 +51,16 @@ export const FeedSearchButton: FC = () => {
 	});
 
 	return (
-		<div onClick={presentModalSearch} className={styles.FeedSearchButtonContainer}>
-			<div className={styles.FeedSearchButtonContent}>
-				<div>
-					<IconSearch size={25} />
-				</div>
-				<div className={classNames(styles.label, 'body', 'bold')}>Find a campsite</div>
-				<div onClick={presentModalFilter} className={styles.FilterButton}>
-					<IconFilter size={25} />
+		<div className={styles.FeedSearchButtonContainer}>
+			<div onClick={presentModalSearch} className={styles.FeedSearchButtonShadow}>
+				<div className={styles.FeedSearchButtonContent}>
+					<div>
+						<IconSearch size={25} />
+					</div>
+					<div className={classNames(styles.label, 'body', 'bold')}>Find a campsite</div>
+					<div onClick={presentModalFilter} className={styles.FilterButton}>
+						<IconFilter size={25} />
+					</div>
 				</div>
 			</div>
 		</div>

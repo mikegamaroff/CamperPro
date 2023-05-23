@@ -6,7 +6,7 @@ import { Campsite } from '../model/campsite';
 import { CampsiteImages } from './CampsiteImages';
 import styles from './FeedCampsite.module.css';
 import { Go } from './Go';
-import { IconLocation, IconStar } from './Icons';
+import { IconChevronForward, IconLocation, IconStar } from './Icons';
 import { UploadImageButton } from './UploadImageButton';
 
 export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
@@ -19,25 +19,33 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 			</div>
 			<div className={styles.uploadImage}>
 				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
-			</div>
+			</div>{' '}
 			<Go href={`/campsite/${campsite._id}`}>
-				<div className={styles.campsiteInfo}>
-					<div className={styles.titleAndRating}>
-						<h5 className="bold">{campsite.title}</h5>
-						<div className={classNames(styles.rating, 'body')}>
-							<IconStar size={18} />
-							<div>{campsite.rating}</div>
+				<>
+					<div className={styles.campsiteInfo}>
+						<div className={styles.titleAndRating}>
+							<h5 className="bold">{campsite.title}</h5>
+							<div className={classNames(styles.rating, 'body')}>
+								<IconStar size={18} />
+								<div>{campsite.rating}</div>
+							</div>
+						</div>
+						<div className={styles.location}>
+							<IconLocation size={13} />
+							<div className="body">{campsite.location.receptionAddress.city}</div>
+						</div>
+						<div className={styles.titleAndRating}>
+							<div className={classNames(styles.price, 'body')}>
+								<span className="bold">{`$${campsite.pricePerNight} `}</span>
+								<span className={styles.greyText}>per night</span>
+							</div>
+							<div className={styles.viewDetail}>
+								<span className="medium">Details</span>
+								<IconChevronForward size={15} />
+							</div>
 						</div>
 					</div>
-					<div className={styles.location}>
-						<IconLocation size={13} />
-						<div className="body">{campsite.location.receptionAddress.city}</div>
-					</div>
-					<p className={styles.price}>
-						<span className="bold">{`$${campsite.pricePerNight} `}</span>
-						<span className={styles.greyText}>per night</span>
-					</p>
-				</div>
+				</>
 			</Go>
 		</div>
 	);

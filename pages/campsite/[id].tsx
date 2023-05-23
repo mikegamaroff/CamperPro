@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { CampsiteImages } from '../../components/CampsiteImages';
+import { Container } from '../../components/Container';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
 import { IconBackArrow } from '../../components/Icons';
@@ -17,10 +18,12 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 		<>
 			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
 
-			<div>
-				<CampsiteImages campsite={campsite} />
-				<h1>{campsite?.title}</h1>
-			</div>
+			<Container scroll>
+				<>
+					<CampsiteImages campsite={campsite} />
+					<h1>{campsite?.title}</h1>
+				</>
+			</Container>
 		</>
 	);
 };

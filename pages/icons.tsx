@@ -3,6 +3,7 @@ import {
 	IconAdd,
 	IconBackArrow,
 	IconCellsignal,
+	IconChevronForward,
 	IconClimbing,
 	IconClose,
 	IconEye,
@@ -45,7 +46,8 @@ function Icons() {
 		{ icon: <IconFilter />, name: 'IconFilter' },
 		{ icon: <IconLocation />, name: 'IconLocation' },
 		{ icon: <IconMenu />, name: 'IconMenu' },
-		{ icon: <IconStar />, name: 'IconStar' }
+		{ icon: <IconStar />, name: 'IconStar' },
+		{ icon: <IconChevronForward />, name: 'IconChevronForward' }
 	];
 
 	const iconsCategories: IconType[] = [

@@ -30,7 +30,12 @@
 	justify-content: space-between;
 	align-items: center;
 }
-
+.viewDetail {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	color: var(--primary700);
+}
 .rating {
 	display: flex;
 	gap: 3px;

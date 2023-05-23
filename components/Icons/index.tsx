@@ -2,6 +2,7 @@ import { Icon } from './Icon';
 
 import Add from '../../assets/icons/AddIcon.component.svg';
 import BackArrow from '../../assets/icons/BackArrowIcon.component.svg';
+import ChevronForward from '../../assets/icons/ChevronForward.component.svg';
 import Close from '../../assets/icons/CloseIcon.component.svg';
 import Eye from '../../assets/icons/EyeIcon.component.svg';
 import EyeOff from '../../assets/icons/EyeOffIcon.component.svg';
@@ -64,3 +65,4 @@ export const IconBackArrow = createIcon(BackArrow, 'BackArrow');
 export const IconFilter = createIcon(Filter, 'Filter');
 export const IconStar = createIcon(Star, 'Star');
 export const IconLocation = createIcon(Location, 'Location');
+export const IconChevronForward = createIcon(ChevronForward, 'ChevronForward');

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600;700;900&display=swap');
 /* autoprefixer grid: autoplace */
 
 html,
@@ -16,20 +16,6 @@ body {
 	letter-spacing: normal;
 	font-family: 'Poppins', -apple-system, Arial, BlinkMacSystemFont, roboto slab, droid serif, segoe ui, Ubuntu,
 		Cantarell, Georgia, serif !important;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-p,
-.bodycopy {
-	margin: 0 0 0 0;
-	line-height: 1;
-}
-p {
-	font-size: 15px;
-	color: var(--neutral900);
 }
 hr {
 	border-top: 0.1px solid rgba(0, 0, 0, 0);
@@ -61,47 +47,6 @@ ion-button * {
 
 ion-button a {
 	text-decoration: none !important;
-}
-h1,
-.h1-bold,
-.h1-regular {
-	font-size: 2em;
-}
-h2,
-.h2-bold,
-.h2-regular {
-	font-size: 1.75em;
-}
-
-h3,
-.h3-bold,
-.h3-regular {
-	font-size: 1.5em;
-}
-
-h4,
-.h4-bold,
-.h4-regular {
-	font-size: 1.25em;
-}
-h5,
-.h5-bold,
-.h5-regular {
-	font-size: 14.7;
-}
-.h1-regular,
-.h2-regular,
-.h3-regular,
-.h4-regular,
-.h4-regular {
-	font-weight: 400;
-}
-.h1-bold,
-.h2-bold,
-.h3-bold,
-.h4-bold,
-.h5-bold {
-	font-weight: 600;
 }
 .layoutContainer {
 	display: grid;

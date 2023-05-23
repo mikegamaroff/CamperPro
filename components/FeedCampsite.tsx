@@ -16,25 +16,26 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 			<div className={styles.images}>
 				<CampsiteImages campsite={campsite} />
 			</div>
-			<div style={{ marginTop: '-100%', marginBottom: '87.5%', marginLeft: '80%' }}>
+			<div className={styles.uploadImage}>
 				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
 			</div>
-			<div className={styles.campsiteInfo}>
-				<div className={styles.titleAndRating}>
-					<Go href={`/campsite/${campsite._id}`}>
+			<Go href={`/campsite/${campsite._id}`}>
+				<div className={styles.campsiteInfo}>
+					<div className={styles.titleAndRating}>
 						<h4>{campsite.title}</h4>
-					</Go>
-					<div className={styles.rating}>
-						<IconStar size={18} />
-						<h5 style={{ marginTop: '2px' }}>{campsite.rating}</h5>
+
+						<div className={styles.rating}>
+							<IconStar size={18} />
+							<h5 style={{ marginTop: '2px' }}>{campsite.rating}</h5>
+						</div>
+					</div>
+					<h5 className={styles.greyText}>{campsite.location.receptionAddress.city}</h5>
+					<div className={styles.price}>
+						<h4>{`$${campsite.pricePerNight} `}</h4>
+						<h5 className={styles.greyText}>per night</h5>
 					</div>
 				</div>
-				<h5 style={{ color: '#7b7b7b' }}>{campsite.location.receptionAddress.city}</h5>
-				<div className={styles.price}>
-					<h4>{`$${campsite.pricePerNight} `}</h4>
-					<h5 style={{ color: '#7b7b7b' }}>per night</h5>
-				</div>
-			</div>
+			</Go>
 		</div>
 	);
 };

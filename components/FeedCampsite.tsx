@@ -24,8 +24,7 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 				<div className={styles.campsiteInfo}>
 					<div className={styles.titleAndRating}>
 						<h5 className="bold">{campsite.title}</h5>
-
-						<div className={classNames(styles.rating, 'p')}>
+						<div className={classNames(styles.rating, 'body')}>
 							<IconStar size={18} />
 							<div>{campsite.rating}</div>
 						</div>

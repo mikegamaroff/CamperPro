@@ -26,6 +26,7 @@ import { RouterContext } from '../context/routerContext';
 import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
 import '../styles/globals.css';
+import '../styles/type.css';
 import '../styles/variables.css';
 interface NavigateToEvent extends Event {
 	detail: string;

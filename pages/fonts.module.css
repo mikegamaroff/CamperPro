@@ -1,0 +1,17 @@
+.tableLayout {
+	align-items: flex-end;
+	gap: 10px;
+	margin-bottom: 30px;
+}
+.quickBrown {
+	overflow: hidden;
+	display: inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background: rgba(128, 128, 128, 0.06);
+	border-radius: 10px;
+	width: 100%;
+}
+.class {
+	font-family: 'Courier New', Courier, monospace !important;
+}

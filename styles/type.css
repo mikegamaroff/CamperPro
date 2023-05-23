@@ -1,0 +1,57 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+.callout,
+.footnote {
+	margin: 0;
+	line-height: 1.25;
+	font-weight: 400;
+}
+
+h1,
+.h1-bold,
+.h1-regular {
+	font-size: 2em;
+}
+h2,
+.h2-bold,
+.h2-regular {
+	font-size: 1.75em;
+}
+
+h3,
+.h3-bold,
+.h3-regular {
+	font-size: 1.5em;
+}
+
+h4,
+.h4-bold,
+.h4-regular {
+	font-size: 1.25em;
+}
+h5,
+.h5-bold,
+.h5-regular {
+	font-size: 1.15em;
+}
+.medium {
+	font-weight: 500;
+}
+.bold {
+	font-weight: 700;
+}
+p,
+.p {
+	font-size: 16px;
+	color: var(--neutral900);
+}
+.callout {
+	font-size: 15px;
+}
+.footnote {
+	font-size: 14px;
+}

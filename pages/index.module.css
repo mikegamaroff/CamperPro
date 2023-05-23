@@ -1,14 +1,8 @@
-.userHolder {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 10px;
-	height: 100px;
-}
 .feedContainer {
 	padding: 0;
 	height: 100%;
 }
 .feedSearchContainer {
 	padding: 15px;
+	border-bottom: 2px solid var(--neutral50);
 }

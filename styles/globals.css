@@ -17,7 +17,6 @@ body {
 	font-family: 'Poppins', -apple-system, Arial, BlinkMacSystemFont, roboto slab, droid serif, segoe ui, Ubuntu,
 		Cantarell, Georgia, serif !important;
 }
-
 hr {
 	border-top: 0.1px solid rgba(0, 0, 0, 0);
 	height: 1px;
@@ -105,7 +104,11 @@ a:hover {
 .radius8 {
 	border-radius: 8px;
 }
-
+.icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .icon svg {
 	height: 100%;
 	width: 100%;

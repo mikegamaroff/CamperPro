@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
+import { FilterBar } from '../components/FIlterBar';
 import { Fab } from '../components/Fab';
 import { FeedCampsite } from '../components/FeedCampsite';
 import { FeedSearchButton } from '../components/FeedSearchButton';
@@ -54,6 +55,7 @@ function Home() {
 					<div className="layoutContainer">
 						<div className={styles.feedSearchContainer}>
 							<FeedSearchButton />
+							<FilterBar />
 						</div>
 						<div className="contentWrapper">
 							<div className={styles.feedContainer}>

@@ -51,7 +51,6 @@ const EmptyNewCampsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	campsiteType: 'private',
-	attributes: { feature: [features[Math.floor(Math.random() * features.length)]] },
 	active: true
 };
 
@@ -118,6 +117,7 @@ for (let i = 0; i < 10; i++) {
 	newCampsite.draft = false;
 	newCampsite.pricePerNight = Math.floor(Math.random() * (100 - 30 + 1)) + 30;
 	newCampsite.receptionCheckin = Math.random() < 0.5;
+	newCampsite.attributes = { feature: [features[Math.floor(Math.random() * features.length)]] };
 	newCampsite.images = [
 		{
 			id: j++,

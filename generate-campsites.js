@@ -42,6 +42,7 @@ const cityNames = [
 	'Windsor'
 ];
 const states = ['CA', 'TX', 'NY', 'FL', 'IL', 'PA', 'OH', 'GA', 'MN', 'NC'];
+const features = ['river', 'mountain', 'lake', 'sea', 'wildlife', 'hikingTrails', 'forest'];
 const EmptyNewCampsite = {
 	type: 'campsite',
 	category: 'public',
@@ -50,7 +51,7 @@ const EmptyNewCampsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	campsiteType: 'private',
-	attributes: { feature: ['default'] },
+	attributes: { feature: [features[Math.floor(Math.random() * titles.length)]] },
 	active: true
 };
 

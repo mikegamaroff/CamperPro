@@ -46,12 +46,22 @@ async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ camps
 	}
 
 	try {
-		const response = await db.view('campsite-view', view, { keys });
+		const response = await db.view('campsite-view', view, { keys, descending: true, limit: 10 });
+		console.log(response);
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ campsites: [] });
 		} else {
-			res.status(200).json({ campsites: response.rows.map(row => row.value as Campsite) });
+			// Remove duplicates
+			const uniqueCampsites: { [id: string]: Campsite } = {};
+			for (const row of response.rows) {
+				const campsite = row.value as Campsite;
+				if (campsite._id) {
+					uniqueCampsites[campsite._id] = campsite;
+				}
+			}
+
+			res.status(200).json({ campsites: Object.values(uniqueCampsites) });
 		}
 	} catch (error) {
 		console.error('Unhandled error:', error);

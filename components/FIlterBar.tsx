@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { AmenityNames, FeatureNames, PermittedNames } from '../model/campsite';
+import { AmenityNames, AttributeFilters, FeatureNames, FilterIDType, PermittedNames } from '../model/campsite';
 import styles from './FilterBar.module.css';
 import {
 	IconCellsignal,
@@ -20,77 +20,104 @@ import {
 interface FilterIconProps {
 	icon: JSX.Element;
 	label: string;
-	id: FeatureNames | AmenityNames | PermittedNames;
+	id: FilterIDType;
 }
 
 interface FilterBarProps {
-	selectedFilter: string;
-	handleFilterSelect: (id: FeatureNames | AmenityNames | PermittedNames) => void;
+	selectedFilter?: AttributeFilters;
+	handleFilterSelect: (id: FilterIDType) => void;
 }
 const FilterButtons: FilterIconProps[] = [
 	{
 		label: 'River',
 		icon: <IconRiver />,
-		id: 'river'
+		id: { feature: 'river' }
 	},
 	{
 		label: 'Mountain',
 		icon: <IconMountain />,
-		id: 'mountain'
+		id: { feature: 'mountain' }
 	},
 	{
 		label: 'Lake',
 		icon: <IconLake />,
-		id: 'lake'
+		id: { feature: 'lake' }
 	},
 	{
 		label: 'Hunting',
 		icon: <IconHunting />,
-		id: 'hunting'
+		id: { permitted: 'hunting' }
 	},
 	{
 		label: 'Sea',
 		icon: <IconSea />,
-		id: 'sea'
+		id: { feature: 'sea' }
 	},
 	{
 		label: 'Wildlife',
 		icon: <IconWildlife />,
-		id: 'wildlife'
+		id: { feature: 'wildlife' }
 	},
 	{
 		label: 'Fire',
 		icon: <IconFire />,
-		id: 'firepit'
+		id: { amenity: 'firepit' }
 	},
 	{
 		label: 'Hiking',
 		icon: <IconHiking />,
-		id: 'hikingTrails'
+		id: { feature: 'hikingTrails' }
 	},
 	{
 		label: 'Forest',
 		icon: <IconForest />,
-		id: 'forest'
+		id: { feature: 'forest' }
 	},
 	{
 		label: 'Cell Signal',
 		icon: <IconCellsignal />,
-		id: 'cellSignal'
+		id: { amenity: 'cellSignal' }
 	},
 	{
 		label: 'Pets',
 		icon: <IconPets />,
-		id: 'pets'
+		id: { permitted: 'pets' }
 	},
 	{
 		label: 'Climbing',
 		icon: <IconClimbing />,
-		id: 'climbing'
+		id: { permitted: 'climbing' }
 	}
 ];
 
 export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilter }) => {
+	const filterExists = (id: FilterIDType): boolean => {
+		// this looks to see if the filter id in the filterbutton object
+		// exists in the assembled filter array based on the clicks
+		if (selectedFilter) {
+			for (const key in id) {
+				const filterKey = key as keyof FilterIDType;
+				const filterValue = id[filterKey];
+				if (filterValue) {
+					if (filterKey === 'feature' && selectedFilter[filterKey]?.includes(filterValue as FeatureNames)) {
+						return true;
+					} else if (
+						filterKey === 'amenity' &&
+						selectedFilter[filterKey]?.includes(filterValue as AmenityNames)
+					) {
+						return true;
+					} else if (
+						filterKey === 'permitted' &&
+						selectedFilter[filterKey]?.includes(filterValue as PermittedNames)
+					) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	};
+
 	return (
 		<div className={styles.container}>
 			{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
@@ -99,12 +126,12 @@ export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilt
 						key={'filterbutton' + i}
 						onClick={() => handleFilterSelect(filterbutton.id)}
 						className={classNames(
-							selectedFilter === filterbutton.id ? styles.buttonSelected : styles.buttonDefault
+							filterExists(filterbutton.id) ? styles.buttonSelected : styles.buttonDefault
 						)}
 					>
 						{filterbutton.icon}
 						<div className="caption medium">{filterbutton.label}</div>
-						<div className={selectedFilter === filterbutton.id ? styles.line : styles.lineBlank} />
+						<div className={filterExists(filterbutton.id) ? styles.line : styles.lineBlank} />
 					</div>
 				);
 			})}

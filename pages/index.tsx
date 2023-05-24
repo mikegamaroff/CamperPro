@@ -10,24 +10,23 @@ import { Header } from '../components/Header';
 import { IconAdd } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { AuthContext } from '../context/authContext';
-import { AmenityNames, EmptyNewCampsite, FeatureNames, PermittedNames } from '../model/campsite';
+import { AttributeFilters, EmptyNewCampsite, FilterIDType } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
 import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import { GoTo } from '../util/GoTo';
+import { selectFeedFilter } from '../util/selectFeedFilter';
 import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const [selectedFilter, setSelectedFilter] = useState<FeatureNames | AmenityNames | PermittedNames>('river');
-	const { campsites, isLoading } =
-		useGetAllCampsites(/* {
-		filters: { feature: ['river'] }
-	} */);
+	const [selectedFilter, setSelectedFilter] = useState<AttributeFilters>();
+	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
-	const handleFilterSelect = (id: FeatureNames | AmenityNames | PermittedNames) => {
-		setSelectedFilter(id);
+	const handleFilterSelect = (id: FilterIDType) => {
+		const updatedFilters: AttributeFilters | undefined = selectFeedFilter(selectedFilter, id);
+		setSelectedFilter(updatedFilters);
 	};
 
 	const handleAddCampsite = async () => {

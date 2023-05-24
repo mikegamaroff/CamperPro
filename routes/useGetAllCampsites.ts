@@ -14,7 +14,6 @@ export const useGetAllCampsites = ({
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
-
 	const getAllCampsites = async () => {
 		setLoading(true);
 		setError(null);
@@ -46,7 +45,7 @@ export const useGetAllCampsites = ({
 
 	useEffect(() => {
 		getAllCampsites();
-	}, []); // Only run once when the hook is used
+	}, [filters]); // Update whenever filters changes
 
 	return { campsites, isLoading, isError };
 };

@@ -32,4 +32,5 @@
 .lineBlank {
 	height: 0px;
 	width: 50px;
+	border-bottom: 2px solid transparent;
 }

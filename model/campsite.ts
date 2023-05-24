@@ -31,9 +31,10 @@ export type AmenityNames =
 export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodGathering' | 'hunting';
 
 export type AttributeNames = 'feature' | 'amenity' | 'permitted';
-export interface Attribute {
-	type: AttributeNames;
-	name: FeatureNames | AmenityNames | PermittedNames;
+export interface Attributes {
+	feature?: Array<FeatureNames>;
+	amenity?: Array<AmenityNames>;
+	permitted?: Array<PermittedNames>;
 }
 export interface CampLocation {
 	coordinates: Coordinates;
@@ -52,21 +53,13 @@ export interface Campsite extends DocumentWithImages {
 	receptionCheckin: boolean;
 	campsiteType: 'private' | 'shared';
 	capacity: Capacity;
-	attributes: Attribute[];
+	attributes: Attributes;
 	active: boolean;
 }
-export interface AttributeFilters {
-	default?: string[];
-	feature?: FeatureNames[];
-	amenity?: AmenityNames[];
-	permitted?: PermittedNames[];
-}
-export const defaultAttributes: Attribute[] = [
-	{
-		type: 'feature',
-		name: 'default'
-	}
-];
+
+export const defaultAttributes: Attributes = {
+	feature: ['default']
+};
 export type FilterIDType = {
 	feature?: FeatureNames;
 	amenity?: AmenityNames;
@@ -111,7 +104,7 @@ export const EmptyNewCampsite: Campsite = {
 };
 export const EmptyCampsite: Campsite = EmptyNewCampsite;
 
-export const defaultFilter: AttributeFilters = {
+export const defaultFilter: Attributes = {
 	feature: ['default', 'river', 'mountain', 'lake', 'sea', 'wildlife', 'hikingTrails', 'forest'],
 	amenity: ['cellSignal', 'wifi', 'toilet', 'portAPotty', 'bathroom', 'shower', 'firepit', 'barbeque'],
 	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodGathering', 'hunting']

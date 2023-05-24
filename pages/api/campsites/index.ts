@@ -1,4 +1,5 @@
 // pages/api/campsites.ts
+import { DocumentResponseRow } from 'nano';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Campsite } from '../../../model/campsite';
 import authenticateJWT from '../../../util/authenticateJSW';
@@ -31,7 +32,7 @@ async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: 
 
 async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ campsites: Campsite[] }>) {
 	const db = createDbInstance();
-	const view = (req.query.view || 'non-draft-campsites') as string; // Fetch the view from the query parameters. If not provided, default to 'non-draft-campsites'.
+	const view = (req.query.view || 'non-draft-campsites') as string;
 	const filters = req.query.filters ? JSON.parse(req.query.filters as string) : {};
 
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -53,15 +54,27 @@ async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ camps
 			res.status(500).json({ campsites: [] });
 		} else {
 			// Remove duplicates
-			const uniqueCampsites: { [id: string]: Campsite } = {};
+			const uniqueIds: { [id: string]: true } = {};
 			for (const row of response.rows) {
-				const campsite = row.value as Campsite;
-				if (campsite._id) {
-					uniqueCampsites[campsite._id] = campsite;
-				}
+				const id = row.value as string;
+				uniqueIds[id] = true;
+			}
+			// Check if there are no results
+			if (response.rows.length === 0) {
+				res.status(200).json({ campsites: [] }); // Return empty array when no results found
+				return;
 			}
 
-			res.status(200).json({ campsites: Object.values(uniqueCampsites) });
+			// Fetch full documents for each unique ID
+			const campsiteDocs = await db.fetch({ keys: Object.keys(uniqueIds) });
+
+			// Extract the actual campsite objects from the docs
+			const campsites: Campsite[] = campsiteDocs.rows
+				.filter(row => 'doc' in row) // filter out DocumentLookupFailure
+				.map(row => (row as DocumentResponseRow<Campsite>).doc as Partial<Campsite>) // Cast row.doc as Partial<Campsite>
+				.filter((doc): doc is Campsite => doc !== null); // Filter out any null docs
+
+			res.status(200).json({ campsites });
 		}
 	} catch (error) {
 		console.error('Unhandled error:', error);

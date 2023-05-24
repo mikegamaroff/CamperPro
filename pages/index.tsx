@@ -10,7 +10,7 @@ import { Header } from '../components/Header';
 import { IconAdd } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { AuthContext } from '../context/authContext';
-import { AttributeFilters, EmptyNewCampsite, FilterIDType } from '../model/campsite';
+import { Attributes, EmptyNewCampsite, FilterIDType } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
 import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import { GoTo } from '../util/GoTo';
@@ -19,13 +19,13 @@ import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const [selectedFilter, setSelectedFilter] = useState<AttributeFilters>();
+	const [selectedFilter, setSelectedFilter] = useState<Attributes>();
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
 	const handleFilterSelect = (id: FilterIDType) => {
-		const updatedFilters: AttributeFilters | undefined = selectFeedFilter(selectedFilter, id);
+		const updatedFilters: Attributes | undefined = selectFeedFilter(selectedFilter, id);
 		setSelectedFilter(updatedFilters);
 	};
 

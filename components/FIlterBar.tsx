@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FC } from 'react';
-import { AmenityNames, AttributeFilters, FeatureNames, FilterIDType, PermittedNames } from '../model/campsite';
+import { Attributes, FilterIDType } from '../model/campsite';
 import styles from './FilterBar.module.css';
 import {
 	IconCellsignal,
@@ -24,7 +24,7 @@ interface FilterIconProps {
 }
 
 interface FilterBarProps {
-	selectedFilter?: AttributeFilters;
+	selectedFilter?: Attributes;
 	handleFilterSelect: (id: FilterIDType) => void;
 }
 const FilterButtons: FilterIconProps[] = [
@@ -92,29 +92,17 @@ const FilterButtons: FilterIconProps[] = [
 
 export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilter }) => {
 	const filterExists = (id: FilterIDType): boolean => {
-		// this looks to see if the filter id in the filterbutton object
-		// exists in the assembled filter array based on the clicks
-		if (selectedFilter) {
-			for (const key in id) {
-				const filterKey = key as keyof FilterIDType;
-				const filterValue = id[filterKey];
-				if (filterValue) {
-					if (filterKey === 'feature' && selectedFilter[filterKey]?.includes(filterValue as FeatureNames)) {
-						return true;
-					} else if (
-						filterKey === 'amenity' &&
-						selectedFilter[filterKey]?.includes(filterValue as AmenityNames)
-					) {
-						return true;
-					} else if (
-						filterKey === 'permitted' &&
-						selectedFilter[filterKey]?.includes(filterValue as PermittedNames)
-					) {
-						return true;
-					}
-				}
+		if (!selectedFilter) return false;
+
+		for (const filterKey in id) {
+			const filterValue = id[filterKey as keyof FilterIDType];
+			const selectedFilterValues = selectedFilter[filterKey as keyof Attributes];
+
+			if (filterValue && selectedFilterValues && (selectedFilterValues as string[]).includes(filterValue)) {
+				return true;
 			}
 		}
+
 		return false;
 	};
 

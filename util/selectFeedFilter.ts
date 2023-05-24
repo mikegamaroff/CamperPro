@@ -1,14 +1,11 @@
-import { AmenityNames, AttributeFilters, FeatureNames, FilterIDType, PermittedNames } from '../model/campsite';
+import { AmenityNames, Attributes, FeatureNames, FilterIDType, PermittedNames } from '../model/campsite';
 
-export const selectFeedFilter = (
-	selectedFilter: AttributeFilters | undefined,
-	id: FilterIDType
-): AttributeFilters | undefined => {
+export const selectFeedFilter = (selectedFilter: Attributes | undefined, id: FilterIDType): Attributes | undefined => {
 	// Create a deep copy of the current filters
-	const newFilters: AttributeFilters = JSON.parse(JSON.stringify(selectedFilter || {}));
+	const newFilters: Attributes = JSON.parse(JSON.stringify(selectedFilter || {}));
 	// Get the key and value from the id
 	const [filterKey, filterValue] = Object.entries(id)[0] as [
-		keyof AttributeFilters,
+		keyof Attributes,
 		FeatureNames | AmenityNames | PermittedNames
 	];
 	// If filterKey array doesn't exist, initialize it

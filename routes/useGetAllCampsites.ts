@@ -11,7 +11,6 @@ export const useGetAllCampsites = ({
 	view = 'non-draft-campsites',
 	filters = defaultFilter
 }: GetAllCampsiteProps = {}) => {
-	console.log(filters);
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();

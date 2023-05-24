@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
 import { Container } from '../components/Container';
+import { FilterBar } from '../components/FIlterBar';
 import { Fab } from '../components/Fab';
 import { FeedCampsite } from '../components/FeedCampsite';
 import { FeedSearchButton } from '../components/FeedSearchButton';
@@ -9,20 +10,24 @@ import { Header } from '../components/Header';
 import { IconAdd } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { AuthContext } from '../context/authContext';
-import { EmptyNewCampsite } from '../model/campsite';
+import { Attributes, EmptyNewCampsite, FilterIDType } from '../model/campsite';
 import { useAddCampsite } from '../routes/useAddCampsite';
 import { useGetAllCampsites } from '../routes/useGetAllCampsites';
 import { GoTo } from '../util/GoTo';
+import { selectFeedFilter } from '../util/selectFeedFilter';
 import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const { campsites, isLoading } =
-		useGetAllCampsites(/* {
-		filters: { feature: ['river'] }
-	} */);
+	const [selectedFilter, setSelectedFilter] = useState<Attributes>();
+	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
+
+	const handleFilterSelect = (id: FilterIDType) => {
+		const updatedFilters: Attributes | undefined = selectFeedFilter(selectedFilter, id);
+		setSelectedFilter(updatedFilters);
+	};
 
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
@@ -54,6 +59,7 @@ function Home() {
 					<div className="layoutContainer">
 						<div className={styles.feedSearchContainer}>
 							<FeedSearchButton />
+							<FilterBar selectedFilter={selectedFilter} handleFilterSelect={handleFilterSelect} />
 						</div>
 						<div className="contentWrapper">
 							<div className={styles.feedContainer}>

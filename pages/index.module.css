@@ -3,6 +3,11 @@
 	height: 100%;
 }
 .feedSearchContainer {
-	padding: 15px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+	overflow: hidden;
 	border-bottom: 2px solid var(--neutral50);
 }

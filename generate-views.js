@@ -71,8 +71,10 @@ const campsiteDesignDoc = {
 			map: `
 			function (doc) {
 				if (doc.type === 'campsite' && doc.draft === false) {
-				  for (var i = 0; i < doc.attributes.length; i++) {
-					  emit([doc.attributes[i].type, doc.attributes[i].name], doc);
+				  for (var attrType in doc.attributes) {
+					for (var i = 0; i < doc.attributes[attrType].length; i++) {
+					  emit([attrType, doc.attributes[attrType][i]], doc._id);
+					}
 				  }
 				}
 			  }

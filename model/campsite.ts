@@ -18,16 +18,7 @@ export interface Capacity {
 	acreage: number;
 }
 
-export type FeatureNames =
-	| 'default'
-	| 'river'
-	| 'mountain'
-	| 'lake'
-	| 'hunting'
-	| 'sea'
-	| 'wildlife'
-	| 'hikingTrails'
-	| 'forest';
+export type FeatureNames = 'default' | 'river' | 'mountain' | 'lake' | 'sea' | 'wildlife' | 'hikingTrails' | 'forest';
 export type AmenityNames =
 	| 'cellSignal'
 	| 'wifi'
@@ -37,12 +28,14 @@ export type AmenityNames =
 	| 'shower'
 	| 'firepit'
 	| 'barbeque';
-export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodGathering';
-export interface Attribute {
-	type: 'feature' | 'amenity' | 'permitted';
-	name: FeatureNames | AmenityNames | PermittedNames;
-}
+export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodGathering' | 'hunting';
 
+export type AttributeNames = 'feature' | 'amenity' | 'permitted';
+export interface Attributes {
+	feature?: Array<FeatureNames>;
+	amenity?: Array<AmenityNames>;
+	permitted?: Array<PermittedNames>;
+}
 export interface CampLocation {
 	coordinates: Coordinates;
 	receptionAddress: Address;
@@ -60,21 +53,19 @@ export interface Campsite extends DocumentWithImages {
 	receptionCheckin: boolean;
 	campsiteType: 'private' | 'shared';
 	capacity: Capacity;
-	attributes: Attribute[];
+	attributes: Attributes;
 	active: boolean;
 }
-export interface AttributeFilters {
-	default?: string[];
-	feature?: FeatureNames[];
-	amenity?: AmenityNames[];
-	permitted?: PermittedNames[];
-}
-export const defaultAttributes: Attribute[] = [
-	{
-		type: 'feature',
-		name: 'default'
-	}
-];
+
+export const defaultAttributes: Attributes = {
+	feature: ['default']
+};
+export type FilterIDType = {
+	feature?: FeatureNames;
+	amenity?: AmenityNames;
+	permitted?: PermittedNames;
+};
+
 export const EmptyNewCampsite: Campsite = {
 	_id: `campsite:${uuidv4()}`,
 	author: '',
@@ -113,8 +104,8 @@ export const EmptyNewCampsite: Campsite = {
 };
 export const EmptyCampsite: Campsite = EmptyNewCampsite;
 
-export const defaultFilter: AttributeFilters = {
-	feature: ['default', 'river', 'mountain', 'lake', 'hunting', 'sea', 'wildlife', 'hikingTrails', 'forest'],
+export const defaultFilter: Attributes = {
+	feature: ['default', 'river', 'mountain', 'lake', 'sea', 'wildlife', 'hikingTrails', 'forest'],
 	amenity: ['cellSignal', 'wifi', 'toilet', 'portAPotty', 'bathroom', 'shower', 'firepit', 'barbeque'],
-	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodGathering']
+	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodGathering', 'hunting']
 };

@@ -1,0 +1,35 @@
+.container {
+	display: flex;
+	width: 100%;
+	gap: 15px;
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+
+.buttonSelected {
+	width: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6.25px;
+}
+
+.line {
+	height: 0px;
+	border-bottom: 2px solid black;
+	width: 50px;
+}
+
+.buttonDefault {
+	color: var(--neutral300);
+	width: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6.25px;
+}
+
+.lineBlank {
+	height: 0px;
+	width: 50px;
+}

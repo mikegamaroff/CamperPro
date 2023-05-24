@@ -51,7 +51,7 @@ const EmptyNewCampsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	campsiteType: 'private',
-	attributes: { feature: [features[Math.floor(Math.random() * titles.length)]] },
+	attributes: { feature: [features[Math.floor(Math.random() * features.length)]] },
 	active: true
 };
 

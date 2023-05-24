@@ -28,7 +28,7 @@ function Home() {
 		const updatedFilters: Attributes | undefined = selectFeedFilter(selectedFilter, id);
 		setSelectedFilter(updatedFilters);
 	};
-
+	console.log(selectedFilter);
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
 		const newCampsite = {

@@ -32,9 +32,9 @@ export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swi
 
 export type AttributeNames = 'feature' | 'amenity' | 'permitted';
 export interface Attributes {
-	feature?: Array<FeatureNames>;
-	amenity?: Array<AmenityNames>;
-	permitted?: Array<PermittedNames>;
+	feature?: FeatureNames[];
+	amenity?: AmenityNames[];
+	permitted?: PermittedNames[];
 }
 export interface CampLocation {
 	coordinates: Coordinates;

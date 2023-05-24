@@ -12,6 +12,7 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 6.25px;
+	transition: var(--transition-default);
 }
 
 .line {
@@ -27,6 +28,7 @@
 	flex-direction: column;
 	align-items: center;
 	gap: 6.25px;
+	transition: var(--transition-default);
 }
 
 .lineBlank {

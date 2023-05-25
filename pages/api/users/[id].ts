@@ -10,13 +10,29 @@ async function getUser(req: NextApiRequest, res: NextApiResponse<User | { messag
 		await authenticateJWT(req);
 		const db = createDbInstance();
 		const userId = req.query.id as string;
-		const user = (await db.get(userId as string)) as User;
+
+		// Check if the id starts with 'user'
+		if (!userId.startsWith('user')) {
+			res.status(500).json({ message: 'User not found' });
+			return;
+		}
+
+		const doc = (await db.get(userId)) as User;
+
+		// Check if the doc type is 'user'
+		if (doc.type !== 'user') {
+			res.status(500).json({ message: 'User not found' });
+			return;
+		}
+
+		const user = doc as User;
 		res.status(200).json(user);
 	} catch (error) {
 		console.error('Error retrieving user:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 }
+
 async function handler(req: NextApiRequest, res: NextApiResponse<User[] | User | { message: string }>) {
 	try {
 		await authenticateJWT(req);

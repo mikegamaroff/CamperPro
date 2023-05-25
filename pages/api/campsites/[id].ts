@@ -5,19 +5,26 @@ import { createDbInstance } from '../../../util/camperprodbWrapper';
 import handleAuthError from '../../../util/handleAuthError';
 import { isCouchDbError } from '../../../util/isCouchDbError';
 async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ campsite: Campsite | null }>) {
-	const db = createDbInstance() as ReturnType<typeof createDbInstance>;
-	const { id } = req.query;
-
 	try {
-		const response = await db.get(id as string);
-		if (isCouchDbError(response)) {
-			console.error('CouchDB error:', response);
+		await authenticateJWT(req);
+		const db = createDbInstance();
+		const campsiteId = req.query.id as string;
+
+		// Check if the id starts with 'campsite'
+		if (!campsiteId.startsWith('campsite')) {
 			res.status(500).json({ campsite: null });
-		} else {
-			res.status(200).json({ campsite: response as Campsite });
 		}
+
+		const doc = (await db.get(campsiteId)) as Campsite;
+
+		// Check if the doc type is 'campsite'
+		if (doc.type !== 'campsite') {
+			res.status(500).json({ campsite: null });
+		}
+		const campsite = doc as Campsite;
+		res.status(200).json({ campsite });
 	} catch (error) {
-		console.error('Unhandled error:', error);
+		console.error('Error retrieving campsite:', error);
 		res.status(500).json({ campsite: null });
 	}
 }

@@ -55,14 +55,14 @@ h5,
 .bold {
 	font-weight: 700;
 }
-p,
-.p {
+p {
 	margin-bottom: 15px;
 }
 .body,
 p {
 	color: var(--neutral700);
 	font-size: 16px;
+	line-height: 1.5;
 }
 .callout {
 	font-size: 15px;

@@ -1,0 +1,36 @@
+.hostedByContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.infoLine {
+	display: flex;
+	gap: 8px;
+}
+
+.hostedBy {
+	display: flex;
+	justify-content: space-between;
+}
+
+.host {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.profile {
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	overflow: hidden;
+}
+
+.smallDot {
+	background-color: black;
+	border-radius: 100%;
+	height: 4px;
+	width: 4px;
+	margin-top: 8px;
+}

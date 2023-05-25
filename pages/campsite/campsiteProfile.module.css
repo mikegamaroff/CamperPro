@@ -1,0 +1,27 @@
+.section {
+	display: flex;
+	flex-direction: column;
+	padding-top: 28px;
+	padding-bottom: 28px;
+	gap: 23px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.infoLine {
+	display: flex;
+	gap: 8px;
+}
+.iconContainer {
+	padding-top: 2px;
+}
+
+.dot {
+	font-weight: bolder;
+	font-size: 20px;
+	line-height: 1;
+}

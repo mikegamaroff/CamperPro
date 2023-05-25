@@ -9,7 +9,6 @@ export interface Address {
 	address1: string;
 	address2: string;
 	city: string;
-	state: string;
 	postalCode: string;
 	country: string;
 }
@@ -39,6 +38,9 @@ export interface Attributes {
 export interface CampLocation {
 	coordinates: Coordinates;
 	receptionAddress: Address | null;
+	state: string;
+	nearestTown?: string | null;
+	directions: string | null;
 }
 export interface Campsite extends DocumentWithImages {
 	author?: string;
@@ -74,11 +76,14 @@ export const EmptyNewCampsite: Campsite = {
 	title: '',
 	rating: 0,
 	location: {
+		state: '',
+		nearestTown: null,
 		receptionAddress: null,
 		coordinates: {
 			lat: 0,
 			lng: 0
-		}
+		},
+		directions: null
 	},
 	images: [],
 	created_at: new Date().toISOString(),

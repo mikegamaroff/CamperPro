@@ -16,18 +16,7 @@ const titles = [
 	'Hidden Meadows Retreat',
 	"Nature's Bliss Campground"
 ];
-const authors = [
-	'John Smith',
-	'Alan West',
-	'Gabriel Gamaropff',
-	'Mike Gamaroff',
-	'Shiela Lange',
-	'Robbie Starbuck',
-	'Steve Bannon',
-	'Donald Trump',
-	'Vladimir Putin',
-	'Nigel Farage'
-];
+
 const streetNames = ['Maple', 'Main', 'Oak', 'Cedar', 'Pine', 'Elm', 'Birch', 'Willow', 'Spruce', 'Juniper'];
 const cityNames = [
 	'Springfield',
@@ -76,7 +65,6 @@ function generateRandomAddress() {
 			streetNames[Math.floor(Math.random() * streetNames.length)] + ' Street ' + Math.floor(Math.random() * 100),
 		address2: 'Apt ' + Math.floor(Math.random() * 20),
 		city: cityNames[Math.floor(Math.random() * cityNames.length)],
-		state: states[Math.floor(Math.random() * states.length)],
 		postalCode: generateRandomZipCode(),
 		country: 'USA'
 	};
@@ -96,22 +84,25 @@ function generateRandomCoordinates() {
 const campsiteArray = [];
 
 for (let i = 0; i < 10; i++) {
-	const campsite = {
+	const campsiteLocation = {
+		state: states[Math.floor(Math.random() * states.length)],
+		nearestTown: cityNames[Math.floor(Math.random() * cityNames.length)],
 		receptionAddress: generateRandomAddress(),
-		coordinates: generateRandomCoordinates()
+		coordinates: generateRandomCoordinates(),
+		directions:
+			'Go down interstate 13 until you come to the big water tower, turn left and drive down the dust road for about 2 miles and you will see a gate with a Toby Ranch sign where you enter.'
 	};
-	campsiteArray.push(campsite);
+	campsiteArray.push(campsiteLocation);
 }
 let j = 0;
 // Generate 10 test users
 for (let i = 0; i < 10; i++) {
 	const title = titles[Math.floor(Math.random() * titles.length)];
-	const author = authors[Math.floor(Math.random() * titles.length)];
 	const location = campsiteArray[Math.floor(Math.random() * titles.length)];
 	const newCampsite = EmptyNewCampsite;
 	newCampsite._id = `campsite:${uuidv4()}`;
 	newCampsite.title = title;
-	newCampsite.author = author;
+	newCampsite.author = 'user:47b1517b-f357-427d-b7cb-f140925cbc9c';
 	newCampsite.rating = (Math.random() * 4 + 1).toFixed(2);
 	newCampsite.location = location;
 	newCampsite.draft = false;

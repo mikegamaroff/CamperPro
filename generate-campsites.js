@@ -65,7 +65,6 @@ function generateRandomAddress() {
 			streetNames[Math.floor(Math.random() * streetNames.length)] + ' Street ' + Math.floor(Math.random() * 100),
 		address2: 'Apt ' + Math.floor(Math.random() * 20),
 		city: cityNames[Math.floor(Math.random() * cityNames.length)],
-		state: states[Math.floor(Math.random() * states.length)],
 		postalCode: generateRandomZipCode(),
 		country: 'USA'
 	};
@@ -86,6 +85,8 @@ const campsiteArray = [];
 
 for (let i = 0; i < 10; i++) {
 	const campsiteLocation = {
+		state: states[Math.floor(Math.random() * states.length)],
+		nearestTown: cityNames[Math.floor(Math.random() * cityNames.length)],
 		receptionAddress: generateRandomAddress(),
 		coordinates: generateRandomCoordinates(),
 		directions:

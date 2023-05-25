@@ -85,6 +85,8 @@ http://ionicframework.com/docs/theming/ */
 
 	/* PRIMARY */
 
+	--foreground: #000000;
+	--background: #ffffff;
 	--primary: var(--ion-color-primary);
 	--primary-rgb: rgb(var(--ion-color-primary-rgb));
 
@@ -260,7 +262,8 @@ http://ionicframework.com/docs/theming/ */
 		/* General Globals */
 
 		/* PRIMARY */
-
+		--foreground: #ffffff;
+		--background: #000000;
 		--primary: var(--ion-color-primary);
 		--primary-rgb: rgb(var(--ion-color-primary-rgb));
 

@@ -1,17 +1,10 @@
-import classNames from 'classnames';
 import { GetServerSideProps } from 'next';
 import { CampsiteImages } from '../../components/CampsiteImages';
 import { Container } from '../../components/Container';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
-import {
-	IconBackArrow,
-	IconLocation,
-	IconMap,
-	IconReceptionCheckin,
-	IconSelfCheckin,
-	IconStar
-} from '../../components/Icons';
+import { IconBackArrow, IconLocation, IconMap, IconStar } from '../../components/Icons';
+import { CheckinType } from '../../components/campsites/CheckinType';
 import { HostedBy } from '../../components/campsites/HostedBy';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
@@ -24,7 +17,6 @@ interface PostPageProps {
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite, isLoading } = useGetCampsite(id);
 
-	const receptionCheckin = campsite?.receptionCheckin;
 	const receptionAddress = campsite?.location.receptionAddress;
 
 	return (
@@ -42,17 +34,17 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 									<div className={styles.iconContainer}>
 										<IconStar size={18} />
 									</div>
-									<p className={styles.pMargin}>{campsite?.rating}</p>
+									<div>{campsite?.rating}</div>
 									<div className={styles.dot}>•</div>
-									<p className={styles.pMargin}># reviews</p>
+									<div># reviews</div>
 								</div>
 								<div className={styles.infoLine}>
 									<div className={styles.iconContainer}>
 										<IconMap size={18} />
 									</div>
-									<p className={styles.pMargin}>
+									<div>
 										{campsite?.location.coordinates.lat}, {campsite?.location.coordinates.lng}
-									</p>
+									</div>
 								</div>
 								{receptionAddress && (
 									<div className={styles.infoLine}>
@@ -74,26 +66,11 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 							</div>
 						)}
 						<hr />
-						<div className={styles.section}>
-							{receptionCheckin && (
-								<div className={styles.checkin}>
-									<IconReceptionCheckin size={30} />
-									<div className={styles.checkinText}>
-										<p className={classNames(styles.pMargin, 'bold')}>Reception check-in</p>
-										<p className={styles.pMargin}>Meet the owner at the reception.</p>
-									</div>
-								</div>
-							)}
-							{!receptionCheckin && (
-								<div className={styles.checkin}>
-									<IconSelfCheckin size={30} />
-									<div className={styles.checkinText}>
-										<p className={classNames(styles.pMargin, 'bold')}>Self check-in</p>
-										<p className={styles.pMargin}>Check in without meeting the owner.</p>
-									</div>
-								</div>
-							)}
-						</div>
+						{campsite && (
+							<div className={styles.section}>
+								<CheckinType campsite={campsite} />
+							</div>
+						)}
 						<hr />
 					</div>
 				</>

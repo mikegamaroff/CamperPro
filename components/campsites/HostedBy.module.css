@@ -1,3 +1,9 @@
+.hostedByContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .infoLine {
 	display: flex;
 	gap: 8px;

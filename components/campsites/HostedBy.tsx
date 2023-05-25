@@ -13,7 +13,7 @@ export const HostedBy: React.FC<HostedByProps> = ({ campsite }) => {
 
 	const image = user?.images?.[0];
 	return (
-		<div>
+		<div className={styles.hostedByContainer}>
 			<div className={styles.hostedBy}>
 				<div className={styles.host}>
 					<h3 className="bold">Hosted by:</h3>

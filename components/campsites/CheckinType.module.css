@@ -1,0 +1,13 @@
+.checkin {
+	display: flex;
+	justify-content: space-between;
+}
+
+.checkinText {
+	display: flex;
+	flex-direction: column;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	gap: 6px;
+	width: 86%;
+}

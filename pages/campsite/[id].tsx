@@ -15,7 +15,7 @@ import {
 } from '../../components/Icons';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
-import styles from './[id].module.css';
+import styles from './id.module.css';
 
 interface PostPageProps {
 	id: string;

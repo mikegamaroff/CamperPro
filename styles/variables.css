@@ -9,7 +9,6 @@ http://ionicframework.com/docs/theming/ */
 	--app-minwidth: 300px;
 	--ion-color-primary: #ffa300;
 	--ion-color-primary-rgb: rgb(255, 163, 0);
-	--ion-color-primary-contrast: #ffffff;
 	--ion-color-primary-contrast-rgb: 255, 255, 255;
 	--ion-color-primary-shade: #d18503;
 	--ion-color-primary-tint: #febb48;
@@ -17,7 +16,6 @@ http://ionicframework.com/docs/theming/ */
 	/** secondary **/
 	--ion-color-secondary: #009400;
 	--ion-color-secondary-rgb: rgb(0, 148, 0);
-	--ion-color-secondary-contrast: #ffffff;
 	--ion-color-secondary-contrast-rgb: 255, 255, 255;
 	--ion-color-secondary-shade: #006700;
 	--ion-color-secondary-tint: #2cd62c;
@@ -85,8 +83,8 @@ http://ionicframework.com/docs/theming/ */
 
 	/* PRIMARY */
 
-	--foreground: #000000;
-	--background: #ffffff;
+	--foreground: #000000 !important;
+	--background: #ffffff !important;
 	--primary: var(--ion-color-primary);
 	--primary-rgb: rgb(var(--ion-color-primary-rgb));
 
@@ -150,7 +148,6 @@ http://ionicframework.com/docs/theming/ */
 
 	--background-opacity: rgb(255, 163, 0.5) !important;
 	--background-transparent: rgb(253, 253, 253, 0) !important;
-	--background-rgb: rgb(253, 253, 253) !important;
 
 	--foreground: #141414 !important;
 	--foreground-opacity: rgba(20, 20, 20, 0.5) !important;
@@ -172,7 +169,7 @@ http://ionicframework.com/docs/theming/ */
 	--hr-light: rgba(0, 0, 0, 0.05);
 	--hr-dark: rgba(0, 0, 0, 0.3);
 
-	--ion-background-color: var(--ion-color-primary-contrast);
+	--ion-background-color: var(--background);
 	--transition-default: all 0.2s ease-in-out;
 }
 
@@ -186,7 +183,6 @@ http://ionicframework.com/docs/theming/ */
 		/** primary **/
 		--ion-color-primary: #ffa300;
 		--ion-color-primary-rgb: rgb(255, 163, 0);
-		--ion-color-primary-contrast: #000000;
 		--ion-color-primary-contrast-rgb: 255, 255, 255;
 		--ion-color-primary-shade: #a2a9cd;
 		--ion-color-primary-tint: rgb(101, 130, 213);
@@ -194,7 +190,6 @@ http://ionicframework.com/docs/theming/ */
 		/** secondary **/
 		--ion-color-secondary: #009400;
 		--ion-color-secondary-rgb: 74, 185, 87;
-		--ion-color-secondary-contrast: #000000;
 		--ion-color-secondary-contrast-rgb: 255, 255, 255;
 		--ion-color-secondary-shade: #33893d;
 		--ion-color-secondary-tint: #6fbf78;
@@ -262,8 +257,8 @@ http://ionicframework.com/docs/theming/ */
 		/* General Globals */
 
 		/* PRIMARY */
-		--foreground: #ffffff;
-		--background: #000000;
+		--foreground: #ffffff !important;
+		--background: #000000 !important;
 		--primary: var(--ion-color-primary);
 		--primary-rgb: rgb(var(--ion-color-primary-rgb));
 
@@ -311,13 +306,13 @@ http://ionicframework.com/docs/theming/ */
 		--neutral300: #d6d6d6;
 		--neutral300-rgb: rgb(214, 214, 214);
 
-		--neutral150: #adacab;
+		--neutral150: #979797;
 		--neutral150-rgb: rgb(173, 172, 171);
 
-		--neutral50: #848381;
+		--neutral50: #656565;
 		--neutral50-rgb: rgb(132, 131, 129);
 
-		--neutral10: #5b5a57;
+		--neutral10: #292929;
 		--neutral10-rgb: rgb(91, 90, 87);
 
 		--neutral: #33312e;
@@ -325,12 +320,8 @@ http://ionicframework.com/docs/theming/ */
 
 		/* GENERALS */
 
-		--background: #141414 !important;
 		--background-opacity: rgba(20, 20, 20, 0.5) !important;
 		--background-transparent: rgba(20, 20, 20, 0) !important;
-		--background-rgb: rgb(20, 20, 20) !important;
-
-		--foreground: #fdfdfd !important;
 		--foreground-opacity: rgb(253, 253, 253, 0.7) !important;
 		--foreground-transparent: rgb(253, 253, 253, 0) !important;
 		--foreground-rgb: rgb(253, 253, 253) !important;
@@ -351,7 +342,7 @@ http://ionicframework.com/docs/theming/ */
 		--hr-light: rgba(255, 255, 255, 0.05);
 		--hr-dark: rgba(255, 255, 255, 0.3);
 
-		--ion-background-color: var(--primary10);
+		--ion-background-color: var(--background);
 	}
 
 	/*

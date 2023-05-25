@@ -1,0 +1,89 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	padding-right: 24px;
+	padding-left: 24px;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	padding-top: 28px;
+	padding-bottom: 28px;
+	gap: 23px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.infoLine {
+	display: flex;
+	gap: 8px;
+}
+
+.pMargin {
+	margin-bottom: 0px;
+}
+
+.dot {
+	background-color: black;
+	border-radius: 100%;
+	height: 6px;
+	width: 6px;
+	margin-top: 7px;
+}
+
+.space {
+	width: 10px;
+	height: 20px;
+}
+
+.divideLine {
+	border-bottom: 1px solid var(--neutral150);
+}
+
+.hostedBy {
+	display: flex;
+	justify-content: space-between;
+}
+
+.host {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.profile {
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	background-color: blue;
+	color: white;
+	display: grid;
+	place-items: center;
+}
+
+.smallDot {
+	background-color: black;
+	border-radius: 100%;
+	height: 4px;
+	width: 4px;
+	margin-top: 8px;
+}
+
+.checkin {
+	display: flex;
+	justify-content: space-between;
+}
+
+.checkinText {
+	display: flex;
+	flex-direction: column;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	gap: 6px;
+	width: 86%;
+}

@@ -38,7 +38,7 @@ export interface Attributes {
 export interface CampLocation {
 	coordinates: Coordinates;
 	receptionAddress: Address | null;
-	state?: string | null;
+	state: string;
 	nearestTown?: string | null;
 	directions: string | null;
 }
@@ -76,7 +76,7 @@ export const EmptyNewCampsite: Campsite = {
 	title: '',
 	rating: 0,
 	location: {
-		state: null,
+		state: '',
 		nearestTown: null,
 		receptionAddress: {
 			address1: '',

@@ -78,13 +78,7 @@ export const EmptyNewCampsite: Campsite = {
 	location: {
 		state: '',
 		nearestTown: null,
-		receptionAddress: {
-			address1: '',
-			address2: '',
-			city: '',
-			postalCode: '',
-			country: ''
-		},
+		receptionAddress: null,
 		coordinates: {
 			lat: 0,
 			lng: 0

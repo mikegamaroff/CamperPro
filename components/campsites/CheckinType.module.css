@@ -1,0 +1,13 @@
+.checkin {
+	display: grid;
+	grid-template-columns: 30px auto;
+	gap: 10px;
+}
+
+.checkinText {
+	display: flex;
+	flex-direction: column;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	gap: 6px;
+}

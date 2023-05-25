@@ -8,11 +8,11 @@ import {
 	IconBackArrow,
 	IconLocation,
 	IconMap,
-	IconProfile,
 	IconReceptionCheckin,
 	IconSelfCheckin,
 	IconStar
 } from '../../components/Icons';
+import { HostedBy } from '../../components/campsites/HostedBy';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
 import styles from './campsiteProfile.module.css';
@@ -23,7 +23,9 @@ interface PostPageProps {
 
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite, isLoading } = useGetCampsite(id);
+
 	const receptionCheckin = campsite?.receptionCheckin;
+	const receptionAddress = campsite?.location.receptionAddress;
 
 	return (
 		<>
@@ -32,61 +34,46 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 			<Container scroll>
 				<>
 					<CampsiteImages campsite={campsite} />
-					<div className={styles.container}>
+					<div className="contentWrapper">
 						<div className={styles.section}>
 							<h2 className="bold">{campsite?.title}</h2>
 							<div className={styles.info}>
 								<div className={styles.infoLine}>
-									<IconStar size={18} />
+									<div className={styles.iconContainer}>
+										<IconStar size={18} />
+									</div>
 									<p className={styles.pMargin}>{campsite?.rating}</p>
-									<div className={styles.dot} />
+									<div className={styles.dot}>•</div>
 									<p className={styles.pMargin}># reviews</p>
 								</div>
 								<div className={styles.infoLine}>
-									<IconMap size={18} />
+									<div className={styles.iconContainer}>
+										<IconMap size={18} />
+									</div>
 									<p className={styles.pMargin}>
 										{campsite?.location.coordinates.lat}, {campsite?.location.coordinates.lng}
 									</p>
 								</div>
-								<div className={styles.infoLine}>
-									<IconLocation size={18} />
-									{receptionCheckin && (
-										<p style={{ marginBottom: '0px', color: 'var(--neutral700)' }}>
-											Reception: {campsite?.location.receptionAddress.address1},{' '}
-											{campsite?.location.receptionAddress.city},{' '}
-											{campsite?.location.receptionAddress.state}{' '}
-											{campsite?.location.receptionAddress.postalCode}
-										</p>
-									)}
-									{!receptionCheckin && (
-										<p style={{ marginBottom: '0px', color: 'var(--neutral700)' }}>
-											Campsite: {campsite?.location.receptionAddress.address1},{' '}
-											{campsite?.location.receptionAddress.city},{' '}
-											{campsite?.location.receptionAddress.state}{' '}
-											{campsite?.location.receptionAddress.postalCode}
-										</p>
-									)}
-								</div>
+								{receptionAddress && (
+									<div className={styles.infoLine}>
+										<div className={styles.iconContainer}>
+											<IconLocation size={18} />
+										</div>
+										<div>
+											Reception: {receptionAddress.address1}, {receptionAddress.city},{' '}
+											{receptionAddress.state} {receptionAddress.postalCode}
+										</div>
+									</div>
+								)}
 							</div>
 						</div>
-						<div className={styles.divideLine} />
-						<div className={styles.section}>
-							<div className={styles.hostedBy}>
-								<div className={styles.host}>
-									<h3 className="bold">Hosted by:</h3>
-									<h5>{campsite?.author}</h5>
-								</div>
-								<div className={styles.profile}>
-									<IconProfile size={35} />
-								</div>
+						<hr />
+						{campsite && (
+							<div className={styles.section}>
+								<HostedBy campsite={campsite} />
 							</div>
-							<div className={styles.infoLine}>
-								<p className={styles.pMargin}>{campsite?.capacity.numberOfTentSites} tent sites</p>
-								<div className={styles.smallDot} />
-								<p className={styles.pMargin}>{campsite?.capacity.acreage} acres</p>
-							</div>
-						</div>
-						<div className={styles.divideLine} />
+						)}
+						<hr />
 						<div className={styles.section}>
 							{receptionCheckin && (
 								<div className={styles.checkin}>
@@ -107,7 +94,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 								</div>
 							)}
 						</div>
-						<div className={styles.divideLine} />
+						<hr />
 					</div>
 				</>
 			</Container>

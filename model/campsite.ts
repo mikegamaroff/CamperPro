@@ -38,7 +38,7 @@ export interface Attributes {
 }
 export interface CampLocation {
 	coordinates: Coordinates;
-	receptionAddress: Address;
+	receptionAddress: Address | null;
 }
 export interface Campsite extends DocumentWithImages {
 	author?: string;
@@ -74,14 +74,7 @@ export const EmptyNewCampsite: Campsite = {
 	title: '',
 	rating: 0,
 	location: {
-		receptionAddress: {
-			address1: '',
-			address2: '',
-			city: '',
-			state: '',
-			postalCode: '',
-			country: ''
-		},
+		receptionAddress: null,
 		coordinates: {
 			lat: 0,
 			lng: 0

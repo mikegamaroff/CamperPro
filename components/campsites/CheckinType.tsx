@@ -12,7 +12,7 @@ export const CheckinType: React.FC<CheckinTypeProps> = ({ campsite }) => {
 
 	return (
 		<div>
-			{receptionCheckin && (
+			{receptionCheckin ? (
 				<div className={styles.checkin}>
 					<IconReceptionCheckin size={30} />
 					<div className={styles.checkinText}>
@@ -20,8 +20,7 @@ export const CheckinType: React.FC<CheckinTypeProps> = ({ campsite }) => {
 						<div>Meet the owner at the reception.</div>
 					</div>
 				</div>
-			)}
-			{!receptionCheckin && (
+			) : (
 				<div className={styles.checkin}>
 					<IconSelfCheckin size={30} />
 					<div className={styles.checkinText}>

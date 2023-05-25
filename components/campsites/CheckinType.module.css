@@ -1,6 +1,7 @@
 .checkin {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 30px auto;
+	gap: 10px;
 }
 
 .checkinText {
@@ -9,5 +10,4 @@
 	padding-top: 3px;
 	padding-bottom: 3px;
 	gap: 6px;
-	width: 86%;
 }

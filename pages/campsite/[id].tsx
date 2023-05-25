@@ -53,7 +53,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										</div>
 										<div>
 											Reception: {receptionAddress.address1}, {receptionAddress.city},{' '}
-											{receptionAddress.state} {receptionAddress.postalCode}
+											{campsite?.location.state} {receptionAddress.postalCode}
 										</div>
 									</div>
 								)}

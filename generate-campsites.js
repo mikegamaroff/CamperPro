@@ -31,7 +31,7 @@ const cityNames = [
 	'Windsor'
 ];
 const states = ['CA', 'TX', 'NY', 'FL', 'IL', 'PA', 'OH', 'GA', 'MN', 'NC'];
-const features = ['river', 'mountain', 'lake', 'sea', 'wildlife', 'hikingTrails', 'forest'];
+const features = ['river', 'mountain', 'lake', 'sea', 'wildlife', 'hiking', 'forest'];
 const EmptyNewCampsite = {
 	type: 'campsite',
 	category: 'public',

@@ -93,7 +93,7 @@ export const iconComponents: Record<
 	{ icon: ComponentType<IconProps>; label: string }
 > = {
 	river: { icon: IconRiver, label: 'River' },
-	cellsignal: { icon: IconCellsignal, label: 'Cell Signal' },
+	cellsignal: { icon: IconCellsignal, label: 'Cellular' },
 	wildlife: { icon: IconWildlife, label: 'Wildlife' },
 	mountain: { icon: IconMountain, label: 'Mountain' },
 	lake: { icon: IconLake, label: 'Lake' },

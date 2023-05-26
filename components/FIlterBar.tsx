@@ -1,24 +1,11 @@
 import classNames from 'classnames';
-import { FC } from 'react';
+import { ComponentType, FC } from 'react';
 import { Attributes, FilterIDType } from '../model/campsite';
 import styles from './FilterBar.module.css';
-import {
-	IconCellsignal,
-	IconClimbing,
-	IconFire,
-	IconForest,
-	IconHiking,
-	IconHunting,
-	IconLake,
-	IconMountain,
-	IconPets,
-	IconRiver,
-	IconSea,
-	IconWildlife
-} from './Icons';
+import { IconProps, iconComponents } from './Icons';
 
 interface FilterIconProps {
-	icon: JSX.Element;
+	icon: ComponentType<IconProps>;
 	label: string;
 	id: FilterIDType;
 }
@@ -29,64 +16,94 @@ interface FilterBarProps {
 }
 const FilterButtons: FilterIconProps[] = [
 	{
-		label: 'River',
-		icon: <IconRiver />,
+		label: iconComponents.river.label,
+		icon: iconComponents.river.icon,
 		id: { feature: 'river' }
 	},
 	{
-		label: 'Mountain',
-		icon: <IconMountain />,
+		label: iconComponents.mountain.label,
+		icon: iconComponents.mountain.icon,
 		id: { feature: 'mountain' }
 	},
 	{
-		label: 'Lake',
-		icon: <IconLake />,
+		label: iconComponents.lake.label,
+		icon: iconComponents.lake.icon,
 		id: { feature: 'lake' }
 	},
 	{
-		label: 'Hunting',
-		icon: <IconHunting />,
+		label: iconComponents.hunting.label,
+		icon: iconComponents.hunting.icon,
 		id: { permitted: 'hunting' }
 	},
 	{
-		label: 'Sea',
-		icon: <IconSea />,
+		label: iconComponents.sea.label,
+		icon: iconComponents.sea.icon,
 		id: { feature: 'sea' }
 	},
 	{
-		label: 'Wildlife',
-		icon: <IconWildlife />,
+		label: iconComponents.wildlife.label,
+		icon: iconComponents.wildlife.icon,
 		id: { feature: 'wildlife' }
 	},
 	{
-		label: 'Fire',
-		icon: <IconFire />,
-		id: { amenity: 'firepit' }
+		label: iconComponents.campfire.label,
+		icon: iconComponents.campfire.icon,
+		id: { permitted: 'campfire' }
 	},
 	{
-		label: 'Hiking',
-		icon: <IconHiking />,
-		id: { feature: 'hikingTrails' }
+		label: iconComponents.hiking.label,
+		icon: iconComponents.hiking.icon,
+		id: { feature: 'hiking' }
 	},
 	{
-		label: 'Forest',
-		icon: <IconForest />,
+		label: iconComponents.cellsignal.label,
+		icon: iconComponents.cellsignal.icon,
+		id: { amenity: 'cellsignal' }
+	},
+	{
+		label: iconComponents.forest.label,
+		icon: iconComponents.forest.icon,
 		id: { feature: 'forest' }
 	},
 	{
-		label: 'Cell Signal',
-		icon: <IconCellsignal />,
-		id: { amenity: 'cellSignal' }
+		label: iconComponents.climbing.label,
+		icon: iconComponents.climbing.icon,
+		id: { permitted: 'climbing' }
 	},
 	{
-		label: 'Pets',
-		icon: <IconPets />,
+		label: iconComponents.pets.label,
+		icon: iconComponents.pets.icon,
 		id: { permitted: 'pets' }
 	},
 	{
-		label: 'Climbing',
-		icon: <IconClimbing />,
-		id: { permitted: 'climbing' }
+		label: iconComponents.swimming.label,
+		icon: iconComponents.swimming.icon,
+		id: { permitted: 'swimming' }
+	},
+	{
+		label: iconComponents.wifi.label,
+		icon: iconComponents.wifi.icon,
+		id: { amenity: 'wifi' }
+	},
+	{
+		label: iconComponents.toilet.label,
+		icon: iconComponents.toilet.icon,
+		id: { amenity: 'toilet' }
+	},
+	{
+		label: iconComponents.portapot.label,
+		icon: iconComponents.portapot.icon,
+		id: { amenity: 'portapot' }
+	},
+	{
+		label: iconComponents.barbecue.label,
+		icon: iconComponents.barbecue.icon,
+		id: { amenity: 'barbecue' }
+	},
+	{
+		label: iconComponents.shower.label,
+		icon: iconComponents.shower.icon,
+		id: { amenity: 'shower' }
 	}
 ];
 
@@ -109,6 +126,7 @@ export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilt
 	return (
 		<div className={styles.container}>
 			{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
+				const IconComponent = filterbutton.icon || null;
 				return (
 					<div
 						key={'filterbutton' + i}
@@ -117,7 +135,7 @@ export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilt
 							filterExists(filterbutton.id) ? styles.buttonSelected : styles.buttonDefault
 						)}
 					>
-						{filterbutton.icon}
+						<IconComponent />
 						<div className="caption medium">{filterbutton.label}</div>
 						<div className={filterExists(filterbutton.id) ? styles.line : styles.lineBlank} />
 					</div>

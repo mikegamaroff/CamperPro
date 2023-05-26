@@ -1,0 +1,22 @@
+.featuresContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.featuresGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+}
+
+.feature {
+	color: var(--foreground);
+	border-radius: 14px;
+	height: 140px;
+	border: 1px solid var(--neutral150);
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}

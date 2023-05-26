@@ -5,6 +5,7 @@ import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
 import { IconBackArrow, IconLocation, IconMap, IconStar } from '../../components/Icons';
 import { CheckinType } from '../../components/campsites/CheckinType';
+import { Features } from '../../components/campsites/Features';
 import { HostedBy } from '../../components/campsites/HostedBy';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
@@ -69,6 +70,12 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 						{campsite && (
 							<div className={styles.section}>
 								<CheckinType campsite={campsite} />
+							</div>
+						)}
+						<hr />
+						{campsite && (
+							<div className={styles.section}>
+								<Features campsite={campsite} />
 							</div>
 						)}
 						<hr />

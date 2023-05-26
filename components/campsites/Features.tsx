@@ -52,13 +52,13 @@ interface FeaturesProps {
 }
 
 export const Features: React.FC<FeaturesProps> = ({ campsite }) => {
-	const features = campsite.attributes.feature || [];
+	const features = campsite.attributes.feature || null;
 
 	return (
 		<div className={styles.featuresContainer}>
 			<h4 className="bold">Features</h4>
 			<div className={styles.featuresGrid}>
-				{features.map(feature => {
+				{features?.map(feature => {
 					const MatchFeature = CampFeatures.find(item => item.id === feature);
 					return (
 						<div className={styles.feature} key={feature}>

@@ -7,7 +7,15 @@ const MenuContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 	return (
 		<div>
 			<div className={styles.closeButton}>
-				<IconButton size="small" icon={<IconClose />} onClick={onClose} />
+				<IconButton
+					size="small"
+					icon={
+						<div style={{ color: 'var(--neutral)' }}>
+							<IconClose />
+						</div>
+					}
+					onClick={onClose}
+				/>
 			</div>
 		</div>
 	);

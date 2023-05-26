@@ -7,6 +7,7 @@
 }
 
 .buttonSelected {
+	color: var(--foreground);
 	width: 50px;
 	display: flex;
 	flex-direction: column;
@@ -17,7 +18,7 @@
 
 .line {
 	height: 0px;
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid var(--foreground);
 	width: 50px;
 }
 

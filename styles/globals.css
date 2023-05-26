@@ -8,7 +8,6 @@ body {
 	height: 100%;
 	color: var(--neutral700);
 	font-size: 16px;
-	background: var(--neutral10);
 }
 /* This will hide the scrollbar for Chrome, Safari and Opera */
 div::-webkit-scrollbar {
@@ -63,6 +62,9 @@ ion-button * {
 
 ion-button a {
 	text-decoration: none !important;
+}
+ion-toolbar {
+	border-bottom: 1px solid var(--neutral10);
 }
 .layoutContainer {
 	display: grid;
@@ -187,6 +189,12 @@ a:hover {
 	.searchbar-input-container {
 		padding-left: 5px !important;
 	}
+	ion-toolbar,
+	.appContainer-tabs,
+	.appContainer {
+		border-left: 1px solid var(--neutral50);
+		border-right: 1px solid var(--neutral50);
+	}
 }
 @media screen and (max-width: 600px) and (max-height: 1000px) {
 	.topEditOpen {
@@ -270,13 +278,12 @@ ion-tab-bar {
 ion-tab-button {
 	font-size: 10px;
 	--color: var(--neutral700);
-	--background-focused: var(--ion-color-primary-tint);
-	--color-selected: var(--ion-color-primary-tint);
 	--padding-end: 0px;
 	--padding-bottom: 0px;
 	--margin-left: 0px;
 	--margin-right: 0px;
 	max-width: 100px;
+	--color-selected: var(--primary);
 }
 .pointer {
 	cursor: pointer;
@@ -286,6 +293,10 @@ ion-tab-button {
 	align-items: center;
 	flex-direction: column;
 	gap: 5px;
+}
+ion-toolbar {
+	margin: 0;
+	padding: 0 10px 0 10px !important;
 }
 ion-tabs {
 	pointer-events: none;
@@ -297,7 +308,6 @@ ion-tab-button {
 ion-header {
 	margin: auto;
 	max-width: 650px;
-	background: var(--background);
 }
 
 .appContainer,
@@ -305,8 +315,6 @@ ion-header {
 	margin: auto;
 	max-width: 650px;
 	background: var(--background);
-	border-left: 1px solid var(--neutral50);
-	border-right: 1px solid var(--neutral50);
 	position: relative;
 }
 .appContainer {
@@ -379,6 +387,10 @@ ion-fab-button {
 	height: 65px;
 	width: 65px;
 }
+ion-menu {
+	all: unset;
+	--background: var(--primary);
+}
 
 .center-align {
 	display: flex;
@@ -401,7 +413,7 @@ ion-fab-button {
 .icon-graphic {
 	width: 50px;
 	height: 50px;
-	color: var(--background-rgb);
+	color: var(--background);
 	padding: 10px;
 	background-color: var(--primary50);
 }
@@ -415,7 +427,7 @@ ion-fab-button {
 .iconCircle {
 	background: var(--secondary);
 	border-radius: 100%;
-	color: var(--background-rgb);
+	color: var(--neutral10);
 	padding: 7px;
 }
 .datetime-picker-container {

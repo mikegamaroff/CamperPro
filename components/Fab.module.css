@@ -9,6 +9,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--ion-color-primary-contrast);
+	color: var(--neutral);
 	z-index: 1;
 }

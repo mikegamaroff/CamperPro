@@ -146,13 +146,7 @@ http://ionicframework.com/docs/theming/ */
 
 	/* GENERALS */
 
-	--background-opacity: rgb(255, 163, 0.5) !important;
-	--background-transparent: rgb(253, 253, 253, 0) !important;
-
 	--foreground: #141414 !important;
-	--foreground-opacity: rgba(20, 20, 20, 0.5) !important;
-	--foreground-transparent: rgba(20, 20, 20, 0) !important;
-	--foreground-rgb: rgb(20, 20, 20) !important;
 	--code: #faebd7;
 	--card-background: #fffeff !important;
 	--comment-background: #eaf2f8;
@@ -259,8 +253,8 @@ http://ionicframework.com/docs/theming/ */
 		/* PRIMARY */
 		--foreground: #ffffff !important;
 		--background: #000000 !important;
-		--primary: var(--ion-color-primary);
-		--primary-rgb: rgb(var(--ion-color-primary-rgb));
+		--primary: #ffb700;
+		--primary-rgb: rgb(255, 183, 0);
 
 		--primary700: #fff1e6;
 		--primary700-rgb: rgb(255, 241, 230);
@@ -278,8 +272,8 @@ http://ionicframework.com/docs/theming/ */
 		--primary10-rgb: rgb(168, 106, 0);
 
 		/* SECONDARY */
-		--secondary: var(--ion-color-secondary);
-		--secondary-rgb: rgb(var(--ion-color-secondary-rgb));
+		--secondary: #b4fabe;
+		--secondary-rgb: rgb(163, 220, 170);
 
 		--secondary700: #a2dcaa;
 		--secondary700-rgb: rgb(162, 220, 170);
@@ -303,28 +297,22 @@ http://ionicframework.com/docs/theming/ */
 		--neutral500: #eaeaea;
 		--neutral500-rgb: rgb(234, 234, 234);
 
-		--neutral300: #d6d6d6;
+		--neutral300: #adadad;
 		--neutral300-rgb: rgb(214, 214, 214);
 
-		--neutral150: #979797;
+		--neutral150: #7b7b7b;
 		--neutral150-rgb: rgb(173, 172, 171);
 
-		--neutral50: #656565;
+		--neutral50: #5b5b5b;
 		--neutral50-rgb: rgb(132, 131, 129);
 
 		--neutral10: #292929;
 		--neutral10-rgb: rgb(91, 90, 87);
 
-		--neutral: #33312e;
+		--neutral: #151514;
 		--neutral-rgb: rgb(51, 49, 46);
 
 		/* GENERALS */
-
-		--background-opacity: rgba(20, 20, 20, 0.5) !important;
-		--background-transparent: rgba(20, 20, 20, 0) !important;
-		--foreground-opacity: rgb(253, 253, 253, 0.7) !important;
-		--foreground-transparent: rgb(253, 253, 253, 0) !important;
-		--foreground-rgb: rgb(253, 253, 253) !important;
 
 		--code: #021c2a;
 		--card-background: #fffeff !important;
@@ -379,11 +367,6 @@ http://ionicframework.com/docs/theming/ */
 		--ion-card-background: #1c1c1d;
 	}
 
-	.ios ion-modal {
-		--ion-toolbar-background: var(--ion-color-step-250);
-		--ion-toolbar-border-color: var(--ion-color-step-250);
-	}
-
 	/*
    * Material Design Dark Theme
    * -------------------------------------------
@@ -414,25 +397,13 @@ http://ionicframework.com/docs/theming/ */
 		--ion-color-step-850: #dbdbdb;
 		--ion-color-step-900: #e7e7e7;
 		--ion-color-step-950: #f3f3f3;
-
-		--ion-item-background: #1e1e1e;
-
-		--ion-toolbar-background: #1f1f1f;
-
-		--ion-tab-bar-background: #1f1f1f;
-
-		--ion-card-background: #1e1e1e;
 	}
 }
 
 ion-label {
 	padding-left: 0.2em;
 }
-ion-toolbar {
-	--background: var(--neutral10);
-	margin: 0;
-	padding: 0 10px 0 10px !important;
-}
+
 ion-button {
 	text-transform: none;
 	font-weight: 600;

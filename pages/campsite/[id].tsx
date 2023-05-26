@@ -62,23 +62,29 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 						</div>
 						<hr />
 						{campsite && (
-							<div className={styles.section}>
-								<HostedBy campsite={campsite} />
-							</div>
+							<>
+								<div className={styles.section}>
+									<HostedBy campsite={campsite} />
+								</div>
+								<hr />
+								<div className={styles.section}>
+									<CheckinType campsite={campsite} />
+								</div>
+								<hr />
+								<div className={styles.section}>
+									<Features campsite={campsite} attributeType="feature" />
+								</div>
+								<hr />
+								<div className={styles.section}>
+									<Features campsite={campsite} attributeType="amenity" />
+								</div>
+								<hr />
+								<div className={styles.section}>
+									<Features campsite={campsite} attributeType="permitted" />
+								</div>
+								<hr />
+							</>
 						)}
-						<hr />
-						{campsite && (
-							<div className={styles.section}>
-								<CheckinType campsite={campsite} />
-							</div>
-						)}
-						<hr />
-						{campsite && (
-							<div className={styles.section}>
-								<Features campsite={campsite} />
-							</div>
-						)}
-						<hr />
 					</div>
 				</>
 			</Container>

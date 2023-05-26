@@ -26,6 +26,7 @@ import Hunting from '../../assets/icons/categories/HuntingIcon.component.svg';
 import Lake from '../../assets/icons/categories/LakeIcon.component.svg';
 import Mountain from '../../assets/icons/categories/MountainIcon.component.svg';
 import Pets from '../../assets/icons/categories/PetsIcon.component.svg';
+import Portapot from '../../assets/icons/categories/PortapotIcon.component.svg';
 import River from '../../assets/icons/categories/RiverIcon.component.svg';
 import Sea from '../../assets/icons/categories/SeaIcon.component.svg';
 import Shower from '../../assets/icons/categories/ShowerIcon.component.svg';
@@ -34,7 +35,6 @@ import Toilet from '../../assets/icons/categories/ToiletIcon.component.svg';
 import Wifi from '../../assets/icons/categories/WifiIcon.component.svg';
 import Wildlife from '../../assets/icons/categories/WildlifeIcon.component.svg';
 import Woodgathering from '../../assets/icons/categories/WoodgatheringIcon.component.svg';
-import portapot from '../../assets/icons/categories/portapotIcon.component.svg';
 import { AmenityNames, FeatureNames, PermittedNames } from '../../model/campsite';
 import { Icon } from './Icon';
 export interface IconProps {
@@ -82,7 +82,7 @@ export const IconNote = createIcon(Note, 'SelfCheckin');
 export const IconHome = createIcon(Home, 'ReceptionCheckin');
 export const IconWifi = createIcon(Wifi, 'Wifi');
 export const IconToilet = createIcon(Toilet, 'Toilet');
-export const Iconportapot = createIcon(portapot, 'portapot');
+export const IconPortapot = createIcon(Portapot, 'Portapot');
 export const IconShower = createIcon(Shower, 'Shower');
 export const IconBarbecue = createIcon(Barbecue, 'Barbecue');
 export const IconSwimming = createIcon(Swimming, 'Swimming');
@@ -107,7 +107,7 @@ export const iconComponents: Record<
 	default: { icon: IconHome, label: 'Default' },
 	wifi: { icon: IconWifi, label: 'Wifi' },
 	toilet: { icon: IconToilet, label: 'Toilet' },
-	portapot: { icon: Iconportapot, label: 'Portapot' },
+	portapot: { icon: IconPortapot, label: 'Portapot' },
 	shower: { icon: IconShower, label: 'Shower' },
 	barbecue: { icon: IconBarbecue, label: 'BBQ' },
 	pets: { icon: IconPets, label: 'Pets' },

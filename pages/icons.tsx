@@ -2,6 +2,7 @@ import { Container } from '../components/Container';
 import {
 	IconAdd,
 	IconBackArrow,
+	IconBarbecue,
 	IconCellsignal,
 	IconChevronForward,
 	IconClimbing,
@@ -9,7 +10,7 @@ import {
 	IconEye,
 	IconEyeOff,
 	IconFilter,
-	IconFire,
+	IconFirepit,
 	IconFishing,
 	IconForest,
 	IconHiking,
@@ -19,13 +20,19 @@ import {
 	IconMenu,
 	IconMountain,
 	IconPets,
+	IconPortapot,
 	IconProfile,
 	IconRiver,
 	IconSea,
 	IconSearch,
+	IconShower,
 	IconStar,
+	IconSwimming,
+	IconToilet,
 	IconTrips,
-	IconWildlife
+	IconWifi,
+	IconWildlife,
+	IconWoodgathering
 } from '../components/Icons';
 import styles from './icons.module.css';
 function Icons() {
@@ -51,7 +58,7 @@ function Icons() {
 	];
 
 	const iconsCategories: IconType[] = [
-		{ icon: <IconFire />, name: 'IconFire' },
+		{ icon: <IconFirepit />, name: 'IconFirepit' },
 		{ icon: <IconClimbing />, name: 'IconClimbing' },
 		{ icon: <IconFishing />, name: 'IconFishing' },
 		{ icon: <IconForest />, name: 'IconForest' },
@@ -63,7 +70,16 @@ function Icons() {
 		{ icon: <IconPets />, name: 'IconPets' },
 		{ icon: <IconRiver />, name: 'IconRiver' },
 		{ icon: <IconWildlife />, name: 'IconWildlife' },
-		{ icon: <IconCellsignal />, name: 'IconCellsignal' }
+		{ icon: <IconCellsignal />, name: 'IconCellsignal' },
+		{ icon: <IconWifi />, name: 'IconWifi' },
+		{ icon: <IconToilet />, name: 'IconToilet' },
+		{ icon: <IconPortapot />, name: 'Iconportapot' },
+		{ icon: <IconShower />, name: 'IconShower' },
+		{ icon: <IconBarbecue />, name: 'IconBarbecue' },
+		{ icon: <IconPets />, name: 'IconCellsignIconPetsal' },
+		{ icon: <IconFirepit />, name: 'IconFirepit' },
+		{ icon: <IconSwimming />, name: 'IconSwimming' },
+		{ icon: <IconWoodgathering />, name: 'IconWoodgathering' }
 	];
 
 	const IconSet: React.FC<IconType> = ({ icon, name }) => (

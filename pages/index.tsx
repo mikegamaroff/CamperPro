@@ -7,7 +7,6 @@ import { Fab } from '../components/Fab';
 import { FeedCampsite } from '../components/FeedCampsite';
 import { FeedSearchButton } from '../components/FeedSearchButton';
 import { Header } from '../components/Header';
-import { IconAdd } from '../components/Icons';
 import { MenuButton } from '../components/MenuButton';
 import { AuthContext } from '../context/authContext';
 import { Attributes, EmptyNewCampsite, FilterIDType } from '../model/campsite';
@@ -72,7 +71,7 @@ function Home() {
 							</div>
 						</div>
 					</div>
-					<Fab icon={<IconAdd />} onClick={handleAddCampsite} />
+					<Fab onClick={handleAddCampsite} />
 				</>
 			</Container>
 		</>

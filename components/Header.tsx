@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderType> = ({ left, title, right }) => {
 								<SiteIcon />
 							</div>
 						) : (
-							<h5 className={`${styles.headerTitle} h5-bold`}>{title}</h5>
+							<h5 className={`${styles.headerTitle} bold`}>{title}</h5>
 						)
 					) : null}
 

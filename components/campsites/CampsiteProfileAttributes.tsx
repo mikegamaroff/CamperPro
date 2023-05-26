@@ -57,7 +57,7 @@ export const CampsiteProfileAttributes: React.FC<CampsiteProfileAttributesProps>
 			)}
 			{attributeType === 'permitted' && (
 				<>
-					<h4 className="bold">What's allowed</h4>
+					<h4 className="bold">What&apos;s allowed</h4>
 					<div className={styles.list}>
 						{attributes?.map(attribute => {
 							if (iconComponents[attribute]) {

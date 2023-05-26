@@ -4,10 +4,10 @@ import { User } from '../model/user';
 
 interface ProfilePhotoProps {
 	user: User | undefined;
-	size: number;
+	size?: number;
 }
 
-export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ user, size }) => {
+export const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ user, size = 40 }) => {
 	const image = user?.images?.[0];
 
 	return (

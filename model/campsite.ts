@@ -17,17 +17,9 @@ export interface Capacity {
 	acreage: number;
 }
 
-export type FeatureNames = 'default' | 'river' | 'mountain' | 'lake' | 'sea' | 'wildlife' | 'hikingTrails' | 'forest';
-export type AmenityNames =
-	| 'cellSignal'
-	| 'wifi'
-	| 'toilet'
-	| 'portAPotty'
-	| 'bathroom'
-	| 'shower'
-	| 'firepit'
-	| 'barbeque';
-export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodGathering' | 'hunting';
+export type FeatureNames = 'default' | 'river' | 'mountain' | 'lake' | 'sea' | 'wildlife' | 'hiking' | 'forest';
+export type AmenityNames = 'cellsignal' | 'wifi' | 'toilet' | 'portapot' | 'shower' | 'firepit' | 'barbecue';
+export type PermittedNames = 'pets' | 'campfire' | 'fishing' | 'climbing' | 'swimming' | 'woodgathering' | 'hunting';
 
 export type AttributeNames = 'feature' | 'amenity' | 'permitted';
 export interface Attributes {
@@ -53,7 +45,7 @@ export interface Campsite extends DocumentWithImages {
 	location: CampLocation;
 	pricePerNight: number;
 	receptionCheckin: boolean;
-	campsiteType: 'private' | 'shared';
+	private: boolean;
 	capacity: Capacity;
 	attributes: Attributes;
 	active: boolean;
@@ -92,7 +84,7 @@ export const EmptyNewCampsite: Campsite = {
 	description: '',
 	pricePerNight: 0,
 	receptionCheckin: false,
-	campsiteType: 'private',
+	private: false,
 	capacity: {
 		numberOfTentSites: 1,
 		acreage: 2
@@ -103,7 +95,7 @@ export const EmptyNewCampsite: Campsite = {
 export const EmptyCampsite: Campsite = EmptyNewCampsite;
 
 export const defaultFilter: Attributes = {
-	feature: ['default', 'river', 'mountain', 'lake', 'sea', 'wildlife', 'hikingTrails', 'forest'],
-	amenity: ['cellSignal', 'wifi', 'toilet', 'portAPotty', 'bathroom', 'shower', 'firepit', 'barbeque'],
-	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodGathering', 'hunting']
+	feature: ['default', 'river', 'mountain', 'lake', 'sea', 'wildlife', 'hiking', 'forest'],
+	amenity: ['cellsignal', 'wifi', 'toilet', 'portapot', 'shower', 'firepit', 'barbecue'],
+	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodgathering', 'hunting']
 };

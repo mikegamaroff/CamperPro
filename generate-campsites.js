@@ -39,7 +39,7 @@ const EmptyNewCampsite = {
 	images: [],
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
-	campsiteType: 'private',
+	private: false,
 	active: true
 };
 

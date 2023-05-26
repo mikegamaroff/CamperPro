@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './Fab.module.css';
 import Button from './Forms/Button';
-import { IconFire } from './Icons';
+import { IconAdd } from './Icons';
 
 interface FabProps {
 	icon?: JSX.Element;
 	onClick: () => void;
 }
 
-export const Fab: React.FC<FabProps> = ({ icon = <IconFire />, onClick }) => {
+export const Fab: React.FC<FabProps> = ({ icon = <IconAdd />, onClick }) => {
 	const fixedSizeIcon = React.cloneElement(icon, { size: 40 });
 
 	return (

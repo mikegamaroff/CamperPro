@@ -1,5 +1,4 @@
-import { Icon } from './Icon';
-
+import { ComponentType } from 'react';
 import Add from '../../assets/icons/AddIcon.component.svg';
 import BackArrow from '../../assets/icons/BackArrowIcon.component.svg';
 import ChevronForward from '../../assets/icons/ChevronForward.component.svg';
@@ -16,9 +15,10 @@ import Search from '../../assets/icons/SearchIcon.component.svg';
 import Star from '../../assets/icons/StarIcon.component.svg';
 import Trips from '../../assets/icons/TripsIcon.component.svg';
 import Profile from '../../assets/icons/UserIcon.component.svg';
+import Barbecue from '../../assets/icons/categories/BarbecueIcon.component.svg';
 import Cellsignal from '../../assets/icons/categories/CellsignalIcon.component.svg';
 import Climbing from '../../assets/icons/categories/ClimbingIcon.component.svg';
-import Fire from '../../assets/icons/categories/FireIcon.component.svg';
+import Firepit from '../../assets/icons/categories/FirepitIcon.component.svg';
 import Fishing from '../../assets/icons/categories/FishingIcon.component.svg';
 import Forest from '../../assets/icons/categories/ForestIcon.component.svg';
 import Hiking from '../../assets/icons/categories/HikingIcon.component.svg';
@@ -28,8 +28,16 @@ import Mountain from '../../assets/icons/categories/MountainIcon.component.svg';
 import Pets from '../../assets/icons/categories/PetsIcon.component.svg';
 import River from '../../assets/icons/categories/RiverIcon.component.svg';
 import Sea from '../../assets/icons/categories/SeaIcon.component.svg';
+import Shower from '../../assets/icons/categories/ShowerIcon.component.svg';
+import Swimming from '../../assets/icons/categories/SwimmingIcon.component.svg';
+import Toilet from '../../assets/icons/categories/ToiletIcon.component.svg';
+import Wifi from '../../assets/icons/categories/WifiIcon.component.svg';
 import Wildlife from '../../assets/icons/categories/WildlifeIcon.component.svg';
-interface IconProps {
+import Woodgathering from '../../assets/icons/categories/WoodgatheringIcon.component.svg';
+import portapot from '../../assets/icons/categories/portapotIcon.component.svg';
+import { AmenityNames, FeatureNames, PermittedNames } from '../../model/campsite';
+import { Icon } from './Icon';
+export interface IconProps {
 	size?: number;
 }
 
@@ -57,7 +65,7 @@ export const IconHiking = createIcon(Hiking, 'Hiking');
 export const IconForest = createIcon(Forest, 'Forest');
 export const IconFishing = createIcon(Fishing, 'Fishing');
 export const IconClimbing = createIcon(Climbing, 'Climbing');
-export const IconFire = createIcon(Fire, 'Fire');
+export const IconFirepit = createIcon(Firepit, 'Firepit');
 export const IconSearch = createIcon(Search, 'Search');
 export const IconTrips = createIcon(Trips, 'Trips');
 export const IconProfile = createIcon(Profile, 'Profile');
@@ -72,3 +80,38 @@ export const IconChevronForward = createIcon(ChevronForward, 'ChevronForward');
 export const IconMap = createIcon(Map, 'Map');
 export const IconNote = createIcon(Note, 'SelfCheckin');
 export const IconHome = createIcon(Home, 'ReceptionCheckin');
+export const IconWifi = createIcon(Wifi, 'Wifi');
+export const IconToilet = createIcon(Toilet, 'Toilet');
+export const Iconportapot = createIcon(portapot, 'portapot');
+export const IconShower = createIcon(Shower, 'Shower');
+export const IconBarbecue = createIcon(Barbecue, 'Barbecue');
+export const IconSwimming = createIcon(Swimming, 'Swimming');
+export const IconWoodgathering = createIcon(Woodgathering, 'Swimming');
+
+export const iconComponents: Record<
+	FeatureNames | AmenityNames | PermittedNames,
+	{ icon: ComponentType<IconProps>; label: string }
+> = {
+	river: { icon: IconRiver, label: 'River' },
+	cellsignal: { icon: IconCellsignal, label: 'Cell Signal' },
+	wildlife: { icon: IconWildlife, label: 'Wildlife' },
+	mountain: { icon: IconMountain, label: 'Mountain' },
+	lake: { icon: IconLake, label: 'Lake' },
+	sea: { icon: IconSea, label: 'Sea' },
+	hunting: { icon: IconHunting, label: 'Hunting' },
+	hiking: { icon: IconHiking, label: 'Hiking' },
+	forest: { icon: IconForest, label: 'Forest' },
+	fishing: { icon: IconFishing, label: 'Fishing' },
+	climbing: { icon: IconClimbing, label: 'Climbing' },
+	firepit: { icon: IconFirepit, label: 'Firepit' },
+	default: { icon: IconHome, label: 'Default' },
+	wifi: { icon: IconWifi, label: 'Wifi' },
+	toilet: { icon: IconToilet, label: 'Toilet' },
+	portapot: { icon: Iconportapot, label: 'Portapot' },
+	shower: { icon: IconShower, label: 'Shower' },
+	barbecue: { icon: IconBarbecue, label: 'BBQ' },
+	pets: { icon: IconPets, label: 'Pets' },
+	campfire: { icon: IconFirepit, label: 'Campfire' },
+	swimming: { icon: IconSwimming, label: 'Swimming' },
+	woodgathering: { icon: IconWoodgathering, label: 'Wood gathering' }
+};

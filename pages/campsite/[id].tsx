@@ -4,8 +4,8 @@ import { Container } from '../../components/Container';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
 import { IconBackArrow, IconLocation, IconMap, IconStar } from '../../components/Icons';
+import { CampsiteProfileAttributes } from '../../components/campsites/CampsiteProfileAttributes';
 import { CheckinType } from '../../components/campsites/CheckinType';
-import { Features } from '../../components/campsites/Features';
 import { HostedBy } from '../../components/campsites/HostedBy';
 import { useGetCampsite } from '../../routes/useGetCampsite';
 import withAuth from '../withAuth';
@@ -71,18 +71,30 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 									<CheckinType campsite={campsite} />
 								</div>
 								<hr />
-								<div className={styles.section}>
-									<Features campsite={campsite} attributeType="feature" />
-								</div>
-								<hr />
-								<div className={styles.section}>
-									<Features campsite={campsite} attributeType="amenity" />
-								</div>
-								<hr />
-								<div className={styles.section}>
-									<Features campsite={campsite} attributeType="permitted" />
-								</div>
-								<hr />
+								{campsite.attributes.feature && campsite.attributes.feature.length > 0 && (
+									<>
+										<div className={styles.section}>
+											<CampsiteProfileAttributes campsite={campsite} attributeType="feature" />
+										</div>
+										<hr />
+									</>
+								)}
+								{campsite.attributes.amenity && campsite.attributes.amenity.length > 0 && (
+									<>
+										<div className={styles.section}>
+											<CampsiteProfileAttributes campsite={campsite} attributeType="amenity" />
+										</div>
+										<hr />
+									</>
+								)}
+								{campsite.attributes.permitted && campsite.attributes.permitted.length > 0 && (
+									<>
+										<div className={styles.section}>
+											<CampsiteProfileAttributes campsite={campsite} attributeType="permitted" />
+										</div>
+										<hr />
+									</>
+								)}
 							</>
 						)}
 					</div>

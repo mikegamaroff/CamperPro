@@ -20,3 +20,16 @@
 	flex-direction: column;
 	justify-content: space-between;
 }
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 17px;
+}
+
+.item {
+	color: var(--foreground);
+	display: flex;
+	gap: 24px;
+	align-items: center;
+}

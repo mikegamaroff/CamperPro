@@ -15,7 +15,7 @@ export const FeedSearchButton: FC = () => {
 	};
 	const FilterModalContent = () => {
 		return (
-			<div>
+			<div className="contentWrapper">
 				<h2>Filters</h2>
 				<p>Filters</p>
 			</div>
@@ -42,11 +42,13 @@ export const FeedSearchButton: FC = () => {
 	const { presentModal: presentModalSearch, dismissModal: dismissModalSearch } = useModal({
 		onCancel: cancelModalSearch,
 		onConfirm: confirmModalSearch,
+		title: 'Search',
 		component: <SearchModalContent />
 	});
 	const { presentModal: presentModalFilter, dismissModal: dismissModalFilter } = useModal({
 		onCancel: cancelModalFilter,
 		onConfirm: confirmModalFilter,
+		title: 'Filters',
 		component: <FilterModalContent />
 	});
 

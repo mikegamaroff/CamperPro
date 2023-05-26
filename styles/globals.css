@@ -73,6 +73,7 @@ ion-toolbar {
 }
 .contentWrapper {
 	padding: 0 10px 0 10px;
+	height: 100%;
 }
 .innerContainer {
 	max-width: 500px;
@@ -296,7 +297,7 @@ ion-tab-button {
 }
 ion-toolbar {
 	margin: 0;
-	padding: 0 10px 0 10px !important;
+	padding: 0 5px 0 5px !important;
 }
 ion-tabs {
 	pointer-events: none;
@@ -309,7 +310,9 @@ ion-header {
 	margin: auto;
 	max-width: 650px;
 }
-
+ion-content > .overflow-y {
+	overflow: hidden !important;
+}
 .appContainer,
 .appContainer-tabs {
 	margin: auto;

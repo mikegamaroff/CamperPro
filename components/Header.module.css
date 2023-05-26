@@ -31,6 +31,7 @@
 	text-align: center;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	font-size: 18px;
 }
 .left {
 	display: flex;

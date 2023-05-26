@@ -56,24 +56,24 @@ const FilterButtons: FilterIconProps[] = [
 		id: { feature: 'hiking' }
 	},
 	{
-		label: iconComponents.forest.label,
-		icon: iconComponents.forest.icon,
-		id: { feature: 'forest' }
-	},
-	{
 		label: iconComponents.cellsignal.label,
 		icon: iconComponents.cellsignal.icon,
 		id: { amenity: 'cellsignal' }
 	},
 	{
-		label: iconComponents.pets.label,
-		icon: iconComponents.pets.icon,
-		id: { permitted: 'pets' }
+		label: iconComponents.forest.label,
+		icon: iconComponents.forest.icon,
+		id: { feature: 'forest' }
 	},
 	{
 		label: iconComponents.climbing.label,
 		icon: iconComponents.climbing.icon,
 		id: { permitted: 'climbing' }
+	},
+	{
+		label: iconComponents.pets.label,
+		icon: iconComponents.pets.icon,
+		id: { permitted: 'pets' }
 	},
 	{
 		label: iconComponents.swimming.label,
@@ -96,14 +96,14 @@ const FilterButtons: FilterIconProps[] = [
 		id: { amenity: 'portapot' }
 	},
 	{
-		label: iconComponents.shower.label,
-		icon: iconComponents.shower.icon,
-		id: { amenity: 'shower' }
-	},
-	{
 		label: iconComponents.barbecue.label,
 		icon: iconComponents.barbecue.icon,
 		id: { amenity: 'barbecue' }
+	},
+	{
+		label: iconComponents.shower.label,
+		icon: iconComponents.shower.icon,
+		id: { amenity: 'shower' }
 	}
 ];
 

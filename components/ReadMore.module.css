@@ -1,0 +1,18 @@
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.text {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	margin-bottom: 0.5em;
+}
+
+.readMore {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-weight: 500;
+}

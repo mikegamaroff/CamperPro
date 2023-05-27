@@ -39,7 +39,7 @@ node generate-campsites.js
 
 # Components
 
-## <ReadMore />
+## `<ReadMore />`
 
 This component does require some controls. Because a max-height has
 to be set, you can only use when you know more or less how much

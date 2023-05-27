@@ -7,6 +7,7 @@ import { FormInput } from '../components/Forms/FormInput';
 import { Go } from '../components/Go';
 import { IconEye, IconEyeOff } from '../components/Icons';
 import { ProfilePhoto } from '../components/ProfilePhoto';
+import ReadMore from '../components/ReadMore';
 import { UploadImageButton } from '../components/UploadImageButton';
 import { UserContext } from '../context/userContext';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
@@ -40,6 +41,12 @@ function Users() {
 	return (
 		<Container>
 			<>
+				<ReadMore
+					text={
+						'In this example, the ReadMore component accepts two props: text (the dynamic text to be displayed) and maxLines (the number of lines before truncation). The component uses the useState and useRef hooks to manage the expanded state and to get a reference to the text container. The useEffect hook is used to check if the text overflows the container and update the expanded state accordingly. The component renders the text within a div element with the text class, which applies the line clamping and overflow styles. If the text is not expanded, a "Read more" button is displayed, and clicking on it toggles the expanded state.'
+					}
+					withButton
+				/>
 				<IconEye /> <IconEyeOff />
 				<Go href="/">
 					<Button>Go to Home page</Button>

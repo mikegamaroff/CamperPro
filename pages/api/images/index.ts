@@ -15,15 +15,12 @@ export const config = {
 	}
 };
 
-interface TypedDocumentWithImages extends DocumentWithImages {
-	type?: string;
-}
 interface NextApiRequestWithUser extends NextApiRequest {
-	user?: User; // replace `any` with the type of your user object
+	user?: User;
 }
 async function uploadImage(
 	req: NextApiRequestWithUser,
-	res: NextApiResponse<TypedDocumentWithImages | { message: string }>
+	res: NextApiResponse<DocumentWithImages | { message: string }>
 ) {
 	try {
 		await authenticateJWT(req);
@@ -40,7 +37,7 @@ async function uploadImage(
 
 		// Update the post object in CouchDB with the image reference
 		try {
-			const doc = (await db.get(documentId)) as TypedDocumentWithImages;
+			const doc = (await db.get(documentId)) as DocumentWithImages;
 			doc.images = doc.images || [];
 			if (doc.type === 'user') {
 				doc.images = [{ id: imageId, contentType }];
@@ -53,7 +50,7 @@ async function uploadImage(
 			// Now that the document is updated, get it back from the database
 			const updatedDoc = await db.get(response.id);
 
-			res.status(200).json(updatedDoc);
+			res.status(200).json(updatedDoc as DocumentWithImages);
 		} catch (error) {
 			console.error('Error updating document with image reference:', error);
 			const couchDbError = error as { statusCode?: number; message?: string };

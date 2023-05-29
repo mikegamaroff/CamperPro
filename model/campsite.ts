@@ -36,12 +36,12 @@ export interface CampLocation {
 }
 export interface Campsite extends DocumentWithImages {
 	author?: string;
-	type: string;
 	category: string;
 	title: string;
 	description: string;
 	draft: boolean;
-	rating: number;
+	rating?: number | null;
+	reviewsCount?: number | null;
 	location: CampLocation;
 	pricePerNight: number;
 	receptionCheckin: boolean;
@@ -66,7 +66,8 @@ export const EmptyNewCampsite: Campsite = {
 	type: 'campsite',
 	category: 'public',
 	title: '',
-	rating: 0,
+	rating: null,
+	reviewsCount: null,
 	location: {
 		state: '',
 		nearestTown: null,

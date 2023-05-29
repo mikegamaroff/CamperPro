@@ -33,7 +33,10 @@ async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ camps
 async function updateCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance();
 	const updatedCampsite: Campsite = req.body;
-
+	const id = req.body.id as string;
+	if (!id.startsWith('campsite')) {
+		res.status(500).json({ message: 'Not a review document' });
+	}
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'PUT');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -56,7 +59,12 @@ async function updateCampsite(req: NextApiRequest, res: NextApiResponse<{ messag
 // Add the updateCampsite function
 async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance() as ReturnType<typeof createDbInstance>;
-	const { id } = req.query;
+	const id = req.query.id as string;
+
+	// Check if the id starts with 'campsite'
+	if (!id.startsWith('campsite')) {
+		res.status(500).json({ message: 'Not a campsite document' });
+	}
 
 	try {
 		const response = await db.get(id as string);

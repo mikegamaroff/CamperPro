@@ -38,7 +38,7 @@ async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: st
 			let totalRatings = campsite.rating * campsite.reviewsCount;
 			totalRatings += newReview.rating;
 			campsite.reviewsCount += 1;
-			campsite.rating = totalRatings / campsite.reviewsCount;
+			campsite.rating = Math.round((totalRatings / campsite.reviewsCount) * 100) / 100;
 
 			// Save the updated campsite back to the database.
 			await db.insert(campsite);

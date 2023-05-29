@@ -1,5 +1,4 @@
-// hooks/useGetAllReviews.ts
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ReviewContext } from '../context/reviewContext';
 
 export const useGetReviewsByCampsite = (campsiteId: string | undefined) => {
@@ -11,12 +10,8 @@ export const useGetReviewsByCampsite = (campsiteId: string | undefined) => {
 		setLoading(true);
 		setError(null);
 
-		const url = campsiteId
-			? `/api/reviews?view=reviews-by-campsite&campsiteId=${campsiteId}`
-			: `/api/reviews?view=reviews-by-campsite`;
-
 		try {
-			const response = await fetch(url, {
+			const response = await fetch(`/api/reviews?view=reviews-by-campsite&campsite=${campsiteId}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -40,7 +35,9 @@ export const useGetReviewsByCampsite = (campsiteId: string | undefined) => {
 		}
 	};
 
-	getAllReviews();
+	useEffect(() => {
+		getAllReviews();
+	}, [campsiteId]); // only run getAllReviews when campsiteId changes
 
 	return { reviews, isLoading, isError };
 };

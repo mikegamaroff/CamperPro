@@ -1,5 +1,5 @@
 // pages/api/reviews.ts
-import { DocumentGetResponse, DocumentResponseRow } from 'nano';
+import { DocumentGetResponse } from 'nano';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Campsite } from '../../../model/campsite';
 import { Review } from '../../../model/review';
@@ -50,7 +50,6 @@ async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: st
 		res.status(500).json({ message: 'Internal server error' });
 	}
 }
-
 async function getReviewsForCampsite(req: NextApiRequest, res: NextApiResponse<{ reviews: Review[] }>) {
 	const db = createDbInstance();
 	const campsiteId = (req.query.campsite || '') as string;
@@ -65,32 +64,21 @@ async function getReviewsForCampsite(req: NextApiRequest, res: NextApiResponse<{
 			descending: true,
 			limit: 50
 		});
-		console.log(response);
+
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ reviews: [] });
 		} else {
-			// Remove duplicates
-			const uniqueIds: { [id: string]: true } = {};
-			for (const row of response.rows) {
-				const id = row.value as string;
-				uniqueIds[id] = true;
-			}
 			// Check if there are no results
 			if (response.rows.length === 0) {
 				res.status(200).json({ reviews: [] }); // Return empty array when no results found
 				return;
 			}
 
-			// Fetch full documents for each unique ID
-			const reviewDocs = await db.fetch({ keys: Object.keys(uniqueIds) });
-
-			// Extract the actual review objects from the docs
-			const reviews: Review[] = reviewDocs.rows
-				.filter(row => 'doc' in row) // filter out DocumentLookupFailure
-				.map(row => (row as DocumentResponseRow<Review>).doc as Partial<Review>) // Cast row.doc as Partial<Review>
+			// Extract the actual review objects from the rows
+			const reviews: Review[] = response.rows
+				.map(row => row.value as Partial<Review>) // Cast row.value as Partial<Review>
 				.filter((doc): doc is Review => doc !== null); // Filter out any null docs
-
 			res.status(200).json({ reviews });
 		}
 	} catch (error) {

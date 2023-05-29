@@ -48,7 +48,7 @@ async function getAllCampsites(req: NextApiRequest, res: NextApiResponse<{ camps
 
 	try {
 		const response = await db.view('campsite-view', view, { keys, descending: true, limit: 50 });
-		console.log(response);
+
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ campsites: [] });

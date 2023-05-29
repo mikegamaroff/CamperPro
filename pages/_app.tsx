@@ -22,6 +22,7 @@ import IonApp from '../components/Framework/IonApp';
 import { RouteContextProvider } from '../components/Go';
 import { AuthProvider } from '../context/authContext';
 import { CampsiteProvider } from '../context/campsiteContext';
+import { ReviewProvider } from '../context/reviewContext';
 import { RouterContext } from '../context/routerContext';
 import { ToastProvider } from '../context/toastContext';
 import { UserProvider } from '../context/userContext';
@@ -58,11 +59,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<RouterContext.Provider value={router}>
 						<UserProvider>
 							<CampsiteProvider>
-								<ToastProvider>
-									<AnimatePresence>
-										<Component {...pageProps} />
-									</AnimatePresence>
-								</ToastProvider>
+								<ReviewProvider>
+									<ToastProvider>
+										<AnimatePresence>
+											<Component {...pageProps} />
+										</AnimatePresence>
+									</ToastProvider>
+								</ReviewProvider>
 							</CampsiteProvider>
 						</UserProvider>
 					</RouterContext.Provider>

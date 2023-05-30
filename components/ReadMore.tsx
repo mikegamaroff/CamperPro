@@ -6,7 +6,6 @@ interface ReadMoreProps {
 	text: string;
 	textColor?: React.CSSProperties['color'];
 	maxLines?: number;
-	maxHeight?: number; // Speed of transition in seconds
 	speed?: number;
 	withButton?: boolean;
 	expandText?: string;
@@ -19,7 +18,6 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 	expandText = 'Read More »',
 	collapseText = '« Read Less »',
 	maxLines = 3,
-	maxHeight = 23,
 	speed = 0.5,
 	withButton = false
 }) => {
@@ -51,8 +49,8 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 				className={styles.text}
 				style={{
 					color: textColor,
-					transition: `max-height ${speed}s ease-in-out`,
-					maxHeight: expanded ? `${maxHeight}em` : `${maxLines * 1.5}em`
+					transition: `height ${speed}s ease-in-out`,
+					height: expanded ? `${textRef.current?.scrollHeight}px` : `${maxLines * 1.5}em`
 				}}
 			>
 				{text}

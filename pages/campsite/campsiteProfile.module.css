@@ -4,6 +4,7 @@
 	padding-top: 28px;
 	padding-bottom: 28px;
 	gap: 23px;
+	color: var(--foreground);
 }
 
 .info {
@@ -24,4 +25,8 @@
 	font-weight: bolder;
 	font-size: 20px;
 	line-height: 1;
+}
+
+.addressText {
+	color: var(--neutral900);
 }

@@ -4,6 +4,7 @@ import styles from './ReadMore.module.css';
 
 interface ReadMoreProps {
 	text: string;
+	textColor?: React.CSSProperties['color'];
 	maxLines?: number;
 	maxHeight?: number; // Speed of transition in seconds
 	speed?: number;
@@ -14,6 +15,7 @@ interface ReadMoreProps {
 
 const ReadMore: React.FC<ReadMoreProps> = ({
 	text,
+	textColor,
 	expandText = 'Read More »',
 	collapseText = '« Read Less »',
 	maxLines = 3,
@@ -48,6 +50,7 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 				ref={textRef}
 				className={styles.text}
 				style={{
+					color: textColor,
 					transition: `max-height ${speed}s ease-in-out`,
 					maxHeight: expanded ? `${maxHeight}em` : `${maxLines * 1.5}em`
 				}}

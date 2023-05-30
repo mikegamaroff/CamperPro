@@ -6,6 +6,7 @@ import { Container } from '../../components/Container';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
 import { IconBackArrow, IconLocation, IconMap, IconStar } from '../../components/Icons';
+import ReadMore from '../../components/ReadMore';
 import { CampsiteProfileAttributes } from '../../components/campsites/CampsiteProfileAttributes';
 import { CheckinType } from '../../components/campsites/CheckinType';
 import { HostedBy } from '../../components/campsites/HostedBy';
@@ -41,7 +42,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 											</div>
 											<div>{campsite?.rating}</div>
 											<div className={styles.dot}>•</div>
-											<div># reviews</div>
+											<div>{campsite?.reviewsCount} reviews</div>
 										</div>
 										<div className={styles.infoLine}>
 											<div className={styles.iconContainer}>
@@ -57,7 +58,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 												<div className={styles.iconContainer}>
 													<IconLocation size={18} />
 												</div>
-												<div>
+												<div className={styles.addressText}>
 													Reception: {receptionAddress.address1}, {receptionAddress.city},{' '}
 													{campsite?.location.state} {receptionAddress.postalCode}
 												</div>
@@ -68,6 +69,15 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 								<hr />
 								<div className={styles.section}>
 									<HostedBy campsite={campsite} />
+								</div>
+								<hr />
+								<div className={styles.section}>
+									<ReadMore
+										text={campsite.description}
+										textColor="var(--neutral700)"
+										expandText="Show more >"
+										collapseText="Show less <"
+									/>
 								</div>
 								<hr />
 								<div className={styles.section}>

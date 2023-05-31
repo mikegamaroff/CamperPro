@@ -38,7 +38,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 									<div className={styles.info}>
 										<div className={styles.infoLine}>
 											{campsite.rating && (
-												<div className={styles.iconContainer}>
+												<div>
 													<StarRating rating={campsite?.rating} />
 												</div>
 											)}

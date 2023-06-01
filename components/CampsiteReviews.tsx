@@ -25,7 +25,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 			...EmptyNewReview,
 			_id: 'review:' + newId,
 			campsite: campsite._id as string,
-			rating: 0,
+			rating: 1,
 			title: 'Test Review',
 			review: 'Here is my nice review that should be read',
 			author: authUser?.id as string

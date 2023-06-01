@@ -40,7 +40,8 @@ const EmptyNewCampsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	private: false,
-	active: true
+	active: true,
+	reviewsCount: 0
 };
 
 // Function to generate a random US ZIP code
@@ -103,8 +104,7 @@ for (let i = 0; i < 10; i++) {
 	newCampsite._id = `campsite:${uuidv4()}`;
 	newCampsite.title = title;
 	newCampsite.author = 'user:f1078410-282b-4133-86c1-f9044c708f29';
-	newCampsite.rating = Math.random() * 15 + 1;
-	newCampsite.reviewsCount = (Math.random() * 10 + 1).toFixed(0);
+	newCampsite.rating = Number((Math.random() * 5 + 1).toFixed(2));
 	newCampsite.location = location;
 	newCampsite.draft = false;
 	newCampsite.pricePerNight = Math.floor(Math.random() * (100 - 30 + 1)) + 30;

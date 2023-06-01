@@ -5,8 +5,9 @@ import { CampsiteReviews } from '../../components/CampsiteReviews';
 import { Container } from '../../components/Container';
 import { IconButton } from '../../components/Forms/IconButton';
 import { Header } from '../../components/Header';
-import { IconBackArrow, IconLocation, IconMap, IconStar } from '../../components/Icons';
+import { IconBackArrow, IconLocation, IconMap } from '../../components/Icons';
 import ReadMore from '../../components/ReadMore';
+import StarRating from '../../components/StarRating';
 import { CampsiteProfileAttributes } from '../../components/campsites/CampsiteProfileAttributes';
 import { CheckinType } from '../../components/campsites/CheckinType';
 import { HostedBy } from '../../components/campsites/HostedBy';
@@ -37,10 +38,11 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 
 									<div className={styles.info}>
 										<div className={styles.infoLine}>
-											<div className={styles.iconContainer}>
-												<IconStar size={18} />
-											</div>
-											<div>{campsite?.rating}</div>
+											{campsite.rating && (
+												<div>
+													<StarRating rating={campsite?.rating} />
+												</div>
+											)}
 											<div className={styles.dot}>•</div>
 											<div>{campsite?.reviewsCount} reviews</div>
 										</div>

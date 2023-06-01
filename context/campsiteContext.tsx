@@ -5,13 +5,17 @@ import { Campsite } from '../model/campsite';
 interface CampsiteContextInterface {
 	campsites: Campsite[];
 	setCampsites: React.Dispatch<React.SetStateAction<Campsite[]>>;
-	updateImage: (data: Campsite) => void;
+	campsite: Campsite | null;
+	setCampsite: React.Dispatch<React.SetStateAction<Campsite | null>>;
+	updateCampsite: (updatedCampsite: Campsite) => void;
 }
 
 export const CampsiteContext = createContext<CampsiteContextInterface>({
 	campsites: [],
 	setCampsites: () => {},
-	updateImage: () => {}
+	campsite: null,
+	setCampsite: () => {},
+	updateCampsite: () => {}
 });
 
 interface CampsiteProviderProps {
@@ -20,12 +24,16 @@ interface CampsiteProviderProps {
 
 export const CampsiteProvider: React.FC<CampsiteProviderProps> = ({ children }) => {
 	const [campsites, setCampsites] = useState<Campsite[]>([]);
-	const updateImage = (data: Campsite) => {
-		if (data) {
-			setCampsites(campsites.map(campsite => (campsite._id === data._id ? data : campsite)));
-		}
+	const [campsite, setCampsite] = useState<Campsite | null>(null);
+
+	const updateCampsite = (updatedCampsite: Campsite) => {
+		setCampsite(updatedCampsite);
+		setCampsites(campsites.map(camp => (camp._id === updatedCampsite._id ? updatedCampsite : camp)));
 	};
+
 	return (
-		<CampsiteContext.Provider value={{ campsites, setCampsites, updateImage }}>{children}</CampsiteContext.Provider>
+		<CampsiteContext.Provider value={{ campsites, setCampsites, campsite, setCampsite, updateCampsite }}>
+			{children}
+		</CampsiteContext.Provider>
 	);
 };

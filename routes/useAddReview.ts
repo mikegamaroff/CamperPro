@@ -1,5 +1,7 @@
 // hooks/useAddReview.ts
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { CampsiteContext } from '../context/campsiteContext';
+import { Campsite } from '../model/campsite';
 import { Review } from '../model/review';
 
 interface AddReviewResponse {
@@ -8,10 +10,12 @@ interface AddReviewResponse {
 }
 
 export const useAddReview = () => {
+	const { setCampsite } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
-	const addReview = async (review: Review): Promise<AddReviewResponse> => {
+
+	const addReview = async (review: Review): Promise<{ response: AddReviewResponse; campsite: Campsite | null }> => {
 		setLoading(true);
 		setError(null);
 		setSuccess(false);
@@ -29,18 +33,18 @@ export const useAddReview = () => {
 				const data = await response.json();
 				setLoading(false);
 				setSuccess(true);
-				return { success: true, message: data.message };
+				return { response: { success: true, message: data.message }, campsite: data.campsite };
 			} else {
 				const errorData = await response.json();
 				setLoading(false);
 				setError(errorData.message);
-				return { success: false, message: errorData.message };
+				return { response: { success: false, message: errorData.message }, campsite: null };
 			}
 		} catch (error) {
 			console.error(error);
 			setLoading(false);
 			setError('Internal server error');
-			return { success: false, message: 'Internal server error' };
+			return { response: { success: false, message: 'Internal Server Error' }, campsite: null };
 		}
 	};
 

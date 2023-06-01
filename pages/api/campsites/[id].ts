@@ -29,15 +29,19 @@ async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ camps
 		res.status(500).json({ campsite: null });
 	}
 }
-
 // Add the updateCampsite function
-async function updateCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
+async function updateCampsite(
+	req: NextApiRequest,
+	res: NextApiResponse<{ message: string; campsite: Campsite | null }>
+) {
 	const db = createDbInstance();
 	const updatedCampsite: Campsite = req.body;
 	const id = req.body.id as string;
+
 	if (!id.startsWith('campsite')) {
-		res.status(500).json({ message: 'Not a review document' });
+		res.status(500).json({ message: 'Not a review document', campsite: null });
 	}
+
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'PUT');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -45,15 +49,16 @@ async function updateCampsite(req: NextApiRequest, res: NextApiResponse<{ messag
 	try {
 		const response = await db.insert(updatedCampsite);
 		console.log('Updated campsite:', response);
+
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
-			res.status(500).json({ message: 'Internal server error' });
+			res.status(500).json({ message: 'Internal server error', campsite: null });
 		} else {
-			res.status(200).json({ message: `Campsite updated with ID: ${response.id}` });
+			res.status(200).json({ message: `Campsite updated with ID: ${response.id}`, campsite: updatedCampsite });
 		}
 	} catch (error) {
 		console.error('Unhandled error:', error);
-		res.status(500).json({ message: 'Internal server error' });
+		res.status(500).json({ message: 'Internal server error', campsite: null });
 	}
 }
 

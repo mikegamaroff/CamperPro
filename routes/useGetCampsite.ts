@@ -1,12 +1,12 @@
-// Import useRouter from next/router
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Campsite } from '../model/campsite';
+import { useContext, useEffect, useState } from 'react';
+import { CampsiteContext } from '../context/campsiteContext';
 
 export const useGetCampsite = (id: string) => {
-	const [campsite, setCampsite] = useState<Campsite>();
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
+	const { campsites, setCampsites } = useContext(CampsiteContext);
+	const campsite = campsites.find(camp => camp._id === id);
 
 	// Get the router object
 	const router = useRouter();
@@ -24,9 +24,13 @@ export const useGetCampsite = (id: string) => {
 						Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 					}
 				});
+
 				if (response.ok) {
 					const data = await response.json();
-					setCampsite(data.campsite);
+					if (!campsite) {
+						// If campsite was not in the context, add it
+						setCampsites(prevCampsites => [...prevCampsites, data.campsite]);
+					}
 				} else {
 					// Error fetching campsite data, navigate to '/'
 					router.push('/');
@@ -42,9 +46,8 @@ export const useGetCampsite = (id: string) => {
 		};
 
 		fetchCampsite();
-	}, [id, router]); // Include router in the dependency array
+	}, [id, router, setCampsites]); // Remove 'campsite' from the dependency array
 
-	return { campsite, isLoading, isError };
+	// Return campsite from context instead of state
+	return { campsite: campsites.find(camp => camp._id === id), isLoading, isError };
 };
-
-export default useGetCampsite;

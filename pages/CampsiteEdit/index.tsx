@@ -10,7 +10,7 @@ import { Campsite } from '../../model/campsite';
 import useDeleteCampsite from '../../routes/useDeleteCampsite';
 import useEditCampsite from '../../routes/useEditCampsite';
 import { useGetAllCampsites } from '../../routes/useGetAllCampsites';
-import useGetCampsite from '../../routes/useGetCampsite';
+import { useGetCampsite } from '../../routes/useGetCampsite';
 import { GoTo } from '../../util/GoTo';
 import styles from './CampsiteEdit.module.css';
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 const FeedView: React.FC<{
 	campsite: Campsite | undefined;
 }> = ({ campsite }) => {
-	const { updateImage } = useContext(CampsiteContext);
+	const { updateCampsite } = useContext(CampsiteContext);
 	return (
 		<div className={styles.campsiteHolder}>
 			{campsite?.images?.map(image => (
@@ -33,7 +33,7 @@ const FeedView: React.FC<{
 			))}
 			<div className="card">{campsite?._id}</div>
 			<div>
-				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
+				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateCampsite} />
 			</div>
 		</div>
 	);

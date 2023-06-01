@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthContext } from '../context/authContext';
+import { CampsiteContext } from '../context/campsiteContext';
 import { ReviewContext } from '../context/reviewContext';
 import { Campsite } from '../model/campsite';
 import { EmptyNewReview, Review } from '../model/review';
@@ -17,7 +18,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	const { addReview, isLoading: addCampsiteLoading, isError, isSuccess } = useAddReview();
 	const { reviews, setReviews } = useContext(ReviewContext);
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
-	console.log(reviews);
+	const { updateCampsite } = useContext(CampsiteContext);
 
 	const handleAddReview = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
@@ -32,7 +33,11 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 		};
 
 		try {
-			const response = await addReview(newReview);
+			const { response, campsite } = await addReview(newReview);
+
+			if (campsite) {
+				updateCampsite(campsite);
+			}
 
 			if (response.success) {
 				setReviews([...reviews, newReview]);

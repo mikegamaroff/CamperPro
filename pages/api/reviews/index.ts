@@ -8,7 +8,7 @@ import createDbInstance from '../../../util/camperprodb';
 import handleAuthError from '../../../util/handleAuthError';
 import { isCouchDbError } from '../../../util/isCouchDbError';
 
-async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
+async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: string; campsite: Campsite | null }>) {
 	const db = createDbInstance();
 	const newReview: Review = req.body;
 
@@ -19,37 +19,33 @@ async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: st
 	try {
 		const response = await db.insert(newReview);
 		console.log('Added review:', response);
+
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
-			res.status(500).json({ message: 'Internal server error' });
+			res.status(500).json({ message: 'Internal server error', campsite: null });
 		} else {
-			// Get the campsite document.
 			const campsiteResponse: DocumentGetResponse = await db.get(newReview.campsite);
 
-			// Since the DocumentGetResponse doesn't necessarily have the fields of the Campsite,
-			// we need to cast it to the Campsite type (if we're sure it is a campsite).
 			const campsite: Campsite = campsiteResponse as Campsite;
 
-			// Ensure the rating and reviewsCount fields are not null or undefined.
 			campsite.rating = campsite.rating || 0;
 			campsite.reviewsCount = campsite.reviewsCount || 0;
 
-			// Update the rating and reviewsCount.
 			let totalRatings = campsite.rating * campsite.reviewsCount;
 			totalRatings += newReview.rating;
 			campsite.reviewsCount += 1;
 			campsite.rating = Math.round((totalRatings / campsite.reviewsCount) * 100) / 100;
 
-			// Save the updated campsite back to the database.
 			await db.insert(campsite);
 
-			res.status(201).json({ message: `Review added with ID: ${response.id}` });
+			res.status(201).json({ message: `Review added with ID: ${response.id}`, campsite });
 		}
 	} catch (error) {
 		console.error('Unhandled error:', error);
-		res.status(500).json({ message: 'Internal server error' });
+		res.status(500).json({ message: 'Internal server error', campsite: null });
 	}
 }
+
 async function getReviewsForCampsite(req: NextApiRequest, res: NextApiResponse<{ reviews: Review[] }>) {
 	const db = createDbInstance();
 	const campsiteId = (req.query.campsite || '') as string;

@@ -78,9 +78,12 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 
 			{showButton &&
 				(withButton ? (
-					<Button onClick={toggleExpand} fill="outline" color="tertiary">
-						{expanded ? collapseText : expandText}
-					</Button>
+					<>
+						<div className="space10" />
+						<Button onClick={toggleExpand} fill="outline" color="tertiary">
+							{expanded ? collapseText : expandText}
+						</Button>
+					</>
 				) : (
 					<span onClick={toggleExpand} className={styles.readMore}>
 						{expanded ? collapseText : expandText}

@@ -4,8 +4,8 @@ import styles from './ReadMore.module.css';
 
 interface ReadMoreProps {
 	text: string;
+	textColor?: React.CSSProperties['color'];
 	maxLines?: number;
-	maxHeight?: number; // Speed of transition in seconds
 	speed?: number;
 	withButton?: boolean;
 	expandText?: string;
@@ -14,21 +14,41 @@ interface ReadMoreProps {
 
 const ReadMore: React.FC<ReadMoreProps> = ({
 	text,
-	expandText = 'Read More »',
+	textColor,
+	expandText = '« Read More »',
 	collapseText = '« Read Less »',
 	maxLines = 3,
-	maxHeight = 23,
 	speed = 0.5,
 	withButton = false
 }) => {
 	const [expanded, setExpanded] = useState(false);
 	const [isTruncated, setIsTruncated] = useState(true);
 	const textRef = useRef<HTMLDivElement | null>(null);
+	const [showButton, setShowButton] = useState(false);
+	const [divHeight, setDivHeight] = useState(0);
 
 	useEffect(() => {
 		if (textRef.current) {
 			const el: HTMLDivElement = textRef.current;
 			el.style.webkitLineClamp = isTruncated ? `${maxLines}` : 'unset';
+
+			const lineHeightPixels = parseFloat(getComputedStyle(el).lineHeight);
+			const fontSize = parseFloat(getComputedStyle(el).fontSize);
+			const lineHeight = lineHeightPixels / fontSize;
+
+			const lines = el.scrollHeight / fontSize / lineHeight;
+
+			if (lines > maxLines) {
+				setShowButton(true);
+			} else {
+				setShowButton(false);
+			}
+
+			if (lines < maxLines) {
+				setDivHeight(lines * lineHeight);
+			} else {
+				setDivHeight(maxLines * lineHeight);
+			}
 		}
 	}, [isTruncated, maxLines]);
 
@@ -48,21 +68,27 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 				ref={textRef}
 				className={styles.text}
 				style={{
-					transition: `max-height ${speed}s ease-in-out`,
-					maxHeight: expanded ? `${maxHeight}em` : `${maxLines * 1.5}em`
+					color: textColor,
+					transition: `height ${speed}s ease-in-out`,
+					height: expanded ? `${textRef.current?.scrollHeight}px` : `${divHeight}em`
 				}}
 			>
 				{text}
 			</div>
-			{withButton ? (
-				<Button onClick={toggleExpand} fill="outline" color="tertiary">
-					{expanded ? collapseText : expandText}
-				</Button>
-			) : (
-				<span onClick={toggleExpand} className={styles.readMore}>
-					{expanded ? collapseText : expandText}
-				</span>
-			)}
+
+			{showButton &&
+				(withButton ? (
+					<>
+						<div className="space10" />
+						<Button onClick={toggleExpand} fill="outline" color="tertiary">
+							{expanded ? collapseText : expandText}
+						</Button>
+					</>
+				) : (
+					<span onClick={toggleExpand} className={styles.readMore}>
+						{expanded ? collapseText : expandText}
+					</span>
+				))}
 		</div>
 	);
 };

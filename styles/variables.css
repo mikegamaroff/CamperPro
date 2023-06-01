@@ -4,7 +4,7 @@ http://ionicframework.com/docs/theming/ */
 :root {
 	/** Ionic CSS Variables **/
 	/** primary **/
-
+	--primary-gradient: linear-gradient(to bottom, #ea4600 0%, #ffa300 58.3%);
 	--app-maxwidth: 700px;
 	--app-minwidth: 300px;
 	--ion-color-primary: #ffa300;

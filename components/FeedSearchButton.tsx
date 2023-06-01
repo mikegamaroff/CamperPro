@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { FC } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
+import Checkbox from './Forms/Checkbox';
 import { IconFilter, IconSearch } from './Icons';
 
 export const FeedSearchButton: FC = () => {
@@ -18,6 +19,7 @@ export const FeedSearchButton: FC = () => {
 			<div className="contentWrapper">
 				<h2>Filters</h2>
 				<p>Filters</p>
+				<Checkbox />
 			</div>
 		);
 	};

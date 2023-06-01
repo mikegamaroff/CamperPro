@@ -497,15 +497,3 @@ ion-datetime {
 		box-shadow: inset 0px -8px 0px -5px var(--primary500-rgb);
 	}
 }
-
-@keyframes pollAppear {
-	from {
-		background-image: linear-gradient(
-			to right,
-			var(--secondary50) 0%,
-			var(--secondary50) 0%,
-			var(--neutral10) 0%,
-			var(--neutral10) 100%
-		);
-	}
-}

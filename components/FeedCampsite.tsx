@@ -10,7 +10,7 @@ import { IconChevronForward, IconLocation, IconStar } from './Icons';
 import { UploadImageButton } from './UploadImageButton';
 
 export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => {
-	const { updateImage } = useContext(CampsiteContext);
+	const { updateCampsite } = useContext(CampsiteContext);
 
 	return (
 		<div className={styles.feedCampsite}>
@@ -18,7 +18,7 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 				<CampsiteImages campsite={campsite} />
 			</div>
 			<div className={styles.uploadImage}>
-				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateImage} />
+				<UploadImageButton<Campsite> documentId={campsite?._id} key={uuidv4()} onSuccess={updateCampsite} />
 			</div>
 			<Go href={`/campsite/${campsite._id}`}>
 				<>

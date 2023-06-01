@@ -50,7 +50,7 @@ const ReadMore: React.FC<ReadMoreProps> = ({
 				setDivHeight(maxLines * lineHeight);
 			}
 		}
-	}, [isTruncated, maxLines]);
+	}, [isTruncated, maxLines, text]);
 
 	const toggleExpand = () => {
 		if (expanded) {

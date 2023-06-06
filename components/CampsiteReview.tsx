@@ -1,3 +1,4 @@
+import { dateSmall } from '@utils/dateTime';
 import React, { useEffect, useRef, useState } from 'react';
 import useModal from '../hooks/useModal';
 import { Review } from '../model/review';
@@ -23,7 +24,7 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 					<ProfilePhoto size={50} user={user} />
 					<div className={styles.modalUsername}>
 						<StarRating withDot={true} rating={review.rating} />
-						<div>{review.created_at}</div>
+						<div>{dateSmall(review.created_at)}</div>
 					</div>
 				</div>
 				<p>{review.review}</p>

@@ -27,17 +27,19 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, title,
 				</div>
 			}
 			right={
-				<div>
-					<IconButton
-						size="small"
-						iconRight
-						icon={<IconClose />}
-						onClick={() => {
-							onConfirm && onConfirm();
-						}}
-						label="Confirm"
-					/>
-				</div>
+				onConfirm && (
+					<div>
+						<IconButton
+							size="small"
+							iconRight
+							icon={<IconClose />}
+							onClick={() => {
+								onConfirm && onConfirm();
+							}}
+							label="Confirm"
+						/>
+					</div>
+				)
 			}
 		/>
 
@@ -48,8 +50,8 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, title,
 const ModalContentLite: React.FC<ModalContentProps> = ({ component }) => <div>{component}</div>;
 
 interface UseModalProps {
-	onCancel: () => void;
-	onConfirm: () => void;
+	onCancel?: () => void;
+	onConfirm?: () => void;
 	title?: string;
 	component: JSX.Element;
 	type?: 'lite';

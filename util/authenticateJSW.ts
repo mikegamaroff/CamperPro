@@ -1,6 +1,6 @@
+import { User } from '@model/user';
 import jwt from 'jsonwebtoken';
 import { NextApiRequest } from 'next';
-import { User } from '../model/user';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 

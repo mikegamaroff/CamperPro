@@ -1,10 +1,10 @@
-import { Container } from '../../components/Container';
-import Button from '../../components/Forms/Button';
-import { Campsite } from '../../model/campsite';
-import useDeleteCampsite from '../../routes/useDeleteCampsite';
-import useEditCampsite from '../../routes/useEditCampsite';
-import { useGetCampsite } from '../../routes/useGetCampsite';
-import { GoTo } from '../../util/GoTo';
+import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
+import { Campsite } from '@model/campsite';
+import useDeleteCampsite from '@routes/useDeleteCampsite';
+import useEditCampsite from '@routes/useEditCampsite';
+import { useGetCampsite } from '@routes/useGetCampsite';
+import { GoTo } from '@utils/GoTo';
 interface Props {
 	id: string;
 }

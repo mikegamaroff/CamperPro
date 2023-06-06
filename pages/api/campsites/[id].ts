@@ -1,10 +1,10 @@
+import { Campsite } from '@model/campsite';
+import { Review } from '@model/review';
+import authenticateJWT from '@utils/authenticateJSW';
+import { createDbInstance } from '@utils/camperprodbWrapper';
+import handleAuthError from '@utils/handleAuthError';
+import { isCouchDbError } from '@utils/isCouchDbError';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Campsite } from '../../../model/campsite';
-import { Review } from '../../../model/review';
-import authenticateJWT from '../../../util/authenticateJSW';
-import { createDbInstance } from '../../../util/camperprodbWrapper';
-import handleAuthError from '../../../util/handleAuthError';
-import { isCouchDbError } from '../../../util/isCouchDbError';
 async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ campsite: Campsite | null }>) {
 	try {
 		await authenticateJWT(req);

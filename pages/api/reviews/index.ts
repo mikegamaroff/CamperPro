@@ -1,12 +1,12 @@
 // pages/api/reviews.ts
+import { Campsite } from '@model/campsite';
+import { Review } from '@model/review';
+import authenticateJWT from '@utils/authenticateJSW';
+import createDbInstance from '@utils/camperprodb';
+import handleAuthError from '@utils/handleAuthError';
+import { isCouchDbError } from '@utils/isCouchDbError';
 import { DocumentGetResponse } from 'nano';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Campsite } from '../../../model/campsite';
-import { Review } from '../../../model/review';
-import authenticateJWT from '../../../util/authenticateJSW';
-import createDbInstance from '../../../util/camperprodb';
-import handleAuthError from '../../../util/handleAuthError';
-import { isCouchDbError } from '../../../util/isCouchDbError';
 
 async function addReview(req: NextApiRequest, res: NextApiResponse<{ message: string; campsite: Campsite | null }>) {
 	const db = createDbInstance();

@@ -9,7 +9,7 @@ This validator does a number of checks
 The formConfig file needs to specify what validators it wants for each form
 */
 
-import { FormConfigType, FormRuleType, Rules } from '../hooks/useFormValues';
+import { FormConfigType, FormRuleType, Rules } from '@hooks/useFormValues';
 
 export const validate: (field: FormConfigType, value: string) => { success: boolean; errors: string[] } = (
 	field: FormConfigType,

@@ -1,17 +1,17 @@
 import { GetServerSideProps } from 'next';
 
-import { CampsiteImages } from '../../components/CampsiteImages';
-import { CampsiteReviews } from '../../components/CampsiteReviews';
-import { Container } from '../../components/Container';
-import { IconButton } from '../../components/Forms/IconButton';
-import { Header } from '../../components/Header';
-import { IconBackArrow, IconLocation, IconMap } from '../../components/Icons';
-import ReadMore from '../../components/ReadMore';
-import StarRating from '../../components/StarRating';
-import { CampsiteProfileAttributes } from '../../components/campsites/CampsiteProfileAttributes';
-import { CheckinType } from '../../components/campsites/CheckinType';
-import { HostedBy } from '../../components/campsites/HostedBy';
-import { useGetCampsite } from '../../routes/useGetCampsite';
+import { CampsiteImages } from '@components/CampsiteImages';
+import { CampsiteReviews } from '@components/CampsiteReviews';
+import { Container } from '@components/Container';
+import { IconButton } from '@components/Forms/IconButton';
+import { Header } from '@components/Header';
+import { IconBackArrow, IconLocation, IconMap } from '@components/Icons';
+import ReadMore from '@components/ReadMore';
+import StarRating from '@components/StarRating';
+import { CampsiteProfileAttributes } from '@components/campsites/CampsiteProfileAttributes';
+import { CheckinType } from '@components/campsites/CheckinType';
+import { HostedBy } from '@components/campsites/HostedBy';
+import { useGetCampsite } from '@routes/useGetCampsite';
 import withAuth from '../withAuth';
 import styles from './campsiteProfile.module.css';
 interface PostPageProps {

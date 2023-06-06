@@ -1,7 +1,7 @@
+import useValidateUser from '@routes/useValidateUser';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import useValidateUser from '../routes/useValidateUser';
 
 const withAuth = <Props extends object>(WrappedComponent: NextPage<Props>) => {
 	const WithAuthWrapper = (props: Props) => {

@@ -1,9 +1,9 @@
 // users.ts
+import { User } from '@model/user';
+import authenticateJWT from '@utils/authenticateJSW';
+import createDbInstance from '@utils/camperprodb';
+import handleAuthError from '@utils/handleAuthError';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { User } from '../../../model/user';
-import authenticateJWT from '../../../util/authenticateJSW';
-import createDbInstance from '../../../util/camperprodb';
-import handleAuthError from '../../../util/handleAuthError';
 
 async function getUser(req: NextApiRequest, res: NextApiResponse<User | { message: string }>) {
 	try {

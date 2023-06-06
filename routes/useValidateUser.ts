@@ -1,7 +1,7 @@
+import { AuthContext } from '@context/authContext';
+import { User } from '@model/user';
 import jwtDecode from 'jwt-decode';
 import { useContext, useEffect } from 'react';
-import { AuthContext } from '../context/authContext';
-import { User } from '../model/user';
 
 interface DecodedToken {
 	id: string;

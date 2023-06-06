@@ -1,13 +1,13 @@
+import { Container } from '@components/Container';
+import { IconForwardArrow, IconLogout } from '@components/Icons';
+import MenuItem from '@components/MenuItem';
+import { AuthContext } from '@context/authContext';
+import { UserContext } from '@context/userContext';
 import classNames from 'classnames';
 import { useContext } from 'react';
-import { Container } from '../components/Container';
-import { IconForwardArrow, IconLogout } from '../components/Icons';
-import MenuItem from '../components/MenuItem';
-import { AuthContext } from '../context/authContext';
-import { UserContext } from '../context/userContext';
-import withAuth from './withAuth';
+import withAuth from '../withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
-import sharedStyles from '../styles/shared.module.css';
+import sharedStyles from '../../styles/shared.module.css';
 import styles from './menu.module.css';
 function Menu() {
 	const { mode, setMode } = useContext(UserContext);

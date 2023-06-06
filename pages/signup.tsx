@@ -1,18 +1,18 @@
 // pages/signup.tsx
+import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
+import { FormInput } from '@components/Forms/FormInput';
+import IonSpinner from '@components/Framework/IonSpinner';
+import { Go } from '@components/Go';
+import { SiteLogoBanner } from '@components/SiteLogoBanner';
+import { useGlobalToast } from '@context/toastContext';
+import { useFormValues } from '@hooks/useFormValues';
+import { objectEquals } from '@model/model';
+import { EmptyNewUser, User } from '@model/user';
+import { useAddUser } from '@routes/useAddUser';
 import { useRouter } from 'next/router';
 import { KeyboardEvent, MouseEvent } from 'react';
-import { Container } from '../components/Container';
-import Button from '../components/Forms/Button';
-import { FormInput } from '../components/Forms/FormInput';
-import IonSpinner from '../components/Framework/IonSpinner';
-import { Go } from '../components/Go';
-import { SiteLogoBanner } from '../components/SiteLogoBanner';
-import { useGlobalToast } from '../context/toastContext';
 import { UserEditRules } from '../formConfigs/editUserFieldsConfig';
-import { useFormValues } from '../hooks/useFormValues';
-import { objectEquals } from '../model/model';
-import { EmptyNewUser, User } from '../model/user';
-import { useAddUser } from '../routes/useAddUser';
 import withLoginRedirect from './withLoginRedirect';
 // eslint-disable-next-line css-modules/no-unused-class
 import onboardingStyles from '../styles/onboarding.module.css';

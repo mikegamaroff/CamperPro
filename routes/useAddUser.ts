@@ -1,8 +1,8 @@
+import { AuthContext } from '@context/authContext';
+import { UserContext } from '@context/userContext';
+import { User } from '@model/user';
+import { hashPassword } from '@utils/hashPassword';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../context/authContext';
-import { UserContext } from '../context/userContext';
-import { User } from '../model/user';
-import { hashPassword } from '../util/hashPassword';
 
 interface AddUserResponse {
 	success: boolean;

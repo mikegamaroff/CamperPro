@@ -1,5 +1,5 @@
+import CampsiteEdit from '@pages/CampsiteEdit';
 import { GetServerSideProps } from 'next';
-import CampsiteEdit from '../../pages/CampsiteEdit';
 
 interface Props {
 	id: string;

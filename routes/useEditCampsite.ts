@@ -1,7 +1,7 @@
 // hooks/useEditCampsite.ts
+import { CampsiteContext } from '@context/campsiteContext';
+import { Campsite } from '@model/campsite';
 import { useContext, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
-import { Campsite } from '../model/campsite';
 
 interface EditCampsiteResponse {
 	success: boolean;

@@ -6,8 +6,10 @@ import Close from '../../assets/icons/CloseIcon.component.svg';
 import Eye from '../../assets/icons/EyeIcon.component.svg';
 import EyeOff from '../../assets/icons/EyeOffIcon.component.svg';
 import Filter from '../../assets/icons/FilterIcon.component.svg';
+import ForwardArrow from '../../assets/icons/ForwardArrowIcon.component.svg';
 import Home from '../../assets/icons/HomeIcon.component.svg';
 import Location from '../../assets/icons/LocationIcon.component.svg';
+import Logout from '../../assets/icons/LogoutIcon.component.svg';
 import Map from '../../assets/icons/MapIcon.component.svg';
 import Menu from '../../assets/icons/MenuIcon.component.svg';
 import Note from '../../assets/icons/NoteIcon.component.svg';
@@ -75,6 +77,7 @@ export const IconClose = createIcon(Close, 'Close');
 export const IconMenu = createIcon(Menu, 'Menu');
 export const IconAdd = createIcon(Add, 'Add');
 export const IconBackArrow = createIcon(BackArrow, 'BackArrow');
+export const IconForwardArrow = createIcon(ForwardArrow, 'ForwardArrow');
 export const IconFilter = createIcon(Filter, 'Filter');
 export const IconStar = createIcon(Star, 'Star');
 export const IconLocation = createIcon(Location, 'Location');
@@ -89,7 +92,7 @@ export const IconShower = createIcon(Shower, 'Shower');
 export const IconBarbecue = createIcon(Barbecue, 'Barbecue');
 export const IconSwimming = createIcon(Swimming, 'Swimming');
 export const IconWoodgathering = createIcon(Woodgathering, 'Swimming');
-
+export const IconLogout = createIcon(Logout, 'Logout');
 export const iconComponents: Record<
 	FeatureNames | AmenityNames | PermittedNames,
 	{ icon: ComponentType<IconProps>; label: string }

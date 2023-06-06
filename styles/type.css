@@ -46,8 +46,12 @@ h4,
 }
 h5,
 .h5-bold,
-.h5-regular {
+.h5-regular,
+.subtitle {
 	font-size: 1.15em;
+}
+.subtitle {
+	text-transform: uppercase;
 }
 .medium {
 	font-weight: 500;

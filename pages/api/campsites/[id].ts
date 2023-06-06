@@ -10,7 +10,6 @@ async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ camps
 		await authenticateJWT(req);
 		const db = createDbInstance();
 		const campsiteId = req.query.id as string;
-
 		// Check if the id starts with 'campsite'
 		if (!campsiteId.startsWith('campsite')) {
 			res.status(500).json({ campsite: null });
@@ -36,6 +35,10 @@ async function updateCampsite(
 ) {
 	const db = createDbInstance();
 	const updatedCampsite: Campsite = req.body;
+	if (!req.body.id) {
+		res.status(400).json({ message: 'Missing id in request body', campsite: null });
+		return;
+	}
 	const id = req.body.id as string;
 
 	if (!id.startsWith('campsite')) {

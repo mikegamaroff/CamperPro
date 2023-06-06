@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { useIonTabs } from '../hooks/useIonTabs';
 import { IonTab, IonTabBar, IonTabButton, IonTabs } from './Framework/IonTabs';
 import { RouteContext } from './Go'; // Import RouteContext from Go
-import { IconProfile, IconSearch, IconTrips } from './Icons';
+import { IconMenu, IconSearch, IconTrips } from './Icons';
 import { PageTransition } from './PageTransition';
 
 interface ContainerProps {
@@ -32,10 +32,10 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 			Trips
 		</div>
 	);
-	const profileIcon = (
+	const menuIcon = (
 		<div className="tab-button">
-			<IconProfile />
-			Profile
+			<IconMenu />
+			Menu
 		</div>
 	);
 
@@ -79,8 +79,8 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 						<IonTabButton tab="trips" onClick={() => handleTabClick('/trips')}>
 							{tripsIcon}
 						</IonTabButton>
-						<IonTabButton tab="settings" onClick={() => handleTabClick('/settings')}>
-							{profileIcon}
+						<IonTabButton tab="settings" onClick={() => handleTabClick('/menu')}>
+							{menuIcon}
 						</IonTabButton>
 					</IonTabBar>
 				</IonTabs>

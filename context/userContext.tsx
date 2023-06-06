@@ -1,17 +1,21 @@
 // userContext.tsx
 import React, { ReactNode, createContext, useState } from 'react';
-import { User } from '../model/user';
+import { ModeType, User } from '../model/user';
 
 interface UserContextInterface {
 	users: User[];
 	setUsers: React.Dispatch<React.SetStateAction<User[]>>;
-	updateImage: (data: User) => void;
+	updateUser: (data: User) => void;
+	setMode: (mode: ModeType) => void;
+	mode: ModeType;
 }
 
 export const UserContext = createContext<UserContextInterface>({
 	users: [],
 	setUsers: () => {},
-	updateImage: () => {}
+	updateUser: () => {},
+	setMode: () => '',
+	mode: 'camper'
 });
 
 interface UserProviderProps {
@@ -20,10 +24,13 @@ interface UserProviderProps {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [users, setUsers] = useState<User[]>([]);
-	const updateImage = (data: User) => {
+	const [mode, setMode] = useState<ModeType>('camper');
+	const updateUser = (data: User) => {
 		if (data) {
 			setUsers(users.map(user => (user._id === data._id ? data : user)));
 		}
 	};
-	return <UserContext.Provider value={{ users, setUsers, updateImage }}>{children}</UserContext.Provider>;
+	return (
+		<UserContext.Provider value={{ users, setUsers, updateUser, setMode, mode }}>{children}</UserContext.Provider>
+	);
 };

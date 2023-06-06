@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconTripsSolid } from './Icons';
+import { IconStar } from './Icons';
 import styles from './StarRating.module.css';
 type StarRatingProps = {
 	rating: number;
@@ -13,7 +13,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, withNumber = true, with
 	const roundedRating = Number(rating.toFixed(2));
 
 	const renderStar = (key: number) => {
-		return <IconTripsSolid key={key} size={17} />;
+		return <IconStar key={key} size={17} />;
 	};
 
 	const starMaskStyle = {

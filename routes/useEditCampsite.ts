@@ -1,7 +1,7 @@
 // hooks/useEditCampsite.ts
+import { CampsiteContext } from '@context/campsiteContext';
+import { Campsite } from '@model/campsite';
 import { useContext, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
-import { Campsite } from '../model/campsite';
 
 interface EditCampsiteResponse {
 	success: boolean;
@@ -14,7 +14,6 @@ export const useEditCampsite = () => {
 	const [isSuccess, setSuccess] = useState(false);
 
 	const { campsites, setCampsites } = useContext(CampsiteContext); // access context
-	console.log(campsites);
 	const editCampsite = async (campsite: Campsite): Promise<EditCampsiteResponse> => {
 		setLoading(true);
 		setError(null);
@@ -27,7 +26,7 @@ export const useEditCampsite = () => {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
-				body: JSON.stringify(campsite)
+				body: JSON.stringify({ ...campsite, id: campsite._id })
 			});
 
 			if (response.ok) {

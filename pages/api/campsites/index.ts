@@ -1,11 +1,11 @@
 // pages/api/campsites.ts
+import { Campsite } from '@model/campsite';
+import authenticateJWT from '@utils/authenticateJSW';
+import createDbInstance from '@utils/camperprodb';
+import handleAuthError from '@utils/handleAuthError';
+import { isCouchDbError } from '@utils/isCouchDbError';
 import { DocumentResponseRow } from 'nano';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Campsite } from '../../../model/campsite';
-import authenticateJWT from '../../../util/authenticateJSW';
-import createDbInstance from '../../../util/camperprodb';
-import handleAuthError from '../../../util/handleAuthError';
-import { isCouchDbError } from '../../../util/isCouchDbError';
 
 async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance();

@@ -1,5 +1,5 @@
+import { Container } from '@components/Container';
 import classNames from 'classnames';
-import { Container } from '../components/Container';
 import styles from './fonts.module.css';
 function Fonts() {
 	return (

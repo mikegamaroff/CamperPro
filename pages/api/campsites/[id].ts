@@ -1,16 +1,15 @@
+import { Campsite } from '@model/campsite';
+import { Review } from '@model/review';
+import authenticateJWT from '@utils/authenticateJSW';
+import { createDbInstance } from '@utils/camperprodbWrapper';
+import handleAuthError from '@utils/handleAuthError';
+import { isCouchDbError } from '@utils/isCouchDbError';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Campsite } from '../../../model/campsite';
-import { Review } from '../../../model/review';
-import authenticateJWT from '../../../util/authenticateJSW';
-import { createDbInstance } from '../../../util/camperprodbWrapper';
-import handleAuthError from '../../../util/handleAuthError';
-import { isCouchDbError } from '../../../util/isCouchDbError';
 async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ campsite: Campsite | null }>) {
 	try {
 		await authenticateJWT(req);
 		const db = createDbInstance();
 		const campsiteId = req.query.id as string;
-
 		// Check if the id starts with 'campsite'
 		if (!campsiteId.startsWith('campsite')) {
 			res.status(500).json({ campsite: null });
@@ -36,6 +35,10 @@ async function updateCampsite(
 ) {
 	const db = createDbInstance();
 	const updatedCampsite: Campsite = req.body;
+	if (!req.body.id) {
+		res.status(400).json({ message: 'Missing id in request body', campsite: null });
+		return;
+	}
 	const id = req.body.id as string;
 
 	if (!id.startsWith('campsite')) {

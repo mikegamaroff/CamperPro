@@ -1,7 +1,7 @@
 // hooks/useGetAllCampsites.ts
+import { CampsiteContext } from '@context/campsiteContext';
+import { Attributes, defaultFilter } from '@model/campsite';
 import { useContext, useEffect, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
-import { Attributes, defaultFilter } from '../model/campsite';
 
 interface GetAllCampsiteProps {
 	view?: string;

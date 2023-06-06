@@ -1,16 +1,16 @@
+import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
+import IonRange from '@components/Framework/IonRange';
+import { Go } from '@components/Go';
+import { Header } from '@components/Header';
+import { MenuButton } from '@components/MenuButton';
+import { AuthContext } from '@context/authContext';
+import useActionSheet from '@hooks/useActionSheet';
+import useAlert from '@hooks/useAlert';
+import useDatetimeModal from '@hooks/useDatetimeModal';
+import useModal from '@hooks/useModal';
 import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
 import { useContext } from 'react';
-import { Container } from '../components/Container';
-import Button from '../components/Forms/Button';
-import IonRange from '../components/Framework/IonRange';
-import { Go } from '../components/Go';
-import { Header } from '../components/Header';
-import { MenuButton } from '../components/MenuButton';
-import { AuthContext } from '../context/authContext';
-import useActionSheet from '../hooks/useActionSheet';
-import useAlert from '../hooks/useAlert';
-import useDatetimeModal from '../hooks/useDatetimeModal';
-import useModal from '../hooks/useModal';
 import withAuth from './withAuth';
 
 function Components() {

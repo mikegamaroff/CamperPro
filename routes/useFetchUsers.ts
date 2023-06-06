@@ -1,5 +1,5 @@
+import { UserContext } from '@context/userContext';
 import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/userContext';
 
 export const useFetchUsers = () => {
 	const { users, setUsers } = useContext(UserContext);

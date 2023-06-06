@@ -19,7 +19,7 @@ import styles from './trips.module.css';
 import withAuth from './withAuth';
 
 const FeedView: React.FC<{ user: User }> = ({ user }) => {
-	const { updateImage } = useContext(UserContext);
+	const { updateUser } = useContext(UserContext);
 	return (
 		<div className={styles.userHolder}>
 			<ProfilePhoto user={user} />
@@ -27,7 +27,7 @@ const FeedView: React.FC<{ user: User }> = ({ user }) => {
 				{user.username} {user.email}
 			</div>
 			<div>
-				<UploadImageButton<User> documentId={user?._id} key={uuidv4()} onSuccess={updateImage} />
+				<UploadImageButton<User> documentId={user?._id} key={uuidv4()} onSuccess={updateUser} />
 			</div>
 		</div>
 	);

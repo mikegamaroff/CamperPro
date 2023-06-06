@@ -1,12 +1,12 @@
+import { DocumentWithImages } from '@model/model';
+import { User } from '@model/user';
+import authenticateJWT from '@utils/authenticateJSW';
+import createDbInstance from '@utils/camperprodb';
+import handleAuthError from '@utils/handleAuthError';
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { DocumentWithImages } from '../../../model/model';
-import { User } from '../../../model/user';
-import authenticateJWT from '../../../util/authenticateJSW';
-import createDbInstance from '../../../util/camperprodb';
-import handleAuthError from '../../../util/handleAuthError';
 export const config = {
 	api: {
 		bodyParser: {

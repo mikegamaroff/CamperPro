@@ -1,5 +1,5 @@
+import { ReviewContext } from '@context/reviewContext';
 import { useContext, useEffect, useState } from 'react';
-import { ReviewContext } from '../context/reviewContext';
 
 export const useGetReviewsByCampsite = (campsiteId: string | undefined) => {
 	const { reviews, setReviews } = useContext(ReviewContext);

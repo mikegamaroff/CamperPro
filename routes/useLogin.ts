@@ -1,5 +1,5 @@
+import { AuthContext } from '@context/authContext';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../context/authContext';
 
 interface LoginResponse {
 	success: boolean;

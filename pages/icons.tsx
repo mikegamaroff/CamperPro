@@ -1,4 +1,4 @@
-import { Container } from '../components/Container';
+import { Container } from '@components/Container';
 import {
 	IconAdd,
 	IconBackArrow,
@@ -33,7 +33,7 @@ import {
 	IconWifi,
 	IconWildlife,
 	IconWoodgathering
-} from '../components/Icons';
+} from '@components/Icons';
 import styles from './icons.module.css';
 function Icons() {
 	interface IconType {

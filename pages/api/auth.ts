@@ -2,11 +2,11 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import { User } from '@model/user';
+import createDbInstance from '@utils/camperprodb';
+import { isCouchDbError } from '@utils/isCouchDbError';
+import { validateEmail, validatePassword } from '@utils/validations';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { User } from '../../model/user';
-import createDbInstance from '../../util/camperprodb';
-import { isCouchDbError } from '../../util/isCouchDbError';
-import { validateEmail, validatePassword } from '../../util/validations';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key'; // Replace 'your_secret_key' with a strong secret key
 

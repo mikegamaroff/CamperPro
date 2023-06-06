@@ -1,6 +1,6 @@
 // hooks/useAddCampsite.ts
+import { Campsite } from '@model/campsite';
 import { useState } from 'react';
-import { Campsite } from '../model/campsite';
 
 interface AddCampsiteResponse {
 	success: boolean;

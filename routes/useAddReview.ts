@@ -1,8 +1,8 @@
 // hooks/useAddReview.ts
+import { CampsiteContext } from '@context/campsiteContext';
+import { Campsite } from '@model/campsite';
+import { Review } from '@model/review';
 import { useContext, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
-import { Campsite } from '../model/campsite';
-import { Review } from '../model/review';
 
 interface AddReviewResponse {
 	success: boolean;

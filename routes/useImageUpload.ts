@@ -1,6 +1,6 @@
+import { AuthContext } from '@context/authContext';
+import { useGlobalToast } from '@context/toastContext';
 import { useCallback, useContext, useState } from 'react';
-import { AuthContext } from '../context/authContext';
-import { useGlobalToast } from '../context/toastContext';
 
 export function useImageUpload<T = any>(
 	document: string | undefined,

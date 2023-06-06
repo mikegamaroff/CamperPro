@@ -1,6 +1,6 @@
+import { CampsiteContext } from '@context/campsiteContext';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
-import { CampsiteContext } from '../context/campsiteContext';
 
 export const useGetCampsite = (id: string) => {
 	const [isLoading, setLoading] = useState(false);

@@ -4,6 +4,7 @@ import { Review } from '../model/review';
 import { useGetUser } from '../routes/useGetUser';
 import styles from './ModalCampsiteReview.module.css';
 import { ProfilePhoto } from './ProfilePhoto';
+import ReadMore from './ReadMore';
 import StarRating from './StarRating';
 
 interface ReviewProps {
@@ -26,7 +27,7 @@ export const ModalCampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 					<div>{dateSmall(review.created_at)}</div>
 				</div>
 			</div>
-			<div>{review.review}</div>
+			<ReadMore text={review.review} expandText="Show more >" collapseText="Show less <" />
 		</div>
 	);
 };

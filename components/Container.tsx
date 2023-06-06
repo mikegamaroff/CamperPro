@@ -69,7 +69,7 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 					{/* Tab views */}
 					<IonTab tab="explore" />
 					<IonTab tab="trips" />
-					<IonTab tab="settings" />
+					<IonTab tab="menu" />
 
 					{/* Tab bar */}
 					<IonTabBar slot="bottom">
@@ -79,7 +79,7 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 						<IonTabButton tab="trips" onClick={() => handleTabClick('/trips')}>
 							{tripsIcon}
 						</IonTabButton>
-						<IonTabButton tab="settings" onClick={() => handleTabClick('/menu')}>
+						<IonTabButton tab="menu" onClick={() => handleTabClick('/menu')}>
 							{menuIcon}
 						</IonTabButton>
 					</IonTabBar>

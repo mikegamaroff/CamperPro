@@ -1,5 +1,4 @@
-// userContext.tsx
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { ModeType, User } from '../model/user';
 
 interface UserContextInterface {
@@ -15,7 +14,7 @@ export const UserContext = createContext<UserContextInterface>({
 	setUsers: () => {},
 	updateUser: () => {},
 	setMode: () => '',
-	mode: 'camper'
+	mode: 'Camper'
 });
 
 interface UserProviderProps {
@@ -24,12 +23,28 @@ interface UserProviderProps {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 	const [users, setUsers] = useState<User[]>([]);
-	const [mode, setMode] = useState<ModeType>('camper');
+	const [mode, setModeState] = useState<ModeType>('Camper');
+
+	// Load the mode from local storage on component mount
+	useEffect(() => {
+		const savedMode = localStorage.getItem('mode');
+		if (savedMode) {
+			setModeState(savedMode as ModeType);
+		}
+	}, []);
+
+	// Save the mode to local storage when it changes
+	const setMode = (newMode: ModeType) => {
+		setModeState(newMode);
+		localStorage.setItem('mode', newMode);
+	};
+
 	const updateUser = (data: User) => {
 		if (data) {
 			setUsers(users.map(user => (user._id === data._id ? data : user)));
 		}
 	};
+
 	return (
 		<UserContext.Provider value={{ users, setUsers, updateUser, setMode, mode }}>{children}</UserContext.Provider>
 	);

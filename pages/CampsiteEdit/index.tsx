@@ -20,7 +20,6 @@ function CampsiteEdit({ id }: Props) {
 		isSuccess: isDeleteSuccess
 	} = useDeleteCampsite();
 
-	console.log(campsite);
 	if (isFetching || !campsite) {
 		return <div>Loading..</div>;
 	}

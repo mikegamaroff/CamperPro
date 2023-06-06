@@ -25,6 +25,6 @@ export const EmptyNewUser: User = {
 	verified: true,
 	suspended: false
 };
-export type ModeType = 'camper' | 'host';
+export type ModeType = 'Camper' | 'Host';
 
 export const EmptyUser: User = EmptyNewUser;

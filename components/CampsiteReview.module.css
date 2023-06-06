@@ -1,10 +1,10 @@
 .container {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	padding: 20px;
-	gap: 17px;
 	width: 280px;
-	height: 300px;
+	height: 185px;
 	background: var(--background);
 	border: 1px solid var(--neutral50);
 	filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.05));

@@ -92,13 +92,18 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	return (
 		<div className={styles.container}>
 			{reviews.length > 0 && (
-				<div className={styles.rating}>
-					<div>
-						<IconStar size={18} />
+				<div className={styles.header}>
+					<div className={styles.rating}>
+						<div>
+							<IconStar size={18} />
+						</div>
+						<h4 className="medium">{campsite?.rating}</h4>
+						<h3 className="bold">•</h3>
+						<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
 					</div>
-					<h4 className="medium">{campsite?.rating}</h4>
-					<h3 className="bold">•</h3>
-					<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
+					<div onClick={presentModalReviews} className={styles.seeAllButton}>
+						<div className="medium">See all</div>
+					</div>
 				</div>
 			)}
 			{reviews.length > 0 && (
@@ -116,10 +121,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 			)}
 			{reviews.length > 0 && (
 				<div className={styles.buttons}>
-					<div onClick={presentModalReviews} className={styles.button}>
-						<div className="medium">See all</div>
-					</div>
-					<div onClick={handleAddReview} className={styles.button}>
+					<div onClick={handleAddReview} className={styles.reviewButton}>
 						<div className="medium">Leave a review</div>
 					</div>
 				</div>

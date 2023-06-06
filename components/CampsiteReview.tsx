@@ -45,12 +45,12 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 	useEffect(() => {
 		if (textRef.current) {
 			const el: HTMLDivElement = textRef.current;
-			el.style.webkitLineClamp = isTruncated ? '6' : 'unset';
+			el.style.webkitLineClamp = isTruncated ? '2' : 'unset';
 
 			const lineHeightPixels = parseFloat(getComputedStyle(el).lineHeight);
 			const lines = el.scrollHeight / lineHeightPixels;
 
-			if (lines > 8) {
+			if (lines > 3) {
 				setIsTruncated(true);
 				setButton(true);
 			}
@@ -59,15 +59,17 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.rating}>
-				<ProfilePhoto size={50} user={user} />
-				<div className={styles.username}>
-					<h5 className="medium">{user?.username}</h5>
-					<StarRating withNumber={false} rating={review.rating} />
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+				<div className={styles.rating}>
+					<ProfilePhoto size={50} user={user} />
+					<div className={styles.username}>
+						<h5 className="medium">{user?.username}</h5>
+						<StarRating withDot={true} rating={review.rating} />
+					</div>
 				</div>
-			</div>
-			<div ref={textRef} className={styles.text}>
-				{review.review}
+				<div ref={textRef} className={styles.text}>
+					{review.review}
+				</div>
 			</div>
 			{button && (
 				<div onClick={presentModalReview} className="medium">

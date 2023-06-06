@@ -1,3 +1,4 @@
+import { dateSmall } from '@utils/dateTime';
 import React from 'react';
 import { Review } from '../model/review';
 import { useGetUser } from '../routes/useGetUser';
@@ -22,7 +23,7 @@ export const ModalCampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 						<div>•</div>
 						<StarRating withDot={true} rating={review.rating} />
 					</div>
-					<div>{review.created_at}</div>
+					<div>{dateSmall(review.created_at)}</div>
 				</div>
 			</div>
 			<div>{review.review}</div>

@@ -60,11 +60,11 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 			<div className={styles.modalContainer}>
 				<div className={styles.modalRating}>
 					<div>
-						<IconStar size={22} />
+						<IconStar size={18} />
 					</div>
-					<h3 className="medium">{campsite?.rating}</h3>
+					<h4 className="medium">{campsite?.rating}</h4>
 					<div className="bold">•</div>
-					<h3 className="medium">{campsite?.reviewsCount} reviews</h3>
+					<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
 				</div>
 				<div style={{ height: '100%', paddingTop: '80px' }}>
 					<Virtuoso

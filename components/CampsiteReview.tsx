@@ -60,7 +60,7 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 
 	return (
 		<div className={styles.container}>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+			<div className={styles.review}>
 				<div className={styles.rating}>
 					<ProfilePhoto size={50} user={user} />
 					<div className={styles.username}>

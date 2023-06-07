@@ -11,6 +11,12 @@
 	border-radius: 19px;
 }
 
+.review {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
 .modalContainer {
 	display: flex;
 	flex-direction: column;

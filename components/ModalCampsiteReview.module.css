@@ -1,0 +1,18 @@
+.modalContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	color: var(--foreground);
+	padding: 10px 10px 30px 10px;
+}
+
+.modalRating {
+	display: flex;
+	gap: 15px;
+	width: 100%;
+}
+
+.topLine {
+	display: flex;
+	gap: 5px;
+}

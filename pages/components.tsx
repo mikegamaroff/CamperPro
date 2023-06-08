@@ -10,6 +10,7 @@ import useAlert from '@hooks/useAlert';
 import useDatetimeModal from '@hooks/useDatetimeModal';
 import useModal from '@hooks/useModal';
 import { ActionSheetButton, AlertButton, AlertInput } from '@ionic/core';
+import { DateTime } from 'luxon';
 import { useContext } from 'react';
 import withAuth from './withAuth';
 
@@ -41,6 +42,25 @@ function Components() {
 		onConfirm: confirmModal,
 		component: <ModalContent />
 	});
+	// Helper function to get tomorrow's date
+	const getTomorrow = () => {
+		const now = DateTime.local();
+		const tomorrow = now.plus({ days: 1 });
+		return tomorrow.toISODate();
+	};
+
+	// Helper function to get next Friday's date
+	const getFriday = () => {
+		const now = DateTime.local();
+		let friday = now;
+
+		// setDay equivalent in Luxon
+		while (friday.weekday !== 5) {
+			friday = friday.plus({ days: 1 });
+		}
+
+		return friday.toISODate();
+	};
 
 	const actionSheetButtons: ActionSheetButton[] = [
 		{
@@ -118,7 +138,8 @@ function Components() {
 	};
 
 	const { presentDatetimeModal } = useDatetimeModal({
-		onDatetimeChange: handleDateChange
+		onDatetimeChange: handleDateChange,
+		disabledDates: [getTomorrow() as string, getFriday() as string]
 	});
 	const rangeSliderHandle = (event: CustomEvent) => {
 		console.log('Range value changed:', event.detail.value);

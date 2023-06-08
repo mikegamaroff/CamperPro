@@ -4,9 +4,10 @@ import useModal from './useModal';
 
 interface UseDatetimeModalProps {
 	onDatetimeChange: (value: string) => void;
+	disabledDates: string[];
 }
 
-const useDatetimeModal = ({ onDatetimeChange }: UseDatetimeModalProps) => {
+const useDatetimeModal = ({ onDatetimeChange, disabledDates }: UseDatetimeModalProps) => {
 	const { presentModal, dismissModal } = useModal({
 		onCancel: () => {
 			dismissModal();
@@ -14,7 +15,7 @@ const useDatetimeModal = ({ onDatetimeChange }: UseDatetimeModalProps) => {
 		onConfirm: () => {
 			dismissModal();
 		},
-		component: <DateTimePicker onDatetimeChange={onDatetimeChange} />,
+		component: <DateTimePicker onDatetimeChange={onDatetimeChange} disabledDates={disabledDates} />,
 		type: 'lite'
 	});
 

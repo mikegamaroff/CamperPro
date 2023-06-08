@@ -1,7 +1,7 @@
 export type Document = {
 	_id?: string;
 	_rev?: string;
-	type: string;
+	type?: string;
 	created_at?: string;
 	updated_at?: string;
 };

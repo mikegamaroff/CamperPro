@@ -6,7 +6,7 @@ import { FeedSearchButton } from '@components/FeedSearchButton';
 import { Header } from '@components/Header';
 import { MenuButton } from '@components/MenuButton';
 import { AuthContext } from '@context/authContext';
-import { Attributes, EmptyNewCampsite, FilterIDType } from '@model/campsite';
+import { Attributes, CampsiteFilter, EmptyNewCampsite, FilterIDType } from '@model/campsite';
 import { useAddCampsite } from '@routes/useAddCampsite';
 import { useGetAllCampsites } from '@routes/useGetAllCampsites';
 import { GoTo } from '@utils/GoTo';
@@ -18,16 +18,18 @@ import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const [selectedFilter, setSelectedFilter] = useState<Attributes>();
+	const [selectedAttributes, setSelectedAttributes] = useState<Attributes>();
+	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
 	const handleFilterSelect = (id: FilterIDType) => {
-		const updatedFilters: Attributes | undefined = selectFeedFilter(selectedFilter, id);
-		setSelectedFilter(updatedFilters);
+		const updatedAttributes: Attributes | undefined = selectFeedFilter(selectedAttributes, id);
+		setSelectedAttributes(updatedAttributes);
+		setSelectedFilter({ ...selectedFilter, attributes: updatedAttributes });
 	};
-	console.log(selectedFilter);
+
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
 		const newCampsite = {
@@ -58,7 +60,10 @@ function Home() {
 					<div className="layoutContainer">
 						<div className={styles.feedSearchContainer}>
 							<FeedSearchButton />
-							<FilterBar selectedFilter={selectedFilter} handleFilterSelect={handleFilterSelect} />
+							<FilterBar
+								selectedAttributes={selectedAttributes}
+								handleFilterSelect={handleFilterSelect}
+							/>
 						</div>
 						<div className="contentWrapper">
 							<div className={styles.feedContainer}>

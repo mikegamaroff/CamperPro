@@ -32,7 +32,9 @@ export const FeedCampsite: React.FC<{ campsite: Campsite }> = ({ campsite }) => 
 						</div>
 						<div className={styles.location}>
 							<IconLocation size={13} />
-							<div className="body">{campsite.location.nearestTown + ', ' + campsite.location.state}</div>
+							<div className="body">
+								{campsite?.location?.nearestTown + ', ' + campsite?.location?.state}
+							</div>
 						</div>
 						<div className={styles.titleAndRating}>
 							<div className={classNames(styles.price, 'body')}>

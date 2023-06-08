@@ -1,5 +1,5 @@
 import React from 'react';
-import { AttributeNames, Campsite } from '../../model/campsite';
+import { AmenityNames, AttributeNames, Campsite, FeatureNames, PermittedNames } from '../../model/campsite';
 import { iconComponents } from '../Icons';
 import styles from './CampsiteProfileAttributes.module.css';
 
@@ -9,7 +9,8 @@ interface CampsiteProfileAttributesProps {
 }
 
 export const CampsiteProfileAttributes: React.FC<CampsiteProfileAttributesProps> = ({ campsite, attributeType }) => {
-	const attributes = campsite.attributes[attributeType] || null;
+	const attributes: FeatureNames[] | AmenityNames[] | PermittedNames[] | undefined =
+		campsite?.attributes?.[attributeType];
 
 	return (
 		<div className={styles.featuresContainer}>
@@ -17,20 +18,21 @@ export const CampsiteProfileAttributes: React.FC<CampsiteProfileAttributesProps>
 				<>
 					<h4 className="bold">Features</h4>
 					<div className={styles.featuresGrid}>
-						{attributes?.map(attribute => {
-							if (iconComponents[attribute]) {
-								const FeatureIcon = iconComponents[attribute].icon;
-								return (
-									<div className={styles.feature} key={attribute}>
-										<div>
-											<FeatureIcon size={36} />
+						{attributes &&
+							attributes?.map(attribute => {
+								if (iconComponents[attribute]) {
+									const FeatureIcon = iconComponents[attribute].icon;
+									return (
+										<div className={styles.feature} key={attribute}>
+											<div>
+												<FeatureIcon size={36} />
+											</div>
+											<div>{iconComponents[attribute].label}</div>
 										</div>
-										<div>{iconComponents[attribute].label}</div>
-									</div>
-								);
-							}
-							return null;
-						})}
+									);
+								}
+								return null;
+							})}
 					</div>
 				</>
 			)}

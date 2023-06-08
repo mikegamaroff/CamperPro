@@ -36,19 +36,18 @@ export interface CampLocation {
 }
 export interface Campsite extends DocumentWithImages {
 	author?: string;
-	category: string;
-	title: string;
-	description: string;
-	draft: boolean;
+	title?: string;
+	description?: string;
+	draft?: boolean;
 	rating?: number | null;
 	reviewsCount?: number | null;
-	location: CampLocation;
-	pricePerNight: number;
-	receptionCheckin: boolean;
-	private: boolean;
-	capacity: Capacity;
-	attributes: Attributes;
-	active: boolean;
+	location?: CampLocation;
+	pricePerNight?: number;
+	receptionCheckin?: boolean;
+	private?: boolean;
+	capacity?: Capacity;
+	attributes?: Attributes;
+	active?: boolean;
 }
 
 export const defaultAttributes: Attributes = {
@@ -60,11 +59,23 @@ export type FilterIDType = {
 	permitted?: PermittedNames;
 };
 
+export interface CampsiteFilter {
+	private?: boolean;
+	rating?: number[];
+	location?: {
+		state?: string;
+		nearestTown?: string;
+	};
+	priceRange?: number[];
+	attributes?: Attributes;
+	numberOfTentSites?: number;
+	acreage?: number;
+}
+
 export const EmptyNewCampsite: Campsite = {
 	_id: `campsite:${uuidv4()}`,
 	author: '',
 	type: 'campsite',
-	category: 'public',
 	title: '',
 	rating: null,
 	reviewsCount: null,

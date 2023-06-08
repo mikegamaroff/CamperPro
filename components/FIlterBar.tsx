@@ -11,7 +11,7 @@ interface FilterIconProps {
 }
 
 interface FilterBarProps {
-	selectedFilter?: Attributes;
+	selectedAttributes?: Attributes;
 	handleFilterSelect: (id: FilterIDType) => void;
 }
 const FilterButtons: FilterIconProps[] = [
@@ -107,13 +107,13 @@ const FilterButtons: FilterIconProps[] = [
 	}
 ];
 
-export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedFilter }) => {
+export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedAttributes }) => {
 	const filterExists = (id: FilterIDType): boolean => {
-		if (!selectedFilter) return false;
+		if (!selectedAttributes) return false;
 
 		for (const filterKey in id) {
 			const filterValue = id[filterKey as keyof FilterIDType];
-			const selectedFilterValues = selectedFilter[filterKey as keyof Attributes];
+			const selectedFilterValues = selectedAttributes[filterKey as keyof Attributes];
 
 			if (filterValue && selectedFilterValues && (selectedFilterValues as string[]).includes(filterValue)) {
 				return true;

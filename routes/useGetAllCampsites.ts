@@ -1,16 +1,13 @@
 // hooks/useGetAllCampsites.ts
 import { CampsiteContext } from '@context/campsiteContext';
-import { Attributes, defaultFilter } from '@model/campsite';
+import { CampsiteFilter } from '@model/campsite';
 import { useContext, useEffect, useState } from 'react';
 
 interface GetAllCampsiteProps {
 	view?: string;
-	filters?: Attributes;
+	filters?: CampsiteFilter | null;
 }
-export const useGetAllCampsites = ({
-	view = 'non-draft-campsites',
-	filters = defaultFilter
-}: GetAllCampsiteProps = {}) => {
+export const useGetAllCampsites = ({ view = 'non-draft-campsites', filters }: GetAllCampsiteProps = {}) => {
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();

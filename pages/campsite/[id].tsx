@@ -21,7 +21,7 @@ interface PostPageProps {
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite, isLoading } = useGetCampsite(id);
 
-	const receptionAddress = campsite?.location.receptionAddress;
+	const receptionAddress = campsite?.location?.receptionAddress;
 
 	return (
 		<>
@@ -51,8 +51,8 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 												<IconMap size={18} />
 											</div>
 											<div>
-												{campsite?.location.coordinates.lat},{' '}
-												{campsite?.location.coordinates.lng}
+												{campsite?.location?.coordinates.lat},{' '}
+												{campsite?.location?.coordinates.lng}
 											</div>
 										</div>
 										{receptionAddress && (
@@ -62,7 +62,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 												</div>
 												<div className={styles.addressText}>
 													Reception: {receptionAddress.address1}, {receptionAddress.city},{' '}
-													{campsite?.location.state} {receptionAddress.postalCode}
+													{campsite?.location?.state} {receptionAddress.postalCode}
 												</div>
 											</div>
 										)}
@@ -75,7 +75,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 								<hr />
 								<div className={styles.section}>
 									<ReadMore
-										text={campsite.description}
+										text={campsite?.description || ''}
 										textColor="var(--neutral700)"
 										expandText="Show more >"
 										collapseText="Show less <"
@@ -86,7 +86,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 									<CheckinType campsite={campsite} />
 								</div>
 								<hr />
-								{campsite.attributes.feature && campsite.attributes.feature.length > 0 && (
+								{campsite?.attributes?.feature && campsite.attributes.feature.length > 0 && (
 									<>
 										<div className={styles.section}>
 											<CampsiteProfileAttributes campsite={campsite} attributeType="feature" />
@@ -94,7 +94,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										<hr />
 									</>
 								)}
-								{campsite.attributes.amenity && campsite.attributes.amenity.length > 0 && (
+								{campsite?.attributes?.amenity && campsite.attributes.amenity.length > 0 && (
 									<>
 										<div className={styles.section}>
 											<CampsiteProfileAttributes campsite={campsite} attributeType="amenity" />
@@ -102,7 +102,7 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										<hr />
 									</>
 								)}
-								{campsite.attributes.permitted && campsite.attributes.permitted.length > 0 && (
+								{campsite?.attributes?.permitted && campsite.attributes.permitted.length > 0 && (
 									<>
 										<div className={styles.section}>
 											<CampsiteProfileAttributes campsite={campsite} attributeType="permitted" />

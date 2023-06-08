@@ -21,9 +21,9 @@ export const HostedBy: React.FC<HostedByProps> = ({ campsite }) => {
 				<ProfilePhoto user={user} size={60} />
 			</div>
 			<div className={styles.infoLine}>
-				<div>{campsite?.capacity.numberOfTentSites} tent sites</div>
+				<div>{campsite?.capacity?.numberOfTentSites} tent sites</div>
 				<div className={styles.smallDot} />
-				<div>{campsite?.capacity.acreage} acres</div>
+				<div>{campsite?.capacity?.acreage} acres</div>
 			</div>
 		</div>
 	);

@@ -1,11 +1,16 @@
+import { CampsiteFilter } from '@model/campsite';
 import classNames from 'classnames';
 import { FC } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
 import { FilterModal } from './FilterModal';
 import { IconFilter, IconSearch } from './Icons';
+interface FeedSearchButtonProps {
+	setSelectedFilter: (filters: CampsiteFilter) => void;
+	selectedFilter: CampsiteFilter;
+}
 
-export const FeedSearchButton: FC = () => {
+export const FeedSearchButton: FC<FeedSearchButtonProps> = ({ setSelectedFilter, selectedFilter }) => {
 	const SearchModalContent = () => {
 		return (
 			<div>
@@ -42,7 +47,7 @@ export const FeedSearchButton: FC = () => {
 		onCancel: cancelModalFilter,
 		onConfirm: confirmModalFilter,
 		title: 'Filters',
-		component: <FilterModal />
+		component: <FilterModal setSelectedFilter={setSelectedFilter} selectedFilter={selectedFilter} />
 	});
 
 	return (

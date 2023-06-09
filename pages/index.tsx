@@ -18,18 +18,16 @@ import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const [selectedAttributes, setSelectedAttributes] = useState<Attributes>();
 	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
 	const handleFilterSelect = (id: FilterIDType) => {
-		const updatedAttributes: Attributes | undefined = selectFeedFilter(selectedAttributes, id);
-		setSelectedAttributes(updatedAttributes);
+		const updatedAttributes: Attributes | undefined = selectFeedFilter(selectedFilter.attributes, id);
 		setSelectedFilter({ ...selectedFilter, attributes: updatedAttributes });
 	};
-
+	console.log(selectedFilter);
 	const handleAddCampsite = async () => {
 		const newId = uuidv4(); // replace this with your ID generation logic
 		const newCampsite = {
@@ -59,9 +57,9 @@ function Home() {
 				<>
 					<div className="layoutContainer">
 						<div className={styles.feedSearchContainer}>
-							<FeedSearchButton />
+							<FeedSearchButton setSelectedFilter={setSelectedFilter} selectedFilter={selectedFilter} />
 							<FilterBar
-								selectedAttributes={selectedAttributes}
+								selectedAttributes={selectedFilter.attributes}
 								handleFilterSelect={handleFilterSelect}
 							/>
 						</div>

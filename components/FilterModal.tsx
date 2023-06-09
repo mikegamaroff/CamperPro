@@ -1,17 +1,28 @@
+import { CampsiteFilter } from '@model/campsite';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './FilterModal.module.css';
 import Checkbox from './Forms/Checkbox';
 import IonRange from './Framework/IonRange';
 
-export const FilterModal: React.FC = () => {
-	const [lowerValue, setLowerValue] = useState(50);
-	const [upperValue, setUpperValue] = useState(300);
+interface FilterModalProps {
+	setSelectedFilter: (filters: CampsiteFilter) => void;
+	selectedFilter: CampsiteFilter;
+}
+
+export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, selectedFilter }) => {
+	const sliderDefaults = [20, 300];
+	const [lowerValue, setLowerValue] = useState(selectedFilter.priceRange?.[0] || sliderDefaults[0]);
+	const [upperValue, setUpperValue] = useState(selectedFilter.priceRange?.[1] || sliderDefaults[1]);
+	const [filters, setFilters] = useState<CampsiteFilter>(selectedFilter);
 	const [selectedButton, setSelectedButton] = useState(0);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
+		const updatedFilters = { ...filters, priceRange: [event.detail.value.lower, event.detail.value.upper] };
 		setLowerValue(event.detail.value.lower);
 		setUpperValue(event.detail.value.upper);
+		setFilters(updatedFilters);
+		setSelectedFilter(updatedFilters);
 	};
 
 	const Plus = upperValue > 499 ? '+' : null;
@@ -39,8 +50,8 @@ export const FilterModal: React.FC = () => {
 						handleChange={rangeSliderHandle}
 						min={10}
 						max={500}
-						defaultLower={lowerValue}
-						defaultUpper={upperValue}
+						defaultLower={sliderDefaults[0]}
+						defaultUpper={sliderDefaults[1]}
 						dualKnobs
 					/>
 				</div>

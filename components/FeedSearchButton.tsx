@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { FC } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
-import Checkbox from './Forms/Checkbox';
+import { FilterModal } from './FilterModal';
 import { IconFilter, IconSearch } from './Icons';
 
 export const FeedSearchButton: FC = () => {
@@ -11,15 +11,6 @@ export const FeedSearchButton: FC = () => {
 			<div>
 				<h2>Search</h2>
 				<p>Search</p>
-			</div>
-		);
-	};
-	const FilterModalContent = () => {
-		return (
-			<div className="contentWrapper">
-				<h2>Filters</h2>
-				<p>Filters</p>
-				<Checkbox />
 			</div>
 		);
 	};
@@ -51,7 +42,7 @@ export const FeedSearchButton: FC = () => {
 		onCancel: cancelModalFilter,
 		onConfirm: confirmModalFilter,
 		title: 'Filters',
-		component: <FilterModalContent />
+		component: <FilterModal />
 	});
 
 	return (

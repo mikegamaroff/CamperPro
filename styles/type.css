@@ -18,9 +18,11 @@ h3,
 h4,
 h5,
 .callout,
-.footnote,
-.caption {
+.footnote {
 	color: var(--foreground);
+}
+.caption {
+	color: var(--neutral500);
 }
 h1,
 .h1-bold,

@@ -8,6 +8,8 @@ interface SliderValue {
 interface CustomIonRangeProps {
 	min?: number;
 	max?: number;
+	defaultLower?: number;
+	defaultUpper?: number;
 	step?: number;
 	value?: number | SliderValue;
 	dualKnobs?: boolean;
@@ -18,6 +20,8 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 	min = 0,
 	max = 100,
 	step = 1,
+	defaultLower = 25,
+	defaultUpper = 75,
 	value,
 	dualKnobs = false,
 	handleChange
@@ -25,7 +29,7 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 	const rangeRef = useRef<HTMLDivElement | null>(null);
 	const [rangeValue, setRangeValue] = useState(value);
 
-	const defaultValue = dualKnobs ? { lower: 25, upper: 75 } : 50;
+	const defaultValue = dualKnobs ? { lower: defaultLower, upper: defaultUpper } : 50;
 	const valueProp = rangeValue === undefined ? defaultValue : rangeValue;
 
 	const handleIonChange = (e: Event) => {

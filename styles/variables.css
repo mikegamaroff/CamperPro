@@ -165,6 +165,7 @@ http://ionicframework.com/docs/theming/ */
 
 	--ion-background-color: var(--background);
 	--transition-default: all 0.2s ease-in-out;
+	--shadow-default: 0px 0px 15px rgba(0, 0, 0, 0.15);
 }
 
 @media (prefers-color-scheme: dark) {

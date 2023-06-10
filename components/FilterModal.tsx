@@ -19,10 +19,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		const updatedFilters = { ...filters, priceRange: [event.detail.value.lower, event.detail.value.upper] };
-		setLowerValue(event.detail.value.lower);
-		setUpperValue(event.detail.value.upper);
-		setFilters(updatedFilters);
-		setSelectedFilter(updatedFilters);
+		setLowerValue(event.detail.value.lower); // local state
+		setUpperValue(event.detail.value.upper); // local state
+		setFilters(updatedFilters); // local state
+		setSelectedFilter(updatedFilters); // main state
 	};
 
 	const Plus = upperValue > 499 ? '+' : null;

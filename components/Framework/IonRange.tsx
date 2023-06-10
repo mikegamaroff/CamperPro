@@ -53,6 +53,7 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 
 	useEffect(() => {
 		if (rangeRef.current) {
+			console.log(rangeRef.current);
 			const ionRangeElement = rangeRef.current.querySelector('ion-range');
 			if (ionRangeElement) {
 				ionRangeElement.value = valueProp;
@@ -67,7 +68,8 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 				max,
 				step,
 				value: valueProp,
-				'dual-knobs': dualKnobs
+				'dual-knobs': dualKnobs,
+				pin: true
 			})}
 		</div>
 	);

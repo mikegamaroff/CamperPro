@@ -1,21 +1,23 @@
 import { Container } from '@components/Container';
-import { IconForwardArrow, IconLogout } from '@components/Icons';
+import { Go } from '@components/Go';
+import { IconForest, IconForwardArrow, IconLogout } from '@components/Icons';
 import MenuItem from '@components/MenuItem';
+import { ProfilePic } from '@components/ProfilePic';
 import { AuthContext } from '@context/authContext';
 import { UserContext } from '@context/userContext';
 import classNames from 'classnames';
 import { useContext } from 'react';
-import withAuth from '../withAuth';
+import withAuth from './withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
-import sharedStyles from '../../styles/shared.module.css';
+import sharedStyles from '../styles/shared.module.css';
 import styles from './menu.module.css';
 function Menu() {
 	const { mode, setMode } = useContext(UserContext);
-	const { logout } = useContext(AuthContext);
-
+	const { logout, user } = useContext(AuthContext);
 	const handleLogout = () => {
 		logout();
 	};
+
 	return (
 		<>
 			<Container>
@@ -36,9 +38,13 @@ function Menu() {
 					</div>
 					<div className="space10" />
 					<div>
-						<MenuItem onClick={handleLogout} label="Logout" icon={<IconLogout />} underline={false} />
+						<Go href="/profile/">
+							<MenuItem label="Upcoming Campouts" icon={<IconForest />} underline={false} />
+						</Go>
 						<hr />
-						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
+						<Go href="/profile/">
+							<MenuItem label="Profile" icon={<ProfilePic user={user} size={24} />} underline={false} />
+						</Go>
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />

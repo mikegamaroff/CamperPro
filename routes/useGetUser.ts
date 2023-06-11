@@ -1,18 +1,18 @@
 import { User } from '@model/user';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-export const useGetUser = (id: string | undefined) => {
-	const [user, setUser] = useState<User>();
+export const useGetUser = () => {
+	const [user, setUser] = useState<User | null>(null);
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>(null);
 	const [isSuccess, setSuccess] = useState(false);
 
-	useEffect(() => {
-		async function fetchUser() {
-			setLoading(true);
-			setError(null);
-			setSuccess(false);
+	const getUser = useCallback(async (id: string) => {
+		setLoading(true);
+		setError(null);
+		setSuccess(false);
 
+		try {
 			const response = await fetch(`/api/users/${id}`, {
 				method: 'GET', // Explicitly specify the method
 				headers: {
@@ -26,15 +26,17 @@ export const useGetUser = (id: string | undefined) => {
 				setUser(data);
 				setLoading(false);
 				setSuccess(true);
+				return data; // Return fetched user data
 			} else {
-				setLoading(false);
-				setError('Failed to fetch users');
-				console.error('Failed to fetch users');
+				throw new Error('Failed to fetch user');
 			}
+		} catch (error) {
+			setLoading(false);
+			setError(error instanceof Error ? error.message : 'Unknown error');
+			console.error(error);
+			return null; // Return null if fetch failed
 		}
+	}, []); // Empty dependency array as `getUser` does not depend on any outer scope variables
 
-		fetchUser();
-	}, [setUser]);
-
-	return { user, isLoading, isError, isSuccess };
+	return { user, isLoading, isError, isSuccess, getUser };
 };

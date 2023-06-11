@@ -1,8 +1,8 @@
+import { AuthContext } from '@context/authContext';
 import { dateSmall } from '@utils/dateTime';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import useModal from '../hooks/useModal';
 import { Review } from '../model/review';
-import { useGetUser } from '../routes/useGetUser';
 import styles from './CampsiteReview.module.css';
 import { ProfilePhoto } from './ProfilePhoto';
 import StarRating from './StarRating';
@@ -12,7 +12,7 @@ interface ReviewProps {
 }
 
 export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
-	const { user, isLoading } = useGetUser(review.author);
+	const { user } = useContext(AuthContext);
 	const textRef = useRef<HTMLDivElement | null>(null);
 	const [isTruncated, setIsTruncated] = useState(false);
 	const [button, setButton] = useState(false);

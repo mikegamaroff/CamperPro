@@ -3,7 +3,7 @@ import React from 'react';
 import { User } from '../model/user';
 
 interface ProfilePhotoProps {
-	user: User | undefined;
+	user?: User;
 	size?: number;
 }
 

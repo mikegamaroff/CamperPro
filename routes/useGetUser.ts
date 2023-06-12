@@ -1,8 +1,8 @@
 import { User } from '@model/user';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export const useGetUser = () => {
-	const [user, setUser] = useState<User | null>(null);
+export const useGetUser = (initialUserId: string | null = null) => {
+	const [user, setUser] = useState<User>();
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>(null);
 	const [isSuccess, setSuccess] = useState(false);
@@ -37,6 +37,12 @@ export const useGetUser = () => {
 			return null; // Return null if fetch failed
 		}
 	}, []); // Empty dependency array as `getUser` does not depend on any outer scope variables
+
+	useEffect(() => {
+		if (initialUserId) {
+			getUser(initialUserId);
+		}
+	}, [initialUserId, getUser]);
 
 	return { user, isLoading, isError, isSuccess, getUser };
 };

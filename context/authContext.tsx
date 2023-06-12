@@ -16,6 +16,7 @@ interface AuthContextInterface {
 	user?: User;
 	login: (email: string, password: string) => Promise<void>;
 	signup: (email: string, password: string) => Promise<void>;
+	setUser: (user: User) => void;
 	logout: () => void;
 }
 
@@ -24,7 +25,8 @@ export const AuthContext = createContext<AuthContextInterface>({
 	authUser: null,
 	login: async () => {},
 	signup: async () => {},
-	logout: () => {}
+	logout: () => {},
+	setUser: () => {}
 });
 
 interface AuthProviderProps {
@@ -48,7 +50,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		status: 'idle',
 		authUser: null
 	});
-
+	const setUser = (user: User) => {
+		setState(prevState => ({ ...prevState, user }));
+	};
 	const fetchUser = async () => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
@@ -128,5 +132,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		localStorage.removeItem('jwtToken');
 		setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 	};
-	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={{ ...state, login, signup, logout, setUser }}>{children}</AuthContext.Provider>;
 };

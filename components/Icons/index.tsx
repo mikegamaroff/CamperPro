@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import Add from '../../assets/icons/AddIcon.component.svg';
 import BackArrow from '../../assets/icons/BackArrowIcon.component.svg';
+import Camera from '../../assets/icons/CameraIcon.component.svg';
 import Check from '../../assets/icons/CheckIcon.component.svg';
 import ChevronForward from '../../assets/icons/ChevronForward.component.svg';
 import Close from '../../assets/icons/CloseIcon.component.svg';
@@ -63,6 +64,7 @@ export const IconWildlife = createIcon(Wildlife, 'Wildlife');
 export const IconRiver = createIcon(River, 'River');
 export const IconPets = createIcon(Pets, 'Pets');
 export const IconSea = createIcon(Sea, 'Sea');
+export const IconCamera = createIcon(Camera, 'Camera');
 export const IconMountain = createIcon(Mountain, 'Mountain');
 export const IconLake = createIcon(Lake, 'Lake');
 export const IconHunting = createIcon(Hunting, 'Hunting');

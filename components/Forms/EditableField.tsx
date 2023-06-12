@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { FormValueType } from '../../hooks/useFormValues';
 import { FormInputParams } from '../../model/form';
 import { IconCheck, IconClose, IconEdit } from '../Icons';
@@ -11,6 +11,7 @@ export function EditableField<T, K extends keyof T>({
 	setValues,
 	id,
 	field,
+	onSave,
 	label,
 	type,
 	onChange,
@@ -20,6 +21,7 @@ export function EditableField<T, K extends keyof T>({
 	const [valueSaved, setValueSaved] = useState(false);
 	const [valueChanged, setvalueChanged] = useState(false);
 	const [intialValue, setInitialValue] = useState(field?.value);
+
 	const inputRef = useRef<HTMLInputElement>(null);
 	const startFieldEdit = () => {
 		setvalueChanged(false);
@@ -31,6 +33,7 @@ export function EditableField<T, K extends keyof T>({
 			setValues({
 				[id as string]: type === 'number' ? Number(intialValue) : intialValue
 			} as FormValueType<T>);
+		!valueSaved && onSave && onSave();
 	};
 	useLayoutEffect(() => {
 		if (inputRef.current) {
@@ -38,6 +41,9 @@ export function EditableField<T, K extends keyof T>({
 		}
 	}, [editing]);
 
+	useEffect(() => {
+		setInitialValue(field?.value);
+	}, [field?.value]);
 	return (
 		<div className={styles.fixedField}>
 			{editing ? (
@@ -54,6 +60,7 @@ export function EditableField<T, K extends keyof T>({
 								setvalueChanged(false);
 								setEditing(false);
 								setInitialValue(field?.value);
+								valueChanged && onSave && onSave();
 							}}
 						>
 							<IconCheck />

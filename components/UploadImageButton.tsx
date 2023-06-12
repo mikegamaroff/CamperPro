@@ -2,8 +2,9 @@ import imageCompression from 'browser-image-compression';
 import { useRef } from 'react';
 import { useImageUpload } from '../routes/useImageUpload';
 import { IconButton } from './Forms/IconButton';
-import { IconEye } from './Icons';
-
+import IonSpinner from './Framework/IonSpinner';
+import { IconCamera } from './Icons';
+import styles from './UploadImageButton.module.css';
 interface UploadButtonProps<T> {
 	documentId: string | undefined;
 	size?: string;
@@ -62,11 +63,13 @@ export const UploadImageButton = <T,>({ documentId, onSuccess, label }: UploadBu
 	return (
 		<>
 			<input type="file" name="imageUpload" ref={inputRef} className="hiddenElement" onChange={uploadHandler} />
-			<IconButton
-				label={label}
-				icon={<span className="iconCircle">{loading ? <>Loading</> : <IconEye />}</span>}
-				onClick={imageHandler}
-			/>
+			<div className={styles.uploadIcon}>
+				<IconButton
+					label={label}
+					icon={<span>{loading ? <IonSpinner className={styles.spinner} /> : <IconCamera />}</span>}
+					onClick={imageHandler}
+				/>
+			</div>
 		</>
 	);
 };

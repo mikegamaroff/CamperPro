@@ -24,7 +24,21 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 	});
 
 	const showToast = (color: string, message: string) => {
-		setToast({ color, message, isVisible: true });
+		// Reset state to initial values
+		setToast({
+			color: '',
+			message: '',
+			isVisible: false
+		});
+
+		// Set new state with a delay, so React doesn't batch the updates together
+		setTimeout(() => {
+			setToast({
+				color,
+				message,
+				isVisible: true
+			});
+		}, 0);
 	};
 
 	useToast(toast.color, toast.message, toast.isVisible);

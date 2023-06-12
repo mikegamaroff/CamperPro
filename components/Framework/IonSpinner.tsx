@@ -6,18 +6,30 @@ interface CustomIonSpinnerProps {
 	paused?: boolean;
 	duration?: number;
 	children?: React.ReactNode;
+	className?: string;
 }
 
-const IonSpinner: React.FC<CustomIonSpinnerProps> = ({ name, color, paused, duration, children }) => {
-	return React.createElement(
-		'ion-spinner',
-		{
-			name,
-			color,
-			paused,
-			duration
-		},
-		children
+const IonSpinner: React.FC<CustomIonSpinnerProps> = ({
+	name,
+	color = 'tertiary',
+	paused,
+	duration,
+	children,
+	className
+}) => {
+	return (
+		<div className={className}>
+			{React.createElement(
+				'ion-spinner',
+				{
+					name,
+					color,
+					paused,
+					duration
+				},
+				children
+			)}
+		</div>
 	);
 };
 

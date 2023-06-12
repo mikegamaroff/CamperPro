@@ -1,4 +1,6 @@
 // eslint-disable-next-line camelcase
+import { User } from '@model/user';
+import { useGetUser } from '@routes/useGetUser';
 import jwtDecode from 'jwt-decode';
 import React, { ReactNode, createContext, useEffect, useState } from 'react';
 import { hashPassword } from '../util/hashPassword';
@@ -11,8 +13,10 @@ interface UserType {
 interface AuthContextInterface {
 	status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
 	authUser: UserType | null;
+	user?: User;
 	login: (email: string, password: string) => Promise<void>;
 	signup: (email: string, password: string) => Promise<void>;
+	setUser: (user: User) => void;
 	logout: () => void;
 }
 
@@ -21,7 +25,8 @@ export const AuthContext = createContext<AuthContextInterface>({
 	authUser: null,
 	login: async () => {},
 	signup: async () => {},
-	logout: () => {}
+	logout: () => {},
+	setUser: () => {}
 });
 
 interface AuthProviderProps {
@@ -36,22 +41,35 @@ interface DecodedToken {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+	const { getUser } = useGetUser();
 	const [state, setState] = useState<{
 		status: 'idle' | 'authenticating' | 'authenticated' | 'invalidated' | 'unauthenticated';
 		authUser: UserType | null;
+		user?: User;
 	}>({
 		status: 'idle',
 		authUser: null
 	});
-
-	useEffect(() => {
+	const setUser = (user: User) => {
+		setState(prevState => ({ ...prevState, user }));
+	};
+	const fetchUser = async () => {
 		const token = localStorage.getItem('jwtToken');
 		if (token) {
 			const decoded = jwtDecode<DecodedToken>(token);
-			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
+			const user: User = await getUser(decoded.id);
+			if (user) {
+				setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded, user }));
+			} else {
+				setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
+			}
 		} else {
 			setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 		}
+	};
+
+	useEffect(() => {
+		fetchUser();
 	}, []);
 
 	const login = async (email: string, password: string) => {
@@ -60,8 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const response = await fetch('/api/auth?action=login', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ email, password })
 			});
@@ -72,6 +89,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			localStorage.setItem('jwtToken', token);
 			const decoded = jwtDecode<DecodedToken>(token);
 			setState(prevState => ({ ...prevState, status: 'authenticated', authUser: decoded }));
+
+			// Fetch user data
+			fetchUser();
 		} catch (err) {
 			// eslint-disable-next-line no-console
 			console.error(err);
@@ -86,8 +106,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const response = await fetch('/api/auth?action=signup', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({ email, password: hashedPassword })
 			});
@@ -97,6 +116,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			}
 
 			await login(email, password);
+
+			// Fetch user data
+			fetchUser();
 		} catch (err) {
 			// eslint-disable-next-line no-console
 			console.error(err);
@@ -110,5 +132,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		localStorage.removeItem('jwtToken');
 		setState(prevState => ({ ...prevState, status: 'unauthenticated', authUser: null }));
 	};
-	return <AuthContext.Provider value={{ ...state, login, signup, logout }}>{children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={{ ...state, login, signup, logout, setUser }}>{children}</AuthContext.Provider>;
 };

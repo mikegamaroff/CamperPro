@@ -14,10 +14,10 @@ export const useFetchUsers = () => {
 			setSuccess(false);
 
 			const response = await fetch('/api/users', {
-				method: 'GET', // Explicitly specify the method
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
 				}
 			});
 

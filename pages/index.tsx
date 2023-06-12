@@ -20,7 +20,7 @@ import withAuth from './withAuth';
 function Home() {
 	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
-	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
+	const { user } = useContext(AuthContext);
 	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
 	const handleFilterSelect = (id: FilterIDType) => {
@@ -34,7 +34,7 @@ function Home() {
 			...EmptyNewCampsite,
 			_id: 'campsite:' + newId,
 			title: 'Example Campsite',
-			author: authUser?.id
+			author: user?._id
 			// Add other campsite properties
 		};
 

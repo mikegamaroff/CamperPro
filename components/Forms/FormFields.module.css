@@ -118,6 +118,9 @@
 .labelTitle {
 	font-size: 13px;
 }
+.fieldHolder {
+	position: relative;
+}
 .fixedFieldContainer {
 	display: flex;
 	justify-content: space-between;

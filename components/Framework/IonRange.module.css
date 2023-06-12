@@ -14,6 +14,7 @@
 	border-radius: 50%;
 	transform: translate(-50%, -50%);
 	-webkit-appearance: none;
+	appearance: none;
 	background-color: #ffffff;
 	border: 2px solid #d6d6d6;
 	outline: none;

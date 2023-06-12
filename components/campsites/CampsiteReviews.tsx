@@ -22,7 +22,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	const { isLoading } = useGetReviewsByCampsite(campsite._id);
 	const { addReview, isLoading: addCampsiteLoading, isError, isSuccess } = useAddReview();
 	const { reviews, setReviews } = useContext(ReviewContext);
-	const { authUser } = useContext(AuthContext); // Access user and status from the AuthContext
+	const { user } = useContext(AuthContext);
 	const { updateCampsite } = useContext(CampsiteContext);
 
 	const handleAddReview = async () => {
@@ -34,7 +34,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 			rating: 1,
 			title: 'Test Review',
 			review: 'Here is my nice review that should be read',
-			author: authUser?.id as string
+			author: user?._id as string
 		};
 
 		try {

@@ -1,0 +1,18 @@
+.uploadIcon {
+	background: var(--neutral-transparent150);
+	border: 1px solid var(--neutral50);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	width: 50px;
+}
+.uploadIcon svg {
+	color: var(--neutral900);
+}
+.spinner * {
+	color: var(--neutral900);
+	transform: translateY(2px);
+}

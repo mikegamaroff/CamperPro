@@ -1,13 +1,9 @@
 import { AuthContext } from '@context/authContext';
 import { UserContext } from '@context/userContext';
+import { AddUserResponse } from '@model/model';
 import { User } from '@model/user';
 import { hashPassword } from '@utils/hashPassword';
 import { useContext, useState } from 'react';
-
-interface AddUserResponse {
-	success: boolean;
-	message: string;
-}
 
 export const useAddUser = () => {
 	const { users, setUsers } = useContext(UserContext);

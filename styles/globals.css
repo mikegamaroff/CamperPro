@@ -143,14 +143,16 @@ a:hover {
 	width: 100%;
 }
 .iconCircle {
-	background: var(--neutral50);
-	border-radius: 100%;
 	width: 29px;
 	height: 29px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transition: var(--transition-default);
+	background: var(--secondary);
+	border-radius: 100%;
+	color: var(--neutral10);
+	padding: 7px;
 }
 
 .blackIcon {
@@ -439,12 +441,6 @@ ion-menu {
 	color: var(--ion-color-danger);
 }
 
-.iconCircle {
-	background: var(--secondary);
-	border-radius: 100%;
-	color: var(--neutral10);
-	padding: 7px;
-}
 .datetime-picker-container {
 	position: fixed;
 	top: 0;

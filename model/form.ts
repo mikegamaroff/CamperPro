@@ -5,6 +5,7 @@ export type FormInputParams<T, K extends keyof T> = T[K] extends string | number
 			setValues: (value: FormValueType<T>) => void;
 			id: K;
 			onPaste?: (e: any) => any;
+			onSave?: () => void;
 			field?: FieldValuesType<T[K]>;
 			label: string;
 			nogap?: boolean;

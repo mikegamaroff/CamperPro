@@ -25,3 +25,7 @@ export interface ImageType {
 export interface DocumentWithImages extends Document {
 	images?: Array<ImageType>;
 }
+export interface AddUserResponse {
+	success: boolean;
+	message: string;
+}

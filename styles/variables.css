@@ -121,27 +121,35 @@ http://ionicframework.com/docs/theming/ */
 
 	/* NEUTRAL */
 	--neutral900: #33312e;
+	--neutral-transparent900: rgba(253, 253, 253, 0.2);
 	--neutral900-rgb: rgb(51, 49, 46);
 
 	--neutral700: #5b5a57;
+	--neutral-transparent700: rgba(253, 253, 253, 0.3);
 	--neutral700-rgb: rgb(91, 90, 87);
 
 	--neutral500: #848381;
+	--neutral-transparent500: rgba(253, 253, 253, 0.4);
 	--neutral500-rgb: rgb(132, 131, 129);
 
 	--neutral300: #adacab;
+	--neutral-transparent300: rgba(253, 253, 253, 0.5);
 	--neutral300-rgb: rgb(173, 172, 171);
 
 	--neutral150: #d6d6d6;
+	--neutral-transparent150: rgba(253, 253, 253, 0.6);
 	--neutral150-rgb: rgb(214, 214, 214);
 
 	--neutral50: #eaeaea;
+	--neutral-transparent50: rgba(253, 253, 253, 0.7);
 	--neutral50-rgb: rgb(234, 234, 234);
 
 	--neutral10: #f4f4f4;
+	--neutral-transparent10: rgba(253, 253, 253, 0.8);
 	--neutral10-rgb: rgb(244, 244, 244);
 
 	--neutral: #fdfdfd;
+	--neutral-transparent: rgba(253, 253, 253, 0.9);
 	--neutral-rgb: rgb(253, 253, 253);
 
 	/* GENERALS */
@@ -290,27 +298,35 @@ http://ionicframework.com/docs/theming/ */
 
 		/* NEUTRAL */
 		--neutral900: #fdfdfd;
+		--neutral-transparent900: rgba(51, 49, 46, 0.2);
 		--neutral900-rgb: rgb(253, 253, 253);
 
 		--neutral700: #f4f4f4;
+		--neutral-transparent700: rgba(51, 49, 46, 0.3);
 		--neutral700-rgb: rgb(244, 244, 244);
 
 		--neutral500: #eaeaea;
+		--neutral-transparent500: rgba(51, 49, 46, 0.4);
 		--neutral500-rgb: rgb(234, 234, 234);
 
 		--neutral300: #adadad;
+		--neutral-transparent300: rgba(51, 49, 46, 0.5);
 		--neutral300-rgb: rgb(214, 214, 214);
 
 		--neutral150: #7b7b7b;
+		--neutral-transparent150: rgba(51, 49, 46, 0.6);
 		--neutral150-rgb: rgb(173, 172, 171);
 
 		--neutral50: #5b5b5b;
+		--neutral-transparent50: rgba(51, 49, 46, 0.7);
 		--neutral50-rgb: rgb(132, 131, 129);
 
 		--neutral10: #292929;
+		--neutral-transparent10: rgba(51, 49, 46, 0.8);
 		--neutral10-rgb: rgb(91, 90, 87);
 
 		--neutral: #151514;
+		--neutral-transparent: rgba(51, 49, 46, 0.9);
 		--neutral-rgb: rgb(51, 49, 46);
 
 		/* GENERALS */

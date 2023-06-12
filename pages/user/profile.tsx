@@ -13,9 +13,9 @@ import { useUpdateUser } from '@routes/useUpdateUser';
 import { UserEditRules } from 'formConfigs/editUserFieldsConfig';
 import { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import withAuth from './withAuth';
+import withAuth from '../withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
-import formStyles from '../components/Forms/FormFields.module.css';
+import formStyles from '../../components/Forms/FormFields.module.css';
 import styles from './Profile.module.css';
 function Profile() {
 	const { user, setUser } = useContext(AuthContext);

@@ -1,12 +1,17 @@
 import { Container } from '@components/Container';
+import { IconButton } from '@components/Forms/IconButton';
 import { Go } from '@components/Go';
-import { IconForest, IconForwardArrow, IconLogout } from '@components/Icons';
+import { IconAdd, IconForest, IconForwardArrow, IconLogout } from '@components/Icons';
 import MenuItem from '@components/MenuItem';
 import { ProfilePic } from '@components/ProfilePic';
 import { AuthContext } from '@context/authContext';
 import { UserContext } from '@context/userContext';
+import { EmptyNewCampsite } from '@model/campsite';
+import { useAddCampsite } from '@routes/useAddCampsite';
+import { GoTo } from '@utils/GoTo';
 import classNames from 'classnames';
 import { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import withAuth from './withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
 import sharedStyles from '../styles/shared.module.css';
@@ -14,17 +19,42 @@ import styles from './menu.module.css';
 function Menu() {
 	const { mode, setMode } = useContext(UserContext);
 	const { logout, user } = useContext(AuthContext);
+	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
+
 	const handleLogout = () => {
 		logout();
 	};
+	const handleAddCampsite = async () => {
+		const newId = uuidv4(); // replace this with your ID generation logic
+		const newCampsite = {
+			...EmptyNewCampsite,
+			_id: 'campsite:' + newId,
+			title: 'Example Campsite',
+			author: user?._id
+			// Add other campsite properties
+		};
 
+		try {
+			const response = await addCampsite(newCampsite);
+			if (response.success) {
+				GoTo(`/CampsiteEdit/${newCampsite._id}`);
+			} else {
+				console.error('Error adding campsite:', response.message);
+			}
+		} catch (error) {
+			console.error('Error adding campsite:', error instanceof Error ? error.message : 'Unknown error');
+		}
+	};
 	return (
 		<>
 			<Container>
 				<div className={styles.menuContainer}>
 					<h1 className="bold">Menu</h1>
 					<div className={styles.modeView}>
-						<div className="subtitle">{mode === 'Host' ? 'Hosting' : 'Camper'}</div>
+						<div className={styles.modeTitle}>
+							<div className="subtitle">{mode === 'Host' ? 'Hosting' : 'Camper'}</div>
+							<IconButton onClick={handleAddCampsite} icon={<IconAdd />} label="Add Campsite" />
+						</div>
 						<div className="space10" />
 						<div
 							className={classNames('card', sharedStyles.iconItem)}
@@ -38,12 +68,25 @@ function Menu() {
 					</div>
 					<div className="space10" />
 					<div>
+						{mode === 'Host' && user && user?.campsites?.length > 0 && (
+							<>
+								<Go href="user/mycampsites/">
+									<MenuItem label="My Campsites" icon={<IconForest />} underline={false} />
+								</Go>
+								<hr />
+							</>
+						)}
+						{mode === 'Camper' && user && (
+							<>
+								<Go href="user/profile/">
+									<MenuItem label="Upcoming Campouts" icon={<IconForest />} underline={false} />
+								</Go>
+								<hr />
+							</>
+						)}
+
 						<Go href="/profile/">
-							<MenuItem label="Upcoming Campouts" icon={<IconForest />} underline={false} />
-						</Go>
-						<hr />
-						<Go href="/profile/">
-							<MenuItem label="Profile" icon={<ProfilePic user={user} size={24} />} underline={false} />
+							<MenuItem label="Profile" icon={<ProfilePic user={user} size={24} />} />
 						</Go>
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />

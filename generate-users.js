@@ -21,6 +21,7 @@ for (let i = 0; i < 10; i++) {
 		email,
 		password: '11111',
 		phone_number: '123-456-7890',
+		campsites: [],
 		created_at: new Date().toISOString(),
 		updated_at: new Date().toISOString(),
 		username: ''

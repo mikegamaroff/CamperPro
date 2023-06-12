@@ -1,16 +1,17 @@
 // hooks/useAddCampsite.ts
+import { AuthContext } from '@context/authContext';
 import { Campsite } from '@model/campsite';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 interface AddCampsiteResponse {
 	success: boolean;
 	message: string;
 }
-
 export const useAddCampsite = () => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
+	const { setUser } = useContext(AuthContext);
 	const addCampsite = async (campsite: Campsite): Promise<AddCampsiteResponse> => {
 		setLoading(true);
 		setError(null);
@@ -22,13 +23,14 @@ export const useAddCampsite = () => {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
-				body: JSON.stringify(campsite)
+				body: JSON.stringify({ campsite })
 			});
 
 			if (response.ok) {
 				const data = await response.json();
 				setLoading(false);
 				setSuccess(true);
+				setUser(data.user);
 				return { success: true, message: data.message };
 			} else {
 				const errorData = await response.json();

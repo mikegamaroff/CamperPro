@@ -40,7 +40,8 @@ const EmptyNewCampsite = {
 	updated_at: new Date().toISOString(),
 	private: false,
 	active: true,
-	reviewsCount: 0
+	reviewsCount: 0,
+	draftStage: 0
 };
 
 // Function to generate a random US ZIP code

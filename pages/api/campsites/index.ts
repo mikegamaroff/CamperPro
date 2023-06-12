@@ -1,29 +1,41 @@
 // pages/api/campsites.ts
 import { Campsite } from '@model/campsite';
+import { User } from '@model/user';
 import authenticateJWT from '@utils/authenticateJSW';
 import { buildMangoQuery } from '@utils/buildFilterQuery';
 import createDbInstance from '@utils/camperprodb';
 import handleAuthError from '@utils/handleAuthError';
 import { isCouchDbError } from '@utils/isCouchDbError';
-import { DocumentResponseRow } from 'nano';
+import { DocumentResponseRow, DocumentScope } from 'nano';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
+async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string; user?: User }>) {
 	const db = createDbInstance();
-	const newCampsite: Campsite = req.body;
+	const { campsite } = req.body;
 
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 	try {
-		const response = await db.insert(newCampsite);
+		const response = await db.insert(campsite);
 		console.log('Added campsite:', response);
 		if (isCouchDbError(response)) {
 			console.error('CouchDB error:', response);
 			res.status(500).json({ message: 'Internal server error' });
 		} else {
-			res.status(201).json({ message: `Campsite added with ID: ${response.id}` });
+			const campsiteId = response.id;
+			const user = (await db.get(campsite.author)) as User; // Cast here
+			if (!user.campsites) {
+				user.campsites = [];
+			}
+			user.campsites.push(campsiteId);
+			// Use a shared updateUserDocument function here
+			const updateUserResponse = await updateUserDocument(db, user);
+			if (updateUserResponse.error) {
+				throw new Error(updateUserResponse.message);
+			}
+			res.status(201).json({ message: `Campsite added with ID: ${campsiteId}`, user });
 		}
 	} catch (error) {
 		console.error('Unhandled error:', error);
@@ -31,6 +43,55 @@ async function addCampsite(req: NextApiRequest, res: NextApiResponse<{ message: 
 	}
 }
 
+async function getCampsitesByAuthor(req: NextApiRequest, res: NextApiResponse<{ campsites: Campsite[] }>) {
+	const db = createDbInstance();
+	const authorId = req.query.author as string;
+
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+	try {
+		const viewResponse = await db.view('campsite-view', 'all-campsites-by-author', {
+			startkey: authorId,
+			endkey: `${authorId}\ufff0`,
+			descending: false,
+			limit: 50
+		});
+
+		if (isCouchDbError(viewResponse)) {
+			console.error('CouchDB error:', viewResponse);
+			res.status(500).json({ campsites: [] });
+			return;
+		}
+
+		// Extract the actual campsite objects from the docs
+		const campsites: Campsite[] = viewResponse.rows
+			.filter(row => 'value' in row) // filter out DocumentLookupFailure
+			.map(row => row.value as Partial<Campsite>) // Cast row.value as Partial<Campsite>
+			.filter((doc): doc is Campsite => doc !== null); // Filter out any null docs
+
+		res.status(200).json({ campsites });
+	} catch (error) {
+		console.error('Unhandled error:', error);
+		res.status(500).json({ campsites: [] });
+	}
+}
+
+export async function updateUserDocument(db: DocumentScope<unknown>, user: User) {
+	try {
+		const response = await db.insert(user);
+		if (isCouchDbError(response)) {
+			console.error('CouchDB error:', response);
+			return { error: true, message: 'Internal server error' };
+		} else {
+			return { error: false, message: `User updated with ID: ${response.id}`, user };
+		}
+	} catch (error) {
+		console.error('Unhandled error:', error);
+		return { error: true, message: 'Internal server error' };
+	}
+}
 async function getCampsitesWithFilters(req: NextApiRequest, res: NextApiResponse<{ campsites: Campsite[] }>) {
 	const db = createDbInstance();
 	const view = (req.query.view || 'non-draft-campsites') as string;
@@ -108,7 +169,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			if (req.method === 'POST') {
 				await addCampsite(req, res);
 			} else if (req.method === 'GET') {
-				await getCampsitesWithFilters(req, res);
+				if (req.query.view === 'all-campsites-by-author') {
+					await getCampsitesByAuthor(req, res);
+				} else {
+					await getCampsitesWithFilters(req, res);
+				}
 			} else {
 				res.setHeader('Allow', ['GET', 'POST', 'PUT']);
 				res.status(405).end(`Method ${req.method} Not Allowed`);
@@ -121,5 +186,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 		handleAuthError(err, res);
 	}
 }
-
 export default handler;

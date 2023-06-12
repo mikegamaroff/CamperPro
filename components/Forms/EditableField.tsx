@@ -33,7 +33,7 @@ export function EditableField<T, K extends keyof T>({
 			setValues({
 				[id as string]: type === 'number' ? Number(intialValue) : intialValue
 			} as FormValueType<T>);
-		!valueSaved && onSave && onSave();
+		!valueSaved && valueChanged && onSave && onSave();
 	};
 	useLayoutEffect(() => {
 		if (inputRef.current) {
@@ -54,8 +54,7 @@ export function EditableField<T, K extends keyof T>({
 						</div>
 						<div
 							className={classNames(styles.editableControl, styles.save)}
-							onMouseDown={e => {
-								valueChanged && onChange && onChange(e);
+							onMouseDown={() => {
 								setValueSaved(true);
 								setvalueChanged(false);
 								setEditing(false);

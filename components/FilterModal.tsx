@@ -1,6 +1,6 @@
 import { CampsiteFilter } from '@model/campsite';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styles from './FilterModal.module.css';
 import Checkbox from './Forms/Checkbox';
 import IonRange from './Framework/IonRange';
@@ -34,11 +34,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 		setSelectedFilter(updatedFilters);
 	};
 
-	const handleIsPrivate = (privateValue: boolean) => {
+	const handleIsPrivate = (event: ChangeEvent<HTMLInputElement>) => {
+		const privateValue = event.target.id === 'private';
 		setIsPrivate(privateValue);
-		console.log(isPrivate);
 	};
-
 	const Test = (e: any) => {
 		console.log(e);
 	};
@@ -79,14 +78,14 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 						<div>Private</div>
 						<div className="caption">Just you and your main crew</div>
 					</div>
-					<Checkbox checked={isPrivate} onIonChange={() => handleIsPrivate(true)} />
+					<Checkbox id="private" checked={isPrivate} onIonChange={handleIsPrivate} />
 				</div>
 				<div className={styles.option}>
 					<div className={styles.text}>
 						<div>Shared</div>
 						<div className="caption">Other campers might be nearby</div>
 					</div>
-					<Checkbox checked={!isPrivate} onIonChange={() => handleIsPrivate(false)} />
+					<Checkbox id="shared" checked={!isPrivate} onIonChange={handleIsPrivate} />
 				</div>
 			</div>
 			<div>

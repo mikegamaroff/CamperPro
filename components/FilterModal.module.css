@@ -49,8 +49,3 @@
 	justify-content: center;
 	align-items: center;
 }
-.anyButton {
-	padding: 4px 17px;
-	border-radius: 100px;
-	border: 1px solid var(--neutral300);
-}

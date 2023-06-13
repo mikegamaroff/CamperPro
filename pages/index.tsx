@@ -1,19 +1,16 @@
 import { Container } from '@components/Container';
 import { FilterBar } from '@components/FIlterBar';
-import { Fab } from '@components/Fab';
 import { FeedCampsite } from '@components/FeedCampsite';
 import { FeedSearchButton } from '@components/FeedSearchButton';
 import { Header } from '@components/Header';
 import { MenuButton } from '@components/MenuButton';
 import { AuthContext } from '@context/authContext';
-import { Attributes, CampsiteFilter, EmptyNewCampsite, FilterIDType } from '@model/campsite';
-import { useAddCampsite } from '@routes/useAddCampsite';
+import { Attributes, CampsiteFilter, FilterIDType } from '@model/campsite';
 import { useGetAllCampsites } from '@routes/useGetAllCampsites';
-import { GoTo } from '@utils/GoTo';
 import { selectFeedFilter } from '@utils/selectFeedFilter';
 import { useContext, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { v4 as uuidv4 } from 'uuid';
+
 import styles from './index.module.css';
 import withAuth from './withAuth';
 
@@ -21,33 +18,10 @@ function Home() {
 	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 	const { user } = useContext(AuthContext);
-	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
 
 	const handleFilterSelect = (id: FilterIDType) => {
 		const updatedAttributes: Attributes | undefined = selectFeedFilter(selectedFilter.attributes, id);
 		setSelectedFilter({ ...selectedFilter, attributes: updatedAttributes });
-	};
-	console.log(selectedFilter);
-	const handleAddCampsite = async () => {
-		const newId = uuidv4(); // replace this with your ID generation logic
-		const newCampsite = {
-			...EmptyNewCampsite,
-			_id: 'campsite:' + newId,
-			title: 'Example Campsite',
-			author: user?._id
-			// Add other campsite properties
-		};
-
-		try {
-			const response = await addCampsite(newCampsite);
-			if (response.success) {
-				GoTo(`/CampsiteEdit/${newCampsite._id}`);
-			} else {
-				console.error('Error adding campsite:', response.message);
-			}
-		} catch (error) {
-			console.error('Error adding campsite:', error instanceof Error ? error.message : 'Unknown error');
-		}
 	};
 	return (
 		<>
@@ -74,7 +48,6 @@ function Home() {
 							</div>
 						</div>
 					</div>
-					<Fab onClick={handleAddCampsite} />
 				</>
 			</Container>
 		</>

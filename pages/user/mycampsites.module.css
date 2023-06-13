@@ -1,0 +1,10 @@
+.myCampsiteContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+.addCampsiteButton {
+	display: flex;
+	justify-content: flex-end;
+	padding: 20px;
+}

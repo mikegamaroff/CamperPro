@@ -18,6 +18,7 @@ import Menu from '../../assets/icons/MenuIcon.component.svg';
 import Note from '../../assets/icons/NoteIcon.component.svg';
 import Search from '../../assets/icons/SearchIcon.component.svg';
 import Star from '../../assets/icons/StarIcon.component.svg';
+import Trash from '../../assets/icons/TrashIcon.component.svg';
 import Trips from '../../assets/icons/TripsIcon.component.svg';
 import TripsSolid from '../../assets/icons/TripsSolidIcon.component.svg';
 import Profile from '../../assets/icons/UserIcon.component.svg';
@@ -56,7 +57,7 @@ const createIcon = (SvgComponent: React.ComponentType<React.SVGProps<SVGSVGEleme
 	IconComponent.displayName = key;
 	return IconComponent;
 };
-
+export const IconTrash = createIcon(Trash, 'Trash');
 export const IconEye = createIcon(Eye, 'Eye');
 export const IconEyeOff = createIcon(EyeOff, 'EyeOff');
 export const IconCellsignal = createIcon(Cellsignal, 'Cellsignal');

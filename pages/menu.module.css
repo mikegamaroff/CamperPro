@@ -5,3 +5,9 @@
 .modeView {
 	margin-top: 40px;
 }
+.modeTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
+}

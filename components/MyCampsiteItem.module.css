@@ -1,0 +1,56 @@
+.MyCampsiteItemContainer {
+	box-shadow: var(--shadow-default);
+	border-radius: 10px;
+	display: grid;
+	grid-template-columns: 100px auto 50px;
+}
+.myCampsitePhoto {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+.myCampsitePhoto img {
+	border-radius: 10px;
+}
+.myCampsiteContent {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+	gap: 4px;
+}
+.myCampsiteTitle,
+.myCampsiteDescriotion {
+	max-width: 50vw;
+	text-align: left;
+	overflow: hidden;
+	display: inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.myCampsiteAddress {
+}
+.myCampsiteDescriotion {
+}
+.myCampsiteControls {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 50px;
+}
+
+.myCampsiteControl {
+	border-bottom: 0.5px solid var(--neutral150);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+}
+.myCampsiteControl * {
+	border-radius: unset;
+	overflow: unset !important;
+	padding: unset;
+}

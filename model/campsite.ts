@@ -39,6 +39,7 @@ export interface Campsite extends DocumentWithImages {
 	title?: string;
 	description?: string;
 	draft?: boolean;
+	draftStage?: number;
 	rating?: number | null;
 	reviewsCount?: number | null;
 	location?: CampLocation;
@@ -93,6 +94,7 @@ export const EmptyNewCampsite: Campsite = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	draft: true,
+	draftStage: 0,
 	description: '',
 	pricePerNight: 0,
 	receptionCheckin: false,

@@ -9,6 +9,7 @@ export interface User extends DocumentWithImages {
 	phone_number: string;
 	verified: boolean;
 	suspended: boolean;
+	campsites: string[];
 }
 export const EmptyNewUser: User = {
 	_id: `user:${uuidv4()}`,
@@ -23,7 +24,8 @@ export const EmptyNewUser: User = {
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),
 	verified: true,
-	suspended: false
+	suspended: false,
+	campsites: []
 };
 export type ModeType = 'Camper' | 'Host';
 

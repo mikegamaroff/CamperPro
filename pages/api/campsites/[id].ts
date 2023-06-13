@@ -1,10 +1,12 @@
 import { Campsite } from '@model/campsite';
 import { Review } from '@model/review';
+import { User } from '@model/user';
 import authenticateJWT from '@utils/authenticateJSW';
 import { createDbInstance } from '@utils/camperprodbWrapper';
 import handleAuthError from '@utils/handleAuthError';
 import { isCouchDbError } from '@utils/isCouchDbError';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { updateUserDocument } from '.';
 async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ campsite: Campsite | null }>) {
 	try {
 		await authenticateJWT(req);
@@ -45,10 +47,6 @@ async function updateCampsite(
 		res.status(500).json({ message: 'Not a review document', campsite: null });
 	}
 
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'PUT');
-	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 	try {
 		const response = await db.insert(updatedCampsite);
 		console.log('Updated campsite:', response);
@@ -68,7 +66,6 @@ async function updateCampsite(
 async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance() as ReturnType<typeof createDbInstance>;
 	const id = req.query.id as string;
-
 	// Check if the id starts with 'campsite'
 	if (!id.startsWith('campsite')) {
 		res.status(500).json({ message: 'Not a campsite document' });
@@ -96,12 +93,28 @@ async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ messag
 			console.error('CouchDB error:', campsiteResponse);
 			res.status(500).json({ message: 'Internal server error' });
 		} else {
+			const campsite = campsiteResponse as Campsite; // Cast the response as Campsite
+
+			// Fetch the user who is the author of the campsite
+			if (campsite.author) {
+				const user = (await db.get(campsite.author)) as User; // Cast here
+				const index = user.campsites.indexOf(campsite._id as string);
+
+				if (index > -1) {
+					user.campsites.splice(index, 1);
+					// Update the user document
+					const updateUserResponse = await updateUserDocument(db, user);
+					if (updateUserResponse.error) {
+						throw new Error(updateUserResponse.message);
+					}
+				}
+			}
 			const deleteCampsiteResult = await db.destroy(campsiteResponse._id, campsiteResponse._rev);
 			console.log('Deleted campsite:', deleteCampsiteResult);
 			res.status(200).json({ message: `Campsite and associated reviews deleted with ID: ${id}` });
 		}
 	} catch (error) {
-		console.error('Unhandled error:', error);
+		console.error('Error in [descriptive location]:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 }
@@ -110,7 +123,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	try {
 		await authenticateJWT(req);
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.setHeader('Access-Control-Allow-Methods', 'GET');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE');
 		res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 		try {
@@ -121,7 +134,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			} else if (req.method === 'DELETE') {
 				await deleteCampsite(req, res);
 			} else {
-				res.setHeader('Allow', ['GET']);
+				res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
 				res.status(405).end(`Method ${req.method} Not Allowed`);
 			}
 		} catch (error) {

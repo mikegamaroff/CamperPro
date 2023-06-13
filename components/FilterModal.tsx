@@ -15,7 +15,8 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 	const [lowerValue, setLowerValue] = useState(selectedFilter.priceRange?.[0] || sliderDefaults[0]);
 	const [upperValue, setUpperValue] = useState(selectedFilter.priceRange?.[1] || sliderDefaults[1]);
 	const [filters, setFilters] = useState<CampsiteFilter>(selectedFilter);
-	const [selectedButton, setSelectedButton] = useState(0);
+	const [selectedButton, setSelectedButton] = useState(selectedFilter.numberOfTentSites || 0);
+	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		const updatedFilters = { ...filters, priceRange: [event.detail.value.lower, event.detail.value.upper] };
@@ -25,14 +26,26 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 		setSelectedFilter(updatedFilters); // main state
 	};
 
-	const Plus = upperValue > 499 ? '+' : null;
-
-	const handleButtonClick = (index: number) => {
-		setSelectedButton(index);
-		console.log(index);
+	const handleButtonClick = (buttonNumber: number) => {
+		const newNumber = buttonNumber === 0 ? undefined : buttonNumber;
+		const updatedFilters = { ...filters, numberOfTentSites: newNumber };
+		setSelectedButton(buttonNumber);
+		setFilters(updatedFilters);
+		setSelectedFilter(updatedFilters);
 	};
 
-	const buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'];
+	const handleIsPrivate = (privateValue: boolean) => {
+		setIsPrivate(privateValue);
+		console.log(isPrivate);
+	};
+
+	const Test = (e: any) => {
+		console.log(e);
+	};
+
+	const Plus = upperValue > 499 ? '+' : null;
+
+	const buttons = ['Any', 1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'];
 
 	return (
 		<div className={styles.container}>
@@ -66,14 +79,14 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 						<div>Private</div>
 						<div className="caption">Just you and your main crew</div>
 					</div>
-					<Checkbox />
+					<Checkbox checked={isPrivate} onIonChange={() => handleIsPrivate(true)} />
 				</div>
 				<div className={styles.option}>
 					<div className={styles.text}>
 						<div>Shared</div>
 						<div className="caption">Other campers might be nearby</div>
 					</div>
-					<Checkbox />
+					<Checkbox checked={!isPrivate} onIonChange={() => handleIsPrivate(false)} />
 				</div>
 			</div>
 			<div>
@@ -84,30 +97,22 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 				<div className={styles.text}>
 					<div className={styles.textPadding}>Number of tent sites</div>
 					<div className={styles.buttons}>
-						<div
-							onClick={() => handleButtonClick(0)}
-							className={styles.anyButton}
-							style={{
-								backgroundColor: selectedButton === 0 ? 'var(--foreground)' : 'var(--background)',
-								color: selectedButton === 0 ? 'var(--background)' : 'var(--foreground)'
-							}}
-						>
-							Any
-						</div>
-						{buttons.map((buttonText, index) => (
-							<div
-								key={index}
-								onClick={() => handleButtonClick(index + 1)}
-								className={styles.button}
-								style={{
-									backgroundColor:
-										selectedButton === index + 1 ? 'var(--foreground)' : 'var(--background)',
-									color: selectedButton === index + 1 ? 'var(--background)' : 'var(--foreground)'
-								}}
-							>
-								<div className={styles.buttonText}>{buttonText}</div>
-							</div>
-						))}
+						{buttons.map((buttonText, index) => {
+							return (
+								<div
+									key={index}
+									onClick={() => handleButtonClick(index)}
+									className={styles.pillButton}
+									style={{
+										backgroundColor:
+											selectedButton === index ? 'var(--foreground)' : 'var(--background)',
+										color: selectedButton === index ? 'var(--background)' : 'var(--foreground)'
+									}}
+								>
+									<div className={styles.buttonText}>{buttonText}</div>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 			</div>

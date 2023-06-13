@@ -38,9 +38,6 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 		const privateValue = event.target.id === 'private';
 		setIsPrivate(privateValue);
 	};
-	const Test = (e: any) => {
-		console.log(e);
-	};
 
 	const Plus = upperValue > 499 ? '+' : null;
 

@@ -47,10 +47,6 @@ async function updateCampsite(
 		res.status(500).json({ message: 'Not a review document', campsite: null });
 	}
 
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'PUT');
-	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 	try {
 		const response = await db.insert(updatedCampsite);
 		console.log('Updated campsite:', response);
@@ -70,7 +66,6 @@ async function updateCampsite(
 async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ message: string }>) {
 	const db = createDbInstance() as ReturnType<typeof createDbInstance>;
 	const id = req.query.id as string;
-
 	// Check if the id starts with 'campsite'
 	if (!id.startsWith('campsite')) {
 		res.status(500).json({ message: 'Not a campsite document' });
@@ -119,7 +114,7 @@ async function deleteCampsite(req: NextApiRequest, res: NextApiResponse<{ messag
 			res.status(200).json({ message: `Campsite and associated reviews deleted with ID: ${id}` });
 		}
 	} catch (error) {
-		console.error('Unhandled error:', error);
+		console.error('Error in [descriptive location]:', error);
 		res.status(500).json({ message: 'Internal server error' });
 	}
 }
@@ -128,7 +123,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	try {
 		await authenticateJWT(req);
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.setHeader('Access-Control-Allow-Methods', 'GET');
+		res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE');
 		res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
 		try {
@@ -139,7 +134,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			} else if (req.method === 'DELETE') {
 				await deleteCampsite(req, res);
 			} else {
-				res.setHeader('Allow', ['GET']);
+				res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
 				res.status(405).end(`Method ${req.method} Not Allowed`);
 			}
 		} catch (error) {

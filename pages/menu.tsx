@@ -6,12 +6,11 @@ import MenuItem from '@components/MenuItem';
 import { ProfilePic } from '@components/ProfilePic';
 import { AuthContext } from '@context/authContext';
 import { UserContext } from '@context/userContext';
-import { EmptyNewCampsite } from '@model/campsite';
 import { useAddCampsite } from '@routes/useAddCampsite';
 import { GoTo } from '@utils/GoTo';
+import { createNewCampsite } from '@utils/createNewCampsite';
 import classNames from 'classnames';
 import { useContext } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import withAuth from './withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
 import sharedStyles from '../styles/shared.module.css';
@@ -19,21 +18,12 @@ import styles from './menu.module.css';
 function Menu() {
 	const { mode, setMode } = useContext(UserContext);
 	const { logout, user } = useContext(AuthContext);
-	const { addCampsite, isLoading: addCampsiteLoading, isError, isSuccess } = useAddCampsite();
-
+	const { addCampsite } = useAddCampsite();
 	const handleLogout = () => {
 		logout();
 	};
 	const handleAddCampsite = async () => {
-		const newId = uuidv4(); // replace this with your ID generation logic
-		const newCampsite = {
-			...EmptyNewCampsite,
-			_id: 'campsite:' + newId,
-			title: 'Example Campsite',
-			author: user?._id
-			// Add other campsite properties
-		};
-
+		const newCampsite = createNewCampsite(user);
 		try {
 			const response = await addCampsite(newCampsite);
 			if (response.success) {
@@ -85,7 +75,7 @@ function Menu() {
 							</>
 						)}
 
-						<Go href="/profile/">
+						<Go href="user/profile/">
 							<MenuItem label="Profile" icon={<ProfilePic user={user} size={24} />} />
 						</Go>
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />

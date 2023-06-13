@@ -170,7 +170,7 @@ http://ionicframework.com/docs/theming/ */
 	--jewel: #cf3c4f;
 	--hr-light: rgba(0, 0, 0, 0.05);
 	--hr-dark: rgba(0, 0, 0, 0.3);
-
+	--shadow-default: 0px 0px 15px rgba(0, 0, 0, 0.15);
 	--ion-background-color: var(--background);
 	--transition-default: all 0.2s ease-in-out;
 }

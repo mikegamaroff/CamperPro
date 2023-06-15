@@ -34,6 +34,7 @@ export const CampsiteProvider: React.FC<CampsiteProviderProps> = ({ children }) 
 	const updateCampsite = (updatedCampsite: Campsite) => {
 		setCampsite(updatedCampsite);
 		setCampsites(campsites.map(camp => (camp._id === updatedCampsite._id ? updatedCampsite : camp)));
+		setMyCampsites(myCampsites.map(camp => (camp._id === updatedCampsite._id ? updatedCampsite : camp)));
 	};
 
 	return (

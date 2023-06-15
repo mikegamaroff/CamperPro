@@ -39,7 +39,7 @@ export interface Campsite extends DocumentWithImages {
 	title?: string;
 	description?: string;
 	draft?: boolean;
-	draftStage?: number;
+	draftStage: number;
 	rating?: number | null;
 	reviewsCount?: number | null;
 	location?: CampLocation;

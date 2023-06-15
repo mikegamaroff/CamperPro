@@ -7,7 +7,6 @@ const withAuth = <Props extends object>(WrappedComponent: NextPage<Props>) => {
 	const WithAuthWrapper = (props: Props) => {
 		const router = useRouter();
 		const { status } = useValidateUser();
-
 		useEffect(() => {
 			if (status === 'invalidated' || status === 'unauthenticated') {
 				router.replace('/login');

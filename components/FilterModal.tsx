@@ -36,7 +36,11 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 
 	const handleIsPrivate = (event: ChangeEvent<HTMLInputElement>) => {
 		const privateValue = event.target.id === 'private';
+		console.log(privateValue);
+		const updatedFilters = { ...filters, private: privateValue };
 		setIsPrivate(privateValue);
+		setFilters(updatedFilters);
+		setSelectedFilter(updatedFilters);
 	};
 
 	const Plus = upperValue > 499 ? '+' : null;

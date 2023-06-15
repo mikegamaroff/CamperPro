@@ -58,7 +58,7 @@ function Menu() {
 					</div>
 					<div className="space10" />
 					<div>
-						{mode === 'Host' && user && user?.campsites?.length > 0 && (
+						{mode === 'Host' && user && user.campsites?.length > 0 && (
 							<>
 								<Go href="user/mycampsites/">
 									<MenuItem label="My Campsites" icon={<IconForest />} underline={false} />
@@ -80,7 +80,7 @@ function Menu() {
 						</Go>
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
-						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
+						<MenuItem onClick={handleLogout} label="Logout" icon={<IconLogout />} />
 					</div>
 				</div>
 			</Container>

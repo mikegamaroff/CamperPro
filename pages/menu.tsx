@@ -27,7 +27,7 @@ function Menu() {
 		try {
 			const response = await addCampsite(newCampsite);
 			if (response.success) {
-				GoTo(`/CampsiteEdit/${newCampsite._id}`);
+				GoTo(`/campsite/edit/${newCampsite._id}`);
 			} else {
 				console.error('Error adding campsite:', response.message);
 			}

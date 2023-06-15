@@ -1,5 +1,5 @@
-import CampsiteEdit from '@pages/CampsiteEdit';
 import { GetServerSideProps } from 'next';
+import EditCampsite from '.';
 
 interface Props {
 	id: string;
@@ -13,4 +13,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) 
 	const idString = Array.isArray(id) ? id[0] : id;
 	return { props: { id: idString } };
 };
-export default CampsiteEdit;
+export default EditCampsite;

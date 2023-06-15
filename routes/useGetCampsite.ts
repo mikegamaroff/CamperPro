@@ -1,4 +1,5 @@
 import { CampsiteContext } from '@context/campsiteContext';
+import { Campsite } from '@model/campsite';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
@@ -6,7 +7,6 @@ export const useGetCampsite = (id: string) => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const { campsites, setCampsites } = useContext(CampsiteContext);
-	const campsite = campsites.find(camp => camp._id === id);
 
 	// Get the router object
 	const router = useRouter();
@@ -27,14 +27,19 @@ export const useGetCampsite = (id: string) => {
 
 				if (response.ok) {
 					const data = await response.json();
-					if (!campsite) {
+					const existingCampsiteIndex = campsites.findIndex(camp => camp._id === data.campsite._id);
+
+					if (existingCampsiteIndex >= 0) {
+						// If campsite is already in the context, update it
+						setCampsites(prevCampsites => {
+							const updatedCampsites = [...prevCampsites];
+							updatedCampsites[existingCampsiteIndex] = data.campsite;
+							return updatedCampsites;
+						});
+					} else {
 						// If campsite was not in the context, add it
 						setCampsites(prevCampsites => [...prevCampsites, data.campsite]);
 					}
-				} else {
-					// Error fetching campsite data, navigate to '/'
-					router.push('/');
-					setError('Error fetching campsite data');
 				}
 			} catch (error) {
 				// Error fetching campsite data, navigate to '/'
@@ -46,8 +51,11 @@ export const useGetCampsite = (id: string) => {
 		};
 
 		fetchCampsite();
-	}, [id, router, setCampsites]); // Remove 'campsite' from the dependency array
+	}, [id, campsites]);
 
-	// Return campsite from context instead of state
-	return { campsite: campsites.find(camp => camp._id === id), isLoading, isError };
+	const campsiteFromState: Campsite | undefined = campsites.find(camp => camp._id === id);
+	if (!campsiteFromState) {
+		return { isLoading, isError: 'Campsite not found in state' };
+	}
+	return { campsite: campsiteFromState, isLoading, isError };
 };

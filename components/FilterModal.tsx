@@ -17,6 +17,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 	const [filters, setFilters] = useState<CampsiteFilter>(selectedFilter);
 	const [selectedButton, setSelectedButton] = useState(selectedFilter.numberOfTentSites || 0);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
+	const [isPublic, setIsPublic] = useState<boolean>(false);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		const updatedFilters = { ...filters, priceRange: [event.detail.value.lower, event.detail.value.upper] };
@@ -34,11 +35,20 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 		setSelectedFilter(updatedFilters);
 	};
 
-	const handleIsPrivate = (event: ChangeEvent<HTMLInputElement>) => {
-		const privateValue = event.target.id === 'private';
-		console.log(privateValue);
-		const updatedFilters = { ...filters, private: privateValue };
-		setIsPrivate(privateValue);
+	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const checked = event.target.checked;
+		const id = event.target.id;
+		const updatedFilters = { ...filters, private: id === 'private' ? checked : !checked };
+		if (!checked) {
+			delete updatedFilters.private;
+		}
+		if (id === 'private') {
+			setIsPrivate(checked);
+			checked && setIsPublic(!checked);
+		} else {
+			setIsPublic(checked);
+			checked && setIsPrivate(!checked);
+		}
 		setFilters(updatedFilters);
 		setSelectedFilter(updatedFilters);
 	};
@@ -79,14 +89,14 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 						<div>Private</div>
 						<div className="caption">Just you and your main crew</div>
 					</div>
-					<Checkbox id="private" checked={isPrivate} onIonChange={handleIsPrivate} />
+					<Checkbox id="private" checked={isPrivate} onIonChange={handleCheckboxChange} />
 				</div>
 				<div className={styles.option}>
 					<div className={styles.text}>
 						<div>Shared</div>
 						<div className="caption">Other campers might be nearby</div>
 					</div>
-					<Checkbox id="shared" checked={!isPrivate} onIonChange={handleIsPrivate} />
+					<Checkbox id="shared" checked={isPublic} onIonChange={handleCheckboxChange} />
 				</div>
 			</div>
 			<div>

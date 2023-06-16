@@ -12,15 +12,18 @@ interface FilterModalProps {
 
 export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, selectedFilter }) => {
 	const sliderDefaults = [20, 300];
-	const [lowerValue, setLowerValue] = useState(selectedFilter.priceRange?.[0] || sliderDefaults[0]);
-	const [upperValue, setUpperValue] = useState(selectedFilter.priceRange?.[1] || sliderDefaults[1]);
+	const [lowerValue, setLowerValue] = useState(selectedFilter?.priceRange?.[0] || sliderDefaults[0]);
+	const [upperValue, setUpperValue] = useState(selectedFilter?.priceRange?.[1] || sliderDefaults[1]);
 	const [filters, setFilters] = useState<CampsiteFilter>(selectedFilter);
-	const [selectedButton, setSelectedButton] = useState(selectedFilter.numberOfTentSites || 0);
+	const [selectedButton, setSelectedButton] = useState(selectedFilter?.numberOfTentSites || 0);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 	const [isPublic, setIsPublic] = useState<boolean>(false);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
-		const updatedFilters = { ...filters, priceRange: [event.detail.value.lower, event.detail.value.upper] };
+		const updatedFilters: CampsiteFilter = {
+			...filters,
+			priceRange: [event.detail.value.lower, event.detail.value.upper]
+		};
 		setLowerValue(event.detail.value.lower); // local state
 		setUpperValue(event.detail.value.upper); // local state
 		setFilters(updatedFilters); // local state
@@ -29,7 +32,7 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 
 	const handleButtonClick = (buttonNumber: number) => {
 		const newNumber = buttonNumber === 0 ? undefined : buttonNumber;
-		const updatedFilters = { ...filters, numberOfTentSites: newNumber };
+		const updatedFilters: CampsiteFilter = { ...filters, numberOfTentSites: newNumber };
 		setSelectedButton(buttonNumber);
 		setFilters(updatedFilters);
 		setSelectedFilter(updatedFilters);
@@ -38,7 +41,8 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const checked = event.target.checked;
 		const id = event.target.id;
-		const updatedFilters = { ...filters, private: id === 'private' ? checked : !checked };
+		const updatedFilters: CampsiteFilter = { ...filters, private: id === 'private' ? checked : !checked };
+
 		if (!checked) {
 			delete updatedFilters.private;
 		}

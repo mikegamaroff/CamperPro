@@ -8,10 +8,9 @@ interface PagerProps {
 	totalPages: number;
 	draftMode?: boolean;
 	onClick?: (val: number) => void;
-	header?: boolean;
 }
 
-export const Pager: React.FC<PagerProps> = ({ page, totalPages, onClick, draftMode = true, header = true }) => {
+export const Pager: React.FC<PagerProps> = ({ page, totalPages, onClick, draftMode = true }) => {
 	const handleClick = (i: number) => {
 		if (page && ((draftMode && i <= page) || !draftMode) && onClick) {
 			onClick && onClick(i);
@@ -29,7 +28,7 @@ export const Pager: React.FC<PagerProps> = ({ page, totalPages, onClick, draftMo
 		);
 	}
 	return (
-		<div style={{ transform: `translateY(${header ? 45 : 0}px)` }}>
+		<div className={styles.pagerContainer}>
 			<div className={styles.pageNumberContainer}>{PageNumbers}</div>
 			{page && (
 				<div className={styles.pageProgressContainer}>

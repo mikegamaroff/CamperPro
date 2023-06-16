@@ -76,14 +76,14 @@ function EditCampsite({ id }: Props) {
 	return (
 		<>
 			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
+			{/* Pager here is the shelf of height 125px */}
 			<Pager
 				page={campsite?.draftStage}
 				draftMode={campsite?.draft}
 				totalPages={totalPages}
 				onClick={goToNextStage}
-				header
 			/>
-			<Container hidetabs scroll footer>
+			<Container hidetabs scroll footer shelfHeight={125}>
 				<>
 					{campsite?.draftStage && stages[campsite?.draftStage]}
 					<button onClick={() => goToNextStage()}>Next</button>

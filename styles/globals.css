@@ -301,8 +301,14 @@ ion-tab-button {
 	gap: 5px;
 }
 ion-toolbar {
-	margin: 0;
+	margin: auto;
 	padding: 0 5px 0 5px !important;
+	max-width: 650px;
+	--background: var(--neutral10);
+	--min-height: 45px;
+	--padding-top: 0;
+	--padding-bottom: 0;
+	border-bottom: 0.5px solid var(--neutral150);
 }
 ion-tabs {
 	pointer-events: none;
@@ -311,13 +317,22 @@ ion-tabs {
 ion-tab-button {
 	pointer-events: all;
 }
-ion-header {
-	margin: auto;
-	max-width: 650px;
+ion-header,
+ion-footer {
+	all: unset;
+}
+
+ion-footer > ion-toolbar {
+	border-top: 0.5px solid var(--neutral150);
+}
+.footer-md::before,
+.header-md::before {
+	display: none;
 }
 ion-content > .overflow-y {
 	overflow: hidden !important;
 }
+
 .appContainer,
 .appContainer-tabs {
 	margin: auto;
@@ -331,8 +346,11 @@ ion-content > .overflow-y {
 .appContainer-tabs {
 	height: calc(100% - 115px);
 }
+.appContainer-tabsNoHeader {
+	height: calc(100% - 70px);
+}
 .appContainerFooter {
-	height: calc(100% - 190px);
+	height: calc(100% - 55px);
 }
 .versionDisabled {
 	display: none;

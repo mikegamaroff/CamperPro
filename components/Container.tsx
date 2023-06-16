@@ -11,8 +11,9 @@ interface ContainerProps {
 	children: JSX.Element;
 	scroll?: boolean;
 	hidetabs?: boolean;
-	header?: boolean;
 	footer?: boolean;
+	header?: boolean;
+	shelfHeight?: number;
 }
 interface TabsType {
 	select: (tab: string) => void;
@@ -21,8 +22,9 @@ export const Container = ({
 	children,
 	scroll = false,
 	hidetabs = false,
+	footer = false,
 	header = true,
-	footer = false
+	shelfHeight
 }: ContainerProps) => {
 	const routeContext = useContext(RouteContext); // Use RouteContext
 	const router = useRouter();
@@ -63,15 +65,17 @@ export const Container = ({
 			(tabs as TabsType).select(tabName);
 		}
 	};
+
 	return (
 		<>
 			<PageTransition routeTransition={routeContext.routeTransition}>
-				{header && <div className="space45" />}
 				<div
+					style={{ paddingBottom: `${shelfHeight}px` }}
 					className={classNames(
 						!hidetabs ? 'appContainer-tabs' : 'appContainer',
 						scroll && 'scrollContent',
-						footer && 'appContainerFooter'
+						footer && 'appContainerFooter',
+						!hidetabs && !header && 'appContainer-tabsNoHeader'
 					)}
 				>
 					{children}

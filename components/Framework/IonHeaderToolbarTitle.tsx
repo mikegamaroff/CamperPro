@@ -14,10 +14,16 @@ const IonHeader: React.FC<CustomIonHeaderProps> = ({ className, children }) => {
 interface CustomIonToolbarProps {
 	className?: string;
 	children?: React.ReactNode;
+	position?: 'top' | 'bottom'; // Add position prop
 }
 
-const IonToolbar: React.FC<CustomIonToolbarProps> = ({ className, children }) => {
-	return React.createElement('ion-toolbar', { class: className }, children);
+const IonToolbar: React.FC<CustomIonToolbarProps> = ({ className, children, position = 'top' }) => {
+	const style = {
+		position: 'fixed', // or 'sticky' depending on your use case
+		[position]: '0',
+		width: '100%'
+	};
+	return React.createElement('ion-toolbar', { class: className, style }, children);
 };
 
 // IonTitle
@@ -30,4 +36,4 @@ const IonTitle: React.FC<CustomIonTitleProps> = ({ className, children }) => {
 	return React.createElement('ion-title', { class: className }, children);
 };
 
-export { IonHeader, IonToolbar, IonTitle };
+export { IonHeader, IonTitle, IonToolbar };

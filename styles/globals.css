@@ -156,8 +156,12 @@ a:hover {
 .space30 {
 	height: 30px;
 }
+
 .space40 {
 	height: 40px;
+}
+.space45 {
+	height: 45px;
 }
 .space50 {
 	height: 50px;
@@ -244,7 +248,6 @@ a:hover {
 .noscrollinner:not([scrollable]) {
 	overflow-y: auto !important;
 }
-
 .scrollContent {
 	overflow: scroll;
 }
@@ -327,6 +330,9 @@ ion-content > .overflow-y {
 }
 .appContainer-tabs {
 	height: calc(100% - 115px);
+}
+.appContainerFooter {
+	height: calc(100% - 190px);
 }
 .versionDisabled {
 	display: none;

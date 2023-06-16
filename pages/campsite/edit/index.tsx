@@ -1,6 +1,10 @@
+import { Container } from '@components/Container';
+import { Footer } from '@components/Footer';
+import { IconButton } from '@components/Forms/IconButton';
+import { Header } from '@components/Header';
+import { IconBackArrow, IconClose, IconForwardArrow } from '@components/Icons';
+import { Pager } from '@components/Pager';
 import { Stage1 } from '@components/campsites/editStages/Stage1';
-import { Stage2 } from '@components/campsites/editStages/Stage2';
-import { Stage3 } from '@components/campsites/editStages/Stage3';
 import { CampsiteContext } from '@context/campsiteContext';
 import { useFormValues } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
@@ -18,6 +22,7 @@ interface Props {
 function EditCampsite({ id }: Props) {
 	const { updateCampsite } = useContext(CampsiteContext);
 	const { editCampsite } = useEditCampsite();
+	const totalPages = 6;
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const {
 		setValues,
@@ -28,41 +33,29 @@ function EditCampsite({ id }: Props) {
 
 	const stages = [
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage2 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage3 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />
+		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />
 	];
 
-	const goToNextStage = async () => {
+	const goToNextStage = async (page?: number) => {
 		if (campsite) {
 			const nextStage = campsite.draftStage + 1;
-			const updatedCampsite = { ...campsite, draftStage: nextStage };
+			const updatedCampsite = { ...campsite, draftStage: page || nextStage };
 
 			const updated = await editCampsite(updatedCampsite); // Update the campsite in the database
 			if (updated.success) {
@@ -74,7 +67,6 @@ function EditCampsite({ id }: Props) {
 	useEffect(() => {
 		if (campsite && id && !hasUpdated) {
 			if (!campsite.draft) {
-				campsite.draft = true;
 				campsite.draftStage = 1;
 				editCampsite(campsite);
 			}
@@ -82,11 +74,46 @@ function EditCampsite({ id }: Props) {
 		}
 	}, [id, campsite, hasUpdated]);
 	return (
-		<div>
-			{stages[campsite?.draftStage ?? 9]}
-			<button onClick={goToNextStage}>Next</button>
-			{/* Your pager component would also need to be able to call updateCampsite and make an API request to update the database */}
-		</div>
+		<>
+			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
+			<Pager
+				page={campsite?.draftStage}
+				draftMode={campsite?.draft}
+				totalPages={totalPages}
+				onClick={goToNextStage}
+				header
+			/>
+			<Container hidetabs scroll footer>
+				<>
+					{campsite?.draftStage && stages[campsite?.draftStage]}
+					<button onClick={() => goToNextStage()}>Next</button>
+				</>
+			</Container>
+			<Footer
+				left={
+					<IconButton
+						icon={<IconBackArrow />}
+						onClick={() => {
+							if (campsite?.draftStage) {
+								campsite?.draftStage < 2 ? history.go(-1) : goToNextStage(campsite?.draftStage - 1);
+							}
+						}}
+					/>
+				}
+				right={
+					<IconButton
+						icon={<IconForwardArrow />}
+						onClick={() => {
+							if (campsite?.draftStage) {
+								campsite?.draftStage === totalPages
+									? console.log('Save Campsite')
+									: goToNextStage(campsite?.draftStage + 1);
+							}
+						}}
+					/>
+				}
+			/>
+		</>
 	);
 }
 

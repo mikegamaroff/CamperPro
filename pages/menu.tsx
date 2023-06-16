@@ -37,7 +37,7 @@ function Menu() {
 	};
 	return (
 		<>
-			<Container>
+			<Container header={false}>
 				<div className={styles.menuContainer}>
 					<h1 className="bold">Menu</h1>
 					<div className={styles.modeView}>

@@ -1,14 +1,115 @@
 import { CampsiteFilter } from '@model/campsite';
 import classNames from 'classnames';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, ComponentType, useState } from 'react';
+import { FilterIDType } from '../model/campsite';
 import styles from './FilterModal.module.css';
 import Checkbox from './Forms/Checkbox';
 import IonRange from './Framework/IonRange';
+import { IconProps, iconComponents } from './Icons';
 
 interface FilterModalProps {
 	setSelectedFilter: (filters: CampsiteFilter) => void;
 	selectedFilter: CampsiteFilter;
 }
+
+interface FilterIconProps {
+	icon: ComponentType<IconProps>;
+	label: string;
+	id: FilterIDType;
+}
+
+const FilterButtons: FilterIconProps[] = [
+	{
+		label: iconComponents.river.label,
+		icon: iconComponents.river.icon,
+		id: { feature: 'river' }
+	},
+	{
+		label: iconComponents.mountain.label,
+		icon: iconComponents.mountain.icon,
+		id: { feature: 'mountain' }
+	},
+	{
+		label: iconComponents.lake.label,
+		icon: iconComponents.lake.icon,
+		id: { feature: 'lake' }
+	},
+	{
+		label: iconComponents.hunting.label,
+		icon: iconComponents.hunting.icon,
+		id: { permitted: 'hunting' }
+	},
+	{
+		label: iconComponents.sea.label,
+		icon: iconComponents.sea.icon,
+		id: { feature: 'sea' }
+	},
+	{
+		label: iconComponents.wildlife.label,
+		icon: iconComponents.wildlife.icon,
+		id: { feature: 'wildlife' }
+	},
+	{
+		label: iconComponents.campfire.label,
+		icon: iconComponents.campfire.icon,
+		id: { permitted: 'campfire' }
+	},
+	{
+		label: iconComponents.hiking.label,
+		icon: iconComponents.hiking.icon,
+		id: { feature: 'hiking' }
+	},
+	{
+		label: iconComponents.cellsignal.label,
+		icon: iconComponents.cellsignal.icon,
+		id: { amenity: 'cellsignal' }
+	},
+	{
+		label: iconComponents.forest.label,
+		icon: iconComponents.forest.icon,
+		id: { feature: 'forest' }
+	},
+	{
+		label: iconComponents.climbing.label,
+		icon: iconComponents.climbing.icon,
+		id: { permitted: 'climbing' }
+	},
+	{
+		label: iconComponents.pets.label,
+		icon: iconComponents.pets.icon,
+		id: { permitted: 'pets' }
+	},
+	{
+		label: iconComponents.swimming.label,
+		icon: iconComponents.swimming.icon,
+		id: { permitted: 'swimming' }
+	},
+	{
+		label: iconComponents.wifi.label,
+		icon: iconComponents.wifi.icon,
+		id: { amenity: 'wifi' }
+	},
+	{
+		label: iconComponents.toilet.label,
+		icon: iconComponents.toilet.icon,
+		id: { amenity: 'toilet' }
+	},
+	{
+		label: iconComponents.portapot.label,
+		icon: iconComponents.portapot.icon,
+		id: { amenity: 'portapot' }
+	},
+	{
+		label: iconComponents.barbecue.label,
+		icon: iconComponents.barbecue.icon,
+		id: { amenity: 'barbecue' }
+	},
+	{
+		label: iconComponents.shower.label,
+		icon: iconComponents.shower.icon,
+		id: { amenity: 'shower' }
+	}
+];
 
 export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, selectedFilter }) => {
 	const sliderDefaults = [20, 300];
@@ -28,6 +129,12 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 		setUpperValue(event.detail.value.upper); // local state
 		setFilters(updatedFilters); // local state
 		setSelectedFilter(updatedFilters); // main state
+	};
+
+	const handleAttributeSelect = (attributeType: any) => {
+		const updatedFilters: CampsiteFilter = { ...filters, attributes: attributeType };
+		setFilters(updatedFilters);
+		setSelectedFilter(updatedFilters);
 	};
 
 	const handleButtonClick = (buttonNumber: number) => {
@@ -58,6 +165,8 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 	};
 
 	const Plus = upperValue > 499 ? '+' : null;
+
+	console.log(filters);
 
 	const buttons = ['Any', 1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'];
 
@@ -132,6 +241,28 @@ export const FilterModal: React.FC<FilterModalProps> = ({ setSelectedFilter, sel
 			</div>
 			<div>
 				<hr />
+			</div>
+			<div className={styles.section}>
+				<div className={styles.featuresGrid}>
+					{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
+						const IconComponent = filterbutton.icon || null;
+						return (
+							<div
+								key={'filterbutton' + i}
+								onClick={() =>
+									handleAttributeSelect(
+										filters.attributes !== filterbutton.id ? filterbutton.id : undefined
+									)
+								}
+								className={styles.feature}
+								style={filters.attributes === filterbutton.id ? { color: 'red' } : { color: 'black' }}
+							>
+								<IconComponent size={30} />
+								<div>{filterbutton.label}</div>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 		</div>
 	);

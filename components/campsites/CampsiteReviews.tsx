@@ -78,19 +78,20 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 		);
 	};
 
-	const cancelModalReviews = () => {
+	const cancelModalSearch = () => {
 		console.log('Canceled');
-		dismissModalReviews();
+		dismissModal();
 	};
 
-	const { presentModal: presentModalReviews, dismissModal: dismissModalReviews } = useModal({
-		onCancel: cancelModalReviews,
-		title: '',
-		component: <AllReviewsModal />
+	const { Modal, presentModal, dismissModal } = useModal({
+		onCancel: cancelModalSearch,
+		component: <AllReviewsModal />,
+		title: 'My Modal'
 	});
 
 	return (
 		<div className={styles.container}>
+			{Modal}
 			{reviews.length > 0 && (
 				<div className={styles.header}>
 					<div className={styles.rating}>
@@ -101,7 +102,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 						<h3 className="bold">•</h3>
 						<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
 					</div>
-					<div onClick={presentModalReviews} className={styles.seeAllButton}>
+					<div onClick={presentModal} className={styles.seeAllButton}>
 						<div className="medium">See all</div>
 					</div>
 				</div>

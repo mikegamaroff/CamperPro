@@ -99,20 +99,21 @@ const FilterButtons: FilterIconProps[] = [
 		id: { amenity: 'portapot' }
 	},
 	{
-		label: iconComponents.barbecue.label,
-		icon: iconComponents.barbecue.icon,
-		id: { amenity: 'barbecue' }
-	},
-	{
 		label: iconComponents.shower.label,
 		icon: iconComponents.shower.icon,
 		id: { amenity: 'shower' }
+	},
+	{
+		label: iconComponents.barbecue.label,
+		icon: iconComponents.barbecue.icon,
+		id: { amenity: 'barbecue' }
 	}
 ];
 
 export const FeedFilters: React.FC = () => {
 	const sliderDefaults = [20, 300];
 	const { selectedFilter, handleSelectAttributes, setSelectedFilter } = useContext(FilterContext);
+	const [buttonColor, setButtonColor] = useState(0);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 	const [isPublic, setIsPublic] = useState<boolean>(false);
 
@@ -127,6 +128,7 @@ export const FeedFilters: React.FC = () => {
 			...prevFilter,
 			numberOfTentSites: buttonNumber === 0 ? undefined : buttonNumber
 		}));
+		setButtonColor(buttonNumber);
 	};
 
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -160,10 +162,17 @@ export const FeedFilters: React.FC = () => {
 						<div className="medium">Price range</div>
 						<div>
 							<div className={styles.text}>
-								<div>
-									${selectedFilter?.priceRange?.[0]}-${selectedFilter?.priceRange?.[1]}
-									{Plus}
-								</div>
+								{selectedFilter.priceRange && (
+									<div>
+										${selectedFilter?.priceRange?.[0]}-${selectedFilter?.priceRange?.[1]}
+										{Plus}
+									</div>
+								)}
+								{!selectedFilter.priceRange && (
+									<div>
+										${sliderDefaults[0]}-${sliderDefaults[1]}
+									</div>
+								)}
 								<div className="caption">The average nightly price is $68</div>
 							</div>
 							<IonRange
@@ -212,13 +221,8 @@ export const FeedFilters: React.FC = () => {
 											className={styles.pillButton}
 											style={{
 												backgroundColor:
-													selectedFilter?.numberOfTentSites === index
-														? 'var(--foreground)'
-														: 'var(--background)',
-												color:
-													selectedFilter?.numberOfTentSites === index
-														? 'var(--background)'
-														: 'var(--foreground)'
+													buttonColor === index ? 'var(--foreground)' : 'var(--background)',
+												color: buttonColor === index ? 'var(--background)' : 'var(--foreground)'
 											}}
 										>
 											<div className={styles.buttonText}>{buttonText}</div>

@@ -78,11 +78,7 @@ const FilterButtons: FilterIconProps[] = [
 		icon: iconComponents.swimming.icon,
 		id: { permitted: 'swimming' }
 	},
-	{
-		label: iconComponents.wifi.label,
-		icon: iconComponents.wifi.icon,
-		id: { amenity: 'wifi' }
-	},
+
 	{
 		label: iconComponents.toilet.label,
 		icon: iconComponents.toilet.icon,
@@ -94,14 +90,19 @@ const FilterButtons: FilterIconProps[] = [
 		id: { amenity: 'portapot' }
 	},
 	{
-		label: iconComponents.barbecue.label,
-		icon: iconComponents.barbecue.icon,
-		id: { amenity: 'barbecue' }
+		label: iconComponents.wifi.label,
+		icon: iconComponents.wifi.icon,
+		id: { amenity: 'wifi' }
 	},
 	{
 		label: iconComponents.shower.label,
 		icon: iconComponents.shower.icon,
 		id: { amenity: 'shower' }
+	},
+	{
+		label: iconComponents.barbecue.label,
+		icon: iconComponents.barbecue.icon,
+		id: { amenity: 'barbecue' }
 	}
 ];
 

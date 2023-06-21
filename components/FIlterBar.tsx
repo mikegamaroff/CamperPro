@@ -1,6 +1,8 @@
+import { FilterContext } from '@context/filterContext';
+import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
-import { ComponentType, FC } from 'react';
-import { Attributes, FilterIDType } from '../model/campsite';
+import { ComponentType, FC, useContext } from 'react';
+import { FilterIDType } from '../model/campsite';
 import styles from './FilterBar.module.css';
 import { IconProps, iconComponents } from './Icons';
 
@@ -10,10 +12,6 @@ interface FilterIconProps {
 	id: FilterIDType;
 }
 
-interface FilterBarProps {
-	selectedAttributes?: Attributes;
-	handleFilterSelect: (id: FilterIDType) => void;
-}
 const FilterButtons: FilterIconProps[] = [
 	{
 		label: iconComponents.river.label,
@@ -107,21 +105,8 @@ const FilterButtons: FilterIconProps[] = [
 	}
 ];
 
-export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedAttributes }) => {
-	const filterExists = (id: FilterIDType): boolean => {
-		if (!selectedAttributes) return false;
-
-		for (const filterKey in id) {
-			const filterValue = id[filterKey as keyof FilterIDType];
-			const selectedFilterValues = selectedAttributes[filterKey as keyof Attributes];
-
-			if (filterValue && selectedFilterValues && (selectedFilterValues as string[]).includes(filterValue)) {
-				return true;
-			}
-		}
-
-		return false;
-	};
+export const FilterBar: FC = () => {
+	const { handleSelectAttributes } = useContext(FilterContext);
 
 	return (
 		<div className={styles.container}>
@@ -130,7 +115,7 @@ export const FilterBar: FC<FilterBarProps> = ({ handleFilterSelect, selectedAttr
 				return (
 					<div
 						key={'filterbutton' + i}
-						onClick={() => handleFilterSelect(filterbutton.id)}
+						onClick={() => handleSelectAttributes(filterbutton.id)}
 						className={classNames(
 							filterExists(filterbutton.id) ? styles.buttonSelected : styles.buttonDefault
 						)}

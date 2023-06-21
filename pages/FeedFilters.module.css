@@ -1,0 +1,58 @@
+.section {
+	padding: 20px 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+.option {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.capacitySection {
+	padding: 20px 0px;
+	margin-left: -10px;
+	margin-right: -10px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.textPadding {
+	padding-left: 25px;
+}
+.buttons {
+	display: flex;
+	padding: 5px 25px 0px 25px;
+	overflow-x: scroll;
+	gap: 7px;
+}
+.pillButton {
+	padding: 4px 20px;
+	border-radius: 100px;
+	border: 1px solid var(--neutral300);
+}
+.buttonText {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.featuresGrid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 20px;
+}
+.feature {
+	color: var(--foreground);
+	border-radius: 14px;
+	height: 140px;
+	border: 1px solid var(--neutral150);
+	padding: 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}

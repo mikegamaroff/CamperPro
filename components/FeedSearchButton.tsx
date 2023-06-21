@@ -1,16 +1,11 @@
-import { CampsiteFilter } from '@model/campsite';
 import classNames from 'classnames';
 import { FC } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
-import { FilterModal } from './FilterModal';
+import { Go } from './Go';
 import { IconFilter, IconSearch } from './Icons';
-interface FeedSearchButtonProps {
-	setSelectedFilter: (filters: CampsiteFilter) => void;
-	selectedFilter: CampsiteFilter;
-}
 
-export const FeedSearchButton: FC<FeedSearchButtonProps> = ({ setSelectedFilter, selectedFilter }) => {
+export const FeedSearchButton: FC = () => {
 	const SearchModalContent = () => {
 		return (
 			<div>
@@ -28,26 +23,12 @@ export const FeedSearchButton: FC<FeedSearchButtonProps> = ({ setSelectedFilter,
 		console.log('Canceled');
 		dismissModalSearch();
 	};
-	const confirmModalFilter = () => {
-		console.log('Confirmed');
-		dismissModalFilter();
-	};
 
-	const cancelModalFilter = () => {
-		console.log('Canceled');
-		dismissModalFilter();
-	};
 	const { presentModal: presentModalSearch, dismissModal: dismissModalSearch } = useModal({
 		onCancel: cancelModalSearch,
 		onConfirm: confirmModalSearch,
 		title: 'Search',
 		component: <SearchModalContent />
-	});
-	const { presentModal: presentModalFilter, dismissModal: dismissModalFilter } = useModal({
-		onCancel: cancelModalFilter,
-		onConfirm: confirmModalFilter,
-		title: 'Filters',
-		component: <FilterModal setSelectedFilter={setSelectedFilter} selectedFilter={selectedFilter} />
 	});
 
 	return (
@@ -58,9 +39,11 @@ export const FeedSearchButton: FC<FeedSearchButtonProps> = ({ setSelectedFilter,
 						<IconSearch size={25} />
 					</div>
 					<div className={classNames(styles.label, 'body', 'bold')}>Find a campsite</div>
-					<div onClick={presentModalFilter} className={styles.FilterButton}>
-						<IconFilter size={25} />
-					</div>
+					<Go href={`/feedFilters`}>
+						<div className={styles.FilterButton}>
+							<IconFilter size={25} />
+						</div>
+					</Go>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,9 @@
 import { AmenityNames, Attributes, FeatureNames, FilterIDType, PermittedNames } from '../model/campsite';
 
-export const selectFeedFilter = (selectedFilter: Attributes | undefined, id: FilterIDType): Attributes | undefined => {
+export const selectAttributeFilter = (
+	selectedFilter: Attributes | undefined,
+	id: FilterIDType
+): Attributes | undefined => {
 	// Create a deep copy of the current filters
 	const newFilters: Attributes = JSON.parse(JSON.stringify(selectedFilter || {}));
 	// Get the key and value from the id

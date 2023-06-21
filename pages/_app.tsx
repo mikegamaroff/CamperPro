@@ -13,6 +13,7 @@ import 'swiper/swiper.min.css';
 /* Optional CSS utils that can be commented out */
 import { AuthProvider } from '@context/authContext';
 import { CampsiteProvider } from '@context/campsiteContext';
+import { FilterProvider } from '@context/filterContext';
 import { ReviewProvider } from '@context/reviewContext';
 import { RouterContext } from '@context/routerContext';
 import { ToastProvider } from '@context/toastContext';
@@ -59,13 +60,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<RouterContext.Provider value={router}>
 						<UserProvider>
 							<CampsiteProvider>
-								<ReviewProvider>
-									<ToastProvider>
-										<AnimatePresence>
-											<Component {...pageProps} />
-										</AnimatePresence>
-									</ToastProvider>
-								</ReviewProvider>
+								<FilterProvider>
+									<ReviewProvider>
+										<ToastProvider>
+											<AnimatePresence>
+												<Component {...pageProps} />
+											</AnimatePresence>
+										</ToastProvider>
+									</ReviewProvider>
+								</FilterProvider>
 							</CampsiteProvider>
 						</UserProvider>
 					</RouterContext.Provider>

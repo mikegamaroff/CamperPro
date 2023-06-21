@@ -1,17 +1,15 @@
 import { Container } from '@components/Container';
 import Checkbox from '@components/Forms/Checkbox';
-import { IconButton } from '@components/Forms/IconButton';
 import IonRange from '@components/Framework/IonRange';
-import { Header } from '@components/Header';
-import { IconBackArrow, IconProps, iconComponents } from '@components/Icons';
+import { IconProps, iconComponents } from '@components/Icons';
 import { FilterContext } from '@context/filterContext';
 import { CampsiteFilter } from '@model/campsite';
+import withAuth from '@pages/withAuth';
 import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
 import { ChangeEvent, ComponentType, useContext, useState } from 'react';
 import { FilterIDType } from '../model/campsite';
 import styles from './FeedFilters.module.css';
-import withAuth from './withAuth';
 
 interface FilterIconProps {
 	icon: ComponentType<IconProps>;
@@ -111,7 +109,8 @@ const FilterButtons: FilterIconProps[] = [
 		id: { amenity: 'shower' }
 	}
 ];
-function FeedFilters() {
+
+export const FeedFilters: React.FC = () => {
 	const sliderDefaults = [20, 300];
 	const { selectedFilter, handleSelectAttributes, setSelectedFilter } = useContext(FilterContext);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
@@ -155,8 +154,6 @@ function FeedFilters() {
 
 	return (
 		<>
-			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
-
 			<Container scroll>
 				<>
 					<div className={styles.section}>
@@ -256,5 +253,5 @@ function FeedFilters() {
 			</Container>
 		</>
 	);
-}
+};
 export default withAuth(FeedFilters);

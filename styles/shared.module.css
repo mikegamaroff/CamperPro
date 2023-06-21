@@ -30,14 +30,15 @@
 
 .dotIndicator {
 	border: 1px solid var(--neutral300);
-
 	border-radius: 100%;
 	width: 12px;
 	height: 12px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transform: translateY(-50%);
+}
+.dotIndicatorDisabled {
+	opacity: 0.3;
 }
 .dotIndicatorInner {
 	width: 7px;

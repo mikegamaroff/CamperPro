@@ -22,12 +22,17 @@ export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite, handle
 	};
 
 	const handleEditCampsite = () => {
-		GoTo(`/CampsiteEdit/${campsite?._id}`);
+		GoTo(`/campsite/edit/${campsite?._id}`);
 	};
 	return (
 		<div>
-			<div className={styles.MyCampsiteItemContainer} style={{ opacity: deleting ? 0.2 : 1 }}>
-				<div className={styles.myCampsitePhoto}>
+			<div className={styles.MyCampsiteItemContainer} style={{ opacity: campsite?.draft ? 0.6 : 1 }}>
+				<div
+					className={styles.myCampsitePhoto}
+					style={{
+						filter: campsite?.draft ? `grayscale(70%)` : `grayscale(0%)`
+					}}
+				>
 					<Image
 						src={image ? `/api/images/${image?.id}.${image?.contentType.split('/')[1]}` : defaultImage}
 						alt="Campsite Image"
@@ -35,7 +40,7 @@ export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite, handle
 						style={{ objectFit: 'cover' }}
 					/>
 				</div>
-				<div className={styles.myCampsiteContent} style={{ opacity: campsite?.draft ? 0.5 : 1 }}>
+				<div className={styles.myCampsiteContent}>
 					<h4 className={classNames(styles.myCampsiteTitle, 'medium')}>
 						{deleting ? 'Deleting...' : campsite?.title}
 					</h4>

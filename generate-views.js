@@ -88,6 +88,15 @@ const campsiteDesignDoc = {
 				}
 			}
 		  `
+		},
+		'all-campsites-by-author': {
+			map: `
+			function (doc) {
+				if (doc.type === 'campsite' && doc.created_at && doc.author) {
+					emit(doc.author, doc);
+				}
+			}
+		  `
 		}
 		// Add more views here if needed
 	},

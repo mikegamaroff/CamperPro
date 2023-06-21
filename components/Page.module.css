@@ -1,0 +1,25 @@
+.pagerContainer {
+	max-width: 650px;
+	margin: auto;
+	border-left: 1px solid var(--neutral50);
+	border-right: 1px solid var(--neutral50);
+}
+.pageNumberContainer {
+	display: flex;
+	position: relative;
+	width: 100%;
+	justify-content: space-between;
+	padding: 25px;
+}
+.pageNumber {
+	padding: 5px;
+	cursor: pointer;
+}
+.pageProgressContainer {
+	border-top: 1px solid var(--neutral50);
+}
+.pageProgressIndicator {
+	background: var(--primary);
+	transition: var(--transition-default);
+	height: 5px;
+}

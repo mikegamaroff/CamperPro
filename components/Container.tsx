@@ -11,11 +11,21 @@ interface ContainerProps {
 	children: JSX.Element;
 	scroll?: boolean;
 	hidetabs?: boolean;
+	footer?: boolean;
+	header?: boolean;
+	shelfHeight?: number;
 }
 interface TabsType {
 	select: (tab: string) => void;
 }
-export const Container = ({ children, scroll = false, hidetabs = false }: ContainerProps) => {
+export const Container = ({
+	children,
+	scroll = false,
+	hidetabs = false,
+	footer = false,
+	header = true,
+	shelfHeight
+}: ContainerProps) => {
 	const routeContext = useContext(RouteContext); // Use RouteContext
 	const router = useRouter();
 	const tabs = useIonTabs(); // Use the custom hook
@@ -55,11 +65,18 @@ export const Container = ({ children, scroll = false, hidetabs = false }: Contai
 			(tabs as TabsType).select(tabName);
 		}
 	};
+
 	return (
 		<>
 			<PageTransition routeTransition={routeContext.routeTransition}>
 				<div
-					className={classNames(!hidetabs ? 'appContainer-tabs' : 'appContainer', scroll && 'scrollContent')}
+					style={{ paddingBottom: `${shelfHeight}px` }}
+					className={classNames(
+						!hidetabs ? 'appContainer-tabs' : 'appContainer',
+						scroll && 'scrollContent',
+						footer && 'appContainerFooter',
+						!hidetabs && !header && 'appContainer-tabsNoHeader'
+					)}
 				>
 					{children}
 				</div>

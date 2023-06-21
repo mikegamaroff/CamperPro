@@ -27,7 +27,7 @@ function Menu() {
 		try {
 			const response = await addCampsite(newCampsite);
 			if (response.success) {
-				GoTo(`/CampsiteEdit/${newCampsite._id}`);
+				GoTo(`/campsite/edit/${newCampsite._id}`);
 			} else {
 				console.error('Error adding campsite:', response.message);
 			}
@@ -37,7 +37,7 @@ function Menu() {
 	};
 	return (
 		<>
-			<Container>
+			<Container header={false}>
 				<div className={styles.menuContainer}>
 					<h1 className="bold">Menu</h1>
 					<div className={styles.modeView}>
@@ -58,7 +58,7 @@ function Menu() {
 					</div>
 					<div className="space10" />
 					<div>
-						{mode === 'Host' && user && user?.campsites?.length > 0 && (
+						{mode === 'Host' && user && user.campsites?.length > 0 && (
 							<>
 								<Go href="user/mycampsites/">
 									<MenuItem label="My Campsites" icon={<IconForest />} underline={false} />
@@ -80,7 +80,7 @@ function Menu() {
 						</Go>
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
 						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
-						<MenuItem onClick={handleLogout} label="Terms of service" icon={<IconLogout />} />
+						<MenuItem onClick={handleLogout} label="Logout" icon={<IconLogout />} />
 					</div>
 				</div>
 			</Container>

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { Swiper as SwiperCore } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Campsite } from '../model/campsite';
@@ -21,11 +21,6 @@ export const CampsiteImages: FC<CampsiteImageProps> = ({ campsite }) => {
 	const handleClick = (index: number) => {
 		swiperInstance?.slideTo(index);
 	};
-	useEffect(() => {
-		if (swiperInstance) {
-			swiperInstance.update();
-		}
-	}, [campsite, swiperInstance]);
 
 	return (
 		<Swiper

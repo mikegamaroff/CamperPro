@@ -1,6 +1,6 @@
 // useDatetimeModal.ts
 import DateTimePicker from '../components/DateTimePicker';
-import useModal from './useModal';
+import useIonModal from './useIonModal';
 
 interface UseDatetimeModalProps {
 	onDatetimeChange: (value: string) => void;
@@ -8,15 +8,14 @@ interface UseDatetimeModalProps {
 }
 
 const useDatetimeModal = ({ onDatetimeChange, disabledDates }: UseDatetimeModalProps) => {
-	const { presentModal, dismissModal } = useModal({
+	const { presentModal, dismissModal } = useIonModal({
 		onCancel: () => {
 			dismissModal();
 		},
 		onConfirm: () => {
 			dismissModal();
 		},
-		component: <DateTimePicker onDatetimeChange={onDatetimeChange} disabledDates={disabledDates} />,
-		type: 'lite'
+		component: <DateTimePicker onDatetimeChange={onDatetimeChange} disabledDates={disabledDates} />
 	});
 
 	return { presentDatetimeModal: presentModal };

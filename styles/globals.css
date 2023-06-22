@@ -261,7 +261,7 @@ a:hover {
 	overflow-y: auto !important;
 }
 .scrollContent {
-	overflow: scroll;
+	overflow: auto;
 }
 .pill {
 	background: var(--neutral50);
@@ -546,8 +546,10 @@ ion-datetime {
 .modal-content {
 	background: white;
 	border-radius: 6px;
-	max-width: 90vw;
+	max-width: 600px;
 	min-width: 400px;
+	min-height: 50vh;
+	max-height: 80vh;
 	transform: translateY(100%);
 	animation: slide-up 0.5s forwards;
 	overflow: hidden;
@@ -578,10 +580,12 @@ ion-datetime {
 @media (max-width: 800px) {
 	.modal-content {
 		max-width: 98vw;
+		max-height: unset;
+		min-width: unset;
+		min-height: unset;
 		width: 100vw;
 		height: 95vh;
 		border-radius: 6px 6px 0 0;
-		min-width: unset;
 	}
 	.modal-overlay {
 		align-items: flex-end;

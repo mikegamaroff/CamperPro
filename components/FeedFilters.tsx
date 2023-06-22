@@ -156,7 +156,7 @@ export const FeedFilters: React.FC = () => {
 
 	return (
 		<>
-			<Container scroll>
+			<Container scroll hidetabs shelfHeight={40}>
 				<>
 					<div className={styles.section}>
 						<div className="medium">Price range</div>

@@ -51,7 +51,7 @@ export const useGetCampsite = (id: string) => {
 		};
 
 		fetchCampsite();
-	}, [id, campsites]);
+	}, [id]);
 
 	const campsiteFromState: Campsite | undefined = campsites.find(camp => camp._id === id);
 	if (!campsiteFromState) {

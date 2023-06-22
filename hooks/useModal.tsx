@@ -44,7 +44,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, title,
 						)
 					}
 				/>
-				<div className="contentWrapper">{component}</div>
+				{component}
 			</div>
 		</div>
 	);

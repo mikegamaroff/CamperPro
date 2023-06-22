@@ -7,7 +7,7 @@ import { CampsiteFilter } from '@model/campsite';
 import withAuth from '@pages/withAuth';
 import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
-import { ChangeEvent, ComponentType, useContext, useState } from 'react';
+import { ChangeEvent, ComponentType, useContext, useEffect, useState } from 'react';
 import { FilterIDType } from '../model/campsite';
 import styles from './FeedFilters.module.css';
 
@@ -116,6 +116,8 @@ export const FeedFilters: React.FC = () => {
 	const [buttonColor, setButtonColor] = useState(0);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 	const [isPublic, setIsPublic] = useState<boolean>(false);
+	const [showAllFeatures, setShowAllFeatures] = useState(false);
+	const [DivHeight, setDivHeight] = useState('300px');
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		setSelectedFilter(prevFilter => ({
@@ -153,6 +155,18 @@ export const FeedFilters: React.FC = () => {
 	const buttons = ['Any', 1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'];
 
 	console.log(selectedFilter);
+
+	useEffect(() => {
+		if (showAllFeatures) {
+			const Div = document.getElementById('Div');
+
+			if (Div) {
+				setDivHeight(`${Div.scrollHeight}px`);
+			}
+		} else {
+			setDivHeight('300px');
+		}
+	}, [showAllFeatures]);
 
 	return (
 		<>
@@ -236,15 +250,28 @@ export const FeedFilters: React.FC = () => {
 						<hr />
 					</div>
 					<div className={styles.section}>
-						<div className={styles.featuresGrid}>
+						<div className="medium">Features</div>
+						<div id="Div" className={styles.featuresGrid} style={{ height: DivHeight }}>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
+								if (filterbutton.id.amenity || filterbutton.id.permitted) {
+									return null;
+								}
 								const IconComponent = filterbutton.icon || null;
 								return (
 									<div
 										key={'filterbutton' + i}
-										onClick={() => handleSelectAttributes(filterbutton.id)}
+										onClick={() => {
+											handleSelectAttributes(filterbutton.id);
+										}}
 										className={styles.feature}
-										style={filterExists(filterbutton.id) ? { color: 'red' } : { color: 'black' }}
+										style={
+											filterExists(filterbutton.id)
+												? { color: 'var(--foreground)', border: '2px solid var(--primary)' }
+												: {
+														color: 'var(--neutral700)',
+														border: '1px solid var(--neutral150)'
+												  }
+										}
 									>
 										<IconComponent size={30} />
 										<div>{filterbutton.label}</div>
@@ -252,6 +279,31 @@ export const FeedFilters: React.FC = () => {
 								);
 							})}
 						</div>
+						<div>
+							{!showAllFeatures && (
+								<div
+									className={classNames(styles.showButton, 'medium')}
+									onClick={() => {
+										setShowAllFeatures(true);
+									}}
+								>
+									Show more
+								</div>
+							)}
+							{showAllFeatures && (
+								<div
+									className={classNames(styles.showButton, 'medium')}
+									onClick={() => {
+										setShowAllFeatures(false);
+									}}
+								>
+									Show less
+								</div>
+							)}
+						</div>
+					</div>
+					<div>
+						<hr />
 					</div>
 				</>
 			</Container>

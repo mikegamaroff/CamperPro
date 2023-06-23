@@ -1,3 +1,5 @@
+import { IconProps, iconComponents } from '@components/Icons';
+import { ComponentType } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentWithImages } from './model';
 
@@ -113,3 +115,102 @@ export const defaultFilter: Attributes = {
 	amenity: ['cellsignal', 'wifi', 'toilet', 'portapot', 'shower', 'firepit', 'barbecue'],
 	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodgathering', 'hunting']
 };
+
+export interface FilterIconProps {
+	icon: ComponentType<IconProps>;
+	label: string;
+	id: FilterIDType;
+}
+
+export const FilterButtons: FilterIconProps[] = [
+	{
+		label: iconComponents.river.label,
+		icon: iconComponents.river.icon,
+		id: { feature: 'river' }
+	},
+	{
+		label: iconComponents.mountain.label,
+		icon: iconComponents.mountain.icon,
+		id: { feature: 'mountain' }
+	},
+	{
+		label: iconComponents.lake.label,
+		icon: iconComponents.lake.icon,
+		id: { feature: 'lake' }
+	},
+	{
+		label: iconComponents.hunting.label,
+		icon: iconComponents.hunting.icon,
+		id: { permitted: 'hunting' }
+	},
+	{
+		label: iconComponents.sea.label,
+		icon: iconComponents.sea.icon,
+		id: { feature: 'sea' }
+	},
+	{
+		label: iconComponents.wildlife.label,
+		icon: iconComponents.wildlife.icon,
+		id: { feature: 'wildlife' }
+	},
+	{
+		label: iconComponents.campfire.label,
+		icon: iconComponents.campfire.icon,
+		id: { permitted: 'campfire' }
+	},
+	{
+		label: iconComponents.hiking.label,
+		icon: iconComponents.hiking.icon,
+		id: { feature: 'hiking' }
+	},
+	{
+		label: iconComponents.cellsignal.label,
+		icon: iconComponents.cellsignal.icon,
+		id: { amenity: 'cellsignal' }
+	},
+	{
+		label: iconComponents.forest.label,
+		icon: iconComponents.forest.icon,
+		id: { feature: 'forest' }
+	},
+	{
+		label: iconComponents.climbing.label,
+		icon: iconComponents.climbing.icon,
+		id: { permitted: 'climbing' }
+	},
+	{
+		label: iconComponents.pets.label,
+		icon: iconComponents.pets.icon,
+		id: { permitted: 'pets' }
+	},
+	{
+		label: iconComponents.swimming.label,
+		icon: iconComponents.swimming.icon,
+		id: { permitted: 'swimming' }
+	},
+	{
+		label: iconComponents.wifi.label,
+		icon: iconComponents.wifi.icon,
+		id: { amenity: 'wifi' }
+	},
+	{
+		label: iconComponents.toilet.label,
+		icon: iconComponents.toilet.icon,
+		id: { amenity: 'toilet' }
+	},
+	{
+		label: iconComponents.portapot.label,
+		icon: iconComponents.portapot.icon,
+		id: { amenity: 'portapot' }
+	},
+	{
+		label: iconComponents.shower.label,
+		icon: iconComponents.shower.icon,
+		id: { amenity: 'shower' }
+	},
+	{
+		label: iconComponents.barbecue.label,
+		icon: iconComponents.barbecue.icon,
+		id: { amenity: 'barbecue' }
+	}
+];

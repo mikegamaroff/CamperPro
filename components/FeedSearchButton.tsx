@@ -20,7 +20,7 @@ export const FeedSearchButton: FC = () => {
 		onCancel: cancelModalSearch,
 		onConfirm: confirmModalSearch,
 		component: <FeedFilters />,
-		title: 'My Modal'
+		title: 'Filters'
 	});
 	return (
 		<div className={styles.FeedSearchButtonContainer}>

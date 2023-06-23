@@ -66,6 +66,18 @@ ion-button a {
 ion-toolbar {
 	border-bottom: 1px solid var(--neutral10);
 }
+ion-range::part(pin) {
+	color: var(--neutral);
+	font-weight: 600;
+	background-color: var(--primary);
+	border-radius: 20px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	margin-top: 15px;
+}
 .layoutContainer {
 	display: grid;
 	grid-template-rows: auto 1fr;
@@ -249,7 +261,7 @@ a:hover {
 	overflow-y: auto !important;
 }
 .scrollContent {
-	overflow: scroll;
+	overflow: auto;
 }
 .pill {
 	background: var(--neutral50);
@@ -372,7 +384,7 @@ ion-content > .overflow-y {
 .card {
 	background: var(--neutral);
 
-	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+	box-shadow: var(--shadow-default);
 	border-radius: 10px;
 	padding: 10px;
 }
@@ -509,11 +521,73 @@ ion-datetime {
 	background: rgba(255, 255, 255, 0.452);
 }
 
-@keyframes tabSelect {
+/* MODAL */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.modal-overlay.visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+.modal-content {
+	background: white;
+	border-radius: 6px;
+	max-width: 600px;
+	min-width: 400px;
+	min-height: 50vh;
+	max-height: 80vh;
+	transform: translateY(100%);
+	animation: slide-up 0.5s forwards;
+	overflow: hidden;
+}
+
+.modal-content.dismiss {
+	animation: slide-down 0.5s forwards;
+}
+
+@keyframes slide-up {
 	from {
-		box-shadow: inset 0px -8px 0px -8px var(--primary50-rgb);
+		transform: translateY(100%);
 	}
 	to {
-		box-shadow: inset 0px -8px 0px -5px var(--primary500-rgb);
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-down {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(100%);
+	}
+}
+
+@media (max-width: 800px) {
+	.modal-content {
+		max-width: 98vw;
+		max-height: unset;
+		min-width: unset;
+		min-height: unset;
+		width: 100vw;
+		height: 95vh;
+		border-radius: 6px 6px 0 0;
+	}
+	.modal-overlay {
+		align-items: flex-end;
 	}
 }

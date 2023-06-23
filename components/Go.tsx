@@ -24,6 +24,7 @@ export const Go: React.FC<LinksProps> = ({ children, ...props }) => {
 
 	const handleClick = useCallback(
 		(e: React.MouseEvent) => {
+			e.stopPropagation();
 			e.preventDefault();
 			routeContext.startTransition();
 			setTimeout(() => {

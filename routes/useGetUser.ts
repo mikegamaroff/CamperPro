@@ -37,7 +37,6 @@ export const useGetUser = (initialUserId: string | null = null) => {
 			return null; // Return null if fetch failed
 		}
 	}, []); // Empty dependency array as `getUser` does not depend on any outer scope variables
-
 	useEffect(() => {
 		if (initialUserId) {
 			getUser(initialUserId);

@@ -1,68 +1,38 @@
+import FeedFilters from '@components/FeedFilters';
 import classNames from 'classnames';
 import { FC } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
-import Checkbox from './Forms/Checkbox';
 import { IconFilter, IconSearch } from './Icons';
 
 export const FeedSearchButton: FC = () => {
-	const SearchModalContent = () => {
-		return (
-			<div>
-				<h2>Search</h2>
-				<p>Search</p>
-			</div>
-		);
-	};
-	const FilterModalContent = () => {
-		return (
-			<div className="contentWrapper">
-				<h2>Filters</h2>
-				<p>Filters</p>
-				<Checkbox />
-			</div>
-		);
-	};
 	const confirmModalSearch = () => {
 		console.log('Confirmed');
-		dismissModalSearch();
+		dismissModal();
 	};
 
 	const cancelModalSearch = () => {
 		console.log('Canceled');
-		dismissModalSearch();
-	};
-	const confirmModalFilter = () => {
-		console.log('Confirmed');
-		dismissModalFilter();
+		dismissModal();
 	};
 
-	const cancelModalFilter = () => {
-		console.log('Canceled');
-		dismissModalFilter();
-	};
-	const { presentModal: presentModalSearch, dismissModal: dismissModalSearch } = useModal({
+	const { Modal, presentModal, dismissModal } = useModal({
 		onCancel: cancelModalSearch,
 		onConfirm: confirmModalSearch,
-		title: 'Search',
-		component: <SearchModalContent />
+		component: <FeedFilters />,
+		title: 'Filters'
 	});
-	const { presentModal: presentModalFilter, dismissModal: dismissModalFilter } = useModal({
-		onCancel: cancelModalFilter,
-		onConfirm: confirmModalFilter,
-		title: 'Filters',
-		component: <FilterModalContent />
-	});
-
 	return (
 		<div className={styles.FeedSearchButtonContainer}>
-			<div onClick={presentModalSearch} className={styles.FeedSearchButtonShadow}>
+			{Modal}
+			<div onClick={presentModal} className={styles.FeedSearchButtonShadow}>
 				<div className={styles.FeedSearchButtonContent}>
 					<div>
 						<IconSearch size={25} />
 					</div>
 					<div className={classNames(styles.label, 'body', 'bold')}>Find a campsite</div>
-					<div onClick={presentModalFilter} className={styles.FilterButton}>
+
+					<div className={styles.FilterButton} onClick={presentModal}>
 						<IconFilter size={25} />
 					</div>
 				</div>

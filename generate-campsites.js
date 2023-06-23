@@ -117,8 +117,8 @@ for (let i = 0; i < 10; i++) {
 		}
 	];
 	newCampsite.capacity = {
-		numberOfTentSites: (Math.random() * 10 + 1).toFixed(0),
-		acreage: (Math.random() * 20 + 1).toFixed(0)
+		numberOfTentSites: Number((Math.random() * 10 + 1).toFixed(0)),
+		acreage: Number((Math.random() * 20 + 1).toFixed(0))
 	};
 	// Save the user to the database
 	db.insert(newCampsite).then(response => console.log(`Created campsite: ${response.id}`));

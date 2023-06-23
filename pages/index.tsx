@@ -4,28 +4,17 @@ import { FeedCampsite } from '@components/FeedCampsite';
 import { FeedSearchButton } from '@components/FeedSearchButton';
 import { Header } from '@components/Header';
 import { MenuButton } from '@components/MenuButton';
-import { AuthContext } from '@context/authContext';
-import { Attributes, CampsiteFilter, FilterIDType } from '@model/campsite';
+import { FilterContext } from '@context/filterContext';
 import { useGetAllCampsites } from '@routes/useGetAllCampsites';
-import { selectFeedFilter } from '@utils/selectFeedFilter';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-
 import styles from './index.module.css';
 import withAuth from './withAuth';
 
 function Home() {
-	const [selectedAttributes, setSelectedAttributes] = useState<Attributes>();
-	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
+	const { selectedFilter } = useContext(FilterContext);
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
-	const { user } = useContext(AuthContext);
-
-	const handleFilterSelect = (id: FilterIDType) => {
-		const updatedAttributes: Attributes | undefined = selectFeedFilter(selectedAttributes, id);
-		setSelectedAttributes(updatedAttributes);
-		setSelectedFilter({ ...selectedFilter, attributes: updatedAttributes });
-	};
-
+	console.log(selectedFilter);
 	return (
 		<>
 			<Header title="logo" left={<MenuButton />} />
@@ -35,10 +24,7 @@ function Home() {
 					<div className="layoutContainer">
 						<div className={styles.feedSearchContainer}>
 							<FeedSearchButton />
-							<FilterBar
-								selectedAttributes={selectedAttributes}
-								handleFilterSelect={handleFilterSelect}
-							/>
+							<FilterBar />
 						</div>
 						<div className="contentWrapper">
 							<div className={styles.feedContainer}>

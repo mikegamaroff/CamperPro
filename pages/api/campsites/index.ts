@@ -103,9 +103,18 @@ async function getCampsitesWithFilters(req: NextApiRequest, res: NextApiResponse
 
 	const attributeFilters = filters.attributes;
 	delete filters.attributes;
+	const searchLocation = filters.searchLocation;
+	delete filters.searchLocation;
 
 	try {
 		const mangoQuery = buildMangoQuery(filters);
+
+		if (searchLocation) {
+			mangoQuery.selector.$or = [
+				{ 'location.state': { $gte: searchLocation, $lt: searchLocation + '\ufff0' } },
+				{ 'location.nearestTown': { $gte: searchLocation, $lt: searchLocation + '\ufff0' } }
+			];
+		}
 		const mangoResponse = await db.find(mangoQuery);
 
 		let intersectedIds = mangoResponse.docs.map(doc => doc._id);

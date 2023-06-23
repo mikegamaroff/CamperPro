@@ -7,10 +7,34 @@
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 	border-radius: 50px;
 }
+.borderlessField {
+	vertical-align: top;
+	border-radius: 8px;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	letter-spacing: -0.408px;
+	color: var(--neutral900);
+	width: 100%;
+	resize: none;
+	border: 0px solid var(--neutral150);
+	height: 50px;
+	padding: 4px 5px 4px 15px;
+}
+.borderlessField::-webkit-input-placeholder {
+	font-weight: bold;
+}
+.borderlessField:focus::-webkit-input-placeholder {
+	opacity: 0;
+	transition: 0.2s ease-in-out;
+}
 
+.borderlessField:focus {
+	outline: none;
+}
 .FeedSearchButtonContent {
 	display: flex;
-	gap: 15px;
 	align-items: center;
 }
 

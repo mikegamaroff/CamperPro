@@ -53,7 +53,6 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 
 	useEffect(() => {
 		if (rangeRef.current) {
-			console.log(rangeRef.current);
 			const ionRangeElement = rangeRef.current.querySelector('ion-range');
 			if (ionRangeElement) {
 				ionRangeElement.value = valueProp;

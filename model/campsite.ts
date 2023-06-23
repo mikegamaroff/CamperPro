@@ -73,6 +73,7 @@ export interface CampsiteFilter {
 	attributes?: Attributes;
 	numberOfTentSites?: number;
 	acreage?: number;
+	searchLocation?: string;
 }
 
 export const EmptyNewCampsite: Campsite = {

@@ -24,6 +24,7 @@ interface InputProps<T> {
 	id?: string;
 	step?: string;
 	tabIndex?: number;
+	className?: string;
 }
 
 export function Input<T extends string | number>({
@@ -43,6 +44,7 @@ export function Input<T extends string | number>({
 	width,
 	id,
 	step,
+	className,
 	inputRef
 }: InputProps<T>): JSX.Element {
 	const [passwordVisible, setPasswordVisible] = useState(false);
@@ -88,7 +90,7 @@ export function Input<T extends string | number>({
 						paddingRight: type === 'password' ? '45px' : '0px'
 					}}
 					tabIndex={tabIndex}
-					className={styles.input}
+					className={className || styles.input}
 					id={id && id}
 					placeholder={placeholder || 'Placeholder'}
 					name={name && name}

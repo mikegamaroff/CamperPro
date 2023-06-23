@@ -11,7 +11,9 @@ const indexes = [
 	{ name: 'pricePerNight-index', fields: ['pricePerNight'] },
 	{ name: 'tentSites-index', fields: ['capacity.numberOfTentSites'] },
 	{ name: 'acreage-index', fields: ['capacity.acreage'] },
-	{ name: 'active-draft-index', fields: ['active', 'draft'] }
+	{ name: 'active-draft-index', fields: ['active', 'draft'] },
+	{ name: 'location-state-index', fields: ['location.state'] },
+	{ name: 'location-nearestTown-index', fields: ['location.nearestTown'] }
 ];
 
 async function createIndex(index) {

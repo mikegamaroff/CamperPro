@@ -5,7 +5,6 @@ import { Header } from '@components/Header';
 import { IconBackArrow, IconClose, IconForwardArrow } from '@components/Icons';
 import { Pager } from '@components/Pager';
 import { Stage1 } from '@components/campsites/editStages/Stage1';
-import { CampsiteContext } from '@context/campsiteContext';
 import { useFormValues } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { objectEquals } from '@model/model';
@@ -13,15 +12,14 @@ import withAuth from '@pages/withAuth';
 import { useEditCampsite } from '@routes/useEditCampsite';
 import { useGetCampsite } from '@routes/useGetCampsite';
 import { UserEditRules } from 'formConfigs/editUserFieldsConfig';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
 	id: string;
 }
 
 function EditCampsite({ id }: Props) {
-	const { updateCampsite } = useContext(CampsiteContext);
-	const { editCampsite } = useEditCampsite();
+	const { editCampsite, isLoading: editing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
 	const totalPages = 6;
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const {
@@ -55,11 +53,12 @@ function EditCampsite({ id }: Props) {
 	const goToNextStage = async (page?: number) => {
 		if (campsite) {
 			const nextStage = campsite.draftStage + 1;
-			const updatedCampsite = { ...campsite, draftStage: page || nextStage };
+			const updatedCampsite = { ...campsite, draftStage: page || nextStage, _rev: campsite._rev };
 
 			const updated = await editCampsite(updatedCampsite); // Update the campsite in the database
+
 			if (updated.success) {
-				updateCampsite(updatedCampsite);
+				console.log(updated);
 			}
 		}
 	};

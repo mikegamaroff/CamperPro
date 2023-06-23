@@ -30,14 +30,12 @@ async function getCampsiteById(req: NextApiRequest, res: NextApiResponse<{ camps
 		res.status(500).json({ campsite: null });
 	}
 }
-
-// Add the updateCampsite function
 async function updateCampsite(
 	req: NextApiRequest,
 	res: NextApiResponse<{ message: string; campsite: Campsite | null }>
 ) {
 	const db = createDbInstance();
-	const updatedCampsite: Campsite = req.body;
+	let updatedCampsite: Campsite = req.body;
 	if (!req.body._id) {
 		res.status(400).json({ message: 'Missing id in request body', campsite: null });
 		return;
@@ -45,10 +43,16 @@ async function updateCampsite(
 	const id = req.body._id as string;
 
 	if (!id.startsWith('campsite')) {
-		res.status(500).json({ message: 'Not a review document', campsite: null });
+		res.status(500).json({ message: 'Not a campsite document', campsite: null });
 	}
 
 	try {
+		// Fetch the latest document
+		const latestDoc = await db.get(id);
+
+		// Merge changes from req.body into the latest document
+		updatedCampsite = { ...updatedCampsite, _rev: latestDoc._rev };
+
 		const response = await db.insert(updatedCampsite);
 		console.log('Updated campsite:', response);
 

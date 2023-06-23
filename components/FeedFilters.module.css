@@ -23,7 +23,7 @@
 .textPadding {
 	padding-left: 15px;
 }
-.buttons {
+.capacityButtons {
 	display: flex;
 	padding: 5px 15px 0px 15px;
 	overflow-x: scroll;

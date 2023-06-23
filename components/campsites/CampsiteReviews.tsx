@@ -1,3 +1,4 @@
+import { Container } from '@components/Container';
 import React, { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { v4 as uuidv4 } from 'uuid';
@@ -57,24 +58,26 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 
 	const AllReviewsModal = () => {
 		return (
-			<div className={styles.modalContainer}>
-				<div className={styles.modalRating}>
-					<div>
-						<IconStar size={18} />
+			<Container scroll hidetabs shelfHeight={40}>
+				<>
+					<div className={styles.modalRating}>
+						<div>
+							<IconStar size={18} />
+						</div>
+						<h4 className="medium">{campsite?.rating}</h4>
+						<div className="bold">•</div>
+						<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
 					</div>
-					<h4 className="medium">{campsite?.rating}</h4>
-					<div className="bold">•</div>
-					<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
-				</div>
-				<div style={{ height: '100%', paddingTop: '80px' }}>
-					<Virtuoso
-						totalCount={reviews.length}
-						data={reviews}
-						overscan={{ main: 2, reverse: 2 }}
-						itemContent={(index, review) => <ModalCampsiteReview review={review} />}
-					/>
-				</div>
-			</div>
+					<div style={{ height: '100%', paddingTop: '80px' }}>
+						<Virtuoso
+							totalCount={reviews.length}
+							data={reviews}
+							overscan={{ main: 2, reverse: 2 }}
+							itemContent={(index, review) => <ModalCampsiteReview review={review} />}
+						/>
+					</div>
+				</>
+			</Container>
 		);
 	};
 
@@ -86,7 +89,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	const { Modal, presentModal, dismissModal } = useModal({
 		onCancel: cancelModalSearch,
 		component: <AllReviewsModal />,
-		title: 'My Modal'
+		title: 'Campsite Reviews'
 	});
 
 	return (

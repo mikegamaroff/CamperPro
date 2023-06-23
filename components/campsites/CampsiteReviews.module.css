@@ -87,11 +87,6 @@
 	margin-left: 5px;
 }
 
-.modalContainer {
-	height: 100%;
-	position: relative;
-}
-
 .modalRating {
 	position: absolute;
 	top: 0;

@@ -261,7 +261,7 @@ a:hover {
 	overflow-y: auto !important;
 }
 .scrollContent {
-	overflow: auto;
+	overflow: scroll;
 }
 .pill {
 	background: var(--neutral50);

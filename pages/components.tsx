@@ -1,5 +1,6 @@
 import { Container } from '@components/Container';
 import Button from '@components/Forms/Button';
+import Switch from '@components/Forms/Switch';
 import IonRange from '@components/Framework/IonRange';
 import { Go } from '@components/Go';
 import { Header } from '@components/Header';
@@ -167,6 +168,7 @@ function Components() {
 					<Button color={'primary'} onClick={presentAlert}>
 						alert
 					</Button>
+					<Switch />
 					<IonRange handleChange={rangeSliderHandle} dualKnobs />
 				</>
 			</Container>

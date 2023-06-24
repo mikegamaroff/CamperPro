@@ -8,6 +8,7 @@ import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import styles from './FeedFilters.module.css';
+import Switch from './Forms/Switch';
 
 export const FeedFilters: React.FC = () => {
 	const sliderDefaults = [20, 300];
@@ -18,12 +19,14 @@ export const FeedFilters: React.FC = () => {
 	const [showAllFeatures, setShowAllFeatures] = useState(false);
 	const [featureDivHeight, setFeatureDivHeight] = useState('300px');
 	const [showAllAmenities, setShowAllAmenities] = useState(false);
-	const [amenityDivHeight, setAmenityDivHeight] = useState('300px');
+	const [amenityDivHeight, setAmenityDivHeight] = useState('297px');
 	const [showAllPermitted, setShowAllPermitted] = useState(false);
-	const [permittedDivHeight, setPermittedDivHeight] = useState('300px');
+	const [permittedDivHeight, setPermittedDivHeight] = useState('297px');
 	const featureDivRef = useRef<HTMLDivElement>(null);
 	const amenityDivRef = useRef<HTMLDivElement>(null);
 	const permittedDivRef = useRef<HTMLDivElement>(null);
+	const [showMorePermittedButton, setShowMorePermittedButton] = useState(false);
+	const [showMoreAmenitiesButton, setShowMoreAmenitiesButton] = useState(false);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		setSelectedFilter(prevFilter => ({
@@ -80,9 +83,10 @@ export const FeedFilters: React.FC = () => {
 
 			if (Div) {
 				setAmenityDivHeight(`${Div.scrollHeight}px`);
+				console.log(Div.scrollHeight);
 			}
 		} else {
-			setAmenityDivHeight('300px');
+			setAmenityDivHeight('297px');
 		}
 	}, [showAllAmenities]);
 
@@ -94,9 +98,29 @@ export const FeedFilters: React.FC = () => {
 				setPermittedDivHeight(`${Div.scrollHeight}px`);
 			}
 		} else {
-			setPermittedDivHeight('300px');
+			setPermittedDivHeight('297px');
 		}
 	}, [showAllPermitted]);
+
+	useEffect(() => {
+		if (amenityDivRef.current) {
+			if (amenityDivRef.current.scrollHeight > 297) {
+				setShowMoreAmenitiesButton(true);
+			} else {
+				setShowMoreAmenitiesButton(false);
+			}
+		}
+	}, []);
+
+	useEffect(() => {
+		if (permittedDivRef.current) {
+			if (permittedDivRef.current.scrollHeight > 297) {
+				setShowMorePermittedButton(true);
+			} else {
+				setShowMorePermittedButton(false);
+			}
+		}
+	}, []);
 
 	return (
 		<>
@@ -242,56 +266,63 @@ export const FeedFilters: React.FC = () => {
 					</div>
 					<div className={styles.section}>
 						<div className="medium">Amenities</div>
-						<div ref={amenityDivRef} className={styles.featuresGrid} style={{ height: amenityDivHeight }}>
+						<div ref={amenityDivRef} className={styles.optionsList} style={{ height: amenityDivHeight }}>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
 								if (filterbutton.id.feature || filterbutton.id.permitted) {
 									return null;
 								}
-								const IconComponent = filterbutton.icon || null;
+								const [selected, setSelected] = useState(false);
+								useEffect(() => {
+									if (selectedFilter.attributes?.amenity !== filterbutton.id) {
+										setSelected(false);
+									} else {
+										setSelected(true);
+									}
+								}, [selectedFilter]);
 								return (
 									<div
 										key={'filterbutton' + i}
 										onClick={() => {
 											handleSelectAttributes(filterbutton.id);
 										}}
-										className={styles.feature}
-										style={
-											filterExists(filterbutton.id)
-												? { color: 'var(--foreground)', border: '2px solid var(--primary)' }
-												: {
-														color: 'var(--neutral700)',
-														border: '1px solid var(--neutral150)'
-												  }
-										}
+										className={styles.option}
 									>
-										<IconComponent size={30} />
-										<div>{filterbutton.label}</div>
+										<div className={styles.text}>
+											<div>{filterbutton.label}</div>
+											<div className="caption">subtext</div>
+										</div>
+										<Switch
+											checked={selected}
+											onIonChange={() => handleSelectAttributes(filterbutton.id)}
+										/>
 									</div>
 								);
 							})}
 						</div>
-						<div>
-							{!showAllAmenities && (
-								<div
-									className={classNames(styles.showButton, 'medium')}
-									onClick={() => {
-										setShowAllAmenities(true);
-									}}
-								>
-									Show more
-								</div>
-							)}
-							{showAllAmenities && (
-								<div
-									className={classNames(styles.showButton, 'medium')}
-									onClick={() => {
-										setShowAllAmenities(false);
-									}}
-								>
-									Show less
-								</div>
-							)}
-						</div>
+						{showMoreAmenitiesButton && (
+							<div>
+								{!showAllAmenities && (
+									<div
+										className={classNames(styles.showButton, 'medium')}
+										onClick={() => {
+											setShowAllAmenities(true);
+										}}
+									>
+										Show more
+									</div>
+								)}
+								{showAllAmenities && (
+									<div
+										className={classNames(styles.showButton, 'medium')}
+										onClick={() => {
+											setShowAllAmenities(false);
+										}}
+									>
+										Show less
+									</div>
+								)}
+							</div>
+						)}
 					</div>
 					<div>
 						<hr />
@@ -300,58 +331,53 @@ export const FeedFilters: React.FC = () => {
 						<div className="medium">Permitted</div>
 						<div
 							ref={permittedDivRef}
-							className={styles.featuresGrid}
+							className={styles.optionsList}
 							style={{ height: permittedDivHeight }}
 						>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
 								if (filterbutton.id.feature || filterbutton.id.amenity) {
 									return null;
 								}
-								const IconComponent = filterbutton.icon || null;
 								return (
 									<div
 										key={'filterbutton' + i}
 										onClick={() => {
 											handleSelectAttributes(filterbutton.id);
 										}}
-										className={styles.feature}
-										style={
-											filterExists(filterbutton.id)
-												? { color: 'var(--foreground)', border: '2px solid var(--primary)' }
-												: {
-														color: 'var(--neutral700)',
-														border: '1px solid var(--neutral150)'
-												  }
-										}
+										className={styles.option}
 									>
-										<IconComponent size={30} />
-										<div>{filterbutton.label}</div>
+										<div className={styles.text}>
+											<div>{filterbutton.label}</div>
+											<div className="caption">subtext</div>
+										</div>
 									</div>
 								);
 							})}
 						</div>
-						<div>
-							{!showAllPermitted && (
-								<div
-									className={classNames(styles.showButton, 'medium')}
-									onClick={() => {
-										setShowAllPermitted(true);
-									}}
-								>
-									Show more
-								</div>
-							)}
-							{showAllPermitted && (
-								<div
-									className={classNames(styles.showButton, 'medium')}
-									onClick={() => {
-										setShowAllPermitted(false);
-									}}
-								>
-									Show less
-								</div>
-							)}
-						</div>
+						{showMorePermittedButton && (
+							<div>
+								{!showAllPermitted && (
+									<div
+										className={classNames(styles.showButton, 'medium')}
+										onClick={() => {
+											setShowAllPermitted(true);
+										}}
+									>
+										Show more
+									</div>
+								)}
+								{showAllPermitted && (
+									<div
+										className={classNames(styles.showButton, 'medium')}
+										onClick={() => {
+											setShowAllPermitted(false);
+										}}
+									>
+										Show less
+									</div>
+								)}
+							</div>
+						)}
 					</div>
 					<div>
 						<hr />

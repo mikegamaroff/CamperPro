@@ -1,5 +1,6 @@
 .FeedSearchButtonContainer {
 	padding: 10px;
+	position: relative;
 }
 .FeedSearchButtonShadow {
 	padding: 10px 20px 10px 20px;
@@ -50,4 +51,40 @@
 .label {
 	width: 100%;
 	color: var(--neutral900);
+}
+.searchOverlayContainer {
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	top: 125px;
+	left: 0;
+	padding: 9px;
+	transition: var(--transition-default);
+	height: 0px;
+}
+.searchOverlay {
+	background: var(--neutral);
+	box-shadow: var(--shadow-default);
+	padding: 10px;
+	border-radius: 8px;
+	transition: var(--transition-default);
+	height: 0px;
+	overflow: hidden;
+	padding-left: 9px;
+	padding-right: 9px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-height: 30vh;
+	overflow: auto;
+}
+.searchResultContainer {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.searchResultIcon {
+	background: var(--neutral50);
+	padding: 14px;
+	border-radius: 8px;
 }

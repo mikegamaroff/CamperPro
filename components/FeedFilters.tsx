@@ -271,14 +271,7 @@ export const FeedFilters: React.FC = () => {
 								if (filterbutton.id.feature || filterbutton.id.permitted) {
 									return null;
 								}
-								const [selected, setSelected] = useState(false);
-								useEffect(() => {
-									if (selectedFilter.attributes?.amenity !== filterbutton.id) {
-										setSelected(false);
-									} else {
-										setSelected(true);
-									}
-								}, [selectedFilter]);
+
 								return (
 									<div
 										key={'filterbutton' + i}
@@ -292,7 +285,7 @@ export const FeedFilters: React.FC = () => {
 											<div className="caption">subtext</div>
 										</div>
 										<Switch
-											checked={selected}
+											checked={filterExists(filterbutton.id)}
 											onIonChange={() => handleSelectAttributes(filterbutton.id)}
 										/>
 									</div>

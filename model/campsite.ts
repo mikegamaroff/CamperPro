@@ -61,18 +61,19 @@ export type FilterIDType = {
 	amenity?: AmenityNames;
 	permitted?: PermittedNames;
 };
-
+export interface CampsiteLocation {
+	state?: string;
+	nearestTown?: string;
+}
 export interface CampsiteFilter {
 	private?: boolean;
 	rating?: number[];
-	location?: {
-		state?: string;
-		nearestTown?: string;
-	};
+	location?: CampsiteLocation;
 	priceRange?: number[];
 	attributes?: Attributes;
 	numberOfTentSites?: number;
 	acreage?: number;
+	searchLocation?: string;
 }
 
 export const EmptyNewCampsite: Campsite = {

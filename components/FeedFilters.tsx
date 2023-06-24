@@ -60,8 +60,6 @@ export const FeedFilters: React.FC = () => {
 
 	const capacityButtons = ['Any', 1, 2, 3, 4, 5, 6, 7, 8, 9, '10+'];
 
-	console.log(selectedFilter);
-
 	useEffect(() => {
 		if (showAllFeatures) {
 			const Div = featureDivRef.current;

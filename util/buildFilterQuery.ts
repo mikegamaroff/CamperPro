@@ -1,5 +1,4 @@
 import { CampsiteFilter } from '@model/campsite';
-
 export function buildMangoQuery(filters: CampsiteFilter) {
 	// Check if filters object is empty
 	if (!filters) {
@@ -23,11 +22,6 @@ export function buildMangoQuery(filters: CampsiteFilter) {
 			$gte: filters.rating[0],
 			$lte: filters.rating[1]
 		};
-	}
-
-	if (filters.location !== undefined) {
-		query.selector['location.state'] = filters.location.state;
-		query.selector['location.nearestTown'] = filters.location.nearestTown;
 	}
 
 	if (filters.priceRange !== undefined) {
@@ -55,5 +49,15 @@ export function buildMangoQuery(filters: CampsiteFilter) {
 		query.selector['capacity.acreage'] = filters.acreage;
 	}
 
+	if (filters.searchLocation !== undefined) {
+		const searchLocation = filters.searchLocation.toLowerCase(); // convert to lowercase for case-insensitive search
+		query.selector = {
+			...query.selector,
+			$or: [
+				{ 'location.state': { $gte: searchLocation, $lt: searchLocation + '\ufff0' } },
+				{ 'location.nearestTown': { $gte: searchLocation, $lt: searchLocation + '\ufff0' } }
+			]
+		};
+	}
 	return query;
 }

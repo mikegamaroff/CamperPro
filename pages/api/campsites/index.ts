@@ -103,9 +103,36 @@ async function getCampsitesWithFilters(req: NextApiRequest, res: NextApiResponse
 
 	const attributeFilters = filters.attributes;
 	delete filters.attributes;
+	const searchLocation = filters.searchLocation;
+	delete filters.searchLocation;
 
 	try {
 		const mangoQuery = buildMangoQuery(filters);
+
+		if (searchLocation) {
+			// Remove punctuation and numbers from the searchLocation
+			const sanitizedSearchLocation = searchLocation.replace(/[\d.,/#!$%^&*;:{}=\-_`~()]/g, '');
+			const searchParts = sanitizedSearchLocation.split(' ');
+			if (searchParts.length > 1) {
+				const state = searchParts.pop();
+				const town = searchParts.join(' ');
+				mangoQuery.selector.$and = [
+					{ 'location.state': { $gte: state, $lt: state + '\ufff0' } },
+					{ 'location.nearestTown': { $gte: town, $lt: town + '\ufff0' } }
+				];
+			} else {
+				mangoQuery.selector.$or = [
+					{ 'location.state': { $gte: sanitizedSearchLocation, $lt: sanitizedSearchLocation + '\ufff0' } },
+					{
+						'location.nearestTown': {
+							$gte: sanitizedSearchLocation,
+							$lt: sanitizedSearchLocation + '\ufff0'
+						}
+					}
+				];
+			}
+		}
+
 		const mangoResponse = await db.find(mangoQuery);
 
 		let intersectedIds = mangoResponse.docs.map(doc => doc._id);

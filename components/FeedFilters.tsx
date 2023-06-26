@@ -321,7 +321,7 @@ export const FeedFilters: React.FC = () => {
 						<hr />
 					</div>
 					<div className={styles.section}>
-						<div className="medium">Permitted</div>
+						<div className="medium">What's allowed</div>
 						<div
 							ref={permittedDivRef}
 							className={styles.optionsList}
@@ -331,6 +331,7 @@ export const FeedFilters: React.FC = () => {
 								if (filterbutton.id.feature || filterbutton.id.amenity) {
 									return null;
 								}
+
 								return (
 									<div
 										key={'filterbutton' + i}
@@ -343,6 +344,10 @@ export const FeedFilters: React.FC = () => {
 											<div>{filterbutton.label}</div>
 											<div className="caption">subtext</div>
 										</div>
+										<Switch
+											checked={filterExists(filterbutton.id)}
+											onIonChange={() => handleSelectAttributes(filterbutton.id)}
+										/>
 									</div>
 								);
 							})}

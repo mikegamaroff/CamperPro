@@ -3,11 +3,12 @@ import Checkbox from '@components/Forms/Checkbox';
 import IonRange from '@components/Framework/IonRange';
 import { FilterContext } from '@context/filterContext';
 import { useAdjustFilterHeights } from '@hooks/useAdjustFilterHeight';
+import { useAttributesShowMoreButton } from '@hooks/useAttributesShowMoreButton';
 import { CampsiteFilter, FilterButtons, FilterIconProps } from '@model/campsite';
 import withAuth from '@pages/withAuth';
 import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useRef, useState } from 'react';
 import styles from './FeedFilters.module.css';
 import Switch from './Forms/Switch';
 
@@ -26,8 +27,6 @@ export const FeedFilters: React.FC = () => {
 	const featureDivRef = useRef<HTMLDivElement>(null);
 	const amenityDivRef = useRef<HTMLDivElement>(null);
 	const permittedDivRef = useRef<HTMLDivElement>(null);
-	const [showMorePermittedButton, setShowMorePermittedButton] = useState(false);
-	const [showMoreAmenitiesButton, setShowMoreAmenitiesButton] = useState(false);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
 		setSelectedFilter(prevFilter => ({
@@ -70,25 +69,8 @@ export const FeedFilters: React.FC = () => {
 	useAdjustFilterHeights(showAllAmenities, amenityDivRef, setAmenityDivHeight, '297px');
 	useAdjustFilterHeights(showAllPermitted, permittedDivRef, setPermittedDivHeight, '297px');
 
-	useEffect(() => {
-		if (amenityDivRef.current) {
-			if (amenityDivRef.current.scrollHeight > 297) {
-				setShowMoreAmenitiesButton(true);
-			} else {
-				setShowMoreAmenitiesButton(false);
-			}
-		}
-	}, []);
-
-	useEffect(() => {
-		if (permittedDivRef.current) {
-			if (permittedDivRef.current.scrollHeight > 297) {
-				setShowMorePermittedButton(true);
-			} else {
-				setShowMorePermittedButton(false);
-			}
-		}
-	}, []);
+	const { showMoreAmenitiesButton } = useAttributesShowMoreButton(amenityDivRef, 297, 'amenity');
+	const { showMorePermittedButton } = useAttributesShowMoreButton(permittedDivRef, 297, 'permitted');
 
 	return (
 		<>

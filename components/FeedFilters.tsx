@@ -2,6 +2,7 @@ import { Container } from '@components/Container';
 import Checkbox from '@components/Forms/Checkbox';
 import IonRange from '@components/Framework/IonRange';
 import { FilterContext } from '@context/filterContext';
+import { useAdjustFilterHeights } from '@hooks/useAdjustFilterHeight';
 import { CampsiteFilter, FilterButtons, FilterIconProps } from '@model/campsite';
 import withAuth from '@pages/withAuth';
 import { filterExists } from '@utils/filterExists';
@@ -65,42 +66,9 @@ export const FeedFilters: React.FC = () => {
 
 	console.log(selectedFilter);
 
-	useEffect(() => {
-		if (showAllFeatures) {
-			const Div = featureDivRef.current;
-
-			if (Div) {
-				setFeatureDivHeight(`${Div.scrollHeight}px`);
-			}
-		} else {
-			setFeatureDivHeight('300px');
-		}
-	}, [showAllFeatures]);
-
-	useEffect(() => {
-		if (showAllAmenities) {
-			const Div = amenityDivRef.current;
-
-			if (Div) {
-				setAmenityDivHeight(`${Div.scrollHeight}px`);
-				console.log(Div.scrollHeight);
-			}
-		} else {
-			setAmenityDivHeight('297px');
-		}
-	}, [showAllAmenities]);
-
-	useEffect(() => {
-		if (showAllPermitted) {
-			const Div = permittedDivRef.current;
-
-			if (Div) {
-				setPermittedDivHeight(`${Div.scrollHeight}px`);
-			}
-		} else {
-			setPermittedDivHeight('297px');
-		}
-	}, [showAllPermitted]);
+	useAdjustFilterHeights(showAllFeatures, featureDivRef, setFeatureDivHeight, '300px');
+	useAdjustFilterHeights(showAllAmenities, amenityDivRef, setAmenityDivHeight, '297px');
+	useAdjustFilterHeights(showAllPermitted, permittedDivRef, setPermittedDivHeight, '297px');
 
 	useEffect(() => {
 		if (amenityDivRef.current) {
@@ -321,7 +289,7 @@ export const FeedFilters: React.FC = () => {
 						<hr />
 					</div>
 					<div className={styles.section}>
-						<div className="medium">What&lsquo;s allowed</div>
+						<div className="medium">{`What's allowed`}</div>
 						<div
 							ref={permittedDivRef}
 							className={styles.optionsList}

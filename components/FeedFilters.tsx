@@ -321,7 +321,7 @@ export const FeedFilters: React.FC = () => {
 						<hr />
 					</div>
 					<div className={styles.section}>
-						<div className="medium">What's allowed</div>
+						<div className="medium">What&lsquo;s allowed</div>
 						<div
 							ref={permittedDivRef}
 							className={styles.optionsList}

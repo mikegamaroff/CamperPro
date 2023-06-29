@@ -18,12 +18,6 @@ export const FeedFilters: React.FC = () => {
 	const [capacityButtonColor, setCapacityButtonColor] = useState(0);
 	const [isPrivate, setIsPrivate] = useState<boolean>(false);
 	const [isPublic, setIsPublic] = useState<boolean>(false);
-	const [showAllFeatures, setShowAllFeatures] = useState(false);
-	const [featureDivHeight, setFeatureDivHeight] = useState('300px');
-	const [showAllAmenities, setShowAllAmenities] = useState(false);
-	const [amenityDivHeight, setAmenityDivHeight] = useState('297px');
-	const [showAllPermitted, setShowAllPermitted] = useState(false);
-	const [permittedDivHeight, setPermittedDivHeight] = useState('297px');
 	const featureDivRef = useRef<HTMLDivElement>(null);
 	const amenityDivRef = useRef<HTMLDivElement>(null);
 	const permittedDivRef = useRef<HTMLDivElement>(null);
@@ -65,10 +59,21 @@ export const FeedFilters: React.FC = () => {
 
 	console.log(selectedFilter);
 
-	useAdjustFilterHeights(showAllFeatures, featureDivRef, setFeatureDivHeight, '300px');
-	useAdjustFilterHeights(showAllAmenities, amenityDivRef, setAmenityDivHeight, '297px');
-	useAdjustFilterHeights(showAllPermitted, permittedDivRef, setPermittedDivHeight, '297px');
-
+	const { setShowAllFeatures, showAllFeatures, featureDivHeight } = useAdjustFilterHeights(
+		featureDivRef,
+		300,
+		'feature'
+	);
+	const { setShowAllAmenities, showAllAmenities, amenityDivHeight } = useAdjustFilterHeights(
+		amenityDivRef,
+		297,
+		'amenity'
+	);
+	const { setShowAllPermitted, showAllPermitted, permittedDivHeight } = useAdjustFilterHeights(
+		permittedDivRef,
+		297,
+		'permitted'
+	);
 	const { showMoreAmenitiesButton } = useAttributesShowMoreButton(amenityDivRef, 297, 'amenity');
 	const { showMorePermittedButton } = useAttributesShowMoreButton(permittedDivRef, 297, 'permitted');
 
@@ -160,7 +165,11 @@ export const FeedFilters: React.FC = () => {
 					</div>
 					<div className={styles.section}>
 						<div className="medium">Features</div>
-						<div ref={featureDivRef} className={styles.featuresGrid} style={{ height: featureDivHeight }}>
+						<div
+							ref={featureDivRef}
+							className={styles.featuresGrid}
+							style={{ height: `${featureDivHeight}px` }}
+						>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
 								if (filterbutton.id.amenity || filterbutton.id.permitted) {
 									return null;
@@ -216,7 +225,11 @@ export const FeedFilters: React.FC = () => {
 					</div>
 					<div className={styles.section}>
 						<div className="medium">Amenities</div>
-						<div ref={amenityDivRef} className={styles.optionsList} style={{ height: amenityDivHeight }}>
+						<div
+							ref={amenityDivRef}
+							className={styles.optionsList}
+							style={{ height: `${amenityDivHeight}px` }}
+						>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
 								if (filterbutton.id.feature || filterbutton.id.permitted) {
 									return null;
@@ -275,7 +288,7 @@ export const FeedFilters: React.FC = () => {
 						<div
 							ref={permittedDivRef}
 							className={styles.optionsList}
-							style={{ height: permittedDivHeight }}
+							style={{ height: `${permittedDivHeight}px` }}
 						>
 							{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {
 								if (filterbutton.id.feature || filterbutton.id.amenity) {

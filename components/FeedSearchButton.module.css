@@ -1,5 +1,6 @@
 .FeedSearchButtonContainer {
 	padding: 10px;
+	position: relative;
 }
 .FeedSearchButtonShadow {
 	padding: 10px 20px 10px 20px;
@@ -7,10 +8,34 @@
 	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
 	border-radius: 50px;
 }
+.borderlessField {
+	vertical-align: top;
+	border-radius: 8px;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 22px;
+	letter-spacing: -0.408px;
+	color: var(--neutral900);
+	width: 100%;
+	resize: none;
+	border: 0px solid var(--neutral150);
+	height: 50px;
+	padding: 4px 5px 4px 15px;
+}
+.borderlessField::-webkit-input-placeholder {
+	font-weight: bold;
+}
+.borderlessField:focus::-webkit-input-placeholder {
+	opacity: 0;
+	transition: 0.2s ease-in-out;
+}
 
+.borderlessField:focus {
+	outline: none;
+}
 .FeedSearchButtonContent {
 	display: flex;
-	gap: 15px;
 	align-items: center;
 }
 
@@ -26,4 +51,40 @@
 .label {
 	width: 100%;
 	color: var(--neutral900);
+}
+.searchOverlayContainer {
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	top: 125px;
+	left: 0;
+	padding: 9px;
+	transition: var(--transition-default);
+	height: 0px;
+}
+.searchOverlay {
+	background: var(--neutral);
+	box-shadow: var(--shadow-default);
+	padding: 10px;
+	border-radius: 8px;
+	transition: var(--transition-default);
+	height: 0px;
+	overflow: hidden;
+	padding-left: 9px;
+	padding-right: 9px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-height: 30vh;
+	overflow: auto;
+}
+.searchResultContainer {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.searchResultIcon {
+	background: var(--neutral50);
+	padding: 14px;
+	border-radius: 8px;
 }

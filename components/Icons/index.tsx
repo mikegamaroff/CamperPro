@@ -4,6 +4,7 @@ import BackArrow from '../../assets/icons/BackArrowIcon.component.svg';
 import Camera from '../../assets/icons/CameraIcon.component.svg';
 import Check from '../../assets/icons/CheckIcon.component.svg';
 import ChevronForward from '../../assets/icons/ChevronForward.component.svg';
+import ClearFilters from '../../assets/icons/ClearFiltersIcon.component.svg';
 import Close from '../../assets/icons/CloseIcon.component.svg';
 import Edit from '../../assets/icons/EditIcon.component.svg';
 import Eye from '../../assets/icons/EyeIcon.component.svg';
@@ -58,6 +59,7 @@ const createIcon = (SvgComponent: React.ComponentType<React.SVGProps<SVGSVGEleme
 	return IconComponent;
 };
 export const IconTrash = createIcon(Trash, 'Trash');
+export const IconClearFilters = createIcon(ClearFilters, 'ClearFilters');
 export const IconEye = createIcon(Eye, 'Eye');
 export const IconEyeOff = createIcon(EyeOff, 'EyeOff');
 export const IconCellsignal = createIcon(Cellsignal, 'Cellsignal');

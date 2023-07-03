@@ -7,14 +7,14 @@ import { ChangeEvent, FC, useContext, useRef, useState } from 'react';
 import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
 import { Input } from './Forms/Input';
-import { IconFilter, IconLocation } from './Icons';
+import { IconClearFilters, IconFilter, IconLocation } from './Icons';
 
 export const FeedSearchButton: FC = () => {
 	const [searchValue, setSearchValue] = useState<string>();
+	const { selectedFilter, setSelectedFilter } = useContext(FilterContext);
 	const [selectedLocationFilter, setSelectedLocationFilter] = useState<CampsiteFilter>({});
 	const { locations, setLocations } = useGetAllCampsiteLocations({ filters: selectedLocationFilter });
 	const debounceTimeoutRef = useRef<NodeJS.Timeout>();
-	const { setSelectedFilter } = useContext(FilterContext);
 	const confirmModalSearch = () => {
 		console.log('Confirmed');
 		dismissModal();
@@ -91,7 +91,11 @@ export const FeedSearchButton: FC = () => {
 							onChange={handleSearchChange}
 						/>
 					</div>
-
+					{Object.keys(selectedFilter).length < 1 && (
+						<div className={styles.clearButton} onClick={() => setSelectedFilter({})}>
+							<IconClearFilters size={9} />
+						</div>
+					)}
 					<div className={styles.FilterButton} onClick={presentModal}>
 						<IconFilter size={25} />
 					</div>

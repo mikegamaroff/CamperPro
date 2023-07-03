@@ -26,16 +26,16 @@ export const FeedFilters: React.FC = () => {
 	const permittedDivRef = useRef<HTMLDivElement>(null);
 
 	const rangeSliderHandle = (event: CustomEvent) => {
-		setSelectedFilter(prevFilter => ({
-			...prevFilter,
+		setSelectedFilter({
+			...selectedFilter,
 			priceRange: [event.detail.value.lower, event.detail.value.upper]
-		}));
+		});
 	};
 	const handleCapacityButtonClick = (buttonNumber: number) => {
-		setSelectedFilter(prevFilter => ({
-			...prevFilter,
+		setSelectedFilter({
+			...selectedFilter,
 			numberOfTentSites: buttonNumber === 0 ? undefined : buttonNumber
-		}));
+		});
 		setCapacityButtonColor(buttonNumber);
 	};
 

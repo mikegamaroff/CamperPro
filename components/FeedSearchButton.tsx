@@ -11,7 +11,7 @@ import { IconClearFilters, IconFilter, IconLocation } from './Icons';
 
 export const FeedSearchButton: FC = () => {
 	const [searchValue, setSearchValue] = useState<string>();
-	const { selectedFilter, setSelectedFilter } = useContext(FilterContext);
+	const { selectedFilter, setSelectedFilter, clearFilters, filters } = useContext(FilterContext);
 	const [selectedLocationFilter, setSelectedLocationFilter] = useState<CampsiteFilter>({});
 	const { locations, setLocations } = useGetAllCampsiteLocations({ filters: selectedLocationFilter });
 	const debounceTimeoutRef = useRef<NodeJS.Timeout>();
@@ -34,7 +34,7 @@ export const FeedSearchButton: FC = () => {
 
 	const handleLocationSelect = (value: CampsiteLocation) => {
 		setSearchValue(value.nearestTown + ' ' + value.state);
-		setSelectedFilter(prevFilter => ({ ...prevFilter, searchLocation: value.nearestTown + ' ' + value.state }));
+		setSelectedFilter({ ...selectedFilter, searchLocation: value.nearestTown + ' ' + value.state });
 		setLocations([]);
 	};
 
@@ -91,8 +91,8 @@ export const FeedSearchButton: FC = () => {
 							onChange={handleSearchChange}
 						/>
 					</div>
-					{Object.keys(selectedFilter).length < 1 && (
-						<div className={styles.clearButton} onClick={() => setSelectedFilter({})}>
+					{filters && (
+						<div className={styles.clearButton} onClick={clearFilters}>
 							<IconClearFilters size={9} />
 						</div>
 					)}

@@ -8,7 +8,7 @@ import { CampsiteFilter, FilterButtons, FilterIconProps } from '@model/campsite'
 import withAuth from '@pages/withAuth';
 import { filterExists } from '@utils/filterExists';
 import classNames from 'classnames';
-import { ChangeEvent, useContext, useRef, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import styles from './FeedFilters.module.css';
 import Switch from './Forms/Switch';
 
@@ -16,17 +16,18 @@ export const FeedFilters: React.FC = () => {
 	interface FormDefaultType {
 		isPrivate: false;
 		isPublic: false;
-		featureDivHeight: string;
+		capacityButtonColor: number;
+		sliderDefaults: number[];
 	}
 	const formDefaults: FormDefaultType = {
 		isPrivate: false,
 		isPublic: false,
-		featureDivHeight: '300px'
+		capacityButtonColor: 0,
+		sliderDefaults: [20, 300]
 	};
 
-	const sliderDefaults = [20, 300];
 	const { selectedFilter, handleSelectAttributes, setSelectedFilter, filters } = useContext(FilterContext);
-	const [capacityButtonColor, setCapacityButtonColor] = useState(0);
+	const [capacityButtonColor, setCapacityButtonColor] = useState(formDefaults.capacityButtonColor);
 	const [isPrivate, setIsPrivate] = useState<boolean>(formDefaults.isPrivate);
 	const [isPublic, setIsPublic] = useState<boolean>(formDefaults.isPublic);
 	const featureDivRef = useRef<HTMLDivElement>(null);
@@ -46,7 +47,15 @@ export const FeedFilters: React.FC = () => {
 		});
 		setCapacityButtonColor(buttonNumber);
 	};
-	console.log(isPublic);
+
+	useEffect(() => {
+		if (!filters) {
+			setIsPrivate(formDefaults.isPrivate);
+			setIsPublic(formDefaults.isPublic);
+			setCapacityButtonColor(formDefaults.capacityButtonColor);
+		}
+	}, [filters]);
+
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const checked = event.target.checked;
 		const id = event.target.id;
@@ -104,7 +113,7 @@ export const FeedFilters: React.FC = () => {
 								)}
 								{!selectedFilter.priceRange && (
 									<div>
-										${sliderDefaults[0]}-${sliderDefaults[1]}
+										${formDefaults.sliderDefaults[0]}-${formDefaults.sliderDefaults[1]}
 									</div>
 								)}
 								<div className="caption">The average nightly price is $68</div>
@@ -113,8 +122,8 @@ export const FeedFilters: React.FC = () => {
 								handleChange={rangeSliderHandle}
 								min={10}
 								max={500}
-								defaultLower={sliderDefaults[0]}
-								defaultUpper={sliderDefaults[1]}
+								defaultLower={formDefaults.sliderDefaults[0]}
+								defaultUpper={formDefaults.sliderDefaults[1]}
 								dualKnobs
 							/>
 						</div>

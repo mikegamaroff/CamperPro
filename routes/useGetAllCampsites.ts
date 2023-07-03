@@ -15,7 +15,6 @@ export const useGetAllCampsites = ({ view = 'non-draft-campsites', filters }: Ge
 	const getAllCampsites = async () => {
 		setLoading(true);
 		setError(null);
-		console.log(filters);
 		try {
 			const response = await fetch(
 				`/api/campsites?view=${view}&filters=${encodeURIComponent(JSON.stringify(filters))}`,

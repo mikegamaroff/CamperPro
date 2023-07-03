@@ -10,13 +10,24 @@ import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import styles from './FeedFilters.module.css';
 
 export const FeedFilters: React.FC = () => {
+	interface FormDefaultType {
+		isPrivate: false;
+		isPublic: false;
+		featureDivHeight: string;
+	}
+	const formDefaults: FormDefaultType = {
+		isPrivate: false,
+		isPublic: false,
+		featureDivHeight: '300px'
+	};
+
 	const sliderDefaults = [20, 300];
-	const { selectedFilter, handleSelectAttributes, setSelectedFilter } = useContext(FilterContext);
+	const { selectedFilter, handleSelectAttributes, setSelectedFilter, filters } = useContext(FilterContext);
 	const [capacityButtonColor, setCapacityButtonColor] = useState(0);
-	const [isPrivate, setIsPrivate] = useState<boolean>(false);
-	const [isPublic, setIsPublic] = useState<boolean>(false);
+	const [isPrivate, setIsPrivate] = useState<boolean>(formDefaults.isPrivate);
+	const [isPublic, setIsPublic] = useState<boolean>(formDefaults.isPublic);
 	const [showAllFeatures, setShowAllFeatures] = useState(false);
-	const [featureDivHeight, setFeatureDivHeight] = useState('300px');
+	const [featureDivHeight, setFeatureDivHeight] = useState(formDefaults.featureDivHeight);
 	const [showAllAmenities, setShowAllAmenities] = useState(false);
 	const [amenityDivHeight, setAmenityDivHeight] = useState('300px');
 	const [showAllPermitted, setShowAllPermitted] = useState(false);
@@ -38,7 +49,7 @@ export const FeedFilters: React.FC = () => {
 		});
 		setCapacityButtonColor(buttonNumber);
 	};
-
+	console.log(isPublic);
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const checked = event.target.checked;
 		const id = event.target.id;
@@ -71,6 +82,14 @@ export const FeedFilters: React.FC = () => {
 			setFeatureDivHeight('300px');
 		}
 	}, [showAllFeatures]);
+
+	useEffect(() => {
+		if (!filters) {
+			setIsPrivate(formDefaults.isPrivate);
+			setIsPublic(formDefaults.isPublic);
+			setFeatureDivHeight(formDefaults.featureDivHeight);
+		}
+	}, [filters]);
 
 	useEffect(() => {
 		if (showAllAmenities) {

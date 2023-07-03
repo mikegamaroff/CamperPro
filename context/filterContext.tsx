@@ -1,7 +1,7 @@
 // FilterContext.tsx
 import { Attributes, CampsiteFilter, FilterIDType } from '@model/campsite';
 import { selectAttributeFilter } from '@utils/selectAttributeFilter';
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface FilterContextInterface {
 	selectedFilter: CampsiteFilter;
@@ -27,24 +27,34 @@ interface FilterProviderProps {
 
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
 	const [selectedFilter, setFilters] = useState<CampsiteFilter>({});
-	const [filters, setClearedFilters] = useState<boolean>(false);
+	const [filters, setAllFilters] = useState<boolean>(false);
+	const [genericFilters, setGenericFilters] = useState<boolean>(false);
 	const [selectedAttributes, setUpdatedAttributes] = useState<Attributes>();
 
 	const handleSelectAttributes = (id: FilterIDType) => {
 		const updatedAttributes: Attributes | undefined = selectAttributeFilter(selectedAttributes, id);
+		const areAttributes = Boolean(updatedAttributes);
+		if (areAttributes) {
+			setAllFilters(true);
+		} else {
+			!genericFilters && setAllFilters(false);
+		}
 		setUpdatedAttributes(updatedAttributes);
-		setSelectedFilter({ ...selectedFilter, attributes: selectedAttributes });
-		setClearedFilters(true);
 	};
 	const setSelectedFilter = (filters: CampsiteFilter) => {
 		setFilters(filters);
-		setClearedFilters(true);
+		setGenericFilters(true);
+		setAllFilters(true);
 	};
 	const clearFilters = () => {
 		setSelectedFilter({});
 		setUpdatedAttributes({});
-		setClearedFilters(false);
+		setAllFilters(false);
+		setGenericFilters(false);
 	};
+	useEffect(() => {
+		setFilters(prevFilter => ({ ...prevFilter, attributes: selectedAttributes }));
+	}, [selectedAttributes]);
 
 	return (
 		<FilterContext.Provider

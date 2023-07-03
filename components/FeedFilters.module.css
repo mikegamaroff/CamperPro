@@ -64,3 +64,10 @@
 	border: 1px solid var(--neutral500);
 	border-radius: 14px;
 }
+.optionsList {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	overflow: hidden;
+	transition: height 0.3s ease;
+}

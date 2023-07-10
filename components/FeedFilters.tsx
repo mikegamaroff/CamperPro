@@ -122,6 +122,12 @@ export const FeedFilters: React.FC = () => {
 								handleChange={rangeSliderHandle}
 								min={10}
 								max={500}
+								value={
+									selectedFilter.priceRange && {
+										lower: selectedFilter.priceRange[0],
+										upper: selectedFilter.priceRange[1]
+									}
+								}
 								defaultLower={formDefaults.sliderDefaults[0]}
 								defaultUpper={formDefaults.sliderDefaults[1]}
 								dualKnobs

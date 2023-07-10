@@ -37,10 +37,14 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 		dismissModalReview();
 	};
 
-	const { presentModal: presentModalReview, dismissModal: dismissModalReview } = useModal({
+	const {
+		Modal,
+		presentModal: presentModalReview,
+		dismissModal: dismissModalReview
+	} = useModal({
 		onCancel: cancelModalReview,
-		title: `${user?.username}'s review`,
-		component: <FullReviewModal />
+		component: <FullReviewModal />,
+		title: `${user?.username}'s review`
 	});
 
 	useEffect(() => {
@@ -59,24 +63,27 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 	}, [review, isTruncated, button, textRef]);
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.review}>
-				<div className={styles.rating}>
-					<ProfilePhoto size={50} user={user} />
-					<div className={styles.username}>
-						<h5 className="medium">{user?.username}</h5>
-						<StarRating withDot={true} rating={review.rating} />
+		<>
+			{Modal}
+			<div className={styles.container}>
+				<div className={styles.review}>
+					<div className={styles.rating}>
+						<ProfilePhoto size={50} user={user} />
+						<div className={styles.username}>
+							<h5 className="medium">{user?.username}</h5>
+							<StarRating withDot={true} rating={review.rating} />
+						</div>
+					</div>
+					<div ref={textRef} className={styles.text}>
+						{review.review}
 					</div>
 				</div>
-				<div ref={textRef} className={styles.text}>
-					{review.review}
-				</div>
+				{button && (
+					<div onClick={presentModalReview} className="medium">
+						Show more {'>'}
+					</div>
+				)}
 			</div>
-			{button && (
-				<div onClick={presentModalReview} className="medium">
-					Show more {'>'}
-				</div>
-			)}
-		</div>
+		</>
 	);
 };

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { IconButton } from '../components/Forms/IconButton';
 import { Header } from '../components/Header';
 import { IconClose } from '../components/Icons';
@@ -11,7 +11,7 @@ interface ModalContentProps {
 	isVisible: boolean;
 }
 
-const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, title, component, isVisible }) => {
+const ModalContent: React.FC<ModalContentProps> = React.memo(({ onCancel, onConfirm, title, component, isVisible }) => {
 	return (
 		<div className={`modal-overlay ${isVisible ? 'visible' : ''}`}>
 			<div className={`modal-content ${!isVisible ? 'dismiss' : ''}`}>
@@ -48,7 +48,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ onCancel, onConfirm, title,
 			</div>
 		</div>
 	);
-};
+});
 
 interface UseModalProps {
 	onCancel?: () => void;

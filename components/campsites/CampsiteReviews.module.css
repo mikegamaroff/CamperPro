@@ -100,3 +100,49 @@
 	background: var(--background);
 	z-index: 3;
 }
+
+.addReviewContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 16px;
+	gap: 30px;
+}
+.addReviewRating {
+	display: flex;
+	gap: 6px;
+}
+.addReviewText {
+	width: 70%;
+	text-align: center;
+}
+
+.addReviewUser {
+	display: flex;
+	gap: 15px;
+	width: 100%;
+}
+.addReviewInput {
+	width: 100%;
+	height: 150px;
+	border: 1px solid var(--neutral300);
+	border-radius: 8px;
+	padding: 10px;
+	resize: none;
+}
+.addReviewInputContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+}
+.submitButton {
+	width: 100%;
+	height: 55px;
+	border-radius: 8px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 15px;
+}

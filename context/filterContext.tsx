@@ -5,16 +5,20 @@ import React, { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface FilterContextInterface {
 	selectedFilter: CampsiteFilter;
-	setSelectedFilter: React.Dispatch<React.SetStateAction<CampsiteFilter>>;
+	setSelectedFilter: (filters: CampsiteFilter) => void;
 	selectedAttributes: Attributes | undefined;
 	handleSelectAttributes: (id: FilterIDType) => void;
+	clearFilters: () => void;
+	filters: boolean;
 }
 
 export const FilterContext = createContext<FilterContextInterface>({
 	selectedFilter: {},
 	setSelectedFilter: () => {},
 	selectedAttributes: {},
-	handleSelectAttributes: () => {}
+	handleSelectAttributes: () => {},
+	clearFilters: () => {},
+	filters: false
 });
 
 interface FilterProviderProps {
@@ -22,22 +26,46 @@ interface FilterProviderProps {
 }
 
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }) => {
-	const [selectedFilter, setSelectedFilter] = useState<CampsiteFilter>({});
+	const [selectedFilter, setFilters] = useState<CampsiteFilter>({});
+	const [filters, setAllFilters] = useState<boolean>(false);
+	const [genericFilters, setGenericFilters] = useState<boolean>(false);
 	const [selectedAttributes, setUpdatedAttributes] = useState<Attributes>();
 
 	const handleSelectAttributes = (id: FilterIDType) => {
-		console.log(id);
 		const updatedAttributes: Attributes | undefined = selectAttributeFilter(selectedAttributes, id);
+		const areAttributes = Boolean(updatedAttributes);
+		if (areAttributes) {
+			setAllFilters(true);
+		} else {
+			!genericFilters && setAllFilters(false);
+		}
 		setUpdatedAttributes(updatedAttributes);
 	};
-
+	const setSelectedFilter = (filters: CampsiteFilter) => {
+		setFilters(filters);
+		setGenericFilters(true);
+		setAllFilters(true);
+	};
+	const clearFilters = () => {
+		setSelectedFilter({});
+		setUpdatedAttributes({});
+		setAllFilters(false);
+		setGenericFilters(false);
+	};
 	useEffect(() => {
-		setSelectedFilter(prevFilter => ({ ...prevFilter, attributes: selectedAttributes }));
+		setFilters(prevFilter => ({ ...prevFilter, attributes: selectedAttributes }));
 	}, [selectedAttributes]);
 
 	return (
 		<FilterContext.Provider
-			value={{ selectedFilter, setSelectedFilter, selectedAttributes, handleSelectAttributes }}
+			value={{
+				selectedFilter,
+				setSelectedFilter,
+				selectedAttributes,
+				handleSelectAttributes,
+				clearFilters,
+				filters
+			}}
 		>
 			{children}
 		</FilterContext.Provider>

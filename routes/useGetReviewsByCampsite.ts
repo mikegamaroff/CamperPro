@@ -11,7 +11,7 @@ export const useGetReviewsByCampsite = (campsiteId: string | undefined) => {
 		setError(null);
 
 		try {
-			const response = await fetch(`/api/reviews?view=reviews-by-campsite&campsite=${campsiteId}`, {
+			const response = await fetch(`/api/reviews?view=view-name&descending=true&campsite=${campsiteId}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

@@ -14,6 +14,7 @@ import 'swiper/swiper.min.css';
 import { AuthProvider } from '@context/authContext';
 import { CampsiteProvider } from '@context/campsiteContext';
 import { FilterProvider } from '@context/filterContext';
+import { ModalProvider } from '@context/modalContext';
 import { ReviewProvider } from '@context/reviewContext';
 import { RouterContext } from '@context/routerContext';
 import { ToastProvider } from '@context/toastContext';
@@ -30,12 +31,15 @@ import { RouteContextProvider } from '../components/Go';
 import '../styles/globals.css';
 import '../styles/type.css';
 import '../styles/variables.css';
+import Home from './Home';
+
 interface NavigateToEvent extends Event {
 	detail: string;
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			ionDefineCustomElements(window);
@@ -63,9 +67,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 								<FilterProvider>
 									<ReviewProvider>
 										<ToastProvider>
-											<AnimatePresence>
-												<Component {...pageProps} />
-											</AnimatePresence>
+											<Home>
+												<ModalProvider>
+													<AnimatePresence>
+														<Component {...pageProps} />
+													</AnimatePresence>
+												</ModalProvider>
+											</Home>
 										</ToastProvider>
 									</ReviewProvider>
 								</FilterProvider>

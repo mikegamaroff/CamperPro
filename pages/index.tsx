@@ -13,7 +13,7 @@ import withAuth from './withAuth';
 
 function Home() {
 	const { selectedFilter } = useContext(FilterContext);
-	const { campsites } = useGetAllCampsites({ filters: selectedFilter });
+	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
 
 	return (
 		<>

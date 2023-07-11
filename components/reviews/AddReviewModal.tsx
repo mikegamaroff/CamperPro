@@ -82,65 +82,29 @@ export const AddReviewModal: React.FC<{
 		setValues({ rating });
 	};
 
+	const StarRater = ({ numberOfItems }) => {
+		const items = [];
+
+		for (let i = 0; i < numberOfItems; i++) {
+			items.push(
+				<div
+					onClick={() => handleRating(i)}
+					style={formValues.rating.value >= i ? { color: 'var(--primary)' } : { color: 'var(--neutral500)' }}
+				>
+					<IconStar size={50} />
+				</div>
+			);
+		}
+
+		return <div className={styles.addReviewRating}>{items}</div>;
+	};
+
 	return (
 		<Container scroll hidetabs shelfHeight={40}>
 			<>
 				<div className={styles.addReviewContainer}>
 					<h5 className={styles.addReviewText}>How was your camping trip at {campsite.title}?</h5>
-					{formValues && formValues.rating && (
-						<div className={styles.addReviewRating}>
-							<div
-								onClick={() => handleRating(1)}
-								style={
-									formValues.rating.value >= 1
-										? { color: 'var(--primary)' }
-										: { color: 'var(--neutral500)' }
-								}
-							>
-								<IconStar size={50} />
-							</div>
-							<div
-								onClick={() => handleRating(2)}
-								style={
-									formValues.rating.value >= 2
-										? { color: 'var(--primary)' }
-										: { color: 'var(--neutral500)' }
-								}
-							>
-								<IconStar size={50} />
-							</div>
-							<div
-								onClick={() => handleRating(3)}
-								style={
-									formValues.rating.value >= 3
-										? { color: 'var(--primary)' }
-										: { color: 'var(--neutral500)' }
-								}
-							>
-								<IconStar size={50} />
-							</div>
-							<div
-								onClick={() => handleRating(4)}
-								style={
-									formValues.rating.value >= 4
-										? { color: 'var(--primary)' }
-										: { color: 'var(--neutral500)' }
-								}
-							>
-								<IconStar size={50} />
-							</div>
-							<div
-								onClick={() => handleRating(5)}
-								style={
-									formValues.rating.value === 5
-										? { color: 'var(--primary)' }
-										: { color: 'var(--neutral500)' }
-								}
-							>
-								<IconStar size={50} />
-							</div>
-						</div>
-					)}
+					{formValues && formValues.rating && <StarRater numberOfItems={5} />}
 					<hr />
 					<div className={styles.addReviewInputContainer}>
 						<div className={styles.addReviewUser}>

@@ -14,7 +14,7 @@ const initialState: ModalState = {
 };
 
 interface ModalContextInterface extends ModalState {
-	openModal: (component: JSX.Element, title: string, onCancel?: () => void, onConfirm?: () => void) => void;
+	openModal: ({ component, title, onCancel, onConfirm }: ModalState) => void;
 	closeModal: () => void;
 }
 
@@ -33,14 +33,11 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [isAnimating, setAnimating] = useState(false);
 
-	const openModal = useCallback(
-		(component: JSX.Element, title: string, onCancel?: () => void, onConfirm?: () => void) => {
-			setAnimating(false);
-			setTimeout(() => setIsVisible(true), 0);
-			setModalState({ component, title, onCancel, onConfirm });
-		},
-		[]
-	);
+	const openModal = useCallback(({ component, title, onCancel, onConfirm }: ModalState) => {
+		setAnimating(false);
+		setTimeout(() => setIsVisible(true), 0);
+		setModalState({ component, title, onCancel, onConfirm });
+	}, []);
 
 	const closeModal = useCallback(() => {
 		setAnimating(true);

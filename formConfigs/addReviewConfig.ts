@@ -7,10 +7,6 @@ export const AddReviewRules: FormValidationRules<Review> = {
 			required: {
 				value: true,
 				message: 'Must write a review'
-			},
-			maxLength: {
-				value: 10,
-				message: 'Must be less than 10 characters'
 			}
 		}
 	}

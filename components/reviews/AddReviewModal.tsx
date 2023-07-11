@@ -71,7 +71,7 @@ export const AddReviewModal: React.FC<{
 		}
 	};
 	const handleRating = (rating: number) => {
-		setValues({ rating });
+		setTimeout(() => setValues({ rating }), 0);
 	};
 
 	const StarRater = ({ numberOfItems }: { numberOfItems: number }) => {
@@ -80,7 +80,7 @@ export const AddReviewModal: React.FC<{
 		for (let i = 1; i <= numberOfItems; i++) {
 			items.push(
 				<div
-					onClick={e => handleRating(i)}
+					onMouseDown={() => handleRating(i)}
 					style={
 						formValues && formValues.rating && formValues.rating.value >= i
 							? { color: 'var(--primary)' }

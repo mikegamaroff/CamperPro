@@ -18,6 +18,6 @@ interface ReviewProviderProps {
 
 export const ReviewProvider: React.FC<ReviewProviderProps> = ({ children }) => {
 	const [reviews, setReviews] = useState<Review[]>([]);
-	console.log(reviews);
+
 	return <ReviewContext.Provider value={{ reviews, setReviews }}>{children}</ReviewContext.Provider>;
 };

@@ -20,20 +20,29 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	const { reviews } = useContext(ReviewContext);
 	const { openModal, closeModal } = useContext(ModalContext);
 
-	const newCancelModalSearch = () => {
+	const newCancelModal = () => {
 		console.log('Canceled');
 		closeModal();
 	};
 
+	const newConfirmModal = () => {
+		console.log('Confirmed');
+	};
+
 	const presentNewReview = () => {
-		openModal(
-			<AddReviewModal campsite={campsite} dismissNewReview={newCancelModalSearch} />,
-			'Leave a review',
-			newCancelModalSearch
-		);
+		openModal({
+			component: <AddReviewModal campsite={campsite} dismissNewReview={newCancelModal} />,
+			title: 'Leave a review',
+			onCancel: newCancelModal,
+			onConfirm: newConfirmModal
+		});
 	};
 	const presentAllReviews = () => {
-		openModal(<AllReviewsModal campsite={campsite} reviews={reviews} />, 'Reviews', newCancelModalSearch);
+		openModal({
+			component: <AllReviewsModal campsite={campsite} reviews={reviews} />,
+			title: 'Reviews',
+			onCancel: newCancelModal
+		});
 	};
 	return (
 		<>

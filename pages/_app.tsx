@@ -60,27 +60,27 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<IonApp>
 			<AuthProvider>
-				<ModalProvider>
-					<RouteContextProvider>
-						<RouterContext.Provider value={router}>
-							<UserProvider>
-								<CampsiteProvider>
-									<FilterProvider>
-										<ReviewProvider>
-											<ToastProvider>
-												<Home>
+				<RouteContextProvider>
+					<RouterContext.Provider value={router}>
+						<UserProvider>
+							<CampsiteProvider>
+								<FilterProvider>
+									<ReviewProvider>
+										<ToastProvider>
+											<Home>
+												<ModalProvider>
 													<AnimatePresence>
 														<Component {...pageProps} />
 													</AnimatePresence>
-												</Home>
-											</ToastProvider>
-										</ReviewProvider>
-									</FilterProvider>
-								</CampsiteProvider>
-							</UserProvider>
-						</RouterContext.Provider>
-					</RouteContextProvider>
-				</ModalProvider>
+												</ModalProvider>
+											</Home>
+										</ToastProvider>
+									</ReviewProvider>
+								</FilterProvider>
+							</CampsiteProvider>
+						</UserProvider>
+					</RouterContext.Provider>
+				</RouteContextProvider>
 			</AuthProvider>
 		</IonApp>
 	);

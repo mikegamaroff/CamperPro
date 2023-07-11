@@ -49,7 +49,7 @@ const ModalContent: React.FC<ModalContentProps> = React.memo(({ onCancel, onConf
 		</div>
 	);
 });
-
+ModalContent.displayName = 'ModalContent>';
 interface UseModalProps {
 	onCancel?: () => void;
 	onConfirm?: () => void;

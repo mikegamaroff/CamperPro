@@ -1,0 +1,13 @@
+.modalRating {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 25px 15px 25px 15px;
+	gap: 8px;
+	color: var(--foreground);
+	background: var(--background);
+	z-index: 3;
+}

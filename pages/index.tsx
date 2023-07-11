@@ -14,6 +14,7 @@ import withAuth from './withAuth';
 function Home() {
 	const { selectedFilter } = useContext(FilterContext);
 	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter });
+
 	return (
 		<>
 			<Header title="logo" left={<MenuButton />} />

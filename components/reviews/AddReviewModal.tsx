@@ -17,7 +17,8 @@ import styles from './AddReviewModal.module.css';
 
 export const AddReviewModal: React.FC<{
 	campsite: Campsite;
-}> = ({ campsite }) => {
+	dismissNewReview: () => void;
+}> = ({ campsite, dismissNewReview }) => {
 	const [reviewText, setReviewText] = useState('');
 	const reviewTextNoSpace = reviewText.replace(/\s/g, '');
 	const { addReview, isLoading: addCampsiteLoading, isError, isSuccess } = useAddReview();
@@ -39,7 +40,7 @@ export const AddReviewModal: React.FC<{
 	const {
 		setValues,
 		formValues,
-		stateDataObject: newUser
+		stateDataObject: updatedReview
 	} = useFormValues<Review>(AddReviewRules, newReview, objectEquals);
 
 	const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,21 +58,24 @@ export const AddReviewModal: React.FC<{
 	});
 
 	const handleAddReview = async () => {
-		try {
-			const { response, campsite } = await addReview(newReview);
+		if (updatedReview) {
+			try {
+				const { response, campsite } = await addReview(updatedReview);
 
-			if (campsite) {
-				updateCampsite(campsite);
-			}
+				if (campsite) {
+					updateCampsite(campsite);
+				}
 
-			if (response.success) {
-				setReviews([...reviews, newReview]);
-				console.log(response);
-			} else {
-				console.error('Error adding campsite:', response.message);
+				if (response.success) {
+					setReviews([updatedReview, ...reviews]);
+					dismissNewReview();
+					console.log(response);
+				} else {
+					console.error('Error adding campsite:', response.message);
+				}
+			} catch (error) {
+				console.error('Error adding campsite:', error instanceof Error ? error.message : 'Unknown error');
 			}
-		} catch (error) {
-			console.error('Error adding campsite:', error instanceof Error ? error.message : 'Unknown error');
 		}
 	};
 	const handleRating = (rating: number) => {

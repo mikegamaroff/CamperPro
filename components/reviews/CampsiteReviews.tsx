@@ -31,7 +31,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 	} = useModal({
 		onCancel: newCancelModalSearch,
 		onConfirm: () => console.log('Modal confirmed'),
-		component: <AddReviewModal campsite={campsite} />,
+		component: <AddReviewModal campsite={campsite} dismissNewReview={newCancelModalSearch} />,
 		title: 'Leave a review'
 	});
 

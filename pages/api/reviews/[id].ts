@@ -17,12 +17,12 @@ async function getReviewById(req: NextApiRequest, res: NextApiResponse<{ review:
 		}
 
 		const doc = (await db.get(reviewId)) as Review;
-
 		// Check if the doc type is 'review'
 		if (doc.type !== 'review') {
 			res.status(500).json({ review: null });
 		}
 		const review = doc as Review;
+
 		res.status(200).json({ review });
 	} catch (error) {
 		console.error('Error retrieving review:', error);

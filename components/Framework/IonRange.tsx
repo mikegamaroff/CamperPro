@@ -27,10 +27,8 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 	handleChange
 }) => {
 	const rangeRef = useRef<HTMLDivElement | null>(null);
-	const [rangeValue, setRangeValue] = useState(value);
-
-	const defaultValue = dualKnobs ? { lower: defaultLower, upper: defaultUpper } : 50;
-	const valueProp = rangeValue === undefined ? defaultValue : rangeValue;
+	const [defaultValue, setDefaultValue] = useState(dualKnobs ? { lower: defaultLower, upper: defaultUpper } : 50);
+	const [rangeValue, setRangeValue] = useState(value ?? defaultValue);
 
 	const handleIonChange = (e: Event) => {
 		const customEvent = e as CustomEvent;
@@ -52,13 +50,21 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 	}, []);
 
 	useEffect(() => {
+		setDefaultValue(dualKnobs ? { lower: defaultLower, upper: defaultUpper } : 50);
+	}, [dualKnobs]);
+
+	useEffect(() => {
+		setRangeValue(value ?? defaultValue);
+	}, [value, defaultValue]);
+
+	useEffect(() => {
 		if (rangeRef.current) {
 			const ionRangeElement = rangeRef.current.querySelector('ion-range');
 			if (ionRangeElement) {
-				ionRangeElement.value = valueProp;
+				ionRangeElement.value = rangeValue;
 			}
 		}
-	}, [rangeRef, valueProp]);
+	}, [rangeRef, rangeValue]);
 
 	return (
 		<div ref={rangeRef}>
@@ -66,7 +72,7 @@ const IonRange: React.FC<CustomIonRangeProps> = ({
 				min,
 				max,
 				step,
-				value: valueProp,
+				value: rangeValue,
 				'dual-knobs': dualKnobs,
 				pin: true
 			})}

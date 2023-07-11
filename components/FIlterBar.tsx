@@ -7,7 +7,6 @@ import styles from './FilterBar.module.css';
 
 export const FilterBar: FC = () => {
 	const { handleSelectAttributes } = useContext(FilterContext);
-
 	return (
 		<div className={styles.container}>
 			{FilterButtons.map((filterbutton: FilterIconProps, i: number) => {

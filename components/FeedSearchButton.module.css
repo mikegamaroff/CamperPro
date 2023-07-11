@@ -88,3 +88,10 @@
 	padding: 14px;
 	border-radius: 8px;
 }
+.clearButton {
+	background: #f27f7f;
+	color: white;
+	border-radius: 100%;
+	padding: 6px;
+	margin-right: 10px;
+}

@@ -42,7 +42,6 @@ export const AddReviewModal: React.FC<{
 		stateDataObject: newUser
 	} = useFormValues<Review>(AddReviewRules, newReview, objectEquals);
 
-	console.log(formValues);
 	const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setReviewText(event.target.value);
 	};

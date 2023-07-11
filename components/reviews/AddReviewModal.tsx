@@ -11,7 +11,7 @@ import { objectEquals } from '@model/model';
 import { EmptyNewReview, Review } from '@model/review';
 import { useAddReview } from '@routes/useAddReview';
 import { AddReviewRules } from 'formConfigs/addReviewConfig';
-import { ChangeEvent, useContext, useMemo, useState } from 'react';
+import { useContext, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './AddReviewModal.module.css';
 
@@ -19,8 +19,6 @@ export const AddReviewModal: React.FC<{
 	campsite: Campsite;
 	dismissNewReview: () => void;
 }> = ({ campsite, dismissNewReview }) => {
-	const [reviewText, setReviewText] = useState('');
-	const reviewTextNoSpace = reviewText.replace(/\s/g, '');
 	const { addReview, isLoading: addCampsiteLoading, isError, isSuccess } = useAddReview();
 	const { updateCampsite } = useContext(CampsiteContext);
 	const { reviews, setReviews } = useContext(ReviewContext);
@@ -31,23 +29,18 @@ export const AddReviewModal: React.FC<{
 			...EmptyNewReview,
 			_id: 'review:' + uuidv4(),
 			campsite: campsite._id as string,
-			review: `${reviewText}`,
 			author: user?._id as string
 		}),
-		[reviewText, user]
+		[user]
 	);
-
 	const {
 		setValues,
 		formValues,
-		stateDataObject: updatedReview
+		stateDataObject: updatedReview,
+		formSuccess
 	} = useFormValues<Review>(AddReviewRules, newReview, objectEquals);
 
-	const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		setReviewText(event.target.value);
-	};
-
-	const disableButton = !(Number(formValues?.rating?.value) > 0 && formValues?.review?.value);
+	const disableButton = !(Number(formValues?.rating?.value) > 0 && formValues?.review?.value && formSuccess);
 	const currentDate = new Date();
 	const dateString = currentDate.toISOString();
 	const dateObj = new Date(dateString);
@@ -69,7 +62,6 @@ export const AddReviewModal: React.FC<{
 				if (response.success) {
 					setReviews([updatedReview, ...reviews]);
 					dismissNewReview();
-					console.log(response);
 				} else {
 					console.error('Error adding campsite:', response.message);
 				}
@@ -82,14 +74,18 @@ export const AddReviewModal: React.FC<{
 		setValues({ rating });
 	};
 
-	const StarRater = ({ numberOfItems }) => {
+	const StarRater = ({ numberOfItems }: { numberOfItems: number }) => {
 		const items = [];
 
-		for (let i = 0; i < numberOfItems; i++) {
+		for (let i = 1; i <= numberOfItems; i++) {
 			items.push(
 				<div
-					onClick={() => handleRating(i)}
-					style={formValues.rating.value >= i ? { color: 'var(--primary)' } : { color: 'var(--neutral500)' }}
+					onClick={e => handleRating(i)}
+					style={
+						formValues && formValues.rating && formValues.rating.value >= i
+							? { color: 'var(--primary)' }
+							: { color: 'var(--neutral500)' }
+					}
 				>
 					<IconStar size={50} />
 				</div>

@@ -33,7 +33,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 		);
 	};
 	const presentAllReviews = () => {
-		openModal(<AllReviewsModal campsite={campsite} reviews={reviews} />, 'Leave a review', newCancelModalSearch);
+		openModal(<AllReviewsModal campsite={campsite} reviews={reviews} />, 'Reviews', newCancelModalSearch);
 	};
 	return (
 		<>

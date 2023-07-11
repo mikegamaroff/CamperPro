@@ -8,6 +8,7 @@ import { useGetReviewsByCampsite } from '../../routes/useGetReviewsByCampsite';
 import { CampsiteReview } from '../CampsiteReview';
 import { IconStar } from '../Icons';
 import { AddReviewModal } from './AddReviewModal';
+import { AllReviewsModal } from './AllReviewsModal';
 import styles from './CampsiteReviews.module.css';
 
 interface CampsiteReviewsProps {
@@ -20,18 +21,34 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 
 	const newCancelModalSearch = () => {
 		console.log('Canceled');
-		dismissModal();
+		dismissNewReview();
+		dismissAllReviews();
 	};
-	const { Modal, presentModal, dismissModal } = useModal({
+	const {
+		Modal: NewReviewModal,
+		presentModal: presentNewReview,
+		dismissModal: dismissNewReview
+	} = useModal({
 		onCancel: newCancelModalSearch,
 		onConfirm: () => console.log('Modal confirmed'),
 		component: <AddReviewModal campsite={campsite} />,
 		title: 'Leave a review'
 	});
 
+	const {
+		Modal: AllReviews,
+		presentModal: presentAllReviews,
+		dismissModal: dismissAllReviews
+	} = useModal({
+		onCancel: newCancelModalSearch,
+		onConfirm: () => console.log('Modal confirmed'),
+		component: <AllReviewsModal campsite={campsite} reviews={reviews} />,
+		title: 'Leave a review'
+	});
 	return (
 		<>
-			{Modal}
+			{NewReviewModal}
+			{AllReviews}
 			<div className={styles.container}>
 				{reviews.length > 0 && (
 					<div className={styles.header}>
@@ -43,7 +60,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 							<h3 className="bold">•</h3>
 							<h4 className="medium">{campsite?.reviewsCount} reviews</h4>
 						</div>
-						<div onClick={presentModal} className={styles.seeAllButton}>
+						<div onClick={presentAllReviews} className={styles.seeAllButton}>
 							<div className="medium">See all</div>
 						</div>
 					</div>
@@ -63,7 +80,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 				)}
 				{reviews.length > 0 && (
 					<div className={styles.buttons}>
-						<div onClick={presentModal} className={styles.reviewButton}>
+						<div onClick={presentNewReview} className={styles.reviewButton}>
 							<div className="medium">Leave a review</div>
 						</div>
 					</div>
@@ -72,7 +89,7 @@ export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) =>
 					<div className={styles.noReviewsContainer}>
 						<h4 className="bold">Reviews</h4>
 						<div className={styles.largeButtonContainer}>
-							<div onClick={presentModal} className={styles.largeButton}>
+							<div onClick={presentNewReview} className={styles.largeButton}>
 								<div className="medium">Leave the first review</div>
 							</div>
 						</div>

@@ -104,3 +104,8 @@
 	justify-content: space-between;
 	padding: 20px;
 }
+.noResults {
+	height: 400px;
+	text-align: center;
+	padding: 0 30px 0 30px;
+}

@@ -432,7 +432,11 @@ ion-menu {
 	all: unset;
 	--background: var(--primary);
 }
-
+.center {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
 .center-align {
 	display: flex;
 	flex-direction: column;

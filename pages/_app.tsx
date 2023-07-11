@@ -14,6 +14,7 @@ import 'swiper/swiper.min.css';
 import { AuthProvider } from '@context/authContext';
 import { CampsiteProvider } from '@context/campsiteContext';
 import { FilterProvider } from '@context/filterContext';
+import { ModalProvider } from '@context/modalContext';
 import { ReviewProvider } from '@context/reviewContext';
 import { RouterContext } from '@context/routerContext';
 import { ToastProvider } from '@context/toastContext';
@@ -30,12 +31,15 @@ import { RouteContextProvider } from '../components/Go';
 import '../styles/globals.css';
 import '../styles/type.css';
 import '../styles/variables.css';
+import Home from './Home';
+
 interface NavigateToEvent extends Event {
 	detail: string;
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter();
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			ionDefineCustomElements(window);
@@ -56,23 +60,27 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<IonApp>
 			<AuthProvider>
-				<RouteContextProvider>
-					<RouterContext.Provider value={router}>
-						<UserProvider>
-							<CampsiteProvider>
-								<FilterProvider>
-									<ReviewProvider>
-										<ToastProvider>
-											<AnimatePresence>
-												<Component {...pageProps} />
-											</AnimatePresence>
-										</ToastProvider>
-									</ReviewProvider>
-								</FilterProvider>
-							</CampsiteProvider>
-						</UserProvider>
-					</RouterContext.Provider>
-				</RouteContextProvider>
+				<ModalProvider>
+					<RouteContextProvider>
+						<RouterContext.Provider value={router}>
+							<UserProvider>
+								<CampsiteProvider>
+									<FilterProvider>
+										<ReviewProvider>
+											<ToastProvider>
+												<Home>
+													<AnimatePresence>
+														<Component {...pageProps} />
+													</AnimatePresence>
+												</Home>
+											</ToastProvider>
+										</ReviewProvider>
+									</FilterProvider>
+								</CampsiteProvider>
+							</UserProvider>
+						</RouterContext.Provider>
+					</RouteContextProvider>
+				</ModalProvider>
 			</AuthProvider>
 		</IonApp>
 	);

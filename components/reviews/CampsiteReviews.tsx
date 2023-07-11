@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
+import { ModalContext } from '@context/modalContext';
 import { ReviewContext } from '../../context/reviewContext';
-import useModal from '../../hooks/useModal';
 import { Campsite } from '../../model/campsite';
 import { Review } from '../../model/review';
 import { useGetReviewsByCampsite } from '../../routes/useGetReviewsByCampsite';
@@ -18,37 +18,25 @@ interface CampsiteReviewsProps {
 export const CampsiteReviews: React.FC<CampsiteReviewsProps> = ({ campsite }) => {
 	const { isLoading } = useGetReviewsByCampsite(campsite._id);
 	const { reviews } = useContext(ReviewContext);
+	const { openModal, closeModal } = useContext(ModalContext);
 
 	const newCancelModalSearch = () => {
 		console.log('Canceled');
-		dismissNewReview();
-		dismissAllReviews();
+		closeModal();
 	};
-	const {
-		Modal: NewReviewModal,
-		presentModal: presentNewReview,
-		dismissModal: dismissNewReview
-	} = useModal({
-		onCancel: newCancelModalSearch,
-		onConfirm: () => console.log('Modal confirmed'),
-		component: <AddReviewModal campsite={campsite} dismissNewReview={newCancelModalSearch} />,
-		title: 'Leave a review'
-	});
 
-	const {
-		Modal: AllReviews,
-		presentModal: presentAllReviews,
-		dismissModal: dismissAllReviews
-	} = useModal({
-		onCancel: newCancelModalSearch,
-		onConfirm: () => console.log('Modal confirmed'),
-		component: <AllReviewsModal campsite={campsite} reviews={reviews} />,
-		title: 'Leave a review'
-	});
+	const presentNewReview = () => {
+		openModal(
+			<AddReviewModal campsite={campsite} dismissNewReview={newCancelModalSearch} />,
+			'Leave a review',
+			newCancelModalSearch
+		);
+	};
+	const presentAllReviews = () => {
+		openModal(<AllReviewsModal campsite={campsite} reviews={reviews} />, 'Leave a review', newCancelModalSearch);
+	};
 	return (
 		<>
-			{NewReviewModal}
-			{AllReviews}
 			<div className={styles.container}>
 				{reviews.length > 0 && (
 					<div className={styles.header}>

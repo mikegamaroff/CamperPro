@@ -9,46 +9,49 @@ interface ModalContentProps {
 	title?: string;
 	component: JSX.Element;
 	isVisible: boolean;
+	isAnimating: boolean;
 }
 
-const ModalContent: React.FC<ModalContentProps> = React.memo(({ onCancel, onConfirm, title, component, isVisible }) => {
-	return (
-		<div className={`modal-overlay ${isVisible ? 'visible' : ''}`}>
-			<div className={`modal-content ${!isVisible ? 'dismiss' : ''}`}>
-				<Header
-					title={title || 'logo'}
-					left={
-						<div>
-							<IconButton
-								size="small"
-								icon={<IconClose />}
-								onClick={() => {
-									onCancel && onCancel();
-								}}
-							/>
-						</div>
-					}
-					right={
-						onConfirm && (
+export const ModalContent: React.FC<ModalContentProps> = React.memo(
+	({ onCancel, onConfirm, title, component, isVisible, isAnimating }) => {
+		return (
+			<div className={`modal-overlay ${isVisible ? 'visible' : ''}`}>
+				<div className={`modal-content ${isAnimating ? 'dismiss' : ''}`}>
+					<Header
+						title={title || 'logo'}
+						left={
 							<div>
 								<IconButton
 									size="small"
-									iconRight
 									icon={<IconClose />}
 									onClick={() => {
-										onConfirm && onConfirm();
+										onCancel && onCancel();
 									}}
-									label="Confirm"
 								/>
 							</div>
-						)
-					}
-				/>
-				{component}
+						}
+						right={
+							onConfirm && (
+								<div>
+									<IconButton
+										size="small"
+										iconRight
+										icon={<IconClose />}
+										onClick={() => {
+											onConfirm && onConfirm();
+										}}
+										label="Confirm"
+									/>
+								</div>
+							)
+						}
+					/>
+					{component}
+				</div>
 			</div>
-		</div>
-	);
-});
+		);
+	}
+);
 ModalContent.displayName = 'ModalContent>';
 interface UseModalProps {
 	onCancel?: () => void;
@@ -80,6 +83,7 @@ const useModal = ({ onCancel, onConfirm, component, title }: UseModalProps) => {
 				component={component}
 				title={title}
 				isVisible={isVisible || isAnimating}
+				isAnimating={isAnimating}
 			/>
 		),
 		presentModal,

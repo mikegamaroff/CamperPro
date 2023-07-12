@@ -4,7 +4,7 @@ import { FilterBar } from '@components/FIlterBar';
 import { FeedCampsite } from '@components/FeedCampsite';
 import { FeedSearchButton } from '@components/FeedSearchButton';
 import { Header } from '@components/Header';
-import { IconAdd } from '@components/Icons';
+import { IconTrips } from '@components/Icons';
 import { MenuButton } from '@components/MenuButton';
 import { NoResults } from '@components/NoResults';
 import { FilterContext } from '@context/filterContext';
@@ -39,7 +39,7 @@ function Home() {
 										<NoResults
 											heading="No campsites found."
 											subheading="Please expand your search."
-											icon={<IconAdd />}
+											icon={<IconTrips />}
 										/>
 									}
 								>

@@ -12,7 +12,7 @@ export const NoResults = ({ heading, subheading, icon, children }: NoResultsProp
 			{icon}
 			<div className="space20" />
 			<h4>{heading || 'No results.'}</h4>
-			<p>{subheading || 'Refine or clear your search filters.'}</p>
+			<p>{subheading || 'No results.'}</p>
 			{children}
 		</div>
 	);

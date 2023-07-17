@@ -1,7 +1,7 @@
 import { AuthContext } from '@context/authContext';
+import { ModalContext } from '@context/modalContext';
 import { dateSmall } from '@utils/dateTime';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import useModal from '../hooks/useModal';
 import { Review } from '../model/review';
 import styles from './CampsiteReview.module.css';
 import { ProfilePhoto } from './ProfilePhoto';
@@ -16,6 +16,7 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 	const textRef = useRef<HTMLDivElement | null>(null);
 	const [isTruncated, setIsTruncated] = useState(false);
 	const [button, setButton] = useState(false);
+	const { openModal, closeModal } = useContext(ModalContext);
 
 	const FullReviewModal = () => {
 		return (
@@ -34,18 +35,16 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 
 	const cancelModalReview = () => {
 		console.log('Canceled');
-		dismissModalReview();
+		closeModal();
 	};
 
-	const {
-		Modal,
-		presentModal: presentModalReview,
-		dismissModal: dismissModalReview
-	} = useModal({
-		onCancel: cancelModalReview,
-		component: <FullReviewModal />,
-		title: `${user?.username}'s review`
-	});
+	const presentReview = () => {
+		openModal({
+			onCancel: cancelModalReview,
+			component: <FullReviewModal />,
+			title: `${user?.username}'s review`
+		});
+	};
 
 	useEffect(() => {
 		if (textRef.current) {
@@ -64,7 +63,6 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 
 	return (
 		<>
-			{Modal}
 			<div className={styles.container}>
 				<div className={styles.review}>
 					<div className={styles.rating}>
@@ -79,7 +77,7 @@ export const CampsiteReview: React.FC<ReviewProps> = ({ review }) => {
 					</div>
 				</div>
 				{button && (
-					<div onClick={presentModalReview} className="medium">
+					<div onClick={presentReview} className="medium">
 						Show more {'>'}
 					</div>
 				)}

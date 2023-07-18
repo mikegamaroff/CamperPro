@@ -1,10 +1,10 @@
 import FeedFilters from '@components/FeedFilters';
 import { FilterContext } from '@context/filterContext';
+import { ModalContext } from '@context/modalContext';
 import { CampsiteFilter, CampsiteLocation } from '@model/campsite';
 import { useGetAllCampsiteLocations } from '@routes/useGetAllCampsites';
 import classNames from 'classnames';
 import { ChangeEvent, FC, useContext, useRef, useState } from 'react';
-import useModal from '../hooks/useModal';
 import styles from './FeedSearchButton.module.css';
 import { Input } from './Forms/Input';
 import { IconClearFilters, IconFilter, IconLocation } from './Icons';
@@ -15,22 +15,20 @@ export const FeedSearchButton: FC = () => {
 	const [selectedLocationFilter, setSelectedLocationFilter] = useState<CampsiteFilter>({});
 	const { locations, setLocations } = useGetAllCampsiteLocations({ filters: selectedLocationFilter });
 	const debounceTimeoutRef = useRef<NodeJS.Timeout>();
-	const confirmModalSearch = () => {
-		console.log('Confirmed');
-		dismissModal();
-	};
+	const { openModal, closeModal } = useContext(ModalContext);
 
-	const cancelModalSearch = () => {
+	const cancelModalFilter = () => {
 		console.log('Canceled');
-		dismissModal();
+		closeModal();
 	};
 
-	const { Modal, presentModal, dismissModal } = useModal({
-		onCancel: cancelModalSearch,
-		onConfirm: confirmModalSearch,
-		component: <FeedFilters />,
-		title: 'Filters'
-	});
+	const presentFilters = () => {
+		openModal({
+			onCancel: cancelModalFilter,
+			component: <FeedFilters />,
+			title: 'Filters'
+		});
+	};
 
 	const handleLocationSelect = (value: CampsiteLocation) => {
 		setSearchValue(value.nearestTown + ' ' + value.state);
@@ -59,7 +57,6 @@ export const FeedSearchButton: FC = () => {
 			: { height: '0px', padding: '0px 9px 0px 9px' };
 	return (
 		<div className={styles.FeedSearchButtonContainer}>
-			{Modal}
 			<div className={styles.searchOverlayContainer}>
 				<div className={styles.searchOverlay} style={heightStyle}>
 					{locations.map((location: CampsiteLocation, index) => {
@@ -96,7 +93,7 @@ export const FeedSearchButton: FC = () => {
 							<IconClearFilters size={9} />
 						</div>
 					)}
-					<div className={styles.FilterButton} onClick={presentModal}>
+					<div className={styles.FilterButton} onClick={presentFilters}>
 						<IconFilter size={25} />
 					</div>
 				</div>

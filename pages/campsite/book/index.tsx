@@ -22,7 +22,6 @@ function RequestBooking({ id }: Props) {
 	const goToNextStage = async (page: number) => {
 		setStage(page);
 	};
-	// This effect is used to set the campsite into the draft mode and reset the draft stage
 
 	return (
 		<>

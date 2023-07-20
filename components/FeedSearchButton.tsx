@@ -20,6 +20,7 @@ export const FeedSearchButton: FC = () => {
 	const cancelFilters = () => {
 		clearFilters();
 		closeModal();
+		setSearchValue('');
 	};
 
 	const presentModal = () => {
@@ -91,7 +92,7 @@ export const FeedSearchButton: FC = () => {
 						/>
 					</div>
 					{filters && (
-						<div className={styles.clearButton} onClick={clearFilters}>
+						<div className={styles.clearButton} onClick={cancelFilters}>
 							<IconClearFilters size={9} />
 						</div>
 					)}

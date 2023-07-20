@@ -2,6 +2,7 @@ import { Container } from '@components/Container';
 import Button from '@components/Forms/Button';
 import Switch from '@components/Forms/Switch';
 import IonRange from '@components/Framework/IonRange';
+import useGetCounterField from '@components/Framework/useGetCounterField';
 import { Go } from '@components/Go';
 import { Header } from '@components/Header';
 import { MenuButton } from '@components/MenuButton';
@@ -17,6 +18,18 @@ import withAuth from './withAuth';
 
 function Components() {
 	const { logout } = useContext(AuthContext);
+	const { count: counter1, CounterComponent: Counter1 } = useGetCounterField({
+		value: 3,
+		max: 20,
+		title: 'Adults',
+		subtitle: 'Ages 13 or above'
+	});
+	const { count: counter2, CounterComponent: Counter2 } = useGetCounterField({
+		value: 5,
+		max: 20,
+		title: 'Children',
+		subtitle: 'Ages 2 to 12'
+	});
 
 	const handleLogout = () => {
 		logout();
@@ -170,6 +183,8 @@ function Components() {
 					</Button>
 					<Switch />
 					<IonRange handleChange={rangeSliderHandle} dualKnobs />
+					{Counter1}
+					{Counter2}
 				</>
 			</Container>
 		</>

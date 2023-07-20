@@ -1,0 +1,28 @@
+.container {
+	padding: 20px 10px 10px 10px;
+}
+
+.campsiteImage {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+.campsiteImage img {
+	border-radius: 10px;
+}
+.campsitePreview {
+	display: flex;
+	gap: 10px;
+}
+.camspiteInfo {
+	flex: 1;
+}
+.campsiteTitle {
+	font-weight: bold;
+	color: var(--foreground);
+}
+.campsiteDescription {
+	color: var(--neutral500);
+}

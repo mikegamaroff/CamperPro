@@ -6,6 +6,7 @@ interface ModalState {
 	title: string;
 	onCancel?: () => void;
 	onConfirm?: () => void;
+	confirmLabel?: string;
 }
 
 const initialState: ModalState = {
@@ -14,7 +15,7 @@ const initialState: ModalState = {
 };
 
 interface ModalContextInterface extends ModalState {
-	openModal: ({ component, title, onCancel, onConfirm }: ModalState) => void;
+	openModal: ({ component, title, onCancel, onConfirm, confirmLabel }: ModalState) => void;
 	closeModal: () => void;
 }
 
@@ -33,12 +34,12 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [isAnimating, setAnimating] = useState(false);
 
-	const openModal = useCallback(({ component, title, onCancel, onConfirm }: ModalState) => {
+	const openModal = useCallback(({ component, title, onCancel, onConfirm, confirmLabel }: ModalState) => {
 		setAnimating(false);
 		setTimeout(() => setIsVisible(true), 0);
-		setModalState({ component, title, onCancel, onConfirm });
+		setModalState({ component, title, onCancel, onConfirm, confirmLabel });
 	}, []);
-
+	console.log(modalState.confirmLabel);
 	const closeModal = useCallback(() => {
 		setAnimating(true);
 		setTimeout(() => {
@@ -59,6 +60,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 					component={modalState.component}
 					onCancel={modalState.onCancel}
 					onConfirm={modalState.onConfirm}
+					confirmLabel={modalState.confirmLabel}
 					isVisible={isVisible}
 					isAnimating={isAnimating}
 				/>

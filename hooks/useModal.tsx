@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { IconButton } from '../components/Forms/IconButton';
 import { Header } from '../components/Header';
-import { IconClose } from '../components/Icons';
+import { IconCheck, IconClose } from '../components/Icons';
 
 interface ModalContentProps {
 	onCancel?: () => void;
 	onConfirm?: () => void;
+	confirmLabel?: string;
 	title?: string;
 	component: JSX.Element;
 	isVisible: boolean;
@@ -13,7 +14,7 @@ interface ModalContentProps {
 }
 
 export const ModalContent: React.FC<ModalContentProps> = React.memo(
-	({ onCancel, onConfirm, title, component, isVisible, isAnimating }) => {
+	({ onCancel, onConfirm, confirmLabel, title, component, isVisible, isAnimating }) => {
 		return (
 			<div className={`modal-overlay ${isVisible ? 'visible' : ''}`}>
 				<div className={`modal-content ${isAnimating ? 'dismiss' : ''}`}>
@@ -36,11 +37,11 @@ export const ModalContent: React.FC<ModalContentProps> = React.memo(
 									<IconButton
 										size="small"
 										iconRight
-										icon={<IconClose />}
+										icon={<IconCheck />}
 										onClick={() => {
 											onConfirm && onConfirm();
 										}}
-										label="Confirm"
+										label={confirmLabel || 'Confirm'}
 									/>
 								</div>
 							)

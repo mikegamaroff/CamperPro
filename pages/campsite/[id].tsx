@@ -1,5 +1,6 @@
 import { CampsiteImages } from '@components/CampsiteImages';
 import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
 import { Go } from '@components/Go';
 import { Header } from '@components/Header';
@@ -26,11 +27,9 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const BookButton = () => {
 		return (
 			<Go href={`/campsite/book/${campsite?._id}`}>
-				<div className={styles.book}>
-					<div className="caption" style={{ color: 'white' }}>
-						Book
-					</div>
-				</div>
+				<Button color="primary" fill="solid" size="small">
+					Book
+				</Button>
 			</Go>
 		);
 	};
@@ -82,13 +81,14 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 												</div>
 											</div>
 										)}
-										<Go href={`/campsite/book/${campsite?._id}`}>
-											<div className={styles.requestToBook}>
-												<div className="medium">Request to book</div>
-											</div>
-										</Go>
 									</div>
 								</div>
+								<Go href={`/campsite/book/${campsite?._id}`}>
+									<Button color="primary" fill="solid" size="default" expand="block">
+										Request to book
+									</Button>
+								</Go>
+								<div style={{ height: '20px' }} />
 								<hr />
 								<div className={styles.section}>
 									<HostedBy campsite={campsite} />

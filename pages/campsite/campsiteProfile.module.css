@@ -30,24 +30,3 @@
 .addressText {
 	color: var(--neutral900);
 }
-
-.requestToBook {
-	margin-top: 20px;
-	width: 100%;
-	height: 45px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: var(--primary);
-	color: white;
-	border-radius: 8px;
-}
-.book {
-	width: 58px;
-	height: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: var(--primary);
-	border-radius: 8px;
-}

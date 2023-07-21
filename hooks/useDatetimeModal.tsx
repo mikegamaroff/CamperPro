@@ -5,9 +5,11 @@ import useIonModal from './useIonModal';
 interface UseDatetimeModalProps {
 	onDatetimeChange: (value: string) => void;
 	disabledDates: string[];
+	min?: string;
+	max?: string;
 }
 
-const useDatetimeModal = ({ onDatetimeChange, disabledDates }: UseDatetimeModalProps) => {
+const useDatetimeModal = ({ onDatetimeChange, disabledDates, min, max }: UseDatetimeModalProps) => {
 	const { presentModal, dismissModal } = useIonModal({
 		onCancel: () => {
 			dismissModal();
@@ -15,7 +17,9 @@ const useDatetimeModal = ({ onDatetimeChange, disabledDates }: UseDatetimeModalP
 		onConfirm: () => {
 			dismissModal();
 		},
-		component: <DateTimePicker onDatetimeChange={onDatetimeChange} disabledDates={disabledDates} />
+		component: (
+			<DateTimePicker onDatetimeChange={onDatetimeChange} disabledDates={disabledDates} min={min} max={max} />
+		)
 	});
 
 	return { presentDatetimeModal: presentModal };

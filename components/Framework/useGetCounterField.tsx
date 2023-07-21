@@ -8,9 +8,10 @@ type StarRatingProps = {
 	max?: number;
 	title: string;
 	subtitle?: string;
+	noline?: boolean;
 };
 
-const useGetCounterField = ({ value = 0, max = 20, title, subtitle }: StarRatingProps) => {
+const useGetCounterField = ({ value = 0, max = 20, title, subtitle, noline }: StarRatingProps) => {
 	const [count, setCount] = useState<number>(value);
 	const [isMouseDown, setIsMouseDown] = useState<string | null>(null);
 
@@ -35,7 +36,7 @@ const useGetCounterField = ({ value = 0, max = 20, title, subtitle }: StarRating
 	};
 
 	const CounterComponent = (
-		<div className={styles.counterContainer}>
+		<div className={styles.counterContainer} style={{ borderWidth: noline ? '0px' : '1px' }}>
 			<div className={styles.labelContainer}>
 				<div className={classNames('medium', styles.title)}>{title}</div>
 				{subtitle && <div className={styles.subtitle}>{subtitle}</div>}
@@ -57,7 +58,7 @@ const useGetCounterField = ({ value = 0, max = 20, title, subtitle }: StarRating
 				<div
 					className={classNames(
 						styles.controlIcon,
-						count >= 20 && styles.countIconDisabled,
+						count >= max && styles.countIconDisabled,
 						isMouseDown === 'plus' && styles.controlIconPressed
 					)}
 					onMouseDown={() => handleMouseDown('plus')}

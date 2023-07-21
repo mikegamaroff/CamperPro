@@ -1,6 +1,6 @@
 import { AuthContext } from '@context/authContext';
 import { ModalContext } from '@context/modalContext';
-import { dateSmall } from '@utils/dateTime';
+import { dateSmall } from '@model/date';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Review } from '../model/review';
 import styles from './CampsiteReview.module.css';

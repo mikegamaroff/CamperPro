@@ -1,8 +1,8 @@
-import { GetServerSideProps } from 'next';
-
 import { CampsiteImages } from '@components/CampsiteImages';
 import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
+import { Go } from '@components/Go';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconLocation, IconMap } from '@components/Icons';
 import ReadMore from '@components/ReadMore';
@@ -12,6 +12,7 @@ import { CheckinType } from '@components/campsites/CheckinType';
 import { HostedBy } from '@components/campsites/HostedBy';
 import { CampsiteReviews } from '@components/reviews/CampsiteReviews';
 import { useGetCampsite } from '@routes/useGetCampsite';
+import { GetServerSideProps } from 'next';
 import withAuth from '../withAuth';
 import styles from './campsiteProfile.module.css';
 interface PostPageProps {
@@ -23,9 +24,23 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 
 	const receptionAddress = campsite?.location?.receptionAddress;
 
+	const BookButton = () => {
+		return (
+			<Go href={`/campsite/book/${campsite?._id}`}>
+				<Button color="primary" fill="solid" size="small">
+					Book
+				</Button>
+			</Go>
+		);
+	};
+
 	return (
 		<>
-			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
+			<Header
+				title="logo"
+				left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />}
+				right={<BookButton />}
+			/>
 
 			<Container scroll>
 				<>
@@ -68,6 +83,12 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										)}
 									</div>
 								</div>
+								<Go href={`/campsite/book/${campsite?._id}`}>
+									<Button color="primary" fill="solid" size="default" expand="block">
+										Request to book
+									</Button>
+								</Go>
+								<div style={{ height: '20px' }} />
 								<hr />
 								<div className={styles.section}>
 									<HostedBy campsite={campsite} />

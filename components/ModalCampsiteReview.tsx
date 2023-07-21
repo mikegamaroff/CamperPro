@@ -1,4 +1,4 @@
-import { dateSmall } from '@utils/dateTime';
+import { dateSmall } from '@model/date';
 import React from 'react';
 import { Review } from '../model/review';
 import { useGetUser } from '../routes/useGetUser';

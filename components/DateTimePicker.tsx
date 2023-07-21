@@ -1,11 +1,14 @@
+import { getLocalDay } from '@model/date';
 import React, { useEffect, useRef } from 'react';
 
 interface DateTimePickerProps {
 	onDatetimeChange: (value: string) => void;
 	disabledDates?: string[];
+	min?: string;
+	max?: string;
 }
 
-const DateTimePicker: React.FC<DateTimePickerProps> = ({ onDatetimeChange, disabledDates }) => {
+const DateTimePicker: React.FC<DateTimePickerProps> = ({ onDatetimeChange, disabledDates, min, max }) => {
 	const datetimeRef = useRef<HTMLIonDatetimeElement | null>(null);
 
 	useEffect(() => {
@@ -26,7 +29,10 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({ onDatetimeChange, disab
 				if (el) {
 					const datetime = document.createElement('ion-datetime') as HTMLIonDatetimeElement;
 					datetime.className = 'timepicker';
+					datetime.min = min || getLocalDay();
+					datetime.max = max;
 					datetime.showDefaultButtons = true;
+					datetime.presentation = 'date';
 					el.appendChild(datetime);
 					datetimeRef.current = datetime;
 				}

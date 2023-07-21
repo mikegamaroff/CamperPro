@@ -26,3 +26,14 @@
 .campsiteDescription {
 	color: var(--neutral500);
 }
+.datePickerContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 5px 12px 5px;
+}
+.dualDates {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}

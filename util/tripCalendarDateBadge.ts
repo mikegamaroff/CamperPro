@@ -1,4 +1,4 @@
-import { Campsite } from '@model/campsite';
+import { Trip } from '@model/trips';
 
 export type TripDateBadgeOutput =
 	| {
@@ -10,7 +10,7 @@ export type TripDateBadgeOutput =
 	  }
 	| false;
 
-export const tripCalendarDateBadge = (campsites: Campsite[]): TripDateBadgeOutput[] => {
+export const tripCalendarDateBadge = (campsites: Trip[]): TripDateBadgeOutput[] => {
 	const processedTrips: TripDateBadgeOutput[] = [];
 	const seenDays = new Set<string>();
 	const seenMonths = new Set<string>();

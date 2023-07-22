@@ -2,9 +2,9 @@ import { ContentLoader } from '@components/ContentLoader';
 import { IconClimbing } from '@components/Icons';
 import { NoResults } from '@components/NoResults';
 import { TripsCalendarItem } from '@components/TripsCalendarItem';
-import { FilterContext } from '@context/filterContext';
-import { Campsite } from '@model/campsite';
-import { useGetAllCampsites } from '@routes/useGetAllCampsites';
+import { AuthContext } from '@context/authContext';
+import { Trip } from '@model/trips';
+import { useGetTripsByCamper } from '@routes/useGetTripsByCamper';
 import { TripDateBadgeOutput, tripCalendarDateBadge } from '@utils/tripCalendarDateBadge';
 import { useContext } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -26,11 +26,11 @@ const Divider: React.FC<{ label: string; topline?: boolean; empty?: boolean }> =
 };
 
 const TripItem: React.FC<{
-	campsite: Campsite;
+	trip: Trip;
 	lastItem: boolean;
 	tripDateBadge: TripDateBadgeOutput;
 	index: number;
-}> = ({ campsite, tripDateBadge, lastItem, index }) => {
+}> = ({ trip, tripDateBadge, lastItem, index }) => {
 	return (
 		<div>
 			{tripDateBadge &&
@@ -48,21 +48,15 @@ const TripItem: React.FC<{
 					topline={tripDateBadge.previousMonths.length === 0 && index !== 0}
 				/>
 			)}
-			<TripsCalendarItem
-				key={campsite._id}
-				campsite={campsite}
-				tripDateBadge={tripDateBadge}
-				lastItem={lastItem}
-			/>
+			<TripsCalendarItem key={trip._id} trip={trip} tripDateBadge={tripDateBadge} lastItem={lastItem} />
 		</div>
 	);
 };
 
 function Trips() {
-	const { selectedFilter } = useContext(FilterContext);
-	const { campsites, isLoading } = useGetAllCampsites({ filters: selectedFilter, view: 'all-campsites-by-date' });
-	const processedDates: TripDateBadgeOutput[] = tripCalendarDateBadge(campsites as Campsite[]);
-
+	const { user } = useContext(AuthContext);
+	const { trips, isLoading } = useGetTripsByCamper(user?._id);
+	const processedDates: TripDateBadgeOutput[] = tripCalendarDateBadge(trips as Trip[]);
 	return (
 		<Container shelfHeight={67}>
 			<div className="contentWrapperFlush">
@@ -75,24 +69,24 @@ function Trips() {
 					<ContentLoader
 						isLoading={isLoading}
 						loadingMessage="Loading trips..."
-						data={processedDates.length > 0 ? campsites : null}
+						data={processedDates.length > 0 ? trips : null}
 						noResults={
 							<NoResults heading="No trips found." subheading="Create one now." icon={<IconClimbing />} />
 						}
 					>
 						<div className="fader" />
 						<Virtuoso
-							totalCount={campsites.length}
-							data={campsites}
+							totalCount={trips.length}
+							data={trips}
 							className={styles.tripCalendarScroller}
-							itemContent={(index, campsite) => (
+							itemContent={(index, trip) => (
 								<>
-									{campsite && (
-										<div key={campsite._id} style={{ minHeight: '1px' }}>
+									{trip && (
+										<div key={trip._id} style={{ minHeight: '1px' }}>
 											<TripItem
 												index={index}
-												campsite={campsite}
-												lastItem={index === campsites.length - 1}
+												trip={trip}
+												lastItem={index === trips.length - 1}
 												tripDateBadge={processedDates[index]}
 											/>
 										</div>

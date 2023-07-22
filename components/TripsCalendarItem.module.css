@@ -25,9 +25,9 @@
 	height: 150px;
 }
 .lastItem {
-	border-bottom: 0.1px;
-	border-style: solid;
-	border-color: var(--neutral300);
+	border-bottom: 0.1px !important;
+	border-style: solid !important;
+	border-color: var(--neutral300) !important;
 }
 .title {
 	font-weight: 500;
@@ -42,17 +42,18 @@
 }
 
 .time {
-	font-weight: 400;
-	font-size: 13px;
+	font-weight: 500;
+	font-size: 14px;
 	letter-spacing: -0.32px;
-	color: var(--neutral500);
+	color: var(--primary700);
 	margin-top: 6px;
 }
+
 .tripImageContainer {
 	flex: 0 0 100px;
 	height: 150px;
 	padding: 8px;
-	border-right: 0.1px;
+	border-right: 0px;
 	border-top: 0.1px;
 	border-bottom: 0px;
 	border-left: 0px;

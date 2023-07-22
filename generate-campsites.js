@@ -41,6 +41,7 @@ const EmptyNewCampsite = {
 	private: false,
 	active: true,
 	reviewsCount: 0,
+	tripsCount: 0,
 	draftStage: 0
 };
 

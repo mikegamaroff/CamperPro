@@ -121,6 +121,33 @@ const reviewDesignDoc = {
 	language: 'javascript'
 };
 
+const tripDesignDocName = 'trip-view';
+const tripDesignDoc = {
+	_id: `_design/${tripDesignDocName}`,
+	views: {
+		'all-trips': {
+			map: `
+				function (doc) {
+					if (doc.type === 'trip') {
+						emit(doc.camper, doc);
+					}
+				}
+			`
+		},
+		'trips-camper-search': {
+			map: `
+			function (doc) {
+				if (doc.type === 'trip') {
+					emit(doc.camper, doc);
+				}
+			}
+		  `
+		}
+		// Add more views here if needed
+	},
+	language: 'javascript'
+};
+
 function replicateDatabase(sourceDb, targetNano, dbName, continuous) {
 	const targetDbUrl = `${targetNano.config.url}/${dbName}`;
 	sourceDb.replicate(targetDbUrl, { create_target: true, continuous }, err => {
@@ -183,6 +210,7 @@ nano.db.get(dbName, err => {
 			handleDesignDoc(db, userDesignDoc);
 			handleDesignDoc(db, campsiteDesignDoc);
 			handleDesignDoc(db, reviewDesignDoc);
+			handleDesignDoc(db, tripDesignDoc);
 		});
 	} else if (err) {
 		console.error('Error checking database existence:', err);
@@ -192,5 +220,6 @@ nano.db.get(dbName, err => {
 		handleDesignDoc(db, userDesignDoc);
 		handleDesignDoc(db, campsiteDesignDoc);
 		handleDesignDoc(db, reviewDesignDoc);
+		handleDesignDoc(db, tripDesignDoc);
 	}
 });

@@ -44,6 +44,7 @@ export interface Campsite extends DocumentWithImages {
 	draftStage: number;
 	rating?: number | null;
 	reviewsCount?: number | null;
+	tripsCount?: number | null;
 	location?: CampLocation;
 	pricePerNight?: number;
 	receptionCheckin?: boolean;

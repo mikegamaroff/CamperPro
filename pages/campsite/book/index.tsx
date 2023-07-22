@@ -1,18 +1,29 @@
 import { Container } from '@components/Container';
+import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconClose } from '@components/Icons';
 import { Pager } from '@components/Pager';
 import { PlanTrip } from '@components/bookPages/PlanTrip';
+import { AuthContext } from '@context/authContext';
+import { CampsiteContext } from '@context/campsiteContext';
+import { TripContext } from '@context/tripContext';
+import { EmptyNewTrip, Trip } from '@model/trips';
 import withAuth from '@pages/withAuth';
+import { useAddTrip } from '@routes/useAddTrip';
 import { useGetCampsite } from '@routes/useGetCampsite';
-import { useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
 	id: string;
 }
 
 function RequestBooking({ id }: Props) {
+	const { addTrip, isLoading: addCampsiteLoading, isSuccess } = useAddTrip();
+	const { updateCampsite } = useContext(CampsiteContext);
+	const { trips, setTrips } = useContext(TripContext);
+	const { user } = useContext(AuthContext);
 	const [stage, setStage] = useState<number>(1);
 	const totalPages = 2;
 	const { campsite, isLoading, isError } = useGetCampsite(id);
@@ -25,6 +36,35 @@ function RequestBooking({ id }: Props) {
 		<div key={'stage2'}>Stage 2</div>
 	];
 
+	const newTrip: Trip = useMemo(
+		() => ({
+			...EmptyNewTrip,
+			_id: 'trip:' + uuidv4(),
+			campsite: campsite?._id as string,
+			camper: user?._id as string
+		}),
+		[campsite]
+	);
+
+	const handleAddTrip = async () => {
+		if (newTrip) {
+			try {
+				const { response, campsite } = await addTrip(newTrip);
+
+				if (campsite) {
+					updateCampsite(campsite);
+				}
+
+				if (response.success) {
+					setTrips([newTrip, ...trips]);
+				} else {
+					console.error('Error adding campsite:', response.message);
+				}
+			} catch (error) {
+				console.error('Error adding campsite:', error instanceof Error ? error.message : 'Unknown error');
+			}
+		}
+	};
 	return (
 		<>
 			<Header
@@ -35,6 +75,11 @@ function RequestBooking({ id }: Props) {
 					) : (
 						<IconButton icon={<IconBackArrow />} onClick={() => goToNextStage(1)} />
 					)
+				}
+				right={
+					<Button color="primary" fill="solid" size="small" onClick={handleAddTrip}>
+						Book
+					</Button>
 				}
 			/>
 			<Pager page={stage} draftMode={false} totalPages={totalPages} onClick={goToNextStage} />

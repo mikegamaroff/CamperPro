@@ -191,7 +191,9 @@ export const dateSmall = (date: string | undefined): string => {
  * @returns {number} The number of days between the two dates, endDate - startDate, unrounded
  */
 export const dateDiffDays: (startDate: string, endDate: string) => number = (startDate, endDate) => {
-	const res = DateTime.fromISO(endDate).diff(DateTime.fromISO(startDate), ['days']);
+	const start = DateTime.fromISO(startDate).startOf('day');
+	const end = DateTime.fromISO(endDate).startOf('day');
+	const res = end.diff(start, ['days']);
 	return res.days;
 };
 

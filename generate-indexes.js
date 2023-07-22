@@ -13,7 +13,8 @@ const indexes = [
 	{ name: 'acreage-index', fields: ['capacity.acreage'] },
 	{ name: 'active-draft-index', fields: ['active', 'draft'] },
 	{ name: 'location-state-index', fields: ['location.state'] },
-	{ name: 'location-nearestTown-index', fields: ['location.nearestTown'] }
+	{ name: 'location-nearestTown-index', fields: ['location.nearestTown'] },
+	{ name: 'created_at-index', fields: ['created_at'] }
 ];
 
 async function createIndex(index) {

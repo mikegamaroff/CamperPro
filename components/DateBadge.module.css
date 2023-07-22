@@ -1,0 +1,29 @@
+.tripBadgeContainer {
+	position: relative;
+}
+
+.month,
+.dayOfWeek {
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	align-items: center;
+	text-align: center;
+	letter-spacing: -0.408px;
+	color: var(--neutral300);
+	text-transform: uppercase;
+}
+
+.day {
+	font-weight: 700;
+	font-size: 28px;
+	line-height: 18px;
+	text-align: center;
+	letter-spacing: 0.36px;
+	color: var(--neutral700);
+}
+.tripDotIndicator {
+	position: absolute;
+	right: -6px;
+	top: 50%;
+}

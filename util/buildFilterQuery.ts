@@ -10,7 +10,8 @@ export function buildMangoQuery(filters: CampsiteFilter) {
 		selector: {
 			active: true,
 			draft: false
-		}
+		},
+		sort: [{ created_at: 'asc' }]
 	};
 
 	if (filters.private !== undefined) {
@@ -59,5 +60,6 @@ export function buildMangoQuery(filters: CampsiteFilter) {
 			]
 		};
 	}
+
 	return query;
 }

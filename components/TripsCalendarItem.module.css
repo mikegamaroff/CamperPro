@@ -13,19 +13,21 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	gap: 20px;
-	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	border-left: 0.1px;
 	border-top: 0.1px;
 	border-bottom: 0px;
 	border-right: 0px;
 	border-style: solid;
-	border-color: var(--neutral150);
+	border-color: var(--neutral300);
 	height: 150px;
 }
 .lastItem {
 	border-bottom: 0.1px;
 	border-style: solid;
-	border-color: var(--neutral150);
+	border-color: var(--neutral300);
 }
 .title {
 	font-weight: 500;
@@ -55,7 +57,7 @@
 	border-bottom: 0px;
 	border-left: 0px;
 	border-style: solid;
-	border-color: var(--neutral150);
+	border-color: var(--neutral300);
 }
 .tripImage {
 	height: 100px;
@@ -63,7 +65,7 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	border-radius: 10px;
+	border-radius: 5px;
 	overflow: hidden;
 	position: relative;
 }
@@ -73,9 +75,10 @@
 	-webkit-box-orient: vertical;
 	font-size: 14px;
 	line-height: 1.3;
-	margin-top: 3px;
+	margin-top: 5px;
 	white-space: normal;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	line-height: 20px;
+	color: var(--neutral500);
 }

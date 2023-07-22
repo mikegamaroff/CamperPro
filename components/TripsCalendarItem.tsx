@@ -1,4 +1,4 @@
-import { formatLocalDateTime } from '@model/date';
+import { formatLocalDate } from '@model/date';
 import classNames from 'classnames';
 // styles
 import Image from 'next/image';
@@ -24,9 +24,11 @@ export const TripsCalendarItem: React.FC<{
 							<DateBadge tripDateBadge={tripDateBadge} />
 						</div>
 						<div className={classNames(styles.container, lastItem && styles.lastItem)}>
-							<div className={styles.title}>{campsite?.title}</div>
-							<div className={styles.description}>{campsite?.description}</div>
-							<div className={styles.time}>{formatLocalDateTime(campsite.created_at)}</div>
+							<div>
+								<div className={styles.title}>{campsite?.title}</div>
+								<div className={styles.description}>{campsite?.description}</div>
+							</div>
+							<div className={styles.time}>{formatLocalDate(campsite.created_at)}</div>
 						</div>
 						<div className={classNames(styles.tripImageContainer, lastItem && styles.lastItem)}>
 							<div className={styles.tripImage}>

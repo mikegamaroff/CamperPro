@@ -18,7 +18,6 @@ export const TripsCalendarItem: React.FC<{
 }> = ({ trip, tripDateBadge, lastItem }) => {
 	const { campsite, isLoading } = useGetCampsite(trip.campsite);
 	const campsiteImage = `/api/images/${campsite?.images?.[0].id}.${campsite?.images?.[0].contentType.split('/')[1]}`;
-	console.log(campsite);
 	return (
 		<>
 			{campsite && (

@@ -1,30 +1,30 @@
-// hooks/useAddReview.ts
+// hooks/useAddTrip.ts
 import { Campsite } from '@model/campsite';
-import { Review } from '@model/review';
+import { Trip } from '@model/trips';
 import { useState } from 'react';
 
-interface AddReviewResponse {
+interface AddTripResponse {
 	success: boolean;
 	message: string;
 }
 
-export const useAddReview = () => {
+export const useAddTrip = () => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
 
-	const addReview = async (review: Review): Promise<{ response: AddReviewResponse; campsite: Campsite | null }> => {
+	const addTrip = async (trip: Trip): Promise<{ response: AddTripResponse; campsite: Campsite | null }> => {
 		setLoading(true);
 		setError(null);
 		setSuccess(false);
 		try {
-			const response = await fetch('/api/reviews', {
+			const response = await fetch('/api/trips', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
 				},
-				body: JSON.stringify(review)
+				body: JSON.stringify(trip)
 			});
 
 			if (response.ok) {
@@ -46,5 +46,5 @@ export const useAddReview = () => {
 		}
 	};
 
-	return { addReview, isLoading, isError, isSuccess };
+	return { addTrip, isLoading, isError, isSuccess };
 };

@@ -39,7 +39,6 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 		setTimeout(() => setIsVisible(true), 0);
 		setModalState({ component, title, onCancel, onConfirm, confirmLabel });
 	}, []);
-	console.log(modalState.confirmLabel);
 	const closeModal = useCallback(() => {
 		setAnimating(true);
 		setTimeout(() => {

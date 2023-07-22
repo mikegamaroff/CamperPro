@@ -83,9 +83,14 @@ ion-range::part(pin) {
 	grid-template-rows: auto 1fr;
 	height: 100%;
 }
-.contentWrapper {
-	padding: 0 10px 0 10px;
+.contentWrapperFlush {
 	height: 100%;
+	position: relative;
+}
+.contentWrapper {
+	padding: 10px;
+	height: 100%;
+	position: relative;
 }
 .innerContainer {
 	max-width: 500px;
@@ -206,6 +211,14 @@ a:hover {
 	display: flex;
 	align-items: center;
 	line-height: 100%;
+}
+.fader {
+	height: 10px;
+	position: absolute;
+	z-index: 1;
+	height: 20px;
+	width: 100%;
+	background: linear-gradient(to bottom, var(--background), rgba(255, 255, 255, 0));
 }
 @media screen and (min-width: 400px) {
 	.searchbar-input-container ion-icon {

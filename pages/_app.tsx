@@ -18,6 +18,7 @@ import { ModalProvider } from '@context/modalContext';
 import { ReviewProvider } from '@context/reviewContext';
 import { RouterContext } from '@context/routerContext';
 import { ToastProvider } from '@context/toastContext';
+import { TripProvider } from '@context/tripContext';
 import { UserProvider } from '@context/userContext';
 import '@ionic/core/css/display.css';
 import '@ionic/core/css/flex-utils.css';
@@ -66,15 +67,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 							<CampsiteProvider>
 								<FilterProvider>
 									<ReviewProvider>
-										<ToastProvider>
-											<Home>
-												<ModalProvider>
-													<AnimatePresence>
-														<Component {...pageProps} />
-													</AnimatePresence>
-												</ModalProvider>
-											</Home>
-										</ToastProvider>
+										<TripProvider>
+											<ToastProvider>
+												<Home>
+													<ModalProvider>
+														<AnimatePresence>
+															<Component {...pageProps} />
+														</AnimatePresence>
+													</ModalProvider>
+												</Home>
+											</ToastProvider>
+										</TripProvider>
 									</ReviewProvider>
 								</FilterProvider>
 							</CampsiteProvider>

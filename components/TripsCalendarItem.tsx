@@ -7,9 +7,11 @@ import styles from './TripsCalendarItem.module.css';
 import { Trip } from '@model/trips';
 import { useGetCampsite } from '@routes/useGetCampsite';
 import { getRandomAdventureSynonym } from '@utils/getRandomAdventureName';
+import { useMemo } from 'react';
 import { TripDateBadgeOutput } from '../util/tripCalendarDateBadge';
 import { DateBadge } from './DateBadge';
 import { Go } from './Go';
+import { IconPets } from './Icons';
 
 export const TripsCalendarItem: React.FC<{
 	trip: Trip;
@@ -17,6 +19,8 @@ export const TripsCalendarItem: React.FC<{
 	tripDateBadge: TripDateBadgeOutput;
 }> = ({ trip, tripDateBadge, lastItem }) => {
 	const { campsite, isLoading } = useGetCampsite(trip.campsite);
+	const randomAdventureSynonym = useMemo(() => getRandomAdventureSynonym(), []);
+
 	const campsiteImage = `/api/images/${campsite?.images?.[0].id}.${campsite?.images?.[0].contentType.split('/')[1]}`;
 	return (
 		<>
@@ -31,8 +35,11 @@ export const TripsCalendarItem: React.FC<{
 								<div className={styles.title}>{campsite?.title}</div>
 								<div className={styles.description}>{campsite?.description}</div>
 							</div>
+							<div className={styles.capacity}>
+								{trip.capacity.adults + trip.capacity.children} campers
+							</div>
 							<div className={styles.time}>
-								{dateDiffDays(trip.checkin, trip.checkout)} day {getRandomAdventureSynonym()}
+								{dateDiffDays(trip.checkin, trip.checkout)} day {randomAdventureSynonym}
 							</div>
 						</div>
 
@@ -40,6 +47,11 @@ export const TripsCalendarItem: React.FC<{
 							<div className={classNames(styles.tripImage)}>
 								<Image src={campsiteImage} alt="Campr" fill style={{ objectFit: 'cover' }} />
 							</div>
+							{trip.capacity.pets > 0 && (
+								<div>
+									<IconPets />
+								</div>
+							)}
 						</div>
 					</div>
 				</Go>

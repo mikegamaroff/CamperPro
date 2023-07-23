@@ -1,7 +1,7 @@
 import { ContentLoader } from '@components/ContentLoader';
 import { IconClimbing } from '@components/Icons';
 import { NoResults } from '@components/NoResults';
-import { TripsCalendarItem } from '@components/TripsCalendarItem';
+import { TripItem } from '@components/TripItem';
 import { AuthContext } from '@context/authContext';
 import { Trip } from '@model/trips';
 import { useGetTripsByCamper } from '@routes/useGetTripsByCamper';
@@ -11,47 +11,6 @@ import { Virtuoso } from 'react-virtuoso';
 import { Container } from '../components/Container';
 import styles from './trips.module.css';
 import withAuth from './withAuth';
-
-const Divider: React.FC<{ label: string; topline?: boolean; empty?: boolean }> = ({ label, topline, empty }) => {
-	return (
-		<div>
-			<div className={styles.dividerContainer}>
-				{topline && <div className={styles.topLine} />}
-				<div className={styles.dividerLine} />
-				<div className={styles.dividerLabel}>{label}</div>
-				<div className={styles.dividerLine} />
-			</div>
-		</div>
-	);
-};
-
-const TripItem: React.FC<{
-	trip: Trip;
-	lastItem: boolean;
-	tripDateBadge: TripDateBadgeOutput;
-	index: number;
-}> = ({ trip, tripDateBadge, lastItem, index }) => {
-	return (
-		<div>
-			{tripDateBadge &&
-				tripDateBadge.previousMonths &&
-				tripDateBadge.previousMonths.map((previousMonth, i) => {
-					return (
-						<div key={previousMonth + i}>
-							<Divider label={previousMonth} topline={i === 0} empty />
-						</div>
-					);
-				})}
-			{tripDateBadge && tripDateBadge.newMonth && (
-				<Divider
-					label={tripDateBadge.newMonth}
-					topline={tripDateBadge.previousMonths.length === 0 && index !== 0}
-				/>
-			)}
-			<TripsCalendarItem key={trip._id} trip={trip} tripDateBadge={tripDateBadge} lastItem={lastItem} />
-		</div>
-	);
-};
 
 function Trips() {
 	const { user } = useContext(AuthContext);

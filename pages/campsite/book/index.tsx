@@ -4,6 +4,7 @@ import { Header } from '@components/Header';
 import { IconBackArrow, IconClose } from '@components/Icons';
 import { Pager } from '@components/Pager';
 import { PlanTrip } from '@components/bookPages/PlanTrip';
+import { RequestToBook } from '@components/bookPages/RequestToBook';
 import withAuth from '@pages/withAuth';
 import { useGetCampsite } from '@routes/useGetCampsite';
 import { useState } from 'react';
@@ -22,7 +23,7 @@ function RequestBooking({ id }: Props) {
 
 	const stages = [
 		<PlanTrip key="stage1" campsite={campsite} goToNextStage={goToNextStage} />,
-		<div key={'stage2'}>Stage 2</div>
+		<RequestToBook key="stage2" campsite={campsite} goToNextStage={goToNextStage} />
 	];
 
 	return (

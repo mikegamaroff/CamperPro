@@ -24,7 +24,7 @@
 	color: var(--foreground);
 }
 .campsiteDescription {
-	color: var(--neutral500);
+	color: var(--neutral700);
 }
 .datePickerContainer {
 	display: flex;

@@ -1,0 +1,73 @@
+.container {
+	padding: 20px 10px 10px 10px;
+	display: flex;
+	flex-direction: column;
+}
+.preview {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	padding-bottom: 25px;
+}
+.campsiteImage {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+.campsitePreview {
+	display: flex;
+	gap: 15px;
+}
+.camspiteInfo {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.title {
+	font-weight: bold;
+	color: var(--foreground);
+}
+.description {
+	color: var(--neutral700);
+}
+.campsiteRating {
+	color: var(--foreground);
+	display: flex;
+	gap: 2px;
+	align-items: center;
+}
+.editDetails {
+	background-color: var(--background);
+	border: 1px solid var(--foreground);
+	border-radius: 5px;
+	color: var(--foreground);
+	padding: 4px;
+}
+.editDetailsContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
+}
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 23px;
+	padding: 20px 0px 20px 0px;
+}
+.details {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.totalPrice {
+	font-weight: bold;
+	color: var(--secondary);
+}
+.priceDetails {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}

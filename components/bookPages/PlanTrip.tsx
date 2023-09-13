@@ -9,10 +9,13 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from './PlanTrip.module.css';
-export const PlanTrip: React.FC<{
+export const PlanTrip = ({
+	campsite,
+	goToNextStage
+}: {
 	campsite?: Campsite;
 	goToNextStage: (page: number) => Promise<void>;
-}> = ({ campsite, goToNextStage }) => {
+}) => {
 	const image = campsite?.images?.[0];
 	const [startDate, setStartDate] = useState<string | null>(dateSmall(getLocalDay()) || '');
 	const [endDate, setEndDate] = useState<string | null>(dateSmall(addDays(getLocalDay(), 1)) || '');

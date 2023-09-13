@@ -5,14 +5,16 @@ import { Header } from '@components/Header';
 import { IconBackArrow, IconClose, IconForwardArrow } from '@components/Icons';
 import { Pager } from '@components/Pager';
 import { Stage1 } from '@components/campsites/editStages/Stage1';
+import { Stage7 } from '@components/campsites/editStages/Stage7';
 import { useFormValues } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { objectEquals } from '@model/model';
 import withAuth from '@pages/withAuth';
+import useDeleteCampsite from '@routes/useDeleteCampsite';
 import { useEditCampsite } from '@routes/useEditCampsite';
 import { useGetCampsite } from '@routes/useGetCampsite';
 import { UserEditRules } from 'formConfigs/editUserFieldsConfig';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface Props {
 	id: string;
@@ -20,7 +22,8 @@ interface Props {
 
 function EditCampsite({ id }: Props) {
 	const { editCampsite, isLoading: editing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
-	const totalPages = 6;
+	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
+	const totalPages = 7;
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const {
 		setValues,
@@ -30,62 +33,73 @@ function EditCampsite({ id }: Props) {
 	const [hasUpdated, setHasUpdated] = useState(false);
 
 	const stages = [
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
+		<Stage7 campsite={campsite} key={'stage7'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />
+		<Stage1 campsite={campsite} key={'stage5'} setValues={setValues} formValues={formValues} />,
+		<Stage1 campsite={campsite} key={'stage6'} setValues={setValues} formValues={formValues} />
 	];
 
-	const goToNextStage = async (page?: number) => {
-		if (campsite) {
-			const nextStage = campsite.draftStage + 1;
-			const updatedCampsite = { ...campsite, draftStage: page || nextStage, _rev: campsite._rev };
-
-			const updated = await editCampsite(updatedCampsite); // Update the campsite in the database
-
+	const updateCampsite = useCallback(
+		async (updatedCampsite: Campsite) => {
+			const updated = await editCampsite(updatedCampsite);
 			if (updated.success) {
-				console.log(updated);
+				// Additional logic if needed
 			}
-		}
-	};
-	// This effect is used to set the campsite into the draft mode and reset the draft stage
+		},
+		[editCampsite]
+	);
+
+	const goToNextStage = useCallback(
+		async (page?: number) => {
+			if (campsite) {
+				const updatedCampsite = { ...campsite, draftStage: page ?? campsite.draftStage };
+				updateCampsite(updatedCampsite);
+			}
+		},
+		[campsite, updateCampsite]
+	);
+
 	useEffect(() => {
 		if (campsite && id && !hasUpdated) {
 			if (!campsite.draft) {
-				campsite.draftStage = 1;
-				editCampsite(campsite);
+				updateCampsite({ ...campsite, draftStage: 0 });
 			}
 			setHasUpdated(true);
 		}
-	}, [id, campsite, hasUpdated]);
+	}, [campsite, id, hasUpdated, updateCampsite]);
+
+	if (!campsite || !setValues || !formValues) {
+		return null;
+	}
+
+	const handleDeleteCampsite = async (campsite: Campsite) => {
+		const response = await deleteCampsite(campsite?._id ?? '');
+		if (response.success) {
+			console.log(response);
+			// GoTo('/');
+		} else {
+			console.log(response);
+			// Handle error
+		}
+	};
+
 	return (
 		<>
 			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
 			{/* Pager here is the shelf of height 125px */}
 			<Pager
-				page={campsite?.draftStage}
+				page={campsite ? campsite.draftStage : 0}
 				draftMode={campsite?.draft}
 				totalPages={totalPages}
 				onClick={goToNextStage}
 			/>
 			<Container hidetabs scroll footer shelfHeight={125}>
 				<>
-					{campsite?.draftStage && stages[campsite?.draftStage]}
-					<button onClick={() => goToNextStage()}>Next</button>
+					{campsite && campsite?.draftStage >= 0 && (
+						<div style={{ padding: '10px' }}>{stages[campsite?.draftStage]}</div>
+					)}
 				</>
 			</Container>
 			<Footer
@@ -94,7 +108,7 @@ function EditCampsite({ id }: Props) {
 						icon={<IconBackArrow />}
 						onClick={() => {
 							if (campsite?.draftStage) {
-								campsite?.draftStage < 2 ? history.go(-1) : goToNextStage(campsite?.draftStage - 1);
+								campsite?.draftStage === 0 ? history.go(-1) : goToNextStage(campsite?.draftStage);
 							}
 						}}
 					/>
@@ -106,7 +120,7 @@ function EditCampsite({ id }: Props) {
 							if (campsite?.draftStage) {
 								campsite?.draftStage === totalPages
 									? console.log('Save Campsite')
-									: goToNextStage(campsite?.draftStage + 1);
+									: goToNextStage(campsite?.draftStage);
 							}
 						}}
 					/>

@@ -1,30 +1,41 @@
 import { FieldValuesType, FormValueType } from '../hooks/useFormValues';
 
-export type FormInputParams<T, K extends keyof T> = T[K] extends string | number
-	? {
-			setValues: (value: FormValueType<T>) => void;
-			id: K;
-			onPaste?: (e: any) => any;
-			field?: FieldValuesType<T[K]>;
-			label: string;
-			onSave?: () => void;
-			disabled?: boolean;
-			onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-			inlineImage?: boolean;
-			nogap?: boolean;
-			placeholder?: string;
-			type?: T[K] extends string ? 'text' | 'password' | 'color' : 'number';
-			onChange?: (e: any) => void;
-			long?: boolean;
-			rows?: number;
-			step?: T[K] extends number ? string : never;
-			min?: T[K] extends number ? string : never;
-			max?: T[K] extends number ? string : never;
-			testid?: string;
-	  }
-	: never;
-
-export type zxcvbnResult = {
-	score: number;
-	feedback: { warning: string; suggestions: string[] };
+type CommonParams<T, K extends keyof T> = {
+	setValues: (value: FormValueType<T>) => void;
+	id: K;
+	onPaste?: (e: any) => any;
+	type?: 'text' | 'number' | 'password' | 'email' | 'color';
+	field?: FieldValuesType<T[K]>;
+	label: string;
+	onSave?: () => void;
+	disabled?: boolean;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+	inlineImage?: boolean;
+	nogap?: boolean;
+	placeholder?: string;
+	onChange?: (e: any) => void;
+	long?: boolean;
+	rows?: number;
+	testid?: string;
+	value?: T[K];
+	step?: string;
 };
+
+type NumberParams = {
+	type?: 'number';
+	min?: string;
+	max?: string;
+};
+
+type TextParams = {
+	type?: 'text' | 'password' | 'color';
+};
+type AdditionalParams = {
+	any?: string;
+	// Add any additional fields that might be unique to specific usages here
+};
+export type FormInputParams<T, K extends keyof T, Addl extends AdditionalParams = { any?: string }> = CommonParams<
+	T,
+	K
+> &
+	(T[K] extends number ? NumberParams : T[K] extends string ? TextParams : Addl);

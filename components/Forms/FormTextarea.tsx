@@ -31,9 +31,8 @@ export function FormTextarea<T, K extends keyof T>({
 				onPaste={onPaste}
 				inlineImage
 				placeholder={placeholder ?? label}
-				value={field?.value}
+				value={field?.value as string | undefined}
 				rows={rows}
-				type={type || 'text'}
 				onBlur={e => {
 					setValues({
 						[id]: e.target.value

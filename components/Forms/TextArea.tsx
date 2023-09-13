@@ -5,7 +5,6 @@ import styles from './FormFields.module.css';
 interface TextAreaProps {
 	placeholder?: string;
 	name?: string;
-	type?: string;
 	onChange?: (e: any) => void;
 	onBlur?: (e: any) => void;
 	autoComplete?: string;
@@ -18,7 +17,7 @@ interface TextAreaProps {
 	width?: string;
 	error?: boolean;
 	gap?: number;
-	value?: string | number;
+	value?: string | undefined;
 	id?: string;
 	rows?: number;
 	label?: string;

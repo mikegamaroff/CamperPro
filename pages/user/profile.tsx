@@ -15,7 +15,6 @@ import { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import withAuth from '../withAuth';
 // eslint-disable-next-line css-modules/no-unused-class
-import formStyles from '../../components/Forms/FormFields.module.css';
 import styles from './Profile.module.css';
 function Profile() {
 	const { user, setUser } = useContext(AuthContext);
@@ -30,7 +29,7 @@ function Profile() {
 		<>
 			<Header title="logo" left={<IconButton icon={<IconBackArrow />} onClick={() => history.go(-1)} />} />
 
-			<Container>
+			<Container scroll>
 				<div className="contentWrapper">
 					<div className={styles.profilHeaderWrapper}>
 						<div className={styles.profilHeader}>
@@ -42,7 +41,7 @@ function Profile() {
 							<h3 className="bold">{user?.first_name + ' ' + user?.last_name}</h3>
 						</div>
 					</div>
-					<div className={formStyles.fixedFieldContainer}>
+					<div>
 						<EditableField
 							id="first_name"
 							setValues={setValues}
@@ -51,7 +50,8 @@ function Profile() {
 							label="First Name"
 						/>
 					</div>
-					<div className={formStyles.fixedFieldContainer}>
+					<div className="space10" />
+					<div>
 						<EditableField
 							id="last_name"
 							setValues={setValues}
@@ -60,7 +60,8 @@ function Profile() {
 							label="Last Name"
 						/>
 					</div>
-					<div className={formStyles.fixedFieldContainer}>
+					<div className="space10" />
+					<div>
 						<EditableField
 							id="email"
 							setValues={setValues}
@@ -69,7 +70,8 @@ function Profile() {
 							label="Email"
 						/>
 					</div>
-					<div className={formStyles.fixedFieldContainer}>
+					<div className="space10" />
+					<div>
 						<EditableField
 							id="phone_number"
 							setValues={setValues}
@@ -78,6 +80,7 @@ function Profile() {
 							label="Phone Number"
 						/>
 					</div>
+					<div className="space10" />
 				</div>
 			</Container>
 		</>

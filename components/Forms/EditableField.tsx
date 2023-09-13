@@ -70,7 +70,7 @@ export function EditableField<T, K extends keyof T>({
 						placeholder={label}
 						label={label}
 						inputRef={inputRef}
-						value={field?.value}
+						value={field?.value as string | number | undefined}
 						type={type || 'text'}
 						step={step}
 						onBlur={e => {
@@ -93,7 +93,9 @@ export function EditableField<T, K extends keyof T>({
 					<div className={styles.fieldHolder}>
 						<div className={styles.label}>{label}</div>
 						<div className={classNames(styles.fixedFieldContainer, styles.input)} onClick={startFieldEdit}>
-							<div className={styles.IonFieldText}>{field?.value}</div>
+							<div className={classNames(styles.IonFieldText, styles.fixedInput)}>
+								{field?.value as string | number | undefined}
+							</div>
 							<div className={styles.editIcon}>
 								<IconEdit />
 							</div>

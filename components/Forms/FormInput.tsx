@@ -20,7 +20,7 @@ export function FormInput<T, K extends keyof T>({
 				id={id as string}
 				placeholder={label}
 				label={label}
-				value={field?.value}
+				value={field?.value as string | number | undefined}
 				type={type || 'text'}
 				step={step}
 				onBlur={e => {

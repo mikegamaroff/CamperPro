@@ -220,6 +220,29 @@ a:hover {
 	width: 100%;
 	background: linear-gradient(to bottom, var(--background), rgba(255, 255, 255, 0));
 }
+.blackBulletContainer {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.blackBullet {
+	display: flex;
+	font-weight: 700;
+	font-size: 24px;
+	color: var(--background);
+	background: var(--foreground);
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	padding: 2px 0 0 0;
+}
+.blackBulletLabel {
+	font-size: 24px;
+	font-weight: bold;
+	color: var(--foreground);
+}
 @media screen and (min-width: 400px) {
 	.searchbar-input-container ion-icon {
 		height: 30px !important;

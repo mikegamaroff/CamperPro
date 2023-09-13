@@ -52,6 +52,7 @@ export interface Campsite extends DocumentWithImages {
 	capacity?: Capacity;
 	attributes?: Attributes;
 	active?: boolean;
+	rules?: string;
 }
 
 export const defaultAttributes: Attributes = {

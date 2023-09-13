@@ -42,7 +42,7 @@ const EmptyNewCampsite = {
 	active: true,
 	reviewsCount: 0,
 	tripsCount: 0,
-	draftStage: 0
+	draftStage: 1
 };
 
 // Function to generate a random US ZIP code

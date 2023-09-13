@@ -34,7 +34,9 @@ import {
 	IconWildlife,
 	IconWoodgathering
 } from '@components/Icons';
+import React from 'react';
 import styles from './icons.module.css';
+
 function Icons() {
 	interface IconType {
 		icon: JSX.Element;

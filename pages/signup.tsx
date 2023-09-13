@@ -58,8 +58,9 @@ function SignupPage() {
 			{isLoading ? (
 				<IonSpinner name="dots"></IonSpinner>
 			) : (
-				<Container scroll hidetabs>
+				<Container hidetabs>
 					<div
+						className="contentWrapper"
 						onKeyDown={event => {
 							event.key === 'Enter' && handleSubmit(event);
 						}}

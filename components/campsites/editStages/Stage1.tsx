@@ -3,7 +3,7 @@ import { Campsite } from '@model/campsite';
 import React from 'react';
 
 interface StageProps<T> {
-	campsite?: Campsite;
+	campsite?: Campsite | null | undefined;
 	setValues: (value: FormValueType<T>) => void;
 	formValues: FormValuesType<Campsite> | undefined;
 }

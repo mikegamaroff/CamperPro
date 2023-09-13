@@ -6,7 +6,7 @@ interface HomeProps {
 	children: ReactNode;
 }
 
-const Home: React.FC<HomeProps> = ({ children }) => {
+const Home = ({ children }: HomeProps) => {
 	const { component, title, onCancel, onConfirm } = useContext(ModalContext);
 	return (
 		<>

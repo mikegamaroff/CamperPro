@@ -30,9 +30,12 @@ export const Pager: React.FC<PagerProps> = ({ page, totalPages, onClick, draftMo
 	return (
 		<div className={styles.pagerContainer}>
 			<div className={styles.pageNumberContainer}>{PageNumbers}</div>
-			{page > 0 && (
+			{page >= 0 && (
 				<div className={styles.pageProgressContainer}>
-					<div className={styles.pageProgressIndicator} style={{ width: `${(page / totalPages) * 100}%` }} />
+					<div
+						className={styles.pageProgressIndicator}
+						style={{ width: `${((page + 1) / totalPages) * 100}%` }}
+					/>
 				</div>
 			)}
 		</div>

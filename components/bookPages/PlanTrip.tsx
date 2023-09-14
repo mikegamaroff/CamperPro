@@ -114,7 +114,7 @@ export const PlanTrip = ({
 				size="default"
 				className="radius8"
 				expand="block"
-				onClick={() => goToNextStage(2)}
+				onClick={() => goToNextStage(1)}
 			>
 				Proceed to payment details
 			</Button>

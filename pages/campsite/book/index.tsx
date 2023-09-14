@@ -24,8 +24,7 @@ function RequestBooking({ id }: Props) {
 	const { updateCampsite } = useContext(CampsiteContext);
 	const { trips, setTrips } = useContext(TripContext);
 	const { user } = useContext(AuthContext);
-	const [stage, setStage] = useState<number>(1);
-	const totalPages = 2;
+	const [stage, setStage] = useState<number>(0);
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const goToNextStage = async (page: number) => {
 		setStage(page);
@@ -35,7 +34,7 @@ function RequestBooking({ id }: Props) {
 		<PlanTrip key="stage1" campsite={campsite} goToNextStage={goToNextStage} />,
 		<div key={'stage2'}>Stage 2</div>
 	];
-
+	const totalPages = stages.length;
 	const newTrip: Trip = useMemo(
 		() => ({
 			...EmptyNewTrip,
@@ -43,7 +42,7 @@ function RequestBooking({ id }: Props) {
 			campsite: campsite?._id as string,
 			camper: user?._id as string
 		}),
-		[campsite]
+		[campsite?._id, user?._id]
 	);
 
 	const handleAddTrip = async () => {
@@ -65,26 +64,36 @@ function RequestBooking({ id }: Props) {
 			}
 		}
 	};
+	console.log('stage' + stage);
+	console.log('totalPages' + totalPages);
+	const BookButton = () => {
+		return stage === totalPages - 1 ? (
+			<Button color="primary" fill="solid" size="small" onClick={handleAddTrip}>
+				Book
+			</Button>
+		) : (
+			<Button color="primary" fill="solid" size="small" onClick={() => goToNextStage(1)}>
+				Proceed
+			</Button>
+		);
+	};
+
 	return (
 		<>
 			<Header
 				title="Plan your trip"
 				left={
-					stage === 1 ? (
+					stage === 0 ? (
 						<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />
 					) : (
-						<IconButton icon={<IconBackArrow />} onClick={() => goToNextStage(1)} />
+						<IconButton icon={<IconBackArrow />} onClick={() => goToNextStage(stage - 1)} />
 					)
 				}
-				right={
-					<Button color="primary" fill="solid" size="small" onClick={handleAddTrip}>
-						Book
-					</Button>
-				}
+				right={<BookButton />}
 			/>
 			<Pager page={stage} draftMode={false} totalPages={totalPages} onClick={goToNextStage} />
 			<Container hidetabs scroll shelfHeight={125}>
-				{stages[stage - 1]}
+				{stages[stage]}
 			</Container>
 		</>
 	);

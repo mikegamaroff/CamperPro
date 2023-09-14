@@ -12,7 +12,7 @@ interface PagerProps {
 
 export const Pager: React.FC<PagerProps> = ({ page, totalPages, onClick, draftMode = true }) => {
 	const handleClick = (i: number) => {
-		if (page && ((draftMode && i === page) || !draftMode) && onClick) {
+		if (Number.isInteger(page) && ((draftMode && i <= page) || !draftMode) && onClick) {
 			onClick && onClick(i);
 		}
 	};

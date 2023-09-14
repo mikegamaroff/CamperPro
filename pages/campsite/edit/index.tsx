@@ -23,7 +23,7 @@ interface Props {
 function EditCampsite({ id }: Props) {
 	const { editCampsite, isLoading: editing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
 	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
-	const totalPages = 7;
+
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const {
 		setValues,
@@ -40,7 +40,7 @@ function EditCampsite({ id }: Props) {
 		<Stage1 campsite={campsite} key={'stage5'} setValues={setValues} formValues={formValues} />,
 		<Stage1 campsite={campsite} key={'stage6'} setValues={setValues} formValues={formValues} />
 	];
-
+	const totalPages = stages.length;
 	const updateCampsite = useCallback(
 		async (updatedCampsite: Campsite) => {
 			const updated = await editCampsite(updatedCampsite);
@@ -84,7 +84,7 @@ function EditCampsite({ id }: Props) {
 			// Handle error
 		}
 	};
-
+	console.log(campsite);
 	return (
 		<>
 			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
@@ -107,8 +107,8 @@ function EditCampsite({ id }: Props) {
 					<IconButton
 						icon={<IconBackArrow />}
 						onClick={() => {
-							if (campsite?.draftStage) {
-								campsite?.draftStage === 0 ? history.go(-1) : goToNextStage(campsite?.draftStage);
+							if (Number.isInteger(campsite?.draftStage)) {
+								campsite?.draftStage === 0 ? history.go(-1) : goToNextStage(campsite?.draftStage - 1);
 							}
 						}}
 					/>
@@ -117,10 +117,10 @@ function EditCampsite({ id }: Props) {
 					<IconButton
 						icon={<IconForwardArrow />}
 						onClick={() => {
-							if (campsite?.draftStage) {
+							if (Number.isInteger(campsite?.draftStage)) {
 								campsite?.draftStage === totalPages
 									? console.log('Save Campsite')
-									: goToNextStage(campsite?.draftStage);
+									: goToNextStage(campsite?.draftStage + 1);
 							}
 						}}
 					/>

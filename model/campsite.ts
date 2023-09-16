@@ -1,4 +1,5 @@
 import { IconProps, iconComponents } from '@components/Icons';
+import { FormValueType, FormValuesType } from '@hooks/useFormValues';
 import { ComponentType } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentWithImages } from './model';
@@ -118,6 +119,13 @@ export const defaultFilter: Attributes = {
 	amenity: ['cellsignal', 'wifi', 'toilet', 'portapot', 'shower', 'firepit', 'barbecue'],
 	permitted: ['pets', 'campfire', 'fishing', 'climbing', 'swimming', 'woodgathering', 'hunting']
 };
+
+export interface StageProps<T> {
+	campsite?: Campsite | null | undefined;
+	setValues: (value: FormValueType<T>) => void;
+	formValues: FormValuesType<Campsite> | undefined;
+	stage: number;
+}
 
 export interface FilterIconProps {
 	icon: ComponentType<IconProps>;

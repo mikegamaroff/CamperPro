@@ -64,8 +64,7 @@ function RequestBooking({ id }: Props) {
 			}
 		}
 	};
-	console.log('stage' + stage);
-	console.log('totalPages' + totalPages);
+
 	const BookButton = () => {
 		return stage === totalPages - 1 ? (
 			<Button color="primary" fill="solid" size="small" onClick={handleAddTrip}>

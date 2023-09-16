@@ -4,8 +4,7 @@ import { IconButton } from '@components/Forms/IconButton';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconClose, IconForwardArrow } from '@components/Icons';
 import { Pager } from '@components/Pager';
-import { Stage1 } from '@components/campsites/editStages/Stage1';
-import { Stage7 } from '@components/campsites/editStages/Stage7';
+import { STAGE_COUNT, StageWrapper } from '@components/campsites/editStages/Stages';
 import { useFormValues } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { objectEquals } from '@model/model';
@@ -23,7 +22,6 @@ interface Props {
 function EditCampsite({ id }: Props) {
 	const { editCampsite, isLoading: editing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
 	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
-
 	const { campsite, isLoading, isError } = useGetCampsite(id);
 	const {
 		setValues,
@@ -31,16 +29,8 @@ function EditCampsite({ id }: Props) {
 		stateDataObject: newCampsite
 	} = useFormValues<Campsite>(UserEditRules, campsite, objectEquals);
 	const [hasUpdated, setHasUpdated] = useState(false);
+	const totalPages = STAGE_COUNT;
 
-	const stages = [
-		<Stage7 campsite={campsite} key={'stage7'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage2'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage3'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage1'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage5'} setValues={setValues} formValues={formValues} />,
-		<Stage1 campsite={campsite} key={'stage6'} setValues={setValues} formValues={formValues} />
-	];
-	const totalPages = stages.length;
 	const updateCampsite = useCallback(
 		async (updatedCampsite: Campsite) => {
 			const updated = await editCampsite(updatedCampsite);
@@ -54,7 +44,7 @@ function EditCampsite({ id }: Props) {
 	const goToNextStage = useCallback(
 		async (page?: number) => {
 			if (campsite) {
-				const updatedCampsite = { ...campsite, draftStage: page ?? campsite.draftStage };
+				const updatedCampsite = { ...campsite, draftStage: page ?? campsite?.draftStage };
 				updateCampsite(updatedCampsite);
 			}
 		},
@@ -84,48 +74,56 @@ function EditCampsite({ id }: Props) {
 			// Handle error
 		}
 	};
-	console.log(campsite);
+
 	return (
 		<>
 			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
-			{/* Pager here is the shelf of height 125px */}
-			<Pager
-				page={campsite ? campsite.draftStage : 0}
-				draftMode={campsite?.draft}
-				totalPages={totalPages}
-				onClick={goToNextStage}
-			/>
-			<Container hidetabs scroll footer shelfHeight={125}>
+			{campsite && (
 				<>
-					{campsite && campsite?.draftStage >= 0 && (
-						<div style={{ padding: '10px' }}>{stages[campsite?.draftStage]}</div>
-					)}
+					<Pager
+						page={campsite ? campsite.draftStage : 0}
+						draftMode={campsite.draft}
+						totalPages={totalPages}
+						onClick={goToNextStage}
+					/>
+					<Container hidetabs scroll footer shelfHeight={125}>
+						<div className="contentWrapper">
+							<StageWrapper
+								stage={campsite.draftStage}
+								campsite={campsite}
+								setValues={setValues}
+								formValues={formValues}
+							/>
+						</div>
+					</Container>
+					<Footer
+						left={
+							<IconButton
+								icon={<IconBackArrow />}
+								onClick={() => {
+									if (Number.isInteger(campsite.draftStage)) {
+										campsite.draftStage === 0
+											? history.go(-1)
+											: goToNextStage(campsite.draftStage - 1);
+									}
+								}}
+							/>
+						}
+						right={
+							<IconButton
+								icon={<IconForwardArrow />}
+								onClick={() => {
+									if (Number.isInteger(campsite.draftStage)) {
+										campsite.draftStage === totalPages
+											? console.log('Save Campsite')
+											: goToNextStage(campsite.draftStage + 1);
+									}
+								}}
+							/>
+						}
+					/>
 				</>
-			</Container>
-			<Footer
-				left={
-					<IconButton
-						icon={<IconBackArrow />}
-						onClick={() => {
-							if (Number.isInteger(campsite?.draftStage)) {
-								campsite?.draftStage === 0 ? history.go(-1) : goToNextStage(campsite?.draftStage - 1);
-							}
-						}}
-					/>
-				}
-				right={
-					<IconButton
-						icon={<IconForwardArrow />}
-						onClick={() => {
-							if (Number.isInteger(campsite?.draftStage)) {
-								campsite?.draftStage === totalPages
-									? console.log('Save Campsite')
-									: goToNextStage(campsite?.draftStage + 1);
-							}
-						}}
-					/>
-				}
-			/>
+			)}
 		</>
 	);
 }

@@ -6,6 +6,7 @@ interface StageProps<T> {
 	campsite?: Campsite | null | undefined;
 	setValues: (value: FormValueType<T>) => void;
 	formValues: FormValuesType<Campsite> | undefined;
+	stage: number;
 }
 
 export const Stage1: React.FC<StageProps<Campsite>> = ({ campsite }) => {

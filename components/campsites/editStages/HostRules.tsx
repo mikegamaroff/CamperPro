@@ -9,12 +9,14 @@ interface StageProps<T> {
 	campsite?: Campsite | null | undefined;
 	setValues: (value: FormValueType<T>) => void;
 	formValues: FormValuesType<Campsite> | null | undefined;
+	stage: number;
 }
 
-export const Stage7: React.FC<StageProps<Campsite>> = ({ campsite, setValues, formValues }) => {
+export const HostRules: React.FC<StageProps<Campsite>> = ({ campsite, setValues, formValues, stage }) => {
+	console.log(stage);
 	return (
 		<div>
-			<BlackBullet label="Host's Rules" number={7} />
+			<BlackBullet label="Host's Rules" number={stage} />
 			<p className={styles.caption}>
 				Any specific rules or considerations you want your campers to know about your property?
 			</p>

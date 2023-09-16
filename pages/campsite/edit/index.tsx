@@ -1,8 +1,9 @@
 import { Container } from '@components/Container';
 import { Footer } from '@components/Footer';
+import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
 import { Header } from '@components/Header';
-import { IconBackArrow, IconClose, IconForwardArrow } from '@components/Icons';
+import { IconBackArrow, IconClose } from '@components/Icons';
 import { Pager } from '@components/Pager';
 import { STAGE_COUNT, StageWrapper } from '@components/campsites/editStages/Stages';
 import { useFormValues } from '@hooks/useFormValues';
@@ -75,6 +76,20 @@ function EditCampsite({ id }: Props) {
 		}
 	};
 
+	const ActionButton = (
+		<>
+			{campsite.draftStage !== totalPages - 1 ? (
+				<Button color="tertiary" size="medium" onClick={() => goToNextStage(campsite.draftStage + 1)}>
+					Next Step
+				</Button>
+			) : (
+				<Button color="primary" size="medium" onClick={() => console.log('Save Campsite')}>
+					Publish
+				</Button>
+			)}
+		</>
+	);
+
 	return (
 		<>
 			<Header title="Edit Campsite" left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />} />
@@ -109,18 +124,7 @@ function EditCampsite({ id }: Props) {
 								}}
 							/>
 						}
-						right={
-							<IconButton
-								icon={<IconForwardArrow />}
-								onClick={() => {
-									if (Number.isInteger(campsite.draftStage)) {
-										campsite.draftStage === totalPages
-											? console.log('Save Campsite')
-											: goToNextStage(campsite.draftStage + 1);
-									}
-								}}
-							/>
-						}
+						right={ActionButton}
 					/>
 				</>
 			)}

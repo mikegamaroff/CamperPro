@@ -63,6 +63,7 @@ ion-button * {
 ion-button a {
 	text-decoration: none !important;
 }
+
 ion-toolbar {
 	border-bottom: 1px solid var(--neutral10);
 }
@@ -77,6 +78,10 @@ ion-range::part(pin) {
 	justify-content: center;
 	width: auto;
 	margin-top: 15px;
+}
+ion-button.medium-button {
+	font-size: 15px;
+	height: 38px;
 }
 .layoutContainer {
 	display: grid;

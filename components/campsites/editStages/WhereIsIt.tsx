@@ -1,6 +1,6 @@
 import { BlackBullet } from '@components/BlackBullet';
 import { FormSelect } from '@components/Forms/FormSelect';
-import { Campsite, StageProps } from '@model/campsite';
+import { Campsite, StageProps, countryList } from '@model/campsite';
 import React from 'react';
 export const WhereIsIt: React.FC<StageProps<Campsite>> = ({ campsite, setValues, formValues, stage }) => {
 	return (
@@ -12,11 +12,7 @@ export const WhereIsIt: React.FC<StageProps<Campsite>> = ({ campsite, setValues,
 					<div>
 						<FormSelect
 							id="title"
-							options={[
-								{ value: 'apple', label: 'Apple' },
-								{ value: 'banana', label: 'Banana' },
-								{ value: 'orange', label: 'Orange' }
-							]}
+							options={countryList}
 							setValues={setValues}
 							field={formValues?.title}
 							placeholder="Select Country / Region"

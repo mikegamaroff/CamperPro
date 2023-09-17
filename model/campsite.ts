@@ -13,7 +13,6 @@ export interface Address {
 	address2: string;
 	city: string;
 	postalCode: string;
-	country: string;
 }
 export interface Capacity {
 	numberOfTentSites: number;
@@ -32,6 +31,7 @@ export interface Attributes {
 }
 export interface CampLocation {
 	coordinates: Coordinates;
+	country: string;
 	receptionAddress: Address | null;
 	state: string;
 	nearestTown?: string | null;
@@ -88,6 +88,7 @@ export const EmptyNewCampsite: Campsite = {
 	reviewsCount: null,
 	location: {
 		state: '',
+		country: '',
 		nearestTown: null,
 		receptionAddress: null,
 		coordinates: {
@@ -224,4 +225,22 @@ export const FilterButtons: FilterIconProps[] = [
 		icon: iconComponents.barbecue.icon,
 		id: { amenity: 'barbecue' }
 	}
+];
+
+export const countryList = [
+	{ value: 'USA', label: 'United States' },
+	{ value: 'GBR', label: 'United Kingdom' },
+	{ value: 'CAN', label: 'Canada' },
+	{ value: 'AUS', label: 'Australia' },
+	{ value: 'DEU', label: 'Germany' },
+	{ value: 'FRA', label: 'France' },
+	{ value: 'IND', label: 'India' },
+	{ value: 'CHN', label: 'China' },
+	{ value: 'JPN', label: 'Japan' },
+	{ value: 'RUS', label: 'Russia' },
+	{ value: 'ZAF', label: 'South Africa' },
+	{ value: 'BRA', label: 'Brazil' },
+	{ value: 'MEX', label: 'Mexico' },
+	{ value: 'ITA', label: 'Italy' },
+	{ value: 'ESP', label: 'Spain' }
 ];

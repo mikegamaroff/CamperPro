@@ -67,8 +67,7 @@ function generateRandomAddress() {
 			streetNames[Math.floor(Math.random() * streetNames.length)] + ' Street ' + Math.floor(Math.random() * 100),
 		address2: 'Apt ' + Math.floor(Math.random() * 20),
 		city: cityNames[Math.floor(Math.random() * cityNames.length)],
-		postalCode: generateRandomZipCode(),
-		country: 'USA'
+		postalCode: generateRandomZipCode()
 	};
 	return address;
 }
@@ -83,24 +82,25 @@ function generateRandomCoordinates() {
 }
 
 // Generate an array of 10 objects with random address and coordinates
-const campsiteArray = [];
+const campsiteLocationArray = [];
 
 for (let i = 0; i < 10; i++) {
 	const campsiteLocation = {
 		state: states[Math.floor(Math.random() * states.length)],
+		country: 'USA',
 		nearestTown: cityNames[Math.floor(Math.random() * cityNames.length)],
 		receptionAddress: generateRandomAddress(),
 		coordinates: generateRandomCoordinates(),
 		directions:
 			'Go down interstate 13 until you come to the big water tower, turn left and drive down the dust road for about 2 miles and you will see a gate with a Toby Ranch sign where you enter.'
 	};
-	campsiteArray.push(campsiteLocation);
+	campsiteLocationArray.push(campsiteLocation);
 }
 let j = 0;
 // Generate 10 test users
 for (let i = 0; i < 10; i++) {
 	const title = titles[Math.floor(Math.random() * titles.length)];
-	const location = campsiteArray[Math.floor(Math.random() * titles.length)];
+	const location = campsiteLocationArray[Math.floor(Math.random() * titles.length)];
 	const newCampsite = EmptyNewCampsite;
 	newCampsite._id = `campsite:${uuidv4()}`;
 	newCampsite.title = title;

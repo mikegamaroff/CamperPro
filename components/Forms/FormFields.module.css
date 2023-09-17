@@ -21,7 +21,7 @@
 	border-radius: 8px;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: var(--fontSize-body);
 	line-height: 22px;
 	letter-spacing: -0.408px;
 	color: var(--neutral900);
@@ -35,7 +35,7 @@
 	border-radius: 8px;
 	font-style: normal;
 	font-weight: 400;
-	font-size: 16px;
+	font-size: var(--fontSize-body);
 	line-height: 22px;
 	letter-spacing: -0.408px;
 	color: var(--neutral900);
@@ -79,7 +79,7 @@
 	outline: none;
 }
 .label {
-	font-size: 13px;
+	font-size: var(--fontSize-xsmall);
 	margin-bottom: 4px;
 	color: var(--neutral700);
 }
@@ -133,7 +133,7 @@
 	align-items: center;
 }
 .labelTitle {
-	font-size: 13px;
+	font-size: var(--fontSize-xsmall);
 }
 .fieldHolder {
 	position: relative;

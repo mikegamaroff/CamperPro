@@ -7,7 +7,7 @@ body {
 	margin: 0;
 	height: 100%;
 	color: var(--neutral700);
-	font-size: 16px;
+	font-size: var(--fontSize-body);
 }
 /* This will hide the scrollbar for Chrome, Safari and Opera */
 div::-webkit-scrollbar {
@@ -23,7 +23,9 @@ div {
 div {
 	scrollbar-width: none;
 }
-
+.relative {
+	position: relative;
+}
 * {
 	-webkit-touch-callout: default;
 
@@ -80,7 +82,7 @@ ion-range::part(pin) {
 	margin-top: 15px;
 }
 ion-button.medium-button {
-	font-size: 15px;
+	font-size: var(--fontSize-small);
 	height: 38px;
 }
 .layoutContainer {
@@ -108,7 +110,7 @@ ion-button.medium-button {
 .searchbar-input {
 	font-style: normal !important;
 	font-weight: 400 !important;
-	font-size: 16px !important;
+	font-size: var(--fontSize-body) !important;
 	line-height: 22px !important;
 	letter-spacing: -0.408px !important;
 	text-align: left !important;
@@ -121,7 +123,7 @@ ion-button.medium-button {
 }
 .searchbar-input::-webkit-input-placeholder {
 	color: var(--neutral700) !important;
-	font-size: 15px !important;
+	font-size: var(--fontSize-small) !important;
 }
 .searchbar-search-icon {
 	top: unset !important;
@@ -233,7 +235,7 @@ a:hover {
 .blackBullet {
 	display: flex;
 	font-weight: 700;
-	font-size: 24px;
+	font-size: var(--fontSize-h3);
 	color: var(--background);
 	background: var(--foreground);
 	border-radius: 100%;
@@ -244,7 +246,7 @@ a:hover {
 	padding: 2px 0 0 0;
 }
 .blackBulletLabel {
-	font-size: 24px;
+	font-size: var(--fontSize-h3);
 	font-weight: bold;
 	color: var(--foreground);
 }
@@ -342,7 +344,7 @@ ion-tab-bar {
 	height: 70px;
 }
 ion-tab-button {
-	font-size: 10px;
+	font-size: var(--fontSize-xtiny);
 	--color: var(--neutral700);
 	--padding-end: 0px;
 	--padding-bottom: 0px;
@@ -381,7 +383,29 @@ ion-header,
 ion-footer {
 	all: unset;
 }
+ion-select {
+	padding: 0 10px 0 10px !important;
+}
+.select-icon {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+.select-label-placement-stacked {
+	padding: 0;
+	all: unset;
+	display: flex;
+	margin: 0;
+	box-sizing: border-box;
+}
 
+ion-select::part(icon) {
+	display: none;
+}
 ion-footer > ion-toolbar {
 	border-top: 0.5px solid var(--neutral150);
 }

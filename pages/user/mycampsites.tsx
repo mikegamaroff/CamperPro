@@ -13,7 +13,6 @@ import Button from '@components/Forms/Button';
 import { MyCampsiteItem } from '@components/MyCampsiteItem';
 import { Campsite } from '@model/campsite';
 import { useAddCampsite } from '@routes/useAddCampsite';
-import useDeleteCampsite from '@routes/useDeleteCampsite';
 import { useGetAllCampsitesByAuthor } from '@routes/useGetAllCampsites';
 import { GoTo } from '@utils/GoTo';
 import { createNewCampsite } from '@utils/createNewCampsite';
@@ -25,7 +24,6 @@ function MyCampsites() {
 	const [nonDraftCampsites, setNonDraftCampsites] = useState<Campsite[]>([]);
 
 	const { addCampsite } = useAddCampsite();
-	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
 
 	useEffect(() => {
 		const drafts = myCampsites?.filter(campsite => campsite.draft) || [];
@@ -34,17 +32,6 @@ function MyCampsites() {
 		setDraftCampsites(drafts);
 		setNonDraftCampsites(nonDrafts);
 	}, [myCampsites]);
-
-	const handleDeleteCampsite = async (campsite: Campsite) => {
-		const response = await deleteCampsite(campsite?._id ?? '');
-		if (response.success) {
-			console.log(response);
-			// GoTo('/');
-		} else {
-			console.log(response);
-			// Handle error
-		}
-	};
 
 	const handleAddCampsite = async () => {
 		const newCampsite = createNewCampsite(user);
@@ -88,12 +75,7 @@ function MyCampsites() {
 							<>
 								<div className={styles.myCampsiteContainer}>
 									{nonDraftCampsites?.map(campsite => (
-										<MyCampsiteItem
-											key={campsite._id}
-											campsite={campsite}
-											deleting={deleting}
-											handleDeleteCampsite={handleDeleteCampsite}
-										/>
+										<MyCampsiteItem key={campsite._id} campsite={campsite} />
 									))}
 								</div>
 								<div className="space30" />
@@ -111,12 +93,7 @@ function MyCampsites() {
 								<div className="space30" />
 								<div className={styles.myCampsiteContainer}>
 									{draftCampsites?.map(campsite => (
-										<MyCampsiteItem
-											key={campsite._id}
-											deleting={deleting}
-											campsite={campsite}
-											handleDeleteCampsite={handleDeleteCampsite}
-										/>
+										<MyCampsiteItem key={campsite._id} campsite={campsite} />
 									))}
 									<div className="space10" />
 								</div>

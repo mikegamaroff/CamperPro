@@ -31,7 +31,7 @@
 	text-align: center;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-size: 18px;
+	font-size: var(--fontSize-h5);
 }
 .left {
 	display: flex;

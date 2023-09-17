@@ -1,16 +1,16 @@
 .textSmall {
-  font-size: 15px;
+	font-size: var(--fontSize-small);
 }
 .textRegular {
-  font-size: 18px;
+	font-size: var(--fontSize-h5);
 }
 .label {
-  display: inline-block;
-  color: var(--neutral700);
+	display: inline-block;
+	color: var(--neutral700);
 }
 .iconRight {
-  padding-right: 7px;
+	padding-right: 7px;
 }
 .iconLeft {
-  padding-left: 7px;
+	padding-left: 7px;
 }

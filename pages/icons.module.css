@@ -15,5 +15,5 @@
 
 .iconName {
 	color: var(--neutral500);
-	font-size: 12px;
+	font-size: var(--fontSize-tiny);
 }

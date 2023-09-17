@@ -39,3 +39,11 @@ export type FormInputParams<T, K extends keyof T, Addl extends AdditionalParams 
 	K
 > &
 	(T[K] extends number ? NumberParams : T[K] extends string ? TextParams : Addl);
+
+export type FormSelectParams<T, K extends keyof T, Addl extends AdditionalParams = { any?: string }> = CommonParams<
+	T,
+	K
+> &
+	(T[K] extends number ? NumberParams : T[K] extends string ? TextParams : Addl) & {
+		options: { value: T[K]; label: string }[];
+	};

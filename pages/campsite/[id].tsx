@@ -12,6 +12,7 @@ import { CheckinType } from '@components/campsites/CheckinType';
 import { HostedBy } from '@components/campsites/HostedBy';
 import { CampsiteReviews } from '@components/reviews/CampsiteReviews';
 import { useGetCampsite } from '@routes/useGetCampsite';
+import { renderCoordinates } from '@utils/renderCoordinations';
 import { GetServerSideProps } from 'next';
 import withAuth from '../withAuth';
 import styles from './campsiteProfile.module.css';
@@ -65,10 +66,11 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 											<div className={styles.iconContainer}>
 												<IconMap size={18} />
 											</div>
-											<div>
-												{campsite?.location?.coordinates.lat},{' '}
-												{campsite?.location?.coordinates.lng}
-											</div>
+											{campsite?.location?.coordinates &&
+												renderCoordinates(
+													campsite.location.coordinates.lat,
+													campsite.location.coordinates.lng
+												)}
 										</div>
 										{receptionAddress && (
 											<div className={styles.infoLine}>

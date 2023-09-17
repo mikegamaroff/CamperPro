@@ -3,6 +3,7 @@ import { Campsite } from '@model/campsite';
 import React from 'react';
 import { DescribeIt } from './DescribeIt';
 import { HostRules } from './HostRules';
+import { WhereIsIt } from './WhereIsIt';
 
 interface StagesProps<T> {
 	campsite?: Campsite | null | undefined;
@@ -13,7 +14,7 @@ interface StagesProps<T> {
 
 // Define an array of your stage components.
 // This will just include references to the components, not instances with props.
-const stageComponentTypes = [DescribeIt, HostRules];
+const stageComponentTypes = [DescribeIt, HostRules, WhereIsIt];
 
 export const STAGE_COUNT = stageComponentTypes.length;
 

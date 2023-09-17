@@ -13,7 +13,7 @@
 }
 .subtitle {
 	color: var(--neutral500);
-	font-size: 14px;
+	font-size: var(--fontSize-small);
 }
 
 .countContainer {
@@ -40,7 +40,7 @@
 }
 .count {
 	color: var(--foreground);
-	font-size: 16px;
+	font-size: var(--fontSize-body);
 	width: 45px;
 	display: flex;
 	justify-content: center;

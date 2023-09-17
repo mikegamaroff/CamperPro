@@ -31,10 +31,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.myCampsiteAddress {
-}
-.myCampsiteDescriotion {
-}
+
 .myCampsiteControls {
 	display: flex;
 	flex-direction: column;

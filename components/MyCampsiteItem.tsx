@@ -1,4 +1,5 @@
 import { Campsite } from '@model/campsite';
+import useDeleteCampsite from '@routes/useDeleteCampsite';
 import { GoTo } from '@utils/GoTo';
 import defaultImage from 'assets/defaultCampsite.png';
 import classNames from 'classnames';
@@ -9,15 +10,21 @@ import { IconEdit, IconTrash } from './Icons';
 import styles from './MyCampsiteItem.module.css';
 interface MyCampsiteItemProps {
 	campsite?: Campsite;
-	deleting: boolean;
-	handleDeleteCampsite: (campsite: Campsite) => Promise<void>;
 }
 
-export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite, handleDeleteCampsite, deleting }) => {
+export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite }) => {
 	const image = campsite?.images?.[0];
-	const deleteCampsite = () => {
+	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
+	const handleDeleteCampsite = async () => {
 		if (campsite) {
-			handleDeleteCampsite(campsite);
+			const response = await deleteCampsite(campsite?._id ?? '');
+			if (response.success) {
+				console.log(response);
+				// GoTo('/');
+			} else {
+				console.log(response);
+				// Handle error
+			}
 		}
 	};
 
@@ -41,9 +48,9 @@ export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite, handle
 					/>
 				</div>
 				<div className={styles.myCampsiteContent}>
-					<h4 className={classNames(styles.myCampsiteTitle, 'medium')}>
+					<h5 className={classNames(styles.myCampsiteTitle, 'medium')}>
 						{deleting ? 'Deleting...' : campsite?.title}
-					</h4>
+					</h5>
 					<div className={styles.myCampsiteAddress}>
 						{campsite?.location?.nearestTown}, {campsite?.location?.state}
 					</div>
@@ -54,7 +61,7 @@ export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite, handle
 						<IconButton onClick={handleEditCampsite} icon={<IconEdit />} />
 					</div>
 					<div className={styles.myCampsiteControl} style={{ border: 'none' }}>
-						<IconButton onClick={deleteCampsite} icon={<IconTrash />} />
+						<IconButton onClick={handleDeleteCampsite} icon={<IconTrash />} />
 					</div>
 				</div>
 			</div>

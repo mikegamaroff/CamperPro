@@ -23,7 +23,7 @@
 
 .dot {
 	font-weight: bolder;
-	font-size: 20px;
+	font-size: var(--fontSize-h4);
 	line-height: 1;
 }
 

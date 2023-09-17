@@ -1,81 +1,116 @@
+:root {
+	/* Equivalent to 32px */
+	--fontSize-h1: 2em; /* 16px * 2 = 32px */
+
+	/* Equivalent to 28px */
+	--fontSize-h2: 1.75em; /* 16px * 1.75 = 28px */
+
+	/* Equivalent to 24px */
+	--fontSize-h3: 1.5em; /* 16px * 1.5 = 24px */
+
+	/* Equivalent to 20px */
+	--fontSize-h4: 1.25em; /* 16px * 1.25 = 20px */
+
+	/* Equivalent to 17.6px */
+	--fontSize-h5: 1.1em; /* 16px * 1.1 = 17.6px */
+
+	/* Equivalent to 16px */
+	--fontSize-body: 1em; /* 16px * 1 = 16px */
+
+	/* Equivalent to 14.4px */
+	--fontSize-small: 0.9em; /* 16px * 0.9 = 14.4px */
+
+	/* Equivalent to 12.8px */
+	--fontSize-xsmall: 0.8em; /* 16px * 0.8 = 12.8px */
+
+	/* Equivalent to 11.2px */
+	--fontSize-tiny: 0.7em; /* 16px * 0.7 = 11.2px */
+
+	/* Equivalent to 10px */
+	--fontSize-xtiny: 0.625em; /* 16px * 0.625 = 10px */
+
+	--bolder: 700;
+	--bold: 600;
+	--medium: 500;
+	--regular: 400;
+}
+
+/* Media query for desktop */
+@media (min-width: 768px) {
+	:root {
+		--fontSize-h1: calc(2em * 1.1);
+		--fontSize-h2: calc(1.75em * 1.1);
+		--fontSize-h3: calc(1.5em * 1.1);
+		--fontSize-h4: calc(1.25em * 1.1);
+		--fontSize-h5: calc(1.1em * 1.1);
+		--fontSize-body: calc(1em * 1.1);
+		--fontSize-small: calc(0.9em * 1.1);
+		--fontSize-xsmall: calc(0.8em * 1.1);
+		--fontSize-tiny: calc(0.7em * 1.1);
+	}
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
-p,
-.body,
-.callout,
-.footnote,
-.caption {
+p {
 	margin: 0;
 	line-height: 1.25;
-	font-weight: 400;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-.callout,
-.footnote {
 	color: var(--foreground);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-weight: var(--bold);
+}
+
+h1 {
+	font-size: var(--fontSize-h1);
+}
+h2 {
+	font-size: var(--fontSize-h2);
+}
+h3 {
+	font-size: var(--fontSize-h3);
+}
+h4 {
+	font-size: var(--fontSize-h4);
+}
+h5 {
+	font-size: var(--fontSize-h5);
+}
+p,
+.body {
+	font-size: var(--fontSize-body);
+	line-height: 1.5;
+}
+p {
+	margin: 0 0 15px 0;
+}
+.bold {
+	font-weight: var(--bold);
+}
+.nounderline {
+	text-decoration: none;
+}
+.callout {
+	font-size: var(--fontSize-small);
+}
+.footnote {
+	font-size: var(--fontSize-xsmall);
+}
 .caption {
+	font-size: var(--fontSize-tiny);
 	color: var(--neutral500);
 }
-h1,
-.h1-bold,
-.h1-regular {
-	font-size: 2em;
-}
-h2,
-.h2-bold,
-.h2-regular {
-	font-size: 1.75em;
-}
-
-h3,
-.h3-bold,
-.h3-regular {
-	font-size: 1.5em;
-}
-
-h4,
-.h4-bold,
-.h4-regular {
-	font-size: 1.25em;
-}
-h5,
-.h5-bold,
-.h5-regular,
 .subtitle {
-	font-size: 1.15em;
+	font-size: var(--fontSize-h5);
 }
 .subtitle {
 	text-transform: uppercase;
-}
-.medium {
-	font-weight: 500;
-}
-.bold {
-	font-weight: 700;
-}
-p {
-	margin-bottom: 15px;
-}
-.body,
-p {
-	color: var(--neutral700);
-	font-size: 16px;
-	line-height: 1.5;
-}
-.callout {
-	font-size: 15px;
-}
-.footnote {
-	font-size: 14px;
-}
-.caption {
-	font-size: 13px;
 }

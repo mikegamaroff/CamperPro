@@ -31,7 +31,7 @@
 }
 .title {
 	font-weight: 500;
-	font-size: 16px;
+	font-size: var(--fontSize-body);
 	color: var(--neutral900);
 
 	white-space: nowrap;
@@ -43,7 +43,7 @@
 
 .time {
 	font-weight: 500;
-	font-size: 14px;
+	font-size: var(--fontSize-small);
 	letter-spacing: -0.32px;
 	color: var(--primary700);
 	margin-top: 6px;
@@ -78,7 +78,7 @@
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	font-size: 14px;
+	font-size: var(--fontSize-small);
 	line-height: 1.3;
 	margin-top: 5px;
 	white-space: normal;
@@ -88,7 +88,7 @@
 	color: var(--neutral500);
 }
 .capacity {
-	font-size: 15px;
+	font-size: var(--fontSize-small);
 	color: var(--foreground);
 	font-weight: bold;
 	padding-top: 8px;

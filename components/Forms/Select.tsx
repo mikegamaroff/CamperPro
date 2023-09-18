@@ -26,7 +26,7 @@ const Select: React.FC<CustomIonSelectProps<any>> = ({ id, placeholder, label, o
 
 	return (
 		<div className="relative">
-			{label && <div>{label}</div>}
+			{label && <div className={styles.label}>{label}</div>}
 			<div className="select-icon">
 				<IconChevronDown />
 			</div>

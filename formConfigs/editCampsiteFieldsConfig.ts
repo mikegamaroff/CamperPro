@@ -6,7 +6,7 @@ export const CampsiteEditRules: FormValidationRules<Campsite> = {
 		rules: {
 			required: {
 				value: true,
-				message: 'Username is required'
+				message: 'Title is required'
 			}
 		}
 	},
@@ -14,15 +14,7 @@ export const CampsiteEditRules: FormValidationRules<Campsite> = {
 		rules: {
 			required: {
 				value: true,
-				message: 'Email is required'
-			}
-		}
-	},
-	pricePerNight: {
-		rules: {
-			required: {
-				value: true,
-				message: 'Email is required'
+				message: 'Description is required'
 			}
 		}
 	}

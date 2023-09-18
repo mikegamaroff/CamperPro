@@ -13,7 +13,7 @@ import withAuth from '@pages/withAuth';
 import useDeleteCampsite from '@routes/useDeleteCampsite';
 import { useEditCampsite } from '@routes/useEditCampsite';
 import { useGetCampsite } from '@routes/useGetCampsite';
-import { UserEditRules } from 'formConfigs/editUserFieldsConfig';
+import { CampsiteEditRules } from 'formConfigs/editCampsiteFieldsConfig';
 import { useCallback, useEffect, useState } from 'react';
 
 interface Props {
@@ -28,7 +28,7 @@ function EditCampsite({ id }: Props) {
 		setValues,
 		formValues,
 		stateDataObject: newCampsite
-	} = useFormValues<Campsite>(UserEditRules, campsite, objectEquals);
+	} = useFormValues<Campsite>(CampsiteEditRules, campsite, objectEquals);
 	const [hasUpdated, setHasUpdated] = useState(false);
 	const totalPages = STAGE_COUNT;
 

@@ -79,6 +79,18 @@ export interface CampsiteFilter {
 	searchLocation?: string;
 }
 
+export const EmptyCampsiteLocation = {
+	state: '',
+	country: '',
+	nearestTown: null,
+	receptionAddress: null,
+	coordinates: {
+		lat: 0,
+		lng: 0
+	},
+	directions: null
+};
+
 export const EmptyNewCampsite: Campsite = {
 	_id: `campsite:${uuidv4()}`,
 	author: '',
@@ -86,17 +98,7 @@ export const EmptyNewCampsite: Campsite = {
 	title: '',
 	rating: null,
 	reviewsCount: null,
-	location: {
-		state: '',
-		country: '',
-		nearestTown: null,
-		receptionAddress: null,
-		coordinates: {
-			lat: 0,
-			lng: 0
-		},
-		directions: null
-	},
+	location: EmptyCampsiteLocation,
 	images: [],
 	created_at: new Date().toISOString(),
 	updated_at: new Date().toISOString(),

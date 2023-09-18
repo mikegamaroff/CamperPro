@@ -13,7 +13,6 @@ export function FormTextarea<T, K extends keyof T>({
 	placeholder,
 	disabled,
 	onKeyDown,
-	type,
 	nogap,
 	onPaste,
 	long,

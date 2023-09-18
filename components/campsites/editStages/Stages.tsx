@@ -24,9 +24,8 @@ const getStages = (props: StagesProps<Campsite>) => {
 };
 
 export const StageWrapper = (props: StagesProps<Campsite>) => {
-	const { stage, formValues } = props;
+	const { stage } = props;
 	const stageElements = getStages(props);
-	console.log(formValues);
 	if (stage >= 0 && stage < STAGE_COUNT) {
 		return (
 			<div style={{ paddingTop: '10px' }}>{React.cloneElement(stageElements[stage], { stage: stage + 1 })}</div>

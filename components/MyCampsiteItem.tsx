@@ -51,7 +51,7 @@ export const MyCampsiteItem: React.FC<MyCampsiteItemProps> = ({ campsite }) => {
 					<h5 className={classNames(styles.myCampsiteTitle, 'medium')}>
 						{deleting ? 'Deleting...' : campsite?.title}
 					</h5>
-					<div className={styles.myCampsiteAddress}>
+					<div>
 						{campsite?.location?.nearestTown}, {campsite?.location?.state}
 					</div>
 					<div className={styles.myCampsiteDescriotion}>{campsite?.description}</div>

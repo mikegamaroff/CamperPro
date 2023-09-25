@@ -102,14 +102,12 @@ function EditCampsite({ id }: Props) {
 						onClick={goToNextStage}
 					/>
 					<Container hidetabs scroll footer shelfHeight={125}>
-						<div className="contentWrapper">
-							<StageWrapper
-								stage={campsite.draftStage}
-								campsite={campsite}
-								setValues={setValues}
-								formValues={formValues}
-							/>
-						</div>
+						<StageWrapper
+							stage={campsite.draftStage}
+							campsite={campsite}
+							setValues={setValues}
+							formValues={formValues}
+						/>
 					</Container>
 					<Footer
 						left={

@@ -1,5 +1,5 @@
 import { IconChevronDown } from '@components/Icons';
-import React, { useEffect, useRef } from 'react';
+import React, { ChangeEvent, useEffect, useRef } from 'react';
 import { FormErrors } from './FormErrors';
 // eslint-disable-next-line css-modules/no-unused-class
 import styles from './FormFields.module.css';
@@ -9,7 +9,7 @@ interface CustomIonSelectProps<T> {
 	label?: string;
 	options: { value: T; label: string }[];
 	value?: T | undefined;
-	onChange?: (event: CustomEvent) => void | Promise<void>;
+	onChange?: (event: ChangeEvent<HTMLInputElement>) => void | Promise<void>;
 	errors?: string[];
 }
 

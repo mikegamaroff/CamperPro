@@ -5,7 +5,7 @@ import { Campsite, StageProps } from '@model/campsite';
 import React from 'react';
 export const DescribeIt: React.FC<StageProps<Campsite>> = ({ campsite, setValues, formValues, stage }) => {
 	return (
-		<div>
+		<div className="contentWrapper">
 			<BlackBullet label="Describe It" number={stage} />
 			<div className="space40" />
 			{campsite && formValues && (

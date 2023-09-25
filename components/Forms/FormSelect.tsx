@@ -25,7 +25,7 @@ export function FormSelect<T, K extends keyof T>({
 				onChange={e => {
 					onChange && onChange(e);
 					setValues({
-						[id as string]: e.detail.value
+						[id as string]: e.target.value
 					} as FormValueType<T>);
 				}}
 				errors={field?.errors && field.errors.length > 0 ? field.errors : []}

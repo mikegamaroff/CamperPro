@@ -9,10 +9,10 @@ export interface Coordinates {
 	lng: number;
 }
 export interface Address {
-	address1: string;
-	address2: string;
-	city: string;
-	postalCode: string;
+	address1?: string;
+	county?: string;
+	city?: string;
+	postalCode?: string;
 }
 export interface Capacity {
 	numberOfTentSites: number;
@@ -79,11 +79,16 @@ export interface CampsiteFilter {
 	searchLocation?: string;
 }
 
-export const EmptyCampsiteLocation = {
+export const EmptyCampsiteLocation: CampLocation = {
 	state: '',
 	country: '',
 	nearestTown: null,
-	receptionAddress: null,
+	receptionAddress: {
+		address1: '',
+		county: '',
+		city: '',
+		postalCode: ''
+	},
 	coordinates: {
 		lat: 0,
 		lng: 0

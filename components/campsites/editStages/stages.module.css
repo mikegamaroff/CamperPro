@@ -1,3 +1,7 @@
 .caption {
 	padding: 20px 0 20px 0;
 }
+.radioButton {
+	display: flex;
+	gap: 10px;
+}

@@ -2,18 +2,28 @@
 import Button from '@components/Forms/Button';
 import useGetCounterField from '@components/Framework/useGetCounterField';
 import useDatetimeModal from '@hooks/useDatetimeModal';
+import { FormValueType, FormValuesType } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { addDays, dateSmall, getLocalDay } from '@model/date';
+import { Trip } from '@model/trips';
 import defaultImage from 'assets/defaultCampsite.png';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './PlanTrip.module.css';
 export const PlanTrip = ({
+	trip,
+	setValues,
+	formValues,
+	stage,
 	campsite,
 	goToNextStage
 }: {
-	campsite?: Campsite;
+	trip?: Trip | null | undefined;
+	setValues: (value: FormValueType<Trip>) => void;
+	formValues: FormValuesType<Trip> | undefined;
+	stage: number;
+	campsite: Campsite;
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
@@ -33,6 +43,7 @@ export const PlanTrip = ({
 		onDatetimeChange: handleEndDateSelect,
 		disabledDates: []
 	});
+
 	const { count: countAdults, CounterComponent: AdultsCounter } = useGetCounterField({
 		value: 1,
 		max: 19,
@@ -53,6 +64,12 @@ export const PlanTrip = ({
 		noline: true
 	});
 
+	useEffect(() => {
+		console.log('AdultCount Changed');
+		setValues({ capacity: { adults: countAdults, children: countKids, pets: countPets } });
+	}, [countAdults, countKids, countPets]);
+
+	console.log(trip);
 	return (
 		<div key={'stage1'} className={styles.container}>
 			<h1 className="bold">Plan your trip</h1>

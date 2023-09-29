@@ -5,7 +5,7 @@ import { IconButton } from '@components/Forms/IconButton';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconClose } from '@components/Icons';
 import { Pager } from '@components/Pager';
-import { STAGE_COUNT, StageWrapper } from '@components/campsites/editStages/Stages';
+import { EDIT_CAMPSITE_STAGE_COUNT, EditCampsiteStages } from '@components/campsites/editStages/EditCampsiteStages';
 import { useFormValues } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { objectEquals } from '@model/model';
@@ -30,7 +30,7 @@ function EditCampsite({ id }: Props) {
 		stateDataObject: newCampsite
 	} = useFormValues<Campsite>(CampsiteEditRules, campsite, objectEquals);
 	const [hasUpdated, setHasUpdated] = useState(false);
-	const totalPages = STAGE_COUNT;
+	const totalPages = EDIT_CAMPSITE_STAGE_COUNT;
 
 	const updateCampsite = useCallback(
 		async (updatedCampsite: Campsite) => {
@@ -102,7 +102,7 @@ function EditCampsite({ id }: Props) {
 						onClick={goToNextStage}
 					/>
 					<Container hidetabs scroll footer shelfHeight={125}>
-						<StageWrapper
+						<EditCampsiteStages
 							stage={campsite.draftStage}
 							campsite={campsite}
 							setValues={setValues}

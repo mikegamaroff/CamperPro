@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import EditCampsite from '.';
+import PlanBooking from './index';
 
 interface Props {
 	id: string;
@@ -13,4 +13,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) 
 	const idString = Array.isArray(id) ? id[0] : id;
 	return { props: { id: idString } };
 };
-export default EditCampsite;
+export default PlanBooking;

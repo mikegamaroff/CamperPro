@@ -28,7 +28,7 @@ export const WhereIsIt: React.FC<StageProps<Campsite>> = ({ campsite, setValues,
 				location: { receptionAddress: updatedAddress }
 			} as FormValueType<Campsite>);
 	};
-	console.log(formValues);
+
 	return (
 		<div className="contentWrapper">
 			<BlackBullet label="Where is it" number={stage} />

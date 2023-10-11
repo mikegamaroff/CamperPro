@@ -27,8 +27,8 @@ export const PlanTrip = ({
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
-	const [startDate, setStartDate] = useState<string | null>(dateSmall(getLocalDay()) || '');
-	const [endDate, setEndDate] = useState<string | null>(dateSmall(addDays(getLocalDay(), 1)) || '');
+	const [startDate, setStartDate] = useState<string>(dateSmall(getLocalDay()) || '');
+	const [endDate, setEndDate] = useState<string>(dateSmall(addDays(getLocalDay(), 1)) || '');
 	const handleStartDateSelect = (selectedDatetime: string) => {
 		setStartDate(dateSmall(selectedDatetime || getLocalDay()));
 	};
@@ -66,8 +66,12 @@ export const PlanTrip = ({
 
 	useEffect(() => {
 		console.log('AdultCount Changed');
-		setValues({ capacity: { adults: countAdults, children: countKids, pets: countPets } });
-	}, [countAdults, countKids, countPets]);
+		setValues({
+			capacity: { adults: countAdults, children: countKids, pets: countPets },
+			checkin: startDate,
+			checkout: endDate
+		});
+	}, [countAdults, countKids, countPets, startDate, endDate]);
 
 	console.log(trip);
 	return (

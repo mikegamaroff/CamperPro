@@ -3,6 +3,7 @@ import { Campsite } from '@model/campsite';
 import { Trip } from '@model/trips';
 import React from 'react';
 import { PlanTrip } from './PlanTrip';
+import { RequestToBook } from './RequestToBook';
 
 interface CreateTripStagesProps<T> {
 	trip?: Trip | null | undefined;
@@ -16,7 +17,7 @@ interface CreateTripStagesProps<T> {
 
 // Define an array of your stage components.
 // This will just include references to the components, not instances with props.
-const stageComponentTypes = [PlanTrip, PlanTrip];
+const stageComponentTypes = [PlanTrip, RequestToBook];
 
 export const CREATE_TRIP_PAGE_TRIP = stageComponentTypes.length;
 

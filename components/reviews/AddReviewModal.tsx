@@ -31,7 +31,7 @@ export const AddReviewModal: React.FC<{
 			campsite: campsite._id as string,
 			author: user?._id as string
 		}),
-		[user]
+		[campsite._id, user?._id]
 	);
 	const {
 		setValues,

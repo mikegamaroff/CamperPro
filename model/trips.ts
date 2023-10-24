@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { addDays, getLocalDay } from './date';
-import { Document } from './model';
-export interface Trip extends Document {
+import { DocumentWithImages } from './model';
+export interface Trip extends DocumentWithImages {
 	_id: string;
 	checkin: string;
 	checkout: string;
@@ -22,6 +22,7 @@ export const EmptyNewTrip: Trip = {
 	checkout: addDays(getLocalDay(), 3),
 	camper: '',
 	campsite: '',
+	images: [],
 	capacity: {
 		adults: 0,
 		children: 0,

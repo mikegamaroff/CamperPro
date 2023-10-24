@@ -1,14 +1,17 @@
 import Button from '@components/Forms/Button';
 import { IconCheck, IconMap } from '@components/Icons';
+import { TripPic } from '@components/TripPic';
+import { UploadImageButton } from '@components/UploadImageButton';
+import { TripContext } from '@context/tripContext';
 import { FormValueType, FormValuesType } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { Trip } from '@model/trips';
 import defaultImage from 'assets/defaultCampsite.png';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './RequestToBook.module.css';
-
 interface Capacity {
 	adults: number;
 	children: number;
@@ -27,18 +30,23 @@ export const RequestToBook = ({
 	setValues: (value: FormValueType<Trip>) => void;
 	formValues: FormValuesType<Trip> | undefined;
 	stage: number;
-	campsite: Campsite;
+	campsite: Campsite | null;
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
 	const [paymentType, setPaymentType] = useState<boolean | undefined>(undefined);
+	const { updateTrip } = useContext(TripContext);
 	const Dates = (dateString: string) => {
 		const date = new Date(dateString);
 		const day = date.getDate();
 		const month = date.toLocaleString('default', { month: 'short' });
 		return `${day} ${month}`;
 	};
-	console.log(paymentType);
+
+	const getPhotoResult = (val: Trip) => {
+		updateTrip(val);
+	};
+
 	const Guests = (capacity: Capacity) => {
 		const parts = [];
 
@@ -66,7 +74,7 @@ export const RequestToBook = ({
 		return Math.round(nights);
 	};
 	const Nights = NightsCalculator(trip?.checkin || '', trip?.checkout || '');
-	const Price = campsite.pricePerNight ? Nights * campsite.pricePerNight : null;
+	const Price = campsite && campsite.pricePerNight ? Nights * campsite.pricePerNight : null;
 
 	return (
 		<div className={styles.container}>
@@ -120,7 +128,7 @@ export const RequestToBook = ({
 				<div className="space20" />
 				<div className={styles.priceInfo}>
 					<div>
-						${campsite.pricePerNight} x {Nights} nights
+						${campsite?.pricePerNight} x {Nights} nights
 					</div>
 					<h4 className={styles.campsitePrice}>${Price}</h4>
 				</div>
@@ -164,8 +172,11 @@ export const RequestToBook = ({
 				<div className="bold">Profile Photo</div>
 				<div className="space10" />
 				<div className={styles.addInfo}>
-					<div className={styles.addPhotoText}>The host wants to know who's coming.</div>
-					<div className={styles.smallButton}>Add</div>
+					<div className={styles.addPhotoText}>The host wants to know who’s coming.</div>
+					<div className={styles.smallButton}>
+						<TripPic trip={trip} />
+						<UploadImageButton<Trip> documentId={trip?._id} key={uuidv4()} onSuccess={getPhotoResult} />
+					</div>
 				</div>
 				<div className="space30" />
 				<hr />
@@ -182,9 +193,9 @@ export const RequestToBook = ({
 			</div>
 			<div className={styles.greySection}>
 				<div className="space30" />
-				<h5 className={styles.campsiteTitle}>Host's rules</h5>
+				<h5 className={styles.campsiteTitle}>Host’s rules</h5>
 				<div className="space20" />
-				<div>{campsite.rules}</div>
+				<div>{campsite?.rules || 'Hosts Rules'}</div>
 				<div className="space30" />
 			</div>
 			<div className={styles.greySection}>

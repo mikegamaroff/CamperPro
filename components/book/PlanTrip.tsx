@@ -23,7 +23,7 @@ export const PlanTrip = ({
 	setValues: (value: FormValueType<Trip>) => void;
 	formValues: FormValuesType<Trip> | undefined;
 	stage: number;
-	campsite: Campsite;
+	campsite: Campsite | null;
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
@@ -71,9 +71,8 @@ export const PlanTrip = ({
 			checkin: startDate,
 			checkout: endDate
 		});
-	}, [countAdults, countKids, countPets, startDate, endDate]);
+	}, [countAdults, countKids, countPets, startDate, endDate, setValues]);
 
-	console.log(trip);
 	return (
 		<div key={'stage1'} className={styles.container}>
 			<h1 className="bold">Plan your trip</h1>

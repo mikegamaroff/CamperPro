@@ -6,9 +6,9 @@ import { useContext, useEffect, useState } from 'react';
 export const useGetCampsite = (id: string) => {
 	const [isLoading, setLoading] = useState(false);
 	const [isError, setError] = useState<string | null>();
+	const [fetchedCampsite, setFetchedCampsite] = useState<Campsite | null>(null);
 	const { campsites, setCampsites } = useContext(CampsiteContext);
 
-	// Get the router object
 	const router = useRouter();
 
 	useEffect(() => {
@@ -21,28 +21,15 @@ export const useGetCampsite = (id: string) => {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
-						Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+						Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
 					}
 				});
 
 				if (response.ok) {
 					const data = await response.json();
-					const existingCampsiteIndex = campsites.findIndex(camp => camp._id === data.campsite._id);
-
-					if (existingCampsiteIndex >= 0) {
-						// If campsite is already in the context, update it
-						setCampsites(prevCampsites => {
-							const updatedCampsites = [...prevCampsites];
-							updatedCampsites[existingCampsiteIndex] = data.campsite;
-							return updatedCampsites;
-						});
-					} else {
-						// If campsite was not in the context, add it
-						setCampsites(prevCampsites => [...prevCampsites, data.campsite]);
-					}
+					setFetchedCampsite(data.campsite);
 				}
 			} catch (error) {
-				// Error fetching campsite data, navigate to '/'
 				router.push('/');
 				setError('Error fetching campsite data');
 			} finally {
@@ -51,7 +38,26 @@ export const useGetCampsite = (id: string) => {
 		};
 
 		fetchCampsite();
-	}, [id]);
+	}, [id, router]);
+
+	useEffect(() => {
+		if (fetchedCampsite) {
+			const existingCampsiteIndex = campsites.findIndex(camp => camp._id === fetchedCampsite._id);
+			if (existingCampsiteIndex >= 0) {
+				if (JSON.stringify(campsites[existingCampsiteIndex]) !== JSON.stringify(fetchedCampsite)) {
+					// If campsite is already in the context and has changed, update it
+					setCampsites(prevCampsites => {
+						const updatedCampsites = [...prevCampsites];
+						updatedCampsites[existingCampsiteIndex] = fetchedCampsite;
+						return updatedCampsites;
+					});
+				}
+			} else {
+				// If campsite was not in the context, add it
+				setCampsites(prevCampsites => [...prevCampsites, fetchedCampsite]);
+			}
+		}
+	}, [fetchedCampsite, campsites, setCampsites]);
 
 	const campsiteFromState: Campsite | undefined = campsites.find(camp => camp._id === id);
 	if (!campsiteFromState) {

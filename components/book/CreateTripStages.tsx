@@ -10,7 +10,7 @@ interface CreateTripStagesProps<T> {
 	setValues: (value: FormValueType<T>) => void;
 	formValues: FormValuesType<Trip> | undefined;
 	stage: number;
-	campsite: Campsite;
+	campsite: Campsite | null;
 	goToNextStage: (page: number) => Promise<void>;
 	handleAddTrip: () => Promise<void>;
 }

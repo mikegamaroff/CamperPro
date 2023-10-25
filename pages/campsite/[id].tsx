@@ -2,7 +2,6 @@ import { CampsiteImages } from '@components/CampsiteImages';
 import { Container } from '@components/Container';
 import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
-import { Go } from '@components/Go';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconLocation, IconMap } from '@components/Icons';
 import ReadMore from '@components/ReadMore';
@@ -118,11 +117,10 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										)}
 									</div>
 								</div>
-								<Go href={`/campsite/book/${campsite?._id}`}>
-									<Button color="primary" fill="solid" size="default" expand="block">
-										Request to book
-									</Button>
-								</Go>
+
+								<Button onClick={handleBook} color="primary" fill="solid" size="default" expand="block">
+									Request to book
+								</Button>
 								<div style={{ height: '20px' }} />
 								<hr />
 								<div className={styles.section}>

@@ -12,6 +12,7 @@ import { objectEquals } from '@model/model';
 import { EmptyNewTrip, Trip } from '@model/trips';
 import withAuth from '@pages/withAuth';
 import { useAddTrip } from '@routes/useAddTrip';
+import { useDeleteTrip } from '@routes/useDeleteTrip';
 import { useGetTrip } from '@routes/useGetTrip';
 import { TripEditRules } from 'formConfigs/editTripFieldsConfig';
 import { GetServerSideProps } from 'next';
@@ -24,7 +25,7 @@ interface Props {
 function PlanBooking({ id }: Props) {
 	const { campsite, isLoading, isError } = useGetTrip(id);
 	const { addTrip, isLoading: getTripLoading, isSuccess } = useAddTrip();
-
+	const { deleteTrip, isLoading: isDeleting, isError: isDeleteError, isSuccess: deleteSuccess } = useDeleteTrip();
 	const {
 		setValues,
 		formValues,
@@ -38,8 +39,6 @@ function PlanBooking({ id }: Props) {
 	};
 
 	const totalPages = CREATE_TRIP_PAGE_TRIP;
-	console.log(trip);
-	console.log(campsite);
 	const handleAddTrip = async () => {
 		if (newTrip) {
 			try {
@@ -71,11 +70,19 @@ function PlanBooking({ id }: Props) {
 			</Button>
 		);
 	};
+
+	const cancelBooking = async () => {
+		history.go(-1);
+		if (trip) {
+			await deleteTrip(trip._id);
+		}
+	};
+
 	return (
 		<>
 			<Header
 				title="Request Booking"
-				left={<IconButton icon={<IconClose />} onClick={() => history.go(-1)} />}
+				left={<IconButton icon={<IconClose />} onClick={cancelBooking} />}
 				right={<BookButton />}
 			/>
 			{trip && campsite && (

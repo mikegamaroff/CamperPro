@@ -16,7 +16,6 @@ interface ButtonProps {
 
 export const IconButton: React.FC<ButtonProps> = ({ size, icon, label, onClick, iconRight, href, disabled }) => {
 	const Icon = React.cloneElement(icon, { size: size === 'small' ? 18 : 24 });
-
 	return (
 		<div>
 			<Button

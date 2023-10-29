@@ -46,6 +46,7 @@
 	padding: 4px 10px;
 	font-size: var(--fontSize-xtiny);
 	font-weight: var(--bold);
+	display: flex;
 }
 .priceInfo {
 	display: flex;
@@ -81,10 +82,9 @@
 	justify-content: center;
 	margin-right: 10px;
 }
-.addInfo {
+.profilePhotoInfo {
+	position: relative;
 	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
 }
 .addPhotoText {
 	width: 60%;
@@ -108,4 +108,14 @@
 }
 .buttonContainer {
 	padding: 0px 10px;
+}
+.uploadImageIconContainer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+}
+.addInfo {
+	display: flex;
+	justify-content: space-between;
 }

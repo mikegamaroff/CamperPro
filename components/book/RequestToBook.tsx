@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './RequestToBook.module.css';
+// eslint-disable-next-line css-modules/no-unused-class
 interface Capacity {
 	adults: number;
 	children: number;
@@ -169,13 +170,22 @@ export const RequestToBook = ({
 				<div className="space20" />
 				<h5 className={styles.campsiteTitle}>Last required bits</h5>
 				<div className="space30" />
-				<div className="bold">Profile Photo</div>
-				<div className="space10" />
-				<div className={styles.addInfo}>
-					<div className={styles.addPhotoText}>The host wants to know who’s coming.</div>
-					<div className={styles.smallButton}>
-						<TripPic trip={trip} />
-						<UploadImageButton<Trip> documentId={trip?._id} key={uuidv4()} onSuccess={getPhotoResult} />
+				<div className={styles.profilePhotoInfo}>
+					<div>
+						<div className="bold">Profile Photo</div>
+						<div className="space10" />
+						<div className={styles.addPhotoText}>The host wants to know who’s coming.</div>
+					</div>
+					<div>
+						<div className={styles.uploadImageIconContainer}>
+							<UploadImageButton<Trip>
+								documentId={trip?._id}
+								key={uuidv4()}
+								onSuccess={getPhotoResult}
+								size="small"
+							/>
+						</div>
+						<TripPic trip={trip} size={80} />
 					</div>
 				</div>
 				<div className="space30" />
@@ -187,7 +197,9 @@ export const RequestToBook = ({
 					<div className={styles.addMessageText}>
 						Special requests or comments directly for the host before you arrive.
 					</div>
-					<div className={styles.smallButton}>Add</div>
+					<div>
+						<div className={styles.smallButton}>Add</div>
+					</div>
 				</div>
 				<div className="space20" />
 			</div>

@@ -1,7 +1,9 @@
 import Button from '@components/Forms/Button';
+import { FormTextarea } from '@components/Forms/FormTextarea';
 import { IconCheck, IconMap } from '@components/Icons';
 import { TripPic } from '@components/TripPic';
 import { UploadImageButton } from '@components/UploadImageButton';
+import { ModalContext } from '@context/modalContext';
 import { TripContext } from '@context/tripContext';
 import { FormValueType, FormValuesType } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
@@ -37,6 +39,25 @@ export const RequestToBook = ({
 	const image = campsite?.images?.[0];
 	const [paymentType, setPaymentType] = useState<boolean | undefined>(undefined);
 	const { updateTrip } = useContext(TripContext);
+	const { openModal, closeModal } = useContext(ModalContext);
+	const presentAddMessageModal = () => {
+		openModal({
+			component: (
+				<>
+					<FormTextarea
+						setValues={setValues}
+						field={formValues?.message}
+						id="message"
+						label=""
+						placeholder="Write to the host"
+					/>
+					<div onClick={() => setValues({ message: 'test' })}>Add message</div>
+				</>
+			),
+			title: 'Message for the host',
+			onCancel: closeModal
+		});
+	};
 	const Dates = (dateString: string) => {
 		const date = new Date(dateString);
 		const day = date.getDate();
@@ -191,14 +212,16 @@ export const RequestToBook = ({
 				<div className="space30" />
 				<hr />
 				<div className="space20" />
-				<h5 className={styles.campsiteTitle}>Message for the host?</h5>
+				<h5 className={styles.campsiteTitle}>Message for the host?: {trip?.message}</h5>
 				<div className="space20" />
 				<div className={styles.addInfo}>
 					<div className={styles.addMessageText}>
 						Special requests or comments directly for the host before you arrive.
 					</div>
 					<div>
-						<div className={styles.smallButton}>Add</div>
+						<div onClick={presentAddMessageModal} className={styles.smallButton}>
+							Add
+						</div>
 					</div>
 				</div>
 				<div className="space20" />

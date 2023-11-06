@@ -12,6 +12,7 @@ export interface Trip extends DocumentWithImages {
 		pets: number;
 	};
 	campsite: string;
+	message: string;
 }
 export const EmptyNewTrip: Trip = {
 	_id: `trip:${uuidv4()}`,
@@ -22,6 +23,7 @@ export const EmptyNewTrip: Trip = {
 	checkout: addDays(getLocalDay(), 3),
 	camper: '',
 	campsite: '',
+	message: '',
 	images: [],
 	capacity: {
 		adults: 0,

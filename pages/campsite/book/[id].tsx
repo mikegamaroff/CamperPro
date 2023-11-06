@@ -91,7 +91,7 @@ function PlanBooking({ id }: Props) {
 					<Container hidetabs scroll footer shelfHeight={125}>
 						<CreateTripStages
 							stage={stage}
-							trip={trip}
+							trip={newTrip}
 							campsite={campsite}
 							setValues={setValues}
 							formValues={formValues}

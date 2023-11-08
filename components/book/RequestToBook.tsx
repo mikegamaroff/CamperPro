@@ -1,5 +1,4 @@
 import Button from '@components/Forms/Button';
-import { FormTextarea } from '@components/Forms/FormTextarea';
 import { IconCheck, IconMap } from '@components/Icons';
 import { TripPic } from '@components/TripPic';
 import { UploadImageButton } from '@components/UploadImageButton';
@@ -13,6 +12,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { CustomerMessageModal } from './CustomerMessageModal';
 import styles from './RequestToBook.module.css';
 // eslint-disable-next-line css-modules/no-unused-class
 interface Capacity {
@@ -43,16 +43,11 @@ export const RequestToBook = ({
 	const presentAddMessageModal = () => {
 		openModal({
 			component: (
-				<>
-					<FormTextarea
-						setValues={setValues}
-						field={formValues?.message}
-						id="message"
-						label=""
-						placeholder="Write to the host"
-					/>
-					<div onClick={() => setValues({ message: 'test' })}>Add message</div>
-				</>
+				<CustomerMessageModal
+					setValues={setValues}
+					dismissCustomerMessage={closeModal}
+					message={formValues?.message?.value}
+				/>
 			),
 			title: 'Message for the host',
 			onCancel: closeModal

@@ -1,5 +1,6 @@
 import Button from '@components/Forms/Button';
 import { IconCheck, IconMap } from '@components/Icons';
+import ReadMore from '@components/ReadMore';
 import { TripPic } from '@components/TripPic';
 import { UploadImageButton } from '@components/UploadImageButton';
 import { ModalContext } from '@context/modalContext';
@@ -207,15 +208,20 @@ export const RequestToBook = ({
 				<div className="space30" />
 				<hr />
 				<div className="space20" />
-				<h5 className={styles.campsiteTitle}>Message for the host?: {trip?.message}</h5>
+				{!formValues?.message?.value && <h5 className={styles.campsiteTitle}>Message for the host?</h5>}
+				{formValues?.message?.value && <h5 className={styles.campsiteTitle}>Your message for the host:</h5>}
 				<div className="space20" />
 				<div className={styles.addInfo}>
 					<div className={styles.addMessageText}>
-						Special requests or comments directly for the host before you arrive.
+						{!formValues?.message?.value && (
+							<div>Special requests or comments directly for the host before you arrive.</div>
+						)}
+						{formValues?.message?.value && <ReadMore text={trip?.message || ''} />}
 					</div>
 					<div>
 						<div onClick={presentAddMessageModal} className={styles.smallButton}>
-							Add
+							{formValues?.message?.value && <div>Edit</div>}
+							{!formValues?.message?.value && <div>Add</div>}
 						</div>
 					</div>
 				</div>

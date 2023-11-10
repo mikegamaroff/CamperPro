@@ -45,19 +45,19 @@ export const PlanTrip = ({
 	});
 
 	const { count: countAdults, CounterComponent: AdultsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.adults || 1,
 		max: 19,
 		title: 'Adults',
 		subtitle: 'Ages 13 or above'
 	});
 	const { count: countKids, CounterComponent: KidsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.children,
 		max: 20,
 		title: 'Children',
 		subtitle: '12 and Under'
 	});
 	const { count: countPets, CounterComponent: PetsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.pets,
 		max: 20,
 		title: 'Pets',
 		subtitle: 'Dogs, cats or chickens',

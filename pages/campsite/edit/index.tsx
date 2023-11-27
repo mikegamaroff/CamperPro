@@ -14,7 +14,7 @@ import useDeleteCampsite from '@routes/useDeleteCampsite';
 import { useEditCampsite } from '@routes/useEditCampsite';
 import { useGetCampsite } from '@routes/useGetCampsite';
 import { CampsiteEditRules } from 'formConfigs/editCampsiteFieldsConfig';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
 interface Props {
 	id: string;
@@ -24,42 +24,18 @@ function EditCampsite({ id }: Props) {
 	const { editCampsite, isLoading: editing, isError: editError, isSuccess: editSuccess } = useEditCampsite();
 	const { deleteCampsite, isLoading: deleting } = useDeleteCampsite();
 	const { campsite, isLoading, isError } = useGetCampsite(id);
-	const {
-		setValues,
-		formValues,
-		stateDataObject: newCampsite
-	} = useFormValues<Campsite>(CampsiteEditRules, campsite, objectEquals);
-	const [hasUpdated, setHasUpdated] = useState(false);
+	const { setValues, formValues } = useFormValues<Campsite>(CampsiteEditRules, campsite, objectEquals);
 	const totalPages = EDIT_CAMPSITE_STAGE_COUNT;
-
-	const updateCampsite = useCallback(
-		async (updatedCampsite: Campsite) => {
-			const updated = await editCampsite(updatedCampsite);
-			if (updated.success) {
-				// Additional logic if needed
-			}
-		},
-		[editCampsite]
-	);
 
 	const goToNextStage = useCallback(
 		async (page?: number) => {
 			if (campsite) {
 				const updatedCampsite = { ...campsite, draftStage: page ?? campsite?.draftStage };
-				updateCampsite(updatedCampsite);
+				await editCampsite(updatedCampsite);
 			}
 		},
-		[campsite, updateCampsite]
+		[campsite, editCampsite]
 	);
-
-	useEffect(() => {
-		if (campsite && id && !hasUpdated) {
-			if (!campsite.draft) {
-				updateCampsite({ ...campsite, draftStage: 0 });
-			}
-			setHasUpdated(true);
-		}
-	}, [campsite, id, hasUpdated, updateCampsite]);
 
 	if (!campsite || !setValues || !formValues) {
 		return null;

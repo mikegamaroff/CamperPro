@@ -13,7 +13,8 @@ export const useEditCampsite = () => {
 	const [isError, setError] = useState<string | null>();
 	const [isSuccess, setSuccess] = useState(false);
 
-	const { updateCampsite } = useContext(CampsiteContext); // access context
+	const { setCampsite } = useContext(CampsiteContext);
+
 	const editCampsite = async (campsite: Campsite): Promise<EditCampsiteResponse> => {
 		setLoading(true);
 		setError(null);
@@ -24,15 +25,16 @@ export const useEditCampsite = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('jwtToken')}` // Include the JWT in the Authorization header
+					Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
 				},
 				body: JSON.stringify(campsite)
 			});
 
 			if (response.ok) {
 				const data = await response.json();
+				setCampsite(campsite); // Update the context with the edited campsite
+				setSuccess(true);
 				setLoading(false);
-				updateCampsite(campsite);
 				return { success: true, message: data.message };
 			} else {
 				const errorData = await response.json();

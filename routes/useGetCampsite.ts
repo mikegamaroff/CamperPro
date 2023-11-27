@@ -1,13 +1,11 @@
 import { CampsiteContext } from '@context/campsiteContext';
-import { Campsite } from '@model/campsite';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 
 export const useGetCampsite = (id: string) => {
 	const [isLoading, setLoading] = useState(false);
-	const [isError, setError] = useState<string | null>();
-	const [fetchedCampsite, setFetchedCampsite] = useState<Campsite | null>(null);
-	const { campsites, setCampsites } = useContext(CampsiteContext);
+	const [isError, setError] = useState<string | null>(null);
+	const { campsite, setCampsite } = useContext(CampsiteContext);
 
 	const router = useRouter();
 
@@ -27,41 +25,22 @@ export const useGetCampsite = (id: string) => {
 
 				if (response.ok) {
 					const data = await response.json();
-					setFetchedCampsite(data.campsite);
+					setCampsite(data.campsite);
+				} else {
+					setError('Failed to fetch campsite data');
 				}
 			} catch (error) {
-				router.push('/');
 				setError('Error fetching campsite data');
+				router.push('/error'); // Redirect to an error page or handle it differently
 			} finally {
 				setLoading(false);
 			}
 		};
 
-		fetchCampsite();
-	}, [id, router]);
-
-	useEffect(() => {
-		if (fetchedCampsite) {
-			const existingCampsiteIndex = campsites.findIndex(camp => camp._id === fetchedCampsite._id);
-			if (existingCampsiteIndex >= 0) {
-				if (JSON.stringify(campsites[existingCampsiteIndex]) !== JSON.stringify(fetchedCampsite)) {
-					// If campsite is already in the context and has changed, update it
-					setCampsites(prevCampsites => {
-						const updatedCampsites = [...prevCampsites];
-						updatedCampsites[existingCampsiteIndex] = fetchedCampsite;
-						return updatedCampsites;
-					});
-				}
-			} else {
-				// If campsite was not in the context, add it
-				setCampsites(prevCampsites => [...prevCampsites, fetchedCampsite]);
-			}
+		if (!campsite || campsite._id !== id) {
+			fetchCampsite();
 		}
-	}, [fetchedCampsite, campsites, setCampsites]);
+	}, [id, campsite, setCampsite, router]);
 
-	const campsiteFromState: Campsite | undefined = campsites.find(camp => camp._id === id);
-	if (!campsiteFromState) {
-		return { isLoading, isError: 'Campsite not found in state' };
-	}
-	return { campsite: campsiteFromState, isLoading, isError };
+	return { campsite, isLoading, isError };
 };

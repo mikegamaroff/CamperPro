@@ -27,8 +27,8 @@ export const PlanTrip = ({
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
-	const [startDate, setStartDate] = useState<string>(dateSmall(getLocalDay()) || '');
-	const [endDate, setEndDate] = useState<string>(dateSmall(addDays(getLocalDay(), 1)) || '');
+	const [startDate, setStartDate] = useState<string>(trip?.checkin || dateSmall(getLocalDay()));
+	const [endDate, setEndDate] = useState<string>(trip?.checkout || dateSmall(addDays(getLocalDay(), 1)));
 	const handleStartDateSelect = (selectedDatetime: string) => {
 		setStartDate(dateSmall(selectedDatetime || getLocalDay()));
 	};
@@ -72,6 +72,8 @@ export const PlanTrip = ({
 			checkout: endDate
 		});
 	}, [countAdults, countKids, countPets, startDate, endDate, setValues]);
+
+	console.log(trip);
 
 	return (
 		<div key={'stage1'} className={styles.container}>

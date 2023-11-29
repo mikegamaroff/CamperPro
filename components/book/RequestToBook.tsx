@@ -21,7 +21,9 @@ interface Capacity {
 	children: number;
 	pets: number;
 }
-
+const pluralize = (count: number, singular: string, plural: string) => {
+	return count === 1 ? `${count} ${singular}` : `${count} ${plural}`;
+};
 export const RequestToBook = ({
 	trip,
 	setValues,
@@ -41,9 +43,6 @@ export const RequestToBook = ({
 	const [paymentType, setPaymentType] = useState<boolean | undefined>(undefined);
 	const { updateTrip } = useContext(TripContext);
 	const { openModal, closeModal } = useContext(ModalContext);
-	const pluralize = (count: number, singular: string, plural: string) => {
-		return count === 1 ? `${count} ${singular}` : `${count} ${plural}`;
-	};
 	const presentAddMessageModal = () => {
 		openModal({
 			component: (

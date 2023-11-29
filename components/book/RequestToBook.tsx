@@ -41,6 +41,9 @@ export const RequestToBook = ({
 	const [paymentType, setPaymentType] = useState<boolean | undefined>(undefined);
 	const { updateTrip } = useContext(TripContext);
 	const { openModal, closeModal } = useContext(ModalContext);
+	const pluralize = (count: number, singular: string, plural: string) => {
+		return count === 1 ? `${count} ${singular}` : `${count} ${plural}`;
+	};
 	const presentAddMessageModal = () => {
 		openModal({
 			component: (
@@ -67,10 +70,6 @@ export const RequestToBook = ({
 
 	const Guests = (capacity: Capacity) => {
 		const parts = [];
-
-		const pluralize = (count: number, singular: string, plural: string) => {
-			return count === 1 ? `${count} ${singular}` : `${count} ${plural}`;
-		};
 
 		if (capacity.adults > 0) {
 			parts.push(pluralize(capacity.adults, 'adult', 'adults'));

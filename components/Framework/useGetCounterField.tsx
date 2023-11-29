@@ -6,12 +6,13 @@ import styles from './useGetCounterField.module.css';
 type StarRatingProps = {
 	value?: number;
 	max?: number;
+	min?: number;
 	title: string;
 	subtitle?: string;
 	noline?: boolean;
 };
 
-const useGetCounterField = ({ value = 0, max = 20, title, subtitle, noline }: StarRatingProps) => {
+const useGetCounterField = ({ value = 0, max = 20, min = 0, title, subtitle, noline }: StarRatingProps) => {
 	const [count, setCount] = useState<number>(value);
 	const [isMouseDown, setIsMouseDown] = useState<string | null>(null);
 
@@ -22,7 +23,7 @@ const useGetCounterField = ({ value = 0, max = 20, title, subtitle, noline }: St
 	};
 
 	const handleMinus = () => {
-		if (count > 0) {
+		if (count > min) {
 			setCount(prevCount => prevCount - 1);
 		}
 	};
@@ -45,7 +46,7 @@ const useGetCounterField = ({ value = 0, max = 20, title, subtitle, noline }: St
 				<div
 					className={classNames(
 						styles.controlIcon,
-						count === 0 && styles.countIconDisabled,
+						count === min && styles.countIconDisabled,
 						isMouseDown === 'minus' && styles.controlIconPressed
 					)}
 					onMouseDown={() => handleMouseDown('minus')}

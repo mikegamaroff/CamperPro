@@ -42,7 +42,7 @@ export const CampsiteImages: FC<CampsiteImageProps> = ({ campsite }) => {
 			{images &&
 				images.slice(0, 6).map((image, index) => (
 					<SwiperSlide key={index}>
-						<div className={`${sharedStyles.campsiteImage}`}>
+						<div className={`${sharedStyles.containedImage}`}>
 							<img
 								src={`/api/images/${image.id}.${image.contentType.split('/')[1]}`}
 								alt={`${campsite?.title} - Slide ${index + 1}`}

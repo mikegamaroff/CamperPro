@@ -7,12 +7,12 @@ import { IconCamera } from './Icons';
 import styles from './UploadImageButton.module.css';
 interface UploadButtonProps<T> {
 	documentId: string | undefined;
-	size?: string;
+	size?: 'small';
 	label?: string;
 	onSuccess: (data: T) => void;
 }
 
-export const UploadImageButton = <T,>({ documentId, onSuccess, label }: UploadButtonProps<T>) => {
+export const UploadImageButton = <T,>({ documentId, onSuccess, label, size }: UploadButtonProps<T>) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { loading, uploadImage } = useImageUpload(documentId, onSuccess);
 
@@ -68,6 +68,7 @@ export const UploadImageButton = <T,>({ documentId, onSuccess, label }: UploadBu
 					label={label}
 					icon={<span>{loading ? <IonSpinner className={styles.spinner} /> : <IconCamera />}</span>}
 					onClick={imageHandler}
+					size={size}
 				/>
 			</div>
 		</>

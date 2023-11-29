@@ -2,23 +2,33 @@
 import Button from '@components/Forms/Button';
 import useGetCounterField from '@components/Framework/useGetCounterField';
 import useDatetimeModal from '@hooks/useDatetimeModal';
+import { FormValueType, FormValuesType } from '@hooks/useFormValues';
 import { Campsite } from '@model/campsite';
 import { addDays, dateSmall, getLocalDay } from '@model/date';
+import { Trip } from '@model/trips';
 import defaultImage from 'assets/defaultCampsite.png';
 import classNames from 'classnames';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './PlanTrip.module.css';
 export const PlanTrip = ({
+	trip,
+	setValues,
+	formValues,
+	stage,
 	campsite,
 	goToNextStage
 }: {
-	campsite?: Campsite;
+	trip?: Trip | null | undefined;
+	setValues: (value: FormValueType<Trip>) => void;
+	formValues: FormValuesType<Trip> | undefined;
+	stage: number;
+	campsite: Campsite | null;
 	goToNextStage: (page: number) => Promise<void>;
 }) => {
 	const image = campsite?.images?.[0];
-	const [startDate, setStartDate] = useState<string | null>(dateSmall(getLocalDay()) || '');
-	const [endDate, setEndDate] = useState<string | null>(dateSmall(addDays(getLocalDay(), 1)) || '');
+	const [startDate, setStartDate] = useState<string>(trip?.checkin || dateSmall(getLocalDay()));
+	const [endDate, setEndDate] = useState<string>(trip?.checkout || dateSmall(addDays(getLocalDay(), 1)));
 	const handleStartDateSelect = (selectedDatetime: string) => {
 		setStartDate(dateSmall(selectedDatetime || getLocalDay()));
 	};
@@ -33,25 +43,38 @@ export const PlanTrip = ({
 		onDatetimeChange: handleEndDateSelect,
 		disabledDates: []
 	});
+
 	const { count: countAdults, CounterComponent: AdultsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.adults || 1,
 		max: 19,
+		min: 1,
 		title: 'Adults',
 		subtitle: 'Ages 13 or above'
 	});
 	const { count: countKids, CounterComponent: KidsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.children,
 		max: 20,
 		title: 'Children',
 		subtitle: '12 and Under'
 	});
 	const { count: countPets, CounterComponent: PetsCounter } = useGetCounterField({
-		value: 1,
+		value: trip?.capacity.pets,
 		max: 20,
 		title: 'Pets',
 		subtitle: 'Dogs, cats or chickens',
 		noline: true
 	});
+
+	useEffect(() => {
+		console.log('AdultCount Changed');
+		setValues({
+			capacity: { adults: countAdults, children: countKids, pets: countPets },
+			checkin: startDate,
+			checkout: endDate
+		});
+	}, [countAdults, countKids, countPets, startDate, endDate, setValues]);
+
+	console.log(trip);
 
 	return (
 		<div key={'stage1'} className={styles.container}>

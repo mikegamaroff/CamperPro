@@ -2,7 +2,6 @@ import { CampsiteImages } from '@components/CampsiteImages';
 import { Container } from '@components/Container';
 import Button from '@components/Forms/Button';
 import { IconButton } from '@components/Forms/IconButton';
-import { Go } from '@components/Go';
 import { Header } from '@components/Header';
 import { IconBackArrow, IconLocation, IconMap } from '@components/Icons';
 import ReadMore from '@components/ReadMore';
@@ -11,9 +10,16 @@ import { CampsiteProfileAttributes } from '@components/campsites/CampsiteProfile
 import { CheckinType } from '@components/campsites/CheckinType';
 import { HostedBy } from '@components/campsites/HostedBy';
 import { CampsiteReviews } from '@components/reviews/CampsiteReviews';
+import { AuthContext } from '@context/authContext';
+import { CampsiteContext } from '@context/campsiteContext';
+import { TripContext } from '@context/tripContext';
+import { useAddTrip } from '@routes/useAddTrip';
 import { useGetCampsite } from '@routes/useGetCampsite';
+import { GoTo } from '@utils/GoTo';
+import { createNewTrip } from '@utils/createNewTrip';
 import { renderCoordinates } from '@utils/renderCoordinations';
 import { GetServerSideProps } from 'next';
+import { useContext } from 'react';
 import withAuth from '../withAuth';
 import styles from './campsiteProfile.module.css';
 interface PostPageProps {
@@ -22,17 +28,43 @@ interface PostPageProps {
 
 const Campsite: React.FC<PostPageProps> = ({ id }) => {
 	const { campsite, isLoading } = useGetCampsite(id);
-
+	const { addTrip, isLoading: addCampsiteLoading, isSuccess } = useAddTrip();
+	const { trips, setTrips } = useContext(TripContext);
+	const { user } = useContext(AuthContext);
+	const { updateCampsite } = useContext(CampsiteContext);
 	const receptionAddress = campsite?.location?.receptionAddress;
 
 	const BookButton = () => {
 		return (
-			<Go href={`/campsite/book/${campsite?._id}`}>
-				<Button color="primary" fill="solid" size="small">
-					Book
-				</Button>
-			</Go>
+			<Button onClick={handleBook} color="primary" fill="solid" size="small">
+				Book
+			</Button>
 		);
+	};
+
+	const handleBook = async () => {
+		if (campsite) {
+			const newTrip = createNewTrip(user);
+			try {
+				const { response, campsite: updatedCampsite } = await addTrip({
+					...newTrip,
+					campsite: campsite._id as string
+				});
+
+				if (updatedCampsite) {
+					updateCampsite(updatedCampsite);
+				}
+
+				if (response.success) {
+					setTrips([newTrip, ...trips]);
+					GoTo(`/campsite/book/${newTrip?._id}`);
+				} else {
+					console.error('Error booking trip:', response.message);
+				}
+			} catch (error) {
+				console.error('Error booking trip:', error instanceof Error ? error.message : 'Unknown error');
+			}
+		}
 	};
 
 	return (
@@ -85,11 +117,10 @@ const Campsite: React.FC<PostPageProps> = ({ id }) => {
 										)}
 									</div>
 								</div>
-								<Go href={`/campsite/book/${campsite?._id}`}>
-									<Button color="primary" fill="solid" size="default" expand="block">
-										Request to book
-									</Button>
-								</Go>
+
+								<Button onClick={handleBook} color="primary" fill="solid" size="default" expand="block">
+									Request to book
+								</Button>
 								<div style={{ height: '20px' }} />
 								<hr />
 								<div className={styles.section}>

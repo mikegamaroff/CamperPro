@@ -68,16 +68,20 @@ export const RequestToBook = ({
 	const Guests = (capacity: Capacity) => {
 		const parts = [];
 
+		const pluralize = (count: number, singular: string, plural: string) => {
+			return count === 1 ? `${count} ${singular}` : `${count} ${plural}`;
+		};
+
 		if (capacity.adults > 0) {
-			parts.push(capacity.adults === 1 ? `${capacity.adults} adult` : `${capacity.adults} adults`);
+			parts.push(pluralize(capacity.adults, 'adult', 'adults'));
 		}
 
 		if (capacity.children > 0) {
-			parts.push(capacity.children === 1 ? `${capacity.children} child` : `${capacity.children} children`);
+			parts.push(pluralize(capacity.children, 'child', 'children'));
 		}
 
 		if (capacity.pets > 0) {
-			parts.push(capacity.pets === 1 ? `${capacity.pets} pet` : `${capacity.pets} pets`);
+			parts.push(pluralize(capacity.pets, 'pet', 'pets'));
 		}
 
 		return parts.join(', ');
@@ -208,8 +212,11 @@ export const RequestToBook = ({
 				<div className="space30" />
 				<hr />
 				<div className="space20" />
-				{!formValues?.message?.value && <h5 className={styles.campsiteTitle}>Message for the host?</h5>}
-				{formValues?.message?.value && <h5 className={styles.campsiteTitle}>Your message for the host:</h5>}
+				{!formValues?.message?.value ? (
+					<h5 className={styles.campsiteTitle}>Message for the host?</h5>
+				) : (
+					<h5 className={styles.campsiteTitle}>Your message for the host:</h5>
+				)}
 				<div className="space20" />
 				<div className={styles.addInfo}>
 					<div className={styles.addMessageText}>
@@ -220,8 +227,7 @@ export const RequestToBook = ({
 					</div>
 					<div>
 						<div onClick={presentAddMessageModal} className={styles.smallButton}>
-							{formValues?.message?.value && <div>Edit</div>}
-							{!formValues?.message?.value && <div>Add</div>}
+							{formValues?.message?.value ? <div>Edit</div> : <div>Add</div>}
 						</div>
 					</div>
 				</div>

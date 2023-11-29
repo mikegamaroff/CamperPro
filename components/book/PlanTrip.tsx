@@ -47,6 +47,7 @@ export const PlanTrip = ({
 	const { count: countAdults, CounterComponent: AdultsCounter } = useGetCounterField({
 		value: trip?.capacity.adults || 1,
 		max: 19,
+		min: 1,
 		title: 'Adults',
 		subtitle: 'Ages 13 or above'
 	});

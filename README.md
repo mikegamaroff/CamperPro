@@ -12,7 +12,7 @@ A next.JS typescript web application using JWT token authentication, with a Couc
 2. Install CouchDb
 3. Add values to env.local
 ```
-COUCHDB_URL="http://admin:camper111@localhost:5985"
+COUCHDB_URL="http://user:password@localhost:5985"
 COUCHDB_NAME=camperpro
 JWT_SECRET="xxxx"
 CLOUDANT_URL=https://[apikey]:[password]bluemix.cloudantnosqldb.appdomain.cloud
